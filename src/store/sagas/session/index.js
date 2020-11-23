@@ -41,7 +41,7 @@ function* logout() {
 
 function* signIn({ payload }) {
   yield put(forms.isSubmitting({ isSubmitting: true, form: 'signIn' }));
-  const result = yield call(axiosPost, '/api/users/sign-in', payload);
+  const result = yield call(axiosPost, '/api/users/signin', payload);
 
   if (result.status === 200 && result.data.success) {
     yield put(forms.isSubmitting({ isSubmitting: false, form: 'signIn' }));
@@ -56,7 +56,7 @@ function* signIn({ payload }) {
 
 function* signUp({ payload }) {
   yield put(forms.isSubmitting({ isSubmitting: true, form: 'signUp' }));
-  const result = yield call(axiosPost, '/api/users/sign-up', payload);
+  const result = yield call(axiosPost, '/api/users/signup', payload);
 
   if (result.status === 200 && result.data.success) {
     yield put(forms.isSubmitting({ isSubmitting: false, form: 'signUp' }));
