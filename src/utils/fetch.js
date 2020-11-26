@@ -15,7 +15,7 @@ export const get = async url => {
 export const post = async (url, payload) => {
   try {
     const response = await fetch(url, { 
-      method: 'post',
+      method: 'POST',
       body: JSON.stringify(payload),
       headers: new Headers({
         'accept': 'application/json',
@@ -35,11 +35,7 @@ export const axiosPostDocument = async (url, payload) => {
     method: 'POST',
     url: url,
     data: payload,
-    headers: {
-      'accept': 'application/json',
-      'Accept-Language': 'en-US,en;q=0.8',
-      'Content-Type': `multipart/form-data; boundary=${payload._boundary}`,
-    },
+    'Content-Type': 'multipart/form-data',
   })
     .then((res) => {
       return res;

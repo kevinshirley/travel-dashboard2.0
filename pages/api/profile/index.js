@@ -3,17 +3,17 @@ const AWS = require('aws-sdk');
 const { head, isEmpty } = require('ramda');
 
 const {
-  SOFTELO_AWS_ACCESS_KEY_ID, 
-  SOFTELO_AWS_SECRET_ACCESS_KEY,
-  SOFTELO_AWS_REGION
+  AWS_ACCESS_KEY_ID, 
+  AWS_SECRET_ACCESS_KEY,
+  AWS_REGION
 } = process.env;
 
 const config = {
   aws_table_name: 'profiles',
   aws_remote_config: {
-    accessKeyId: SOFTELO_AWS_ACCESS_KEY_ID,
-    secretAccessKey: SOFTELO_AWS_SECRET_ACCESS_KEY,
-    region: SOFTELO_AWS_REGION
+    accessKeyId: AWS_ACCESS_KEY_ID,
+    secretAccessKey: AWS_SECRET_ACCESS_KEY,
+    region: AWS_REGION
   }
 };
 

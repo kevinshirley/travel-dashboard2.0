@@ -2,16 +2,16 @@ require('dotenv').config();
 const AWS = require('aws-sdk');
 
 const {
-  SOFTELO_AWS_ACCESS_KEY_ID, 
-  SOFTELO_AWS_SECRET_ACCESS_KEY,
+  AWS_ACCESS_KEY_ID, 
+  AWS_SECRET_ACCESS_KEY,
   AWS_REGION
 } = process.env;
 
 const config = {
   aws_table_name: 'itineraries',
   aws_remote_config: {
-    accessKeyId: SOFTELO_AWS_ACCESS_KEY_ID,
-    secretAccessKey: SOFTELO_AWS_SECRET_ACCESS_KEY,
+    accessKeyId: AWS_ACCESS_KEY_ID,
+    secretAccessKey: AWS_SECRET_ACCESS_KEY,
     region: AWS_REGION
   }
 };
@@ -36,12 +36,14 @@ const UserItineraries = (req, res, next) => {
         success: false,
         error: err
       });
+      res.end();
     } else {
       const { Items } = data;
       res.send({
         success: true,
         itineraries: Items
       });
+      res.end();
     }
   });
 };

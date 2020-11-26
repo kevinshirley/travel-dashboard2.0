@@ -1,6 +1,6 @@
 import { isEmpty, isNil, dissoc, assocPath } from 'ramda';
 import { put, call, takeLatest, select } from 'redux-saga/effects';
-import { axiosPostDocument, axiosPost, axiosGet } from 'src/utils/fetch';
+import { axiosPostDocument, axiosGet, post } from 'src/utils/fetch';
 import FormData from 'form-data';
 import { selectDayToDayList, selectTripStartDate } from 'src/store/selectors/add-itinerary';
 import { selectIsEditingTripStartDate } from 'src/store/selectors/common';
@@ -59,7 +59,7 @@ function* addItinerary({ payload }) {
   const { path } = payload;
   const profile = yield select(selectSessionProfile);
   const { id } = profile;
-  const result = yield call(axiosPost, '/api/itinerary', payload);
+  const result = yield call(post, '/api/itinerary', payload);
 
   if (result.status === 200 && result.data.success) {
     if (path === ADD_ITINERARY) {

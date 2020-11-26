@@ -16,29 +16,36 @@ const config = {
   }
 };
 
-const Itineraries = (req, res, next) => {
+const DeleteUserItinerary = (req, res, next) => {
   AWS.config.update(config.aws_remote_config);
   const db = new AWS.DynamoDB.DocumentClient();
+  const { itinerary_id, country } = req.body;
 
   const params = {
-    TableName: config.aws_table_name
+    TableName: config.aws_table_name,
+    Key: {
+      "itinerary_id": itinerary_id,
+      "country": country,
+    },
+    ConditionExpression:"itinerary_id = :val",
+    ExpressionAttributeValues: {
+      ":val": itinerary_id
+    }
   };
 
-  db.scan(params, function(err, data) {
+  db.delete(params, function(err, data) {
     if (err) {
       res.send({
         success: false,
         error: err
       });
     } else {
-      const { Items } = data;
       res.send({
         success: true,
-        itineraries: Items
+        data
       });
     }
   });
 };
 
-
-export default Itineraries;
+export default DeleteUserItinerary;

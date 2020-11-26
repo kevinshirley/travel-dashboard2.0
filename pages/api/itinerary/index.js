@@ -1,17 +1,19 @@
+require('dotenv').config();
 const AWS = require('aws-sdk');
 const { head } = require('ramda');
+const moment = require('moment');
 
 const {
-  SOFTELO_AWS_ACCESS_KEY_ID, 
-  SOFTELO_AWS_SECRET_ACCESS_KEY,
+  AWS_ACCESS_KEY_ID, 
+  AWS_SECRET_ACCESS_KEY,
   AWS_REGION
 } = process.env;
 
 const config = {
   aws_table_name: 'itineraries',
   aws_remote_config: {
-    accessKeyId: SOFTELO_AWS_ACCESS_KEY_ID,
-    secretAccessKey: SOFTELO_AWS_SECRET_ACCESS_KEY,
+    accessKeyId: AWS_ACCESS_KEY_ID,
+    secretAccessKey: AWS_SECRET_ACCESS_KEY,
     region: AWS_REGION
   }
 };
@@ -33,22 +35,25 @@ const Itinerary = (req, res, next) => {
 
     db.query(params, function(err, data) {
       if (err) {
-        return res.send({
+        res.send({
           success: false,
           error: err
         });
+        res.end();
       } else {
         const { Items } = data;
-        return res.send({
+        res.send({
           success: true,
           itinerary: head(Items)
         });
+        res.end();
       }
     });
   }
 
   if (req.method === 'POST') {
-    const { itinerary_id, createdAt, createdBy, updatedAt, country, tripInformation, tripItinerary } = req.body;
+    const parsed = JSON.parse(req.body);
+    const { itinerary_id, createdAt, createdBy, updatedAt, country, tripInformation, tripItinerary } = parsed;
 
     const params = {
       TableName: config.aws_table_name,
@@ -69,11 +74,13 @@ const Itinerary = (req, res, next) => {
           success: false,
           error: err
         });
+        res.end();
       } else {
         res.send({
           success: true,
           itineraries: params.Items
         });
+        res.end();
       }
     });
   }
