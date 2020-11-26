@@ -86,10 +86,6 @@ function SaveUpdatedItineraryModal() {
         appearance: 'success',
         autoDismiss: false,
       });
-      Router.push({
-        pathname: '/manage-itinerary',
-        query: { ...dissoc('overlay', Router.router.query) },
-      });
     }
 
     if (!isEmpty(manageItineraryError)) {

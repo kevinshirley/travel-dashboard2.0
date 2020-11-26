@@ -86,7 +86,6 @@ function SaveNewItineraryModal() {
         appearance: 'success',
         autoDismiss: false,
       });
-      Router.push({ pathname: '/itineraries' });
     }
 
     if (!R.isEmpty(addItineraryError)) {

@@ -1,3 +1,4 @@
+import Router from 'next/router';
 import { isEmpty, isNil, dissoc, assocPath } from 'ramda';
 import { put, call, takeLatest, select } from 'redux-saga/effects';
 import { axiosPostDocument, axiosGet, post } from 'src/utils/fetch';
@@ -61,10 +62,8 @@ function* addItinerary({ payload }) {
   const { id } = profile;
   const result = yield call(post, '/api/itinerary', payload);
 
-  if (result.status === 200 && result.data.success) {
+  if (result.success) {
     if (path === ADD_ITINERARY) {
-      yield put(forms.setSuccess({ message: 'You\'ve successfully created and saved this itinerary!', form: 'addItinerary' }));
-
       const userItineraries = yield call(axiosGet, `/api/itineraries/user?userId=${id}`);
 
       if (userItineraries.status === 200 && userItineraries.data.success) {
@@ -72,9 +71,11 @@ function* addItinerary({ payload }) {
       }
 
       localStore('currentItinerary').set({});
-    } else if (path === MANAGE_ITINERARY) {
-      yield put(forms.setSuccess({ message: 'You\'ve successfully updated and saved this itinerary!', form: 'manageItinerary' }));
 
+      Router.push({ pathname: '/itineraries' });
+
+      yield put(forms.setSuccess({ message: 'You\'ve successfully created and published this itinerary!', form: 'addItinerary' }));
+    } else if (path === MANAGE_ITINERARY) {
       const userItineraries = yield call(axiosGet, `/api/itineraries/user?userId=${id}`);
 
       if (userItineraries.status === 200 && userItineraries.data.success) {
@@ -82,6 +83,13 @@ function* addItinerary({ payload }) {
       }
 
       localStore('currentUpdatingItinerary').set({});
+
+      Router.push({
+        pathname: '/manage-itinerary',
+        query: { ...dissoc('overlay', Router.router.query) },
+      });
+
+      yield put(forms.setSuccess({ message: 'You\'ve successfully updated and saved this itinerary!', form: 'manageItinerary' }));
     }
   } else {
     if (path === ADD_ITINERARY) {
