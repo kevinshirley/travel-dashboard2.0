@@ -8,12 +8,14 @@ import itineraries from 'src/store/reducers/itineraries';
 import manageItinerary from 'src/store/reducers/manage-itinerary';
 import session from 'src/store/reducers/session';
 import forms from 'src/store/reducers/forms';
+import displayItinerary from 'src/store/reducers/display-itinerary';
 
 export default combineReducers({
   ui,
   itineraries,
   addItinerary,
   manageItinerary,
+  displayItinerary,
   destinations,
   blog,
   session,

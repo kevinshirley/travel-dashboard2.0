@@ -16,7 +16,7 @@ import selectItineraryEvents from 'src/store/constants/new-events';
 import RoundedButton from 'src/components/material-ui/rounded-button';
 import { useToasts } from 'react-toast-notifications';
 import { selectIsLoggedIn, selectSessionProfile } from 'src/store/selectors/session';
-import { selectAddItinerarySuccess, selectAddItineraryError } from 'src/store/selectors/forms';
+import { selectAddItinerarySuccess, selectAddItineraryError, selectAddItineraryIsSubmitting } from 'src/store/selectors/forms';
 import { MODALS } from 'src/store/constants/modals';
 import Router from 'next/router';
 import { ADD_ITINERARY } from 'src/store/constants/url';
@@ -30,6 +30,7 @@ function SaveNewItineraryModal() {
   const tripOverview = dayToDayList[0];
   const addItinerarySuccess = useSelector(selectAddItinerarySuccess);
   const addItineraryError = useSelector(selectAddItineraryError);
+  const addItineraryIsSubmitting = useSelector(selectAddItineraryIsSubmitting);
 
   const addItinerary = useAction(actions.itinerary.add);
   const addEventToDay = useAction(actions.itinerary.addEventToDay);
@@ -60,14 +61,48 @@ function SaveNewItineraryModal() {
     e.preventDefault();
 
     if (isLoggedIn) {
-      addItinerary({
-        path: ADD_ITINERARY,
-        itinerary_id,
-        createdBy: profile.id,
-        country: tripInformationData[0].country,
-        tripInformation: tripInformationData[0],
-        tripItinerary: tripItineraryDataMapped,
-      });
+      const { coverImage, title, location, country, overview, price } = tripInformationData[0];
+
+      if (R.isNil(coverImage) || R.isEmpty(coverImage)) {
+        addToast('Please add a cover image before publishing an itinerary.', {
+          appearance: 'warning',
+          autoDismiss: false,
+        });
+      } else if (R.isNil(title) || R.isEmpty(title)) {
+        addToast('Please add a title before publishing an itinerary.', {
+          appearance: 'warning',
+          autoDismiss: false,
+        });
+      } else if (R.isNil(location) || R.isEmpty(location)) {
+        addToast('Please add a location before publishing an itinerary.', {
+          appearance: 'warning',
+          autoDismiss: false,
+        });
+      } else if (R.isNil(country) || R.isEmpty(country)) {
+        addToast('Please add a country before publishing an itinerary.', {
+          appearance: 'warning',
+          autoDismiss: false,
+        });
+      } else if (R.isNil(overview) || R.isEmpty(overview)) {
+        addToast('Please add an description before publishing an itinerary.', {
+          appearance: 'warning',
+          autoDismiss: false,
+        });
+      } else if (R.isNil(price) || R.isEmpty(price)) {
+        addToast('Please add a price before publishing an itinerary.', {
+          appearance: 'warning',
+          autoDismiss: false,
+        });
+      } else {
+        addItinerary({
+          path: ADD_ITINERARY,
+          itinerary_id,
+          createdBy: profile.id,
+          country: tripInformationData[0].country,
+          tripInformation: tripInformationData[0],
+          tripItinerary: tripItineraryDataMapped,
+        });
+      }
     } else {
       addToast('Please sign in to add a new itinerary to your profile', {
         appearance: 'warning',
@@ -136,6 +171,7 @@ function SaveNewItineraryModal() {
         </div>
         <RoundedButton
           className='add-trip-cta'
+          isLoading={addItineraryIsSubmitting}
           text='Publish'
           type='submit'
         />

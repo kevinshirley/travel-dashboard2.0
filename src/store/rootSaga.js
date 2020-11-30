@@ -15,9 +15,7 @@ import {
   watchGetDestinations,
   watchGetDestination,
 } from 'src/store/sagas/destinations';
-import { 
-  watchGetPosts,
-} from 'src/store/sagas/blog';
+import { watchGetPosts } from 'src/store/sagas/blog';
 import { 
   watchUploadCoverImage,
   watchAddDayToDay,
@@ -50,6 +48,7 @@ import {
   watchSignIn,
   watchSignUp,
 } from 'src/store/sagas/session';
+import { watchSetItineraryToDisplay } from 'src/store/sagas/display-itinerary';
 
 function* rootSaga() {
   yield all([
@@ -88,7 +87,8 @@ function* rootSaga() {
     watchDeleteDayToDay(),
     watchDeleteManagedDayToDay(),
     watchDeleteManagedEventToDay(),
-    watchDeleteUserItinerary()
+    watchDeleteUserItinerary(),
+    watchSetItineraryToDisplay()
   ]);
 }
 

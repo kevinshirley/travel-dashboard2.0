@@ -60,10 +60,21 @@ function* addItinerary({ payload }) {
   const { path } = payload;
   const profile = yield select(selectSessionProfile);
   const { id } = profile;
+
+  if (path === ADD_ITINERARY) {
+    yield put(forms.isSubmitting({ isSubmitting: true, form: 'addItinerary' }));
+  }
+
+  if (path === MANAGE_ITINERARY) {
+    yield put(forms.isSubmitting({ isSubmitting: true, form: 'manageItinerary' }));
+  }
+
   const result = yield call(post, '/api/itinerary', payload);
 
   if (result.success) {
     if (path === ADD_ITINERARY) {
+      Router.push({ pathname: '/itineraries' });
+
       const userItineraries = yield call(axiosGet, `/api/itineraries/user?userId=${id}`);
 
       if (userItineraries.status === 200 && userItineraries.data.success) {
@@ -72,10 +83,15 @@ function* addItinerary({ payload }) {
 
       localStore('currentItinerary').set({});
 
-      Router.push({ pathname: '/itineraries' });
+      yield put(forms.isSubmitting({ isSubmitting: false, form: 'addItinerary' }));
 
       yield put(forms.setSuccess({ message: 'You\'ve successfully created and published this itinerary!', form: 'addItinerary' }));
     } else if (path === MANAGE_ITINERARY) {
+      Router.push({
+        pathname: '/manage-itinerary',
+        query: { ...dissoc('overlay', Router.router.query) },
+      });
+
       const userItineraries = yield call(axiosGet, `/api/itineraries/user?userId=${id}`);
 
       if (userItineraries.status === 200 && userItineraries.data.success) {
@@ -84,18 +100,19 @@ function* addItinerary({ payload }) {
 
       localStore('currentUpdatingItinerary').set({});
 
-      Router.push({
-        pathname: '/manage-itinerary',
-        query: { ...dissoc('overlay', Router.router.query) },
-      });
+      yield put(forms.isSubmitting({ isSubmitting: false, form: 'manageItinerary' }));
 
       yield put(forms.setSuccess({ message: 'You\'ve successfully updated and saved this itinerary!', form: 'manageItinerary' }));
     }
   } else {
     if (path === ADD_ITINERARY) {
-      yield put(forms.setError({ message: result.data.error.message ? result.data.error.message : 'An error occured when saving your itinerary.', form: 'addItinerary' }));
+      yield put(forms.setError({ message: result.error.message ? result.error.message : 'An error occured when saving your itinerary.', form: 'addItinerary' }));
+
+      yield put(forms.isSubmitting({ isSubmitting: false, form: 'addItinerary' }));
     } else if (path === MANAGE_ITINERARY) {
-      yield put(forms.setError({ message: result.data.error.message ? result.data.error.message : 'An error occured when saving your itinerary.', form: 'manageItinerary' }));
+      yield put(forms.setError({ message: result.error.message ? result.error.message : 'An error occured when saving your itinerary.', form: 'manageItinerary' }));
+
+      yield put(forms.isSubmitting({ isSubmitting: false, form: 'manageItinerary' }));
     }
   }
 }

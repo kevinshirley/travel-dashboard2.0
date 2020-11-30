@@ -43,6 +43,12 @@ export const selectAddItineraryError = R.pathOr({}, [
   'error',
 ]);
 
+export const selectAddItineraryIsSubmitting = R.pathOr({}, [
+  'forms',
+  'addItinerary',
+  'isSubmitting',
+]);
+
 export const selectManageItinerarySuccess = R.pathOr({}, [
   'forms',
   'manageItinerary',
@@ -53,6 +59,12 @@ export const selectManageItineraryError = R.pathOr({}, [
   'forms',
   'manageItinerary',
   'error',
+]);
+
+export const selectManageItineraryIsSubmitting = R.pathOr({}, [
+  'forms',
+  'manageItinerary',
+  'isSubmitting',
 ]);
 
 export const selectItinerariesSuccess = R.pathOr({}, [

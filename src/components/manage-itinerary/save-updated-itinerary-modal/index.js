@@ -17,7 +17,11 @@ import selectItineraryEvents from 'src/store/constants/new-events';
 import RoundedButton from 'src/components/material-ui/rounded-button';
 import { MANAGE_ITINERARY } from 'src/store/constants/url';
 import { selectIsLoggedIn, selectSessionProfile } from 'src/store/selectors/session';
-import { selectManageItinerarySuccess, selectManageItineraryError } from 'src/store/selectors/forms';
+import {
+  selectManageItinerarySuccess,
+  selectManageItineraryError,
+  selectManageItineraryIsSubmitting
+} from 'src/store/selectors/forms';
 
 function SaveUpdatedItineraryModal() {
   const dayToDay = useSelector(selectDayToDayToManage);
@@ -30,6 +34,7 @@ function SaveUpdatedItineraryModal() {
   const createdAt = useSelector(selectDayToDayCreatedAtToManage);
   const manageItinerarySuccess = useSelector(selectManageItinerarySuccess);
   const manageItineraryError = useSelector(selectManageItineraryError);
+  const manageItineraryIsSubmitting = useSelector(selectManageItineraryIsSubmitting);
 
   const addEventToDay = useAction(actions.itinerary.addEventToDay);
   const closeNewEventList = useAction(actions.ui.closeNewEventList);
@@ -136,6 +141,7 @@ function SaveUpdatedItineraryModal() {
         </div>
         <RoundedButton
           className='add-trip-cta'
+          isLoading={manageItineraryIsSubmitting}
           text='Publish'
           type='submit'
         />

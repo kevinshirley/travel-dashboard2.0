@@ -71,7 +71,7 @@ function ManageItinerarySection1({
         >
           <RoundedButton
             className='add-trip-cta'
-            text='Save'
+            text='Publish'
             type='submit'
           />
         </div>

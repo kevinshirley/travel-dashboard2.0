@@ -10,7 +10,7 @@ import { useRouter } from 'next/router';
 export default function SimpleList({ 
   addEventToDay,
   dayToDay,
-  list,
+  list = [],
   onBlur,
   isVisible,
   closeNewEventList,

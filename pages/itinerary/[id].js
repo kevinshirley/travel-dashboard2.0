@@ -1,10 +1,29 @@
-import { useRouter } from 'next/router';
+import { connect } from 'react-redux';
+import Router, { useRouter } from 'next/router';
+import DisplayItineraryPage from 'src/components/display-itinerary';
+import storeConnector from 'src/store/selectors/display-itinerary';
+// import storeConnector from 'src/store/selectors/manage-itinerary';
+import * as actions from 'src/store/actions';
 
-const Itinerary = () => {
-  const router = useRouter();
-  const { id } = router.query;
 
-  return <h1>Itinerary: {id}</h1>;
-}
+const actionsCreators = {
+  setIncluded: actions.itinerary.setIncluded,
+  openStartDateCalendar: actions.ui.openStartDateCalendar,
+  closeStartDateCalendar: actions.ui.closeStartDateCalendar,
+  openNewEventList: actions.ui.openNewEventList,
+  closeNewEventList: actions.ui.closeNewEventList,
+  uploadCoverImage: actions.itinerary.uploadCoverImage,
+  setPriceType: actions.itinerary.setPriceType,
+  addEventToDay: actions.itinerary.addEventToDay,
+  openEditEventPanel: actions.ui.openEditEventPanel,
+  closeEditEventPanel: actions.ui.closeEditEventPanel,
+  toggleEditStartDate: actions.itinerary.toggleEditStartDate,
+  openModal: actions.ui.openModal,
+  setItineraries: actions.itinerary.setItineraries,
+  addEventToUpdatingDay: actions.itinerary.addEventToUpdatingDay,
+};
 
-export default Itinerary;
+export default connect(
+  storeConnector,
+  actionsCreators,
+)(DisplayItineraryPage);

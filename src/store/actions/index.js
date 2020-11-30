@@ -90,6 +90,8 @@ export const ITINERARY = createTypes('ITINERARY', [
   'SET_ITINERARY_TO_MANAGE',
   'SET_MANAGE_DAY_TO_DAYS',
   'DELETE_USER_ITINERARY',
+  'SET_ITINERARY_TO_DISPLAY',
+  'SET_DISPLAY_DAY_TO_DAYS',
 ]);
 
 export const SESSION = createTypes('SESSION', [
@@ -176,6 +178,8 @@ export const itinerary = {
   setItineraryToManage: payload => action(ITINERARY.SET_ITINERARY_TO_MANAGE, payload),
   setManageDayToDays: payload => action(ITINERARY.SET_MANAGE_DAY_TO_DAYS, payload),
   deleteUserItinerary: payload => action(ITINERARY.DELETE_USER_ITINERARY, payload),
+  setItineraryToDisplay: payload => action(ITINERARY.SET_ITINERARY_TO_DISPLAY, payload),
+  setDisplayedDayToDays: payload => action(ITINERARY.SET_DISPLAY_DAY_TO_DAYS, payload),
 };
 
 export const session = {

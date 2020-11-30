@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { useRouter } from 'next/router';
 import { indexedObjectToArray } from 'src/utils/object';
 import Avatar from 'src/components/material-ui/avatar';
 import { toUpperFirst, toUsdPrice, camelCaseToNormal } from 'src/utils/string';
@@ -8,6 +9,7 @@ import NewEventsManager from 'src/components/add-itinerary/new-events-manager';
 import EventDrawer from 'src/components/common/event-drawer';
 import { TRASH_ICON } from 'src/components/material-ui/icons';
 import { MODALS } from 'src/store/constants/modals';
+import { ITINERARY } from 'src/store/constants/url';
 
 function CurrentDayContent({
   addEventToDay,
@@ -21,6 +23,7 @@ function CurrentDayContent({
   openModal,
   shouldHideDeleteDayButton = false,
 }) {
+  const router = useRouter();
   const currentEvents = dayToDay && indexedObjectToArray(dayToDay.events);
 
   return (
@@ -40,15 +43,17 @@ function CurrentDayContent({
             </div>
           )}
         </div>
-        <NewEventsManager
-          addEventToDay={addEventToDay}
-          closeNewEventList={closeNewEventList}
-          dayToDay={dayToDay}
-          addEventToUpdatingDay={addEventToUpdatingDay}
-          isNewEventListOpened={isNewEventListOpened}
-          itineraryEvents={itineraryEvents}
-          openNewEventList={openNewEventList}
-        />
+        {router.pathname !== ITINERARY && (
+          <NewEventsManager
+            addEventToDay={addEventToDay}
+            closeNewEventList={closeNewEventList}
+            dayToDay={dayToDay}
+            addEventToUpdatingDay={addEventToUpdatingDay}
+            isNewEventListOpened={isNewEventListOpened}
+            itineraryEvents={itineraryEvents}
+            openNewEventList={openNewEventList}
+          />
+        )}
       </div>
       {currentEvents.length > 0 ? (
         <div className='daily-events'>
@@ -222,9 +227,11 @@ function CurrentDayContent({
                       </span>
                     )}
                   </div>
-                  <div className='edit-container'>
-                    <EventDrawer day={Number(dayToDay.id)} event={event} categoryTabIndex={tabIndex} />
-                  </div>
+                  {router.pathname !== ITINERARY && (
+                    <div className='edit-container'>
+                      <EventDrawer day={Number(dayToDay.id)} event={event} categoryTabIndex={tabIndex} />
+                    </div>
+                  )}
                 </div>
                 {event && event.title && (
                   <div className='title-section'>

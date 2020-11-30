@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import cx from 'classnames';
 import { useRouter } from 'next/router';
 import { EMPTY_BACKGROUND } from 'src/components/common/images';
 import { useAction } from 'src/store/hooks';
@@ -6,7 +7,7 @@ import * as actions from 'src/store/actions';
 import Button from 'src/components/material-ui/text-button';
 import RoundedButton from 'src/components/material-ui/rounded-button';
 import { CAMERA_ICON, SPACING } from 'src/components/material-ui/icons';
-import { ITINERARY_EDITOR_PATHNAMES } from 'src/store/constants/url';
+import { ITINERARY_EDITOR_PATHNAMES, ITINERARY } from 'src/store/constants/url';
 
 function PageHeader({ coverImage = null, title }) {
   const router = useRouter();
@@ -24,6 +25,11 @@ function PageHeader({ coverImage = null, title }) {
     setValue('');
   };
 
+  const updateTripInfoClasses = cx({
+    'update-trip-info': router.pathname !== ITINERARY,
+    'update-trip-info__hidden': router.pathname === ITINERARY,
+  });
+
   return (
     <div className='page-header'>
       {(coverImage && coverImage.location) || ITINERARY_EDITOR_PATHNAMES.includes(router.pathname) ? (
@@ -31,7 +37,7 @@ function PageHeader({ coverImage = null, title }) {
           <div className='cover' style={{
             backgroundImage: coverImage.location ? `url(${coverImage.location})` : `url(${EMPTY_BACKGROUND})`
           }}>
-            <div className='update-trip-info'>
+            <div className={updateTripInfoClasses}>
               <Button type='button'>
                 <label htmlFor="icon-button-file">
                   {CAMERA_ICON}

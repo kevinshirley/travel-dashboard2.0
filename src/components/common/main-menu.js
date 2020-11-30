@@ -19,7 +19,7 @@ import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 import Button from 'src/components/material-ui/text-button';
 import DayToDayTabs from 'src/components/common/day-to-day-tabs.js';
-import { ITINERARY_EDITOR_PATHNAMES, ADD_ITINERARY, MANAGE_ITINERARY } from 'src/store/constants/url';
+import { ITINERARY_EDITOR_PATHNAMES, ADD_ITINERARY, MANAGE_ITINERARY, ITINERARY } from 'src/store/constants/url';
 import { selectDayToDayToManage } from 'src/store/selectors/manage-itinerary';
 import { useAction } from 'src/store/hooks';
 
@@ -37,6 +37,9 @@ function MainMenu({
 
   const dayToDayListTabs = () => {
     if (router.pathname === MANAGE_ITINERARY) {
+      return dayToDayToManage;
+    }
+    if (router.pathname === ITINERARY) {
       return dayToDayToManage;
     }
     return dayToDayList;
