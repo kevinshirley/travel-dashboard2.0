@@ -16,7 +16,8 @@ const Session = (req, res) => {
           error: err
         });
       } else {
-        const profile = axiosGet(`http://localhost:3010/api/profile?id=${userData.username}`);
+        // const profile = axiosGet(`http://localhost:3010/api/profile?id=${userData.username}`);
+        const profile = axiosGet(`https://d4jedgskaall.cloudfront.net/api/profile?id=${userData.username}`);
 
         profile
           .then(result => {
