@@ -1,5 +1,5 @@
-const UserPool = require('../../../../src/lib/user-pool');
 const { CognitoUser, AuthenticationDetails } = require('amazon-cognito-identity-js');
+const UserPool = require('../../../../src/lib/user-pool');
 
 const Signin = (req, res) => {
   const { email, password } = req.body;
@@ -15,11 +15,19 @@ const Signin = (req, res) => {
   });
 
   user.authenticateUser(authDetails, {
-    onSuccess: data => {
+    onSuccess: session => {
+      const tokens = {
+        accessToken: session.getAccessToken().getJwtToken(),
+        idToken: session.getIdToken().getJwtToken(),
+        refreshToken: session.getRefreshToken().getToken(),
+      };
+      console.log({ session, tokens });
+      user['tokens'] = tokens;
+
       return res.send({
         success: true,
         message: 'Welcome back!',
-        data
+        data: tokens
       });
     },
     onFailure: err => {
@@ -29,11 +37,19 @@ const Signin = (req, res) => {
         error: err
       });
     },
-    newPasswordRequired: data => {
+    newPasswordRequired: session => {
+      const tokens = {
+        accessToken: session.getAccessToken().getJwtToken(),
+        idToken: session.getIdToken().getJwtToken(),
+        refreshToken: session.getRefreshToken().getToken(),
+      };
+
+      user['tokens'] = tokens;
+
       return res.send({
         success: true,
         message: 'Welcome back, new password required.',
-        data
+        data: tokens
       });
     }
   });

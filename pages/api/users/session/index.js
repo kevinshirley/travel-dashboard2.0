@@ -1,3 +1,4 @@
+const { CognitoAccessToken, CognitoIdToken, CognitoRefreshToken } = require('amazon-cognito-identity-js');
 const UserPool = require('../../../../src/lib/user-pool');
 const fetchGet = require('../../../../server/utils/fetch');
 
