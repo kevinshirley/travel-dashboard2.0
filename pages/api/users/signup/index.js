@@ -2,7 +2,6 @@ const { dissoc } = require('ramda');
 const moment = require('moment');
 const UserPool = require('../../../../src/lib/user-pool');
 const axiosPost = require('../../../../server/utils/axiosPost');
-// const { axiosPost } = require('src/utils/fetch');
 
 const SignUp = (req, res) => {
   const { email, password } = req.body;
