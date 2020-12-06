@@ -1,7 +1,6 @@
 export const ITINERARY_EDITOR_PATHNAMES = [
   '/add-itinerary',
   '/manage-itinerary',
-  '/itinerary/[id]',
 ];
 
 export const ADD_ITINERARY = '/add-itinerary';

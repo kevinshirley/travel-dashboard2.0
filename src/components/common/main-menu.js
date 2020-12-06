@@ -100,12 +100,20 @@ function MainMenu({
     </div>
   );
 
+  const MainMenuContentItineraryPage = () => (
+    <div className='main-menu main-menu__itinerary-page' />
+  );
+
   return (
     <>
-      {!(ITINERARY_EDITOR_PATHNAMES.includes(router.pathname)) ? (
+      {!(ITINERARY_EDITOR_PATHNAMES.includes(router.pathname)) && router.pathname !== ITINERARY && (
         <MainMenuContent />
-      ) : (
+      )}
+      {ITINERARY_EDITOR_PATHNAMES.includes(router.pathname) && router.pathname !== ITINERARY && (
         <AddItineraryMenuContent setDayToDayTab={setDayToDayTab} />
+      )}
+      {router.pathname === ITINERARY && (
+        <MainMenuContentItineraryPage />
       )}
     </>
   );
