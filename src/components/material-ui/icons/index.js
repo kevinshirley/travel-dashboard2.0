@@ -44,6 +44,7 @@ import MapIcon from '@material-ui/icons/Map';
 import DirectionsBoatIcon from '@material-ui/icons/DirectionsBoat';
 import DeleteIcon from '@material-ui/icons/Delete';
 import LinkIcon from '@material-ui/icons/Link';
+import LocationOnIcon from '@material-ui/icons/LocationOn';
 
 export const PORTFOLIO_ICON = (
   <BurstModeOutlinedIcon />
@@ -221,4 +222,8 @@ export const TRASH_ICON = (
 
 export const LINK_ICON = (
   <LinkIcon />
+);
+
+export const LOCATION_ON_ICON = (
+  <LocationOnIcon />
 );
