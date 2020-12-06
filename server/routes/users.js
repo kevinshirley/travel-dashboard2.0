@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const router = express.Router();
 const UserPool = require('../lib/user-pool');
@@ -24,7 +25,7 @@ router.post('/users/sign-up', (req, res) => {
         createdAt: moment().format(),
       };
 
-      axiosPost('http://localhost:3010/api/profile', profileData)
+      axiosPost(`${process.env.APP_URL}/api/profile`, profileData)
         .then(result => {
           if (result.status === 200) {
             return res.send({
@@ -109,7 +110,7 @@ router.post('/users/session', (req, res) => {
           error: err
         });
       } else {
-        fetchGet(`http://localhost:3010/api/profile?id=${userData.username}`)
+        fetchGet(`${process.env.APP_URL}/api/profile?id=${userData.username}`)
           .then(result => {
             if (result.success) {
               return res.send({

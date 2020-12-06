@@ -1,7 +1,7 @@
-const UserPool = require('src/lib/user-pool');
 const { dissoc } = require('ramda');
 const moment = require('moment');
-const { axiosPost } = require('src/utils/fetch');
+const UserPool = require('../../../../src/lib/user-pool');
+const axiosPost = require('../../../../server/utils/axiosPost');
 
 const SignUp = (req, res) => {
   const { email, password } = req.body;
@@ -20,7 +20,7 @@ const SignUp = (req, res) => {
         createdAt: moment().format(),
       };
 
-      axiosPost('http://localhost:3010/api/profile', profileData)
+      axiosPost(`${process.env.APP_URL}/api/profile`, profileData)
         .then(result => {
           if (result.status === 200) {
             return res.send({
