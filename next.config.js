@@ -12,6 +12,10 @@ module.exports = withVideos(
         devIndicators: {
           autoPrerender: false,
         },
+        publicRuntimeConfig: {
+          // Will be available on both server and client
+          googleCloudApi: process.env.GOOGLE_CLOUD_API,
+        },
         webpack(config, options) {
           config.resolve.alias['src'] = path.join(__dirname, 'src');
           config.resolve.extensions.push('.js');
