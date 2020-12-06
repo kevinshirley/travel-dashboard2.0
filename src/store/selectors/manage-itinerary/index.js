@@ -96,4 +96,5 @@ export default createStructuredSelector({
   tripOverview: selectTripOverview,
   isEditingTripStartDate: selectIsEditingTripStartDate,
   overviewTripStartDate: selectOverviewTripStartDate,
+  managedItineraryId: selectDayToDayIdToManage,
 });

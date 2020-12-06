@@ -43,6 +43,8 @@ import CommuteIcon from '@material-ui/icons/Commute';
 import MapIcon from '@material-ui/icons/Map';
 import DirectionsBoatIcon from '@material-ui/icons/DirectionsBoat';
 import DeleteIcon from '@material-ui/icons/Delete';
+import LinkIcon from '@material-ui/icons/Link';
+import LocationOnIcon from '@material-ui/icons/LocationOn';
 
 export const PORTFOLIO_ICON = (
   <BurstModeOutlinedIcon />
@@ -216,4 +218,12 @@ export const INFO_ICON = (
 
 export const TRASH_ICON = (
   <DeleteIcon />
+);
+
+export const LINK_ICON = (
+  <LinkIcon />
+);
+
+export const LOCATION_ON_ICON = (
+  <LocationOnIcon />
 );

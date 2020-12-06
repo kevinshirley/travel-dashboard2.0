@@ -34,6 +34,9 @@ $sign-in-header-bg-color: $blue-1200;
 $sign-in-header-color: $white;
 $sign-in-header-close-color: $white;
 
+// Custom Variables
+$itinerary-side-menu-width: 15%;
+
 /* Mixins */
 @mixin light-box-shadow {
   -webkit-box-shadow: 10px 6px 78px -31px rgba(102,101,102,1);
@@ -218,6 +221,12 @@ a {
     .update-trip-info__hidden {
       display: none;
     }
+  }
+
+  .title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 }
 
@@ -442,6 +451,10 @@ a {
       }
     }
 
+    .main-menu__itinerary-page {
+      width: $itinerary-side-menu-width;
+    }
+
     .add-itinerary-menu {
       width: 220px;
 
@@ -519,6 +532,10 @@ a {
           }
         }
       }
+    }
+
+    .side-menu__itinerary-page {
+      width: $itinerary-side-menu-width;
     }
   }
 }

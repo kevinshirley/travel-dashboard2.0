@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import cx from 'classnames';
 import { useRouter } from 'next/router';
 import { EMPTY_BACKGROUND } from 'src/components/common/images';
@@ -6,10 +7,11 @@ import { useAction } from 'src/store/hooks';
 import * as actions from 'src/store/actions';
 import Button from 'src/components/material-ui/text-button';
 import RoundedButton from 'src/components/material-ui/rounded-button';
-import { CAMERA_ICON, SPACING } from 'src/components/material-ui/icons';
-import { ITINERARY_EDITOR_PATHNAMES, ITINERARY } from 'src/store/constants/url';
+import { CAMERA_ICON, SPACING, LINK_ICON } from 'src/components/material-ui/icons';
+import { ITINERARY_EDITOR_PATHNAMES, ITINERARY, MANAGE_ITINERARY } from 'src/store/constants/url';
+import Link from 'src/components/common/link';
 
-function PageHeader({ coverImage = null, title }) {
+function PageHeader({ coverImage = null, itineraryId = '', title }) {
   const router = useRouter();
 
   const [value, setValue] = useState('');
@@ -65,6 +67,14 @@ function PageHeader({ coverImage = null, title }) {
           </div>
           <div className='title'>
             <h1>{title}</h1>
+            {router.pathname === MANAGE_ITINERARY && (
+              <Link href={`/itinerary/${itineraryId}`} newTab>
+                <Button type='button'>
+                  <span>{LINK_ICON}{SPACING}</span>
+                  <small>Preview</small>
+                </Button>
+              </Link>
+            )}
           </div>
         </>
       ) : (
@@ -75,5 +85,11 @@ function PageHeader({ coverImage = null, title }) {
     </div>
   );
 }
+
+PageHeader.prototypes = {
+  coverImage: PropTypes.object,
+  itineraryId: PropTypes.string,
+  title: PropTypes.string,
+};
 
 export default PageHeader;

@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import * as R from 'ramda';
 
@@ -35,6 +36,7 @@ function ManageItinerary({
   openModal,
   setItineraries,
   addEventToUpdatingDay,
+  managedItineraryId,
 }) {
   const itineraryEvents = selectItineraryEvents();
   const dayToDays = indexedObjectToArray(dayToDayList);
@@ -51,7 +53,11 @@ function ManageItinerary({
         <Spinner />
       ) : (
         <>
-          <PageHeader coverImage={coverImage} title='Manage an itinerary' />
+          <PageHeader
+            coverImage={coverImage}
+            itineraryId={managedItineraryId}
+            title='Manage an itinerary'
+          />
           <ManageItinerarySection1
             openStartDateCalendar={openStartDateCalendar}
             closeStartDateCalendar={closeStartDateCalendar}
@@ -81,6 +87,10 @@ function ManageItinerary({
       )}
     </div>
   );
+};
+
+ManageItinerary.prototypes = {
+  managedItineraryId: PropTypes.string,
 };
 
 export default ManageItinerary;
