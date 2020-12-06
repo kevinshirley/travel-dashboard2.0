@@ -1,4 +1,4 @@
-const UserPool = require('src/lib/user-pool');
+const UserPool = require('../../../../src/lib/user-pool');
 const { CognitoUser, AuthenticationDetails } = require('amazon-cognito-identity-js');
 
 const Signin = (req, res) => {

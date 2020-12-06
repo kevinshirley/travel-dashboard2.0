@@ -1,4 +1,4 @@
-const UserPool = require('src/lib/user-pool');
+const UserPool = require('../../../../src/lib/user-pool');
 
 const Logout = (req, res) => {
   const user = UserPool.getCurrentUser();

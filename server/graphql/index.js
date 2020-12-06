@@ -235,7 +235,7 @@ const RootQuery = new GraphQLObjectType({
     destinations: {
       type: new GraphQLList(DestinationType),
       async resolve(parent, args) {
-        const data = await fetchGet('http://localhost:3010/api/destinations');
+        const data = await fetchGet(`${process.env.APP_URL}/api/destinations`);
         console.log('RootQuery data', data);
         return data;
       }
@@ -243,7 +243,7 @@ const RootQuery = new GraphQLObjectType({
     itineraries: {
       type: GraphQLList(ItinerariesType),
       async resolve(parent, args) {
-        const data = await fetchGet('http://localhost:3010/api/itineraries');
+        const data = await fetchGet(`${process.env.APP_URL}/api/itineraries`);
         return data.itineraries;
       }
     },
