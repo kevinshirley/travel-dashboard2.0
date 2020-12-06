@@ -10,15 +10,11 @@ module.exports = withVideos(
   withImages(
     withCSS(
       withSass({
-        env: {
-          KEVIN_TEST_KEY: process.env.KEVIN_TEST_KEY,
-        },
         target: 'serverless',
         devIndicators: {
           autoPrerender: false,
         },
         env: {
-          KEVIN_TEST_KEY: process.env.KEVIN_TEST_KEY,
           AWS_ACCESS_KEY_ID: process.env.AWS_ACCESS_KEY_ID,
           AWS_SECRET_ACCESS_KEY: process.env.AWS_SECRET_ACCESS_KEY,
           AWS_REGION: process.env.AWS_REGION,
