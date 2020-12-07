@@ -14,6 +14,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import UpIcon from '@material-ui/icons/KeyboardArrowUp';
 import { green } from '@material-ui/core/colors';
 import Box from '@material-ui/core/Box';
+import SearchBar from 'src/components/common/search-bar';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -108,7 +109,7 @@ export default function FloatingActionButtonZoom() {
   return (
     <div className='c-customers-tabs'>
       <AppBar position="static" color="default">
-        <div className='c-customers-tabs-header-wrapper'>
+        <div className='c-customers-tabs__header-wrapper'>
           <Tabs
             value={value}
             onChange={handleChange}
@@ -117,11 +118,11 @@ export default function FloatingActionButtonZoom() {
             variant="fullWidth"
             aria-label="action tabs example"
           >
-            <Tab label="Messages" {...a11yProps(0)} />
-            <Tab label="Documents" {...a11yProps(1)} />
+            <Tab label="All" {...a11yProps(0)} />
+            <Tab label="Customers" {...a11yProps(1)} />
           </Tabs>
-          <div>
-            search bar
+          <div className='c-customers-tabs__search-bar-wrapper'>
+            <SearchBar placeholder='Search by name' />
           </div>
         </div>
       </AppBar>

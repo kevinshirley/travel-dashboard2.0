@@ -11,6 +11,7 @@ $blue-800: #1565c0;
 $blue-900: #0d47a1;
 $blue-1200: #093170;
 $white-015: rgba(255, 255, 255, 0.10);
+$white-210: rgba(210, 210, 210, 0.5);
 $black-015: rgba(5, 5, 5, 0.15);
 $link-color: #007bff;
 $pink-A400: #f50057;
@@ -23,6 +24,7 @@ $side-menu-bg-color: $blue-1200;
 $container-bg-color: $grey-50;
 $rounded-button-cta-bg-color: $blue-800;
 $navbar-search-bar-bg-color: $white-015;
+$customers-search-bar-bg-color: $white-210;
 $add-itinerary-text-field-bg-color: $black-015;
 $included-item-link-color: $link-color;
 $new-event-cta-bg-color: $blue-1200;
@@ -153,6 +155,7 @@ a {
     display: flex;
     align-items: center;
     padding-right: 10px;
+    cursor: pointer;
   }
 }
 
@@ -456,8 +459,8 @@ a {
       width: $itinerary-side-menu-width;
     }
 
-    .main-menu__no-box-shadow {
-      box-shadow: none;
+    .main-menu__no-box-shadow, .side-menu__no-box-shadow {
+      box-shadow: none !important;
     }
 
     .add-itinerary-menu {
@@ -1157,14 +1160,22 @@ a {
           width: 250px;
         }
 
-        .c-customers-tabs-header-wrapper {
+        .c-customers-tabs__header-wrapper {
           display: flex;
           justify-content: space-between;
+
+          .c-customers-tabs__search-bar-wrapper {
+            .search-bar {
+              height: 80%;
+              background: $customers-search-bar-bg-color;
+            }
+          }
         }
       }
 
       .MuiPaper-elevation4 {
         box-shadow: none;
+        border-bottom: 1px solid lightgray;
       }
 
       .c-customer-tab-content {
