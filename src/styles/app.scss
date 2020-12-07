@@ -33,6 +33,7 @@ $single-itinerary-border-color: $grey-100;
 $sign-in-header-bg-color: $blue-1200;
 $sign-in-header-color: $white;
 $sign-in-header-close-color: $white;
+$customers-tabs-background-color: $container-bg-color;
 
 // Custom Variables
 $itinerary-side-menu-width: 15%;
@@ -453,6 +454,10 @@ a {
 
     .main-menu__itinerary-page {
       width: $itinerary-side-menu-width;
+    }
+
+    .main-menu__no-box-shadow {
+      box-shadow: none;
     }
 
     .add-itinerary-menu {
@@ -1133,5 +1138,38 @@ a {
   .c-itinerary-event-manager__cta-group {
     display: flex;
     justify-content: space-between;
+  }
+}
+
+.c-customers {
+  .overlay {
+    .c-customers-tabs {
+      .MuiAppBar-colorDefault {
+        background: $customers-tabs-background-color;
+
+        .MuiButtonBase-root {
+          box-shadow: none;
+          outline: none;
+          min-width: 50px;
+        }
+
+        .MuiTabs-flexContainer {
+          width: 250px;
+        }
+
+        .c-customers-tabs-header-wrapper {
+          display: flex;
+          justify-content: space-between;
+        }
+      }
+
+      .MuiPaper-elevation4 {
+        box-shadow: none;
+      }
+
+      .c-customer-tab-content {
+        height: 80vh;
+      }
+    }
   }
 }
