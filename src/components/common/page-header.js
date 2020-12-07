@@ -8,7 +8,12 @@ import * as actions from 'src/store/actions';
 import Button from 'src/components/material-ui/text-button';
 import RoundedButton from 'src/components/material-ui/rounded-button';
 import { CAMERA_ICON, SPACING, LINK_ICON } from 'src/components/material-ui/icons';
-import { ITINERARY_EDITOR_PATHNAMES, ITINERARY, MANAGE_ITINERARY } from 'src/store/constants/url';
+import {
+  ITINERARY_EDITOR_PATHNAMES,
+  ITINERARY,
+  MANAGE_ITINERARY,
+  CUSTOMERS
+} from 'src/store/constants/url';
 import Link from 'src/components/common/link';
 
 function PageHeader({ coverImage = null, itineraryId = '', title }) {
@@ -80,9 +85,11 @@ function PageHeader({ coverImage = null, itineraryId = '', title }) {
       ) : (
         <div className='page-header__title'>
           <h1>{title}</h1>
-          <div className='page-header__add-customer'>
-            <Button onClick={() => console.log('add customer')} type='button'>+ Add</Button>
-          </div>
+          {router.pathname === CUSTOMERS && (
+            <div className='page-header__add-customer'>
+              <Button onClick={() => console.log('add customer')} type='button'>+ Add</Button>
+            </div>
+          )}
         </div>
       )}
     </div>
