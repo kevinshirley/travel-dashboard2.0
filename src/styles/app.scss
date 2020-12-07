@@ -27,15 +27,17 @@ $navbar-search-bar-bg-color: $white-015;
 $customers-search-bar-bg-color: $white-210;
 $add-itinerary-text-field-bg-color: $black-015;
 $included-item-link-color: $link-color;
-$new-event-cta-bg-color: $blue-1200;
+$new-event-cta-bg-color: $navbar-bg-color;
 $new-event-cta-color: $white;
 $daily-event-border-color: $grey-150;
 $single-itinerary-bg-color: $white;
 $single-itinerary-border-color: $grey-100;
-$sign-in-header-bg-color: $blue-1200;
+$sign-in-header-bg-color: $navbar-bg-color;
 $sign-in-header-color: $white;
 $sign-in-header-close-color: $white;
 $customers-tabs-background-color: $container-bg-color;
+$customers-tabs__add-customer-background-color: $navbar-bg-color;
+$customers-tabs__add-customer-color: $white;
 
 // Custom Variables
 $itinerary-side-menu-width: 15%;
@@ -231,6 +233,20 @@ a {
     display: flex;
     justify-content: space-between;
     align-items: center;
+  }
+
+  .page-header__title {
+    display: flex;
+    align-items: center;
+
+    .page-header__add-customer {
+      margin-left: 15px;
+      
+      #text-button {
+        background: $customers-tabs__add-customer-background-color;
+        color: $customers-tabs__add-customer-color;
+      }
+    }
   }
 }
 
@@ -1145,6 +1161,7 @@ a {
 }
 
 .c-customers {
+  margin-top: 15px;
   .overlay {
     .c-customers-tabs {
       .MuiAppBar-colorDefault {

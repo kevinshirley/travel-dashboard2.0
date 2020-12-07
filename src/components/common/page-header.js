@@ -78,9 +78,12 @@ function PageHeader({ coverImage = null, itineraryId = '', title }) {
           </div>
         </>
       ) : (
-        <>
+        <div className='page-header__title'>
           <h1>{title}</h1>
-        </>
+          <div className='page-header__add-customer'>
+            <Button onClick={() => console.log('add customer')} type='button'>+ Add</Button>
+          </div>
+        </div>
       )}
     </div>
   );

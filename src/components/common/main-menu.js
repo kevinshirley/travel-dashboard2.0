@@ -74,11 +74,11 @@ function MainMenu({
           <Link className='main-navigation-icon' href='/reports'>
             {BAR_CHART_ICON}
           </Link>
-          <Link className='main-navigation-icon' href='/search-history'>
-            {CLOCK_ICON}
-          </Link>
           <Link className='main-navigation-icon' href='/notifications'>
             {NOTIFICATIONS_ICON}
+          </Link>
+          <Link className='main-navigation-icon' href='/search-history'>
+            {CLOCK_ICON}
           </Link>
           <Link className='main-navigation-icon' href='/settings'>
             {SETTINGS_ICON}
