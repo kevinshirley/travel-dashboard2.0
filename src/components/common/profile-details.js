@@ -21,14 +21,14 @@ function ProfileDetails({ name }) {
     <div className='profile-details'>
       <ul>
         <li>
-          <IconButton aria-label="show 4 new mails" color="inherit">
+          <IconButton aria-label="messages" color="inherit">
             <Badge badgeContent={4} color="secondary">
               {CHAT_ICON}
             </Badge>
           </IconButton>
         </li>
         <li>
-          <IconButton aria-label="show 11 new notifications" color="inherit">
+          <IconButton aria-label="notifications" color="inherit">
             <Badge badgeContent={11} color="secondary">
               {NOTIFICATIONS_ICON}
             </Badge>

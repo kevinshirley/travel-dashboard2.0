@@ -1,4 +1,4 @@
-import { PERSON_ICON } from 'src/components/material-ui/icons';
+import { PERSON_OUTLINE_ICON } from 'src/components/material-ui/icons';
 import { indexedObjectToArray } from 'src/utils/object';
 
 const Customers = () => {
@@ -9,7 +9,7 @@ const Customers = () => {
       lastName: 'Doe',
       email: 'johndoe@test.com',
       phoneNumber: '555-555-5555',
-      profileImage: PERSON_ICON,
+      profileImage: PERSON_OUTLINE_ICON,
       trips: [],
       isOnline: true,
     },
@@ -19,7 +19,7 @@ const Customers = () => {
       lastName: 'Doe',
       email: 'ericdoe@test.com',
       phoneNumber: '555-555-5555',
-      profileImage: PERSON_ICON,
+      profileImage: PERSON_OUTLINE_ICON,
       trips: [],
       isOnline: false,
     },
@@ -29,7 +29,7 @@ const Customers = () => {
       lastName: 'Doe',
       email: 'dianadoe@test.com',
       phoneNumber: '555-555-5555',
-      profileImage: PERSON_ICON,
+      profileImage: PERSON_OUTLINE_ICON,
       trips: [],
       isOnline: true,
     },
@@ -39,7 +39,7 @@ const Customers = () => {
       lastName: 'Doe',
       email: 'chrishelledoe@test.com',
       phoneNumber: '555-555-5555',
-      profileImage: PERSON_ICON,
+      profileImage: PERSON_OUTLINE_ICON,
       trips: [],
       isOnline: false,
     },
@@ -49,7 +49,7 @@ const Customers = () => {
       lastName: 'Doe',
       email: 'gordondoe@test.com',
       phoneNumber: '555-555-5555',
-      profileImage: PERSON_ICON,
+      profileImage: PERSON_OUTLINE_ICON,
       trips: [],
       isOnline: false,
     },
@@ -59,7 +59,7 @@ const Customers = () => {
       lastName: 'Doe',
       email: 'michelledoe@test.com',
       phoneNumber: '555-555-5555',
-      profileImage: PERSON_ICON,
+      profileImage: PERSON_OUTLINE_ICON,
       trips: [],
       isOnline: true,
     },
@@ -69,7 +69,7 @@ const Customers = () => {
       lastName: 'Doe',
       email: 'nancydoe@test.com',
       phoneNumber: '555-555-5555',
-      profileImage: PERSON_ICON,
+      profileImage: PERSON_OUTLINE_ICON,
       trips: [],
       isOnline: false,
     },

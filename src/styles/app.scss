@@ -41,6 +41,8 @@ $customers-tabs__add-customer-background-color: $navbar-bg-color;
 $customers-tabs__add-customer-color: $white;
 $badge__is-online: $limegreen;
 $badge__not-online: $pink-A400;
+$customers__single-avatar-background-color: $blue-50;
+$customers__single-avatar-color: $navbar-bg-color;
 
 // Custom Variables
 $itinerary-side-menu-width: 15%;
@@ -1225,5 +1227,39 @@ a {
     height: 300px;
     border: 2px solid $black-015;
     margin-bottom: 30px;
+
+    .c-customers-all-tab-content__single-more {
+      width: 100%;
+      display: flex;
+      justify-content: flex-end;
+      
+      .MuiIconButton-root {
+        margin-right: 5px;
+        margin-top: 5px;
+        padding: 0;
+        outline: none;
+      }
+    }
+
+    .c-customers-all-tab-content__single-avatar-wrapper {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+
+      .c-customers-all-tab-content__single-avatar {
+        .MuiAvatar-root {
+          width: 90px;
+          height: 90px;
+          background: $customers__single-avatar-background-color;
+          color: $customers__single-avatar-color;
+        }
+
+        .MuiAvatar-dot {
+          height: 6px;
+          min-width: 6px;
+          border-radius: 6px;
+        }
+      }
+    }
   }
 }

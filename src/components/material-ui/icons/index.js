@@ -46,6 +46,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import LinkIcon from '@material-ui/icons/Link';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import PersonIcon from '@material-ui/icons/Person';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 export const PORTFOLIO_ICON = (
   <BurstModeOutlinedIcon />
@@ -231,4 +232,8 @@ export const LOCATION_ON_ICON = (
 
 export const PERSON_ICON = (
   <PersonIcon />
+);
+
+export const MORE_VERT_ICON = (
+  <MoreVertIcon />
 );
