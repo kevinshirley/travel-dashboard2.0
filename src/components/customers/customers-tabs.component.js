@@ -15,6 +15,8 @@ import UpIcon from '@material-ui/icons/KeyboardArrowUp';
 import { green } from '@material-ui/core/colors';
 import Box from '@material-ui/core/Box';
 import SearchBar from 'src/components/common/search-bar';
+import selectMockCustomers from 'src/store/constants/customers';
+import CustomersAllTabContent from 'src/components/customers/customers-all-tab-content.component';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -67,11 +69,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function FloatingActionButtonZoom() {
+export default function CustomersTabs() {
   const classes = useStyles();
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
-
+  const mockCustomers = selectMockCustomers();
+  console.log({ mockCustomers });
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -133,7 +136,7 @@ export default function FloatingActionButtonZoom() {
         onChangeIndex={handleChangeIndex}
       >
         <TabPanel value={value} index={0} dir={theme.direction}>
-          A
+          <CustomersAllTabContent customers={mockCustomers} />
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
           B

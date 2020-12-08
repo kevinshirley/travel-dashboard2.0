@@ -16,6 +16,7 @@ $black-015: rgba(5, 5, 5, 0.15);
 $link-color: #007bff;
 $pink-A400: #f50057;
 $pink-A900: #ab003c;
+$limegreen: limegreen;
 
 // Component color
 $navbar-bg-color: $blue-1200;
@@ -38,6 +39,8 @@ $sign-in-header-close-color: $white;
 $customers-tabs-background-color: $container-bg-color;
 $customers-tabs__add-customer-background-color: $navbar-bg-color;
 $customers-tabs__add-customer-color: $white;
+$badge__is-online: $limegreen;
+$badge__not-online: $pink-A400;
 
 // Custom Variables
 $itinerary-side-menu-width: 15%;
@@ -122,6 +125,20 @@ a {
 
 .mb-0 {
   margin-bottom: 0 !important;
+}
+
+.badge__not-online {
+  .MuiBadge-badge {
+    background: $white;
+    border: 2px solid $badge__not-online;
+  }
+}
+
+.badge__is-online {
+  .MuiBadge-badge {
+    background: $white;
+    border: 2px solid $badge__is-online;
+  }
 }
 
 /* Components */
@@ -1199,5 +1216,14 @@ a {
         height: 80vh;
       }
     }
+  }
+}
+
+.c-customers-all-tab-content__container {
+  .c-customers-all-tab-content__single {
+    width: 250px;
+    height: 300px;
+    border: 2px solid $black-015;
+    margin-bottom: 30px;
   }
 }
