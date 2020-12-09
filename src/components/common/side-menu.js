@@ -18,15 +18,21 @@ function SideMenu() {
     <div className='side-menu side-menu__itinerary-page' />
   );
 
+  const renderSideMenu = () => {
+    if (router.pathname === ITINERARY ) {
+      return <SideMenuItineraryPage />;
+    }
+
+    return (
+      <div className={sideMenuClasses}>
+        <SideMenuTabs />
+      </div>
+    );
+  };
+
   return (
     <>
-      {router.pathname === ITINERARY ? (
-        <SideMenuItineraryPage />
-      ) : (
-        <div className={sideMenuClasses}>
-          <SideMenuTabs />
-        </div>
-      )}
+      {renderSideMenu()}
     </>
   );
 }
