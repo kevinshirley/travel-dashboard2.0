@@ -109,6 +109,10 @@ export const FORMS = createTypes('FORMS', [
   'RESET_SUCCESS',
 ]);
 
+export const CUSTOMER = createTypes('CUSTOMER', [
+  'SET',
+]);
+
 export const root = {
   initialLoad: params => actionWithoutStoreUpdate(ROOT.INITIAL_LOAD, { params }),
 };
@@ -195,4 +199,8 @@ export const forms = {
   setSuccess: payload => action(FORMS.SET_SUCCESS, payload),
   isSubmitting: payload => action(FORMS.IS_SUBMITTING, payload),
   resetSuccess: payload => action(FORMS.RESET_SUCCESS, payload),
+};
+
+export const customer = {
+  set: payload => action(CUSTOMER.SET, payload),
 };

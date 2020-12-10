@@ -5,11 +5,31 @@ import Avatar from 'src/components/material-ui/avatar';
 import Badge from '@material-ui/core/Badge';
 import { MORE_VERT_ICON } from 'src/components/material-ui/icons';
 import IconButton from '@material-ui/core/IconButton';
+import { useAction } from 'src/store/hooks';
+import * as actions from 'src/store/actions';
 
 function CustomersAllTabContent({ customers = [] }) {
-  const onCustomerClicked = (firstName) => {
-    console.log(`clicked on ${firstName} profile`);
-  };
+  const setCustomer = useAction(actions.customer.set);
+
+  const onCustomerClicked = ({
+    firstName,
+    lastName,
+    email,
+    phoneNumber,
+    profileImage,
+    trips,
+    isOnline
+  }) => 
+    setCustomer({
+      firstName,
+      lastName,
+      email,
+      phoneNumber,
+      profileImage,
+      trips,
+      isOnline
+    });
+
   return (
     <section className='c-customers-all-tab-content__container'>
       <div className='inner'>
@@ -21,7 +41,15 @@ function CustomersAllTabContent({ customers = [] }) {
 
           return (
             <div className='c-customers-all-tab-content__single-wrapper'>
-              <div className='c-customers-all-tab-content__single' index={i} onClick={() => onCustomerClicked(customer.firstName)}>
+              <div className='c-customers-all-tab-content__single' index={i} onClick={() => onCustomerClicked({
+                firstName: customer.firstName,
+                lastName: customer.lastName,
+                email: customer.email,
+                phoneNumber: customer.phoneNumber,
+                profileImage: customer.profileImage,
+                trips: customer.trips,
+                isOnline: customer.isOnline,
+              })}>
                 <div className='c-customers-all-tab-content__single-more'>
                   <IconButton aria-label="messages" color="inherit">{MORE_VERT_ICON}</IconButton>
                 </div>
