@@ -4,6 +4,7 @@ export const MODALS = {
   SIGN_IN: 'sign-in',
   SIGN_UP: 'sign-up',
   DELETE_ITINERARY_DAY_CONFIRMATION: 'delete-day-confirmation',
+  ADD_CUSTOMER: 'add-customer',
 };
 
 export const MODAL_SIZE = {

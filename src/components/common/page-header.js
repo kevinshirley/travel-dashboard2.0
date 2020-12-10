@@ -15,6 +15,7 @@ import {
   CUSTOMERS
 } from 'src/store/constants/url';
 import Link from 'src/components/common/link';
+import { MODALS } from 'src/store/constants/modals';
 
 function PageHeader({ coverImage = null, itineraryId = '', title }) {
   const router = useRouter();
@@ -22,6 +23,7 @@ function PageHeader({ coverImage = null, itineraryId = '', title }) {
   const [value, setValue] = useState('');
 
   const uploadCoverImageAction = useAction(actions.itinerary.uploadCoverImage);
+  const openModal = useAction(actions.ui.openModal);
 
   const handleChange = (e) => {
     setValue(e.target.files[0]);
@@ -87,7 +89,14 @@ function PageHeader({ coverImage = null, itineraryId = '', title }) {
           <h1>{title}</h1>
           {router.pathname === CUSTOMERS && (
             <div className='page-header__add-customer'>
-              <Button onClick={() => console.log('add customer')} type='button'>+ Add</Button>
+              <Button
+                onClick={() => openModal({
+                  modal: MODALS.ADD_CUSTOMER,
+                })}
+                type='button'
+              >
+                + Add
+              </Button>
             </div>
           )}
         </div>

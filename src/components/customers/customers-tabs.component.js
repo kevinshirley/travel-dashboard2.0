@@ -48,33 +48,11 @@ function a11yProps(index) {
   };
 }
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    backgroundColor: theme.palette.background.paper,
-    width: 500,
-    position: 'relative',
-    minHeight: 200,
-  },
-  fab: {
-    position: 'absolute',
-    bottom: theme.spacing(2),
-    right: theme.spacing(2),
-  },
-  fabGreen: {
-    color: theme.palette.common.white,
-    backgroundColor: green[500],
-    '&:hover': {
-      backgroundColor: green[600],
-    },
-  },
-}));
-
 export default function CustomersTabs() {
-  const classes = useStyles();
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
   const mockCustomers = selectMockCustomers();
-  console.log({ mockCustomers });
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -82,32 +60,6 @@ export default function CustomersTabs() {
   const handleChangeIndex = (index) => {
     setValue(index);
   };
-
-  const transitionDuration = {
-    enter: theme.transitions.duration.enteringScreen,
-    exit: theme.transitions.duration.leavingScreen,
-  };
-
-  const fabs = [
-    {
-      color: 'secondary',
-      className: classes.fab,
-      icon: <EditIcon />,
-      label: 'Add',
-    },
-    {
-      color: 'secondary',
-      className: classes.fab,
-      icon: <AddIcon />,
-      label: 'Edit',
-    },
-    {
-      color: 'inherit',
-      className: clsx(classes.fab, classes.fabGreen),
-      icon: <UpIcon />,
-      label: 'Expand',
-    },
-  ];
 
   return (
     <div className='c-customers-tabs'>
