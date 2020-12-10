@@ -7,10 +7,12 @@ import SideMenuTabs from 'src/components/common/side-menu-tabs';
 import CustomerProfileSideMenu from 'src/components/common/customer-profile-side-menu.component';
 import { ITINERARY, CUSTOMERS } from 'src/store/constants/url';
 import { selectCustomer } from 'src/store/selectors/customers';
+import { selectIsCustomerSideMenu } from 'src/store/selectors/common';
 
 function SideMenu() {
   const router = useRouter();
   const customer = useSelector(selectCustomer);
+  const isCustomerSideMenuOpened = useSelector(selectIsCustomerSideMenu);
 
   const sideMenuClasses = cx('side-menu', {
     'side-menu__no-box-shadow': router.pathname === CUSTOMERS,
@@ -25,7 +27,7 @@ function SideMenu() {
       return <SideMenuItineraryPage />;
     }
 
-    if (router.pathname === CUSTOMERS && !R.isEmpty(customer)) {
+    if (router.pathname === CUSTOMERS && !R.isEmpty(customer) && isCustomerSideMenuOpened) {
       return <CustomerProfileSideMenu />;
     }
 

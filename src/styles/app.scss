@@ -1254,7 +1254,7 @@ a {
       height: auto;
       margin-bottom: 30px;
       cursor: pointer;
-  
+
       .c-customers-all-tab-content__single {
         width: 100%;
         height: auto;
@@ -1265,16 +1265,16 @@ a {
         border-top-left-radius: 15px;
         border-top-right-radius: 15px;
         @include transition-ease-out;
-  
+
         &:hover {
           @include light-box-shadow;
         }
-  
+
         .c-customers-all-tab-content__single-more {
           width: 100%;
           display: flex;
           justify-content: flex-end;
-  
+
           .MuiIconButton-root {
             margin-right: 5px;
             margin-top: 5px;
@@ -1282,12 +1282,12 @@ a {
             outline: none;
           }
         }
-  
+
         .c-customers-all-tab-content__single-avatar-wrapper {
           width: 100%;
           display: flex;
           justify-content: center;
-  
+
           .c-customers-all-tab-content__single-avatar {
             .MuiAvatar-root {
               width: 90px;
@@ -1295,7 +1295,7 @@ a {
               background: $customers__single-avatar-background-color;
               color: $customers__single-avatar-color;
             }
-  
+
             .MuiAvatar-dot {
               height: 6px;
               min-width: 6px;
@@ -1303,24 +1303,24 @@ a {
             }
           }
         }
-  
+
         .c-customers-all-tab-content__single-details {
           display: flex;
           flex-direction: column;
           align-items: center;
           padding: 20px 0;
-  
+
           .name {
             font-weight: bold;
             margin-bottom: 5px;
           }
-  
+
           .email {
             margin-bottom: 5px;
           }
         }
       }
-  
+
       .c-customers-all-tab-content__single-buttons {
         width: 100%;
         display: flex;
@@ -1329,7 +1329,7 @@ a {
         background: $grey-100;
         border-bottom-left-radius: 15px;
         border-bottom-right-radius: 15px;
-  
+
         .c-customers-all-tab-content__single-button {
           width: 50%;
           height: 45px;
@@ -1338,25 +1338,76 @@ a {
           justify-content: center;
           align-items: center;
           background: $grey-100;
-  
+
           &:nth-child(1) {
             border-bottom-left-radius: 15px;
           }
-  
+
           &:last-child {
             border-bottom-right-radius: 15px;
             border-right: none;
           }
-  
+
           &:hover {
             background: $white;
           }
-  
+
           span {
             font-size: 12px;
             font-weight: 500;
           }
         }
+      }
+    }
+  }
+}
+
+.c-customer-side-menu {
+  .c-customer-side-menu__profile-wrapper {
+    .c-customer-side-menu__close-profile {
+      width: 100%;
+      display: flex;
+      justify-content: flex-end;
+
+      #text-button {
+        color: $white;
+      }
+    }
+
+    .c-customer-side-menu__profile-avatar {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+
+      .c-customer-side-menu__single-avatar {
+        .MuiAvatar-root {
+          width: 90px;
+          height: 90px;
+          background: $customers__single-avatar-background-color;
+          color: $customers__single-avatar-color;
+        }
+
+        .MuiAvatar-dot {
+          height: 6px;
+          min-width: 6px;
+          border-radius: 6px;
+        }
+      }
+    }
+
+    .c-customer-side-menu__details {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px 0;
+
+      .name {
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+
+      .email {
+        margin-bottom: 5px;
       }
     }
   }

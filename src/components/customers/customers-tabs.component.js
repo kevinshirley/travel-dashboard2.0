@@ -142,21 +142,6 @@ export default function CustomersTabs() {
           B
         </TabPanel>
       </SwipeableViews>
-      {fabs.map((fab, index) => (
-        <Zoom
-          key={fab.color}
-          in={value === index}
-          timeout={transitionDuration}
-          style={{
-            transitionDelay: `${value === index ? transitionDuration.exit : 0}ms`,
-          }}
-          unmountOnExit
-        >
-          <Fab aria-label={fab.label} className={fab.className} color={fab.color}>
-            {fab.icon}
-          </Fab>
-        </Zoom>
-      ))}
     </div>
   );
 }

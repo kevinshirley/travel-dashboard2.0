@@ -47,6 +47,7 @@ export const UI = createTypes('UI', [
   'TOGGLE_EVENT_DRAWER',
   'TOGGLE_IS_EDITING_TRIP_START_DATE',
   'RESET_ITINERARIES_TABLE',
+  'IS_CUSTOMER_SIDE_MENU',
 ]);
 
 export const DESTINATIONS = createTypes('DESTINATIONS', [
@@ -111,6 +112,7 @@ export const FORMS = createTypes('FORMS', [
 
 export const CUSTOMER = createTypes('CUSTOMER', [
   'SET',
+  'CLOSE_CUSTOMER_SIDE_MENU',
 ]);
 
 export const root = {
@@ -140,6 +142,7 @@ export const ui = {
   toggleEventDrawer: value => action(UI.TOGGLE_EVENT_DRAWER, value),
   isEditingTripStartDate: value => action(UI.TOGGLE_IS_EDITING_TRIP_START_DATE, value),
   resetItinerariesTable: payload => action(UI.RESET_ITINERARIES_TABLE, payload),
+  isCustomerSideMenu: payload => action(UI.IS_CUSTOMER_SIDE_MENU, payload),
 };
 
 export const destinations = {
@@ -203,4 +206,5 @@ export const forms = {
 
 export const customer = {
   set: payload => action(CUSTOMER.SET, payload),
+  closeCustomerSideMenu: () => action(CUSTOMER.CLOSE_CUSTOMER_SIDE_MENU),
 };

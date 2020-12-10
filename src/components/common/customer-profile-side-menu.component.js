@@ -1,6 +1,8 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import cx from 'classnames';
+import { useAction } from 'src/store/hooks';
+import * as actions from 'src/store/actions';
 import { selectCustomer } from 'src/store/selectors/customers';
 import Avatar from 'src/components/material-ui/avatar';
 import Badge from '@material-ui/core/Badge';
@@ -10,6 +12,7 @@ const BEM_BLOCK = 'c-customer-side-menu';
 
 function CustomerProfileSideMenu() {
   const customer = useSelector(selectCustomer);
+  const closeCustomerSideMenu = useAction(actions.customer.closeCustomerSideMenu);
 
   const badgeClasses = cx(`${BEM_BLOCK}__single-avatar`, {
     'badge__is-online': customer.isOnline,
@@ -19,9 +22,9 @@ function CustomerProfileSideMenu() {
   return (
     <div className={`${BEM_BLOCK} side-menu`}>
       {customer && (
-        <div>
+        <div className={`${BEM_BLOCK}__profile-wrapper`}>
           <div className={`${BEM_BLOCK}__close-profile`}>
-            <Button>Close</Button>
+            <Button onClick={() => closeCustomerSideMenu()}>Close</Button>
           </div>
           <div className={`${BEM_BLOCK}__profile-avatar`}>
             <Badge

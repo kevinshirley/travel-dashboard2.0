@@ -4,9 +4,10 @@ const CustomerReducer = (state = {}, { type, payload }) => {
   switch (type) {
     case CUSTOMER.SET:
       return {
-        ...state,
         ...payload,
       };
+    case CUSTOMER.CLOSE_CUSTOMER_SIDE_MENU:
+      return {};
     default:
       return state;
   }
