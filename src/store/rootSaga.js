@@ -49,7 +49,11 @@ import {
   watchSignUp,
 } from 'src/store/sagas/session';
 import { watchSetItineraryToDisplay } from 'src/store/sagas/display-itinerary';
-import { watchSetCustomer, watchCloseCustomerSideMenu } from 'src/store/sagas/customers';
+import {
+  watchSetCustomer,
+  watchCloseCustomerSideMenu,
+  watchAddCustomer
+} from 'src/store/sagas/customers';
 
 function* rootSaga() {
   yield all([
@@ -91,7 +95,8 @@ function* rootSaga() {
     watchDeleteUserItinerary(),
     watchSetItineraryToDisplay(),
     watchSetCustomer(),
-    watchCloseCustomerSideMenu()
+    watchCloseCustomerSideMenu(),
+    watchAddCustomer()
   ]);
 }
 

@@ -113,6 +113,7 @@ export const FORMS = createTypes('FORMS', [
 export const CUSTOMER = createTypes('CUSTOMER', [
   'SET',
   'CLOSE_CUSTOMER_SIDE_MENU',
+  'ADD',
 ]);
 
 export const root = {
@@ -207,4 +208,5 @@ export const forms = {
 export const customer = {
   set: payload => action(CUSTOMER.SET, payload),
   closeCustomerSideMenu: () => action(CUSTOMER.CLOSE_CUSTOMER_SIDE_MENU),
+  add: payload => action(CUSTOMER.ADD, payload),
 };

@@ -41,8 +41,8 @@ export const selectStaticModals = createStructuredSelector({
   }),
   [MODALS.ADD_CUSTOMER]: createStructuredSelector({
     innerModal: R.always(AddCustomerModal),
-    modalSize: R.always(MODAL_SIZE.SMALL),
-    innerModalPadding: R.always(true),
+    modalSize: R.always(MODAL_SIZE.MEDIUM),
+    innerModalPadding: R.always(false),
     isSubmitting: R.F,
   }),
 });
