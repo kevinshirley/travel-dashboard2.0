@@ -78,3 +78,15 @@ export const selectItinerariesIsSubmitting = R.pathOr(false, [
   'itineraries',
   'isSubmitting',
 ]);
+
+export const selectAddCustomerSuccess = R.pathOr({}, [
+  'forms',
+  'addCustomer',
+  'success',
+]);
+
+export const selectAddCustomerIsSubmitting = R.pathOr(false, [
+  'forms',
+  'addCustomer',
+  'isSubmitting',
+]);

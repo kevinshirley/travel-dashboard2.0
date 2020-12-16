@@ -1,16 +1,18 @@
 import React, { useRef } from 'react';
-import { isEmpty } from 'ramda';
 import { Formik, Field, Form } from 'formik';
+import { useSelector } from 'react-redux';
 import TextField from 'src/components/common/text-field';
 import * as actions from 'src/store/actions';
 import { useAction } from 'src/store/hooks';
 import { CLOSE_ICON } from 'src/components/material-ui/icons';
 import { SPACING } from 'src/components/material-ui/icons';
 import RoundedButton from 'src/components/material-ui/rounded-button';
+import { selectAddCustomerIsSubmitting } from 'src/store/selectors/forms';
 
 function AddCustomerModal() {
   const closeModal = useAction(actions.ui.closeModal);
   const addCustomer = useAction(actions.customer.add);
+  const isSubmitting = useSelector(selectAddCustomerIsSubmitting);
   const closeBtnRef = useRef();
 
   return (
@@ -44,12 +46,6 @@ function AddCustomerModal() {
         }}
       >
         <Form className='c-sign-in-form'>
-          {/* {!isEmpty(() => {}) && !isEmpty(signInError.message) && (
-            <>
-              <Alert type='warning'>{signInError.message}</Alert>
-              {SPACING}
-            </>
-          )} */}
           <Field name='firstName' label='First Name' type='text' component={TextField} />
           {SPACING}
           <Field name='lastName' label='Last Name' type='text' component={TextField} />
@@ -60,7 +56,7 @@ function AddCustomerModal() {
           {SPACING}
           <RoundedButton
             className='sign-in-cta'
-            // isLoading={isLoading}
+            isLoading={isSubmitting}
             text='Add'
             type='submit'
           />

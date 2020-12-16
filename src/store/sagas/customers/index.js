@@ -43,10 +43,10 @@ function* addCustomer({ payload }) {
 
   if (result.status === 200 && result.data.success) {
     yield put(forms.isSubmitting({ isSubmitting: false, form: 'addCustomer' }));
-    console.log({ result });
+    yield put(forms.setSuccess({ message: 'You\'ve successfully added this customer!', form: 'addCustomer' }));
+    yield put(ui.closeModal());
   } else {
     yield put(forms.isSubmitting({ isSubmitting: false, form: 'addCustomer' }));
     yield put(forms.setError({ ...result.data, form: 'addCustomer' }));
-    console.log({ result });
   }
 }
