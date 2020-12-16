@@ -205,6 +205,13 @@ function addCustomer(state = initialState, { type, payload }) {
           success: {},
         };
       }
+    case FORMS.RESET_ERROR:
+      if (form === 'addCustomer') {
+        return {
+          ...state,
+          error: {},
+        };
+      }
     default:
       return state;
   }

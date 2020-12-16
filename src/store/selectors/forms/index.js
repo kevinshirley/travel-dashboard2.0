@@ -90,3 +90,9 @@ export const selectAddCustomerIsSubmitting = R.pathOr(false, [
   'addCustomer',
   'isSubmitting',
 ]);
+
+export const selectAddCustomerError = R.pathOr({}, [
+  'forms',
+  'addCustomer',
+  'error',
+]);

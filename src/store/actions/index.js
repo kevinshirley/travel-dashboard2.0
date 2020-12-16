@@ -108,6 +108,7 @@ export const FORMS = createTypes('FORMS', [
   'SET_SUCCESS',
   'IS_SUBMITTING',
   'RESET_SUCCESS',
+  'RESET_ERROR',
 ]);
 
 export const CUSTOMER = createTypes('CUSTOMER', [
@@ -203,6 +204,7 @@ export const forms = {
   setSuccess: payload => action(FORMS.SET_SUCCESS, payload),
   isSubmitting: payload => action(FORMS.IS_SUBMITTING, payload),
   resetSuccess: payload => action(FORMS.RESET_SUCCESS, payload),
+  resetError: payload => action(FORMS.RESET_ERROR, payload),
 };
 
 export const customer = {
