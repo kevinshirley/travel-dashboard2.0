@@ -1,6 +1,6 @@
-import { isEmpty } from 'ramda';
+import { isEmpty, isNil } from 'ramda';
 import { put, takeLatest, select, call } from 'redux-saga/effects';
-import { CUSTOMER, ui, forms } from 'src/store/actions';
+import { CUSTOMER, ui, forms, SESSION } from 'src/store/actions';
 import { selectIsCustomerSideMenu } from 'src/store/selectors/common';
 import { axiosPost } from 'src/utils/fetch';
 import uuidv4 from 'src/utils/uuidv4';
@@ -12,6 +12,10 @@ export function* watchSetCustomer() {
 
 export function* watchCloseCustomerSideMenu() {
   yield takeLatest(CUSTOMER.CLOSE_CUSTOMER_SIDE_MENU, closeCustomerSideMenu);
+}
+
+export function* watchFetchUserCustomers() {
+  yield takeLatest(SESSION.SET_IS_LOGGED_IN, fetchUserCustomers);
 }
 
 export function* watchAddCustomer() {
@@ -42,11 +46,31 @@ function* addCustomer({ payload }) {
   const result = yield call(axiosPost, '/api/customer/add', customerData);
 
   if (result.status === 200 && result.data.success) {
+    console.log({ result });
     yield put(forms.isSubmitting({ isSubmitting: false, form: 'addCustomer' }));
     yield put(forms.setSuccess({ message: 'You\'ve successfully added this customer!', form: 'addCustomer' }));
     yield put(ui.closeModal());
   } else {
+    console.log({ result });
     yield put(forms.isSubmitting({ isSubmitting: false, form: 'addCustomer' }));
-    yield put(forms.setError({ ...result.data, form: 'addCustomer' }));
+    yield put(forms.setError({ message: result.error.message ? result.error.message : 'An error occured when saving this customer.', form: 'addCustomer' }));
+  }
+}
+
+function* fetchUserCustomers() {
+  console.log('fetchUserCustomers');
+  const profile = yield select(selectSessionProfile);
+  const { id } = profile;
+
+  if (!isEmpty(id) && !isNil(id)) {
+    yield put(forms.isSubmitting({ isSubmitting: true, form: 'userCustomers' }));
+
+    const userCustomers = yield call(axiosPost, '/api/customers/user', { id });
+
+    if (userCustomers.status === 200 && userCustomers.data.success) {
+      console.log({ userCustomers });
+    } else {
+      console.log({ userCustomers });
+    }
   }
 }

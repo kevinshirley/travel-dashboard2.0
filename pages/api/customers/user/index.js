@@ -1,5 +1,5 @@
+require('dotenv').config();
 const AWS = require('aws-sdk');
-const moment = require('moment');
 
 const {
   AWS_ACCESS_KEY_ID, 
@@ -16,39 +16,40 @@ const config = {
   }
 };
 
-const AddCustomer = (req, res) => {
-  const { id, firstName, lastName, email, phoneNumber, createdBy } = req.body;
-
+const UserCustomers = (req, res, next) => {
+  console.log('UserCustomers');
   AWS.config.update(config.aws_remote_config);
   const db = new AWS.DynamoDB.DocumentClient();
+  console.log('req.body', req.body);
+  const { id } = req.body;
 
   const params = {
     TableName: config.aws_table_name,
-    Item: {
-      id,
-      createdAt: moment().format(),
-      createdBy: createdBy ? createdBy : '',
-      firstName,
-      lastName,
-      email,
-      phoneNumber,
+    IndexName: 'createdBy-index',
+    KeyConditionExpression: 'createdBy = :i',
+    ExpressionAttributeValues: {
+      ':i': id
     }
   };
 
-  db.put(params, function(err, data) {
+  db.query(params, function(err, data) {
     if (err) {
+      console.log({ err });
       res.send({
         success: false,
         error: err
       });
+      res.end();
     } else {
+      console.log({ data });
       const { Items } = data;
       res.send({
         success: true,
-        customer: Items
+        customers: Items
       });
+      res.end();
     }
   });
 };
 
-export default AddCustomer;
+export default UserCustomers;

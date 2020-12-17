@@ -22,7 +22,7 @@ function Customers({
 
     if (!isEmpty(addCustomerError)) {
       addToast(addCustomerError.message, {
-        appearance: 'success',
+        appearance: 'error',
         autoDismiss: false,
       }, () => resetError({ form: 'addCustomer' }));
     }

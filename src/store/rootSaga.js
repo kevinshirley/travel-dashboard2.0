@@ -52,7 +52,8 @@ import { watchSetItineraryToDisplay } from 'src/store/sagas/display-itinerary';
 import {
   watchSetCustomer,
   watchCloseCustomerSideMenu,
-  watchAddCustomer
+  watchAddCustomer,
+  watchFetchUserCustomers
 } from 'src/store/sagas/customers';
 
 function* rootSaga() {
@@ -96,7 +97,8 @@ function* rootSaga() {
     watchSetItineraryToDisplay(),
     watchSetCustomer(),
     watchCloseCustomerSideMenu(),
-    watchAddCustomer()
+    watchAddCustomer(),
+    watchFetchUserCustomers()
   ]);
 }
 
