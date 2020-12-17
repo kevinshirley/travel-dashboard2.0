@@ -8,7 +8,8 @@ function CustomersPage({
   addCustomerSuccess,
   addCustomerError,
   resetSuccess,
-  resetError
+  resetError,
+  userCustomers
 }) {
   return (
     <>
@@ -19,6 +20,7 @@ function CustomersPage({
           addCustomerError={addCustomerError}
           resetError={resetError}
           resetSuccess={resetSuccess}
+          userCustomers={userCustomers}
         />
       </ToastProvider>
     </>
@@ -30,6 +32,17 @@ CustomersPage.prototypes = {
   addCustomerSuccess: PropTypes.object,
   resetError: PropTypes.func,
   resetSuccess: PropTypes.func,
+  userCustomers: PropTypes.arrayOf(
+    PropTypes.shape({
+      firstName: PropTypes.string,
+      lastName: PropTypes.string,
+      email: PropTypes.string,
+      phoneNumber: PropTypes.string,
+      profileImage: PropTypes.object,
+      trips: PropTypes.array,
+      isOnline: PropTypes.bool,
+    }),
+  ),
 };
 
 export default CustomersPage;

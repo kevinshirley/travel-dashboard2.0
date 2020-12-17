@@ -48,7 +48,7 @@ function a11yProps(index) {
   };
 }
 
-export default function CustomersTabs() {
+export default function CustomersTabs({ userCustomers }) {
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
   const mockCustomers = selectMockCustomers();
@@ -88,7 +88,7 @@ export default function CustomersTabs() {
         onChangeIndex={handleChangeIndex}
       >
         <TabPanel value={value} index={0} dir={theme.direction}>
-          <CustomersAllTabContent customers={mockCustomers} />
+          <CustomersAllTabContent customers={userCustomers} />
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
           B

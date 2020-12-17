@@ -1,6 +1,6 @@
 import { isEmpty, isNil } from 'ramda';
 import { put, takeLatest, select, call } from 'redux-saga/effects';
-import { CUSTOMER, ui, forms, SESSION } from 'src/store/actions';
+import { CUSTOMER, ui, forms, SESSION, customers } from 'src/store/actions';
 import { selectIsCustomerSideMenu } from 'src/store/selectors/common';
 import { axiosPost } from 'src/utils/fetch';
 import uuidv4 from 'src/utils/uuidv4';
@@ -68,7 +68,7 @@ function* fetchUserCustomers() {
     const userCustomers = yield call(axiosPost, '/api/customers/user', { id });
 
     if (userCustomers.status === 200 && userCustomers.data.success) {
-      console.log({ userCustomers });
+      yield put(customers.setUser(userCustomers.data.customers));
     } else {
       console.log({ userCustomers });
     }

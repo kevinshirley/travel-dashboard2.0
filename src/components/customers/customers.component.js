@@ -8,7 +8,8 @@ function Customers({
   addCustomerSuccess,
   addCustomerError,
   resetSuccess,
-  resetError
+  resetError,
+  userCustomers
 }) {
   const { addToast } = useToasts();
 
@@ -31,7 +32,7 @@ function Customers({
   return (
     <section className='c-customers'>
       <div className='overlay'>
-        <CustomersTabs />
+        <CustomersTabs userCustomers={userCustomers} />
       </div>
     </section>
   );
@@ -42,6 +43,17 @@ Customers.prototypes = {
   addCustomerSuccess: PropTypes.object,
   resetError: PropTypes.func,
   resetSuccess: PropTypes.func,
+  userCustomers: PropTypes.arrayOf(
+    PropTypes.shape({
+      firstName: PropTypes.string,
+      lastName: PropTypes.string,
+      email: PropTypes.string,
+      phoneNumber: PropTypes.string,
+      profileImage: PropTypes.object,
+      trips: PropTypes.array,
+      isOnline: PropTypes.bool,
+    }),
+  ),
 };
 
 export default Customers;

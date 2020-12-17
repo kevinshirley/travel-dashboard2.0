@@ -1,18 +1,18 @@
-import { CUSTOMER } from 'src/store/actions';
+import { CUSTOMERS } from 'src/store/actions';
 
 const initialState = {
-  organizationUsers: {},
-  userCustomers: {},
+  organizationUsers: [],
+  userCustomers: [],
 };
 
 const CustomersReducer = (state = initialState, { type, payload }) => {
   switch (type) {
-    case CUSTOMER.SET:
+    case CUSTOMERS.SET_USER:
+      console.log({ payload });
       return {
-        ...payload,
+        ...state,
+        userCustomers: payload,
       };
-    case CUSTOMER.CLOSE_CUSTOMER_SIDE_MENU:
-      return {};
     default:
       return state;
   }

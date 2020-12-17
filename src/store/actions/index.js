@@ -117,6 +117,11 @@ export const CUSTOMER = createTypes('CUSTOMER', [
   'ADD',
 ]);
 
+export const CUSTOMERS = createTypes('CUSTOMERS', [
+  'SET_USER',
+  'SET_ORGANIZATION',
+]);
+
 export const root = {
   initialLoad: params => actionWithoutStoreUpdate(ROOT.INITIAL_LOAD, { params }),
 };
@@ -211,4 +216,8 @@ export const customer = {
   set: payload => action(CUSTOMER.SET, payload),
   closeCustomerSideMenu: () => action(CUSTOMER.CLOSE_CUSTOMER_SIDE_MENU),
   add: payload => action(CUSTOMER.ADD, payload),
+};
+
+export const customers = {
+  setUser: payload => action(CUSTOMERS.SET_USER, payload),
 };

@@ -5,9 +5,11 @@ import { selectAddCustomerSuccess, selectAddCustomerIsSubmitting, selectAddCusto
 const emptyObject = {};
 
 export const selectCustomer = R.pathOr(emptyObject, ['customer']);
+export const selectUserCustomers = R.pathOr(emptyObject, ['customers', 'userCustomers']);
 
 export default createStructuredSelector({
   addCustomerSuccess: selectAddCustomerSuccess,
   isSubmitting: selectAddCustomerIsSubmitting,
   addCustomerError: selectAddCustomerError,
+  userCustomers: selectUserCustomers,
 });
