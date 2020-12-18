@@ -34,14 +34,12 @@ const UserCustomers = (req, res, next) => {
 
   db.query(params, function(err, data) {
     if (err) {
-      console.log({ err });
       res.send({
         success: false,
         error: err
       });
       res.end();
     } else {
-      console.log({ data });
       const { Items } = data;
       res.send({
         success: true,

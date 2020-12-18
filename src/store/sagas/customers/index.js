@@ -38,27 +38,36 @@ function* addCustomer({ payload }) {
   console.log({ 'addCustomer saga': payload });
   yield put(forms.isSubmitting({ isSubmitting: true, form: 'addCustomer' }));
   const profile = yield select(selectSessionProfile);
-  const customerData = {
-    ...payload,
-    id: uuidv4(),
-    createdBy: !isEmpty(profile) ? profile.id : '',
-  };
-  const result = yield call(axiosPost, '/api/customer/add', customerData);
 
-  if (result.status === 200 && result.data.success) {
-    console.log({ result });
-    yield put(forms.isSubmitting({ isSubmitting: false, form: 'addCustomer' }));
-    yield put(forms.setSuccess({ message: 'You\'ve successfully added this customer!', form: 'addCustomer' }));
-    yield put(ui.closeModal());
+  if (profile && profile.id) {
+    const customerData = {
+      ...payload,
+      id: uuidv4(),
+      createdBy: !isEmpty(profile) ? profile.id : '',
+    };
+    const result = yield call(axiosPost, '/api/customer/add', customerData);
+  
+    if (result.status === 200 && result.data.success) {
+      // add customer
+      yield put(forms.isSubmitting({ isSubmitting: false, form: 'addCustomer' }));
+      yield put(forms.setSuccess({ message: 'You\'ve successfully added this customer!', form: 'addCustomer' }));
+      yield put(ui.closeModal());
+  
+      // fetch user customers
+      yield call(fetchUserCustomers);
+    } else {
+      yield put(forms.isSubmitting({ isSubmitting: false, form: 'addCustomer' }));
+      yield put(forms.setError({ message: result.error.message ? result.error.message : 'An error occured when saving this customer.', form: 'addCustomer' }));
+      yield put(ui.closeModal());
+    }
   } else {
-    console.log({ result });
+    yield put(forms.setError({ message: 'Please login to add a new customer.', form: 'addCustomer' }));
     yield put(forms.isSubmitting({ isSubmitting: false, form: 'addCustomer' }));
-    yield put(forms.setError({ message: result.error.message ? result.error.message : 'An error occured when saving this customer.', form: 'addCustomer' }));
+    yield put(ui.closeModal());
   }
 }
 
 function* fetchUserCustomers() {
-  console.log('fetchUserCustomers');
   const profile = yield select(selectSessionProfile);
   const { id } = profile;
 

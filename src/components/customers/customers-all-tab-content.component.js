@@ -1,5 +1,5 @@
 import React from 'react';
-import * as R from 'ramda';
+import { isNil, isEmpty, toUpper } from 'ramda';
 import cx from 'classnames';
 import Avatar from 'src/components/material-ui/avatar';
 import Badge from '@material-ui/core/Badge';
@@ -20,7 +20,7 @@ function CustomersAllTabContent({ customers = [] }) {
     profileImage,
     trips,
     isOnline
-  }) => 
+  }) =>
     setCustomer({
       firstName,
       lastName,
@@ -34,7 +34,7 @@ function CustomersAllTabContent({ customers = [] }) {
   return (
     <section className='c-customers-all-tab-content__container'>
       <div className='inner'>
-        {!R.isEmpty(customers) ? (
+        {!isEmpty(customers) ? (
           <>
             {customers.map((customer, i) => {
               const badgeClasses = cx('c-customers-all-tab-content__single-avatar', {
@@ -64,7 +64,7 @@ function CustomersAllTabContent({ customers = [] }) {
                         overlap="circle"
                         variant="dot"
                       >
-                        {(R.isNil(customer.profileImage) || R.isEmpty(customer.profileImage)) ? (
+                        {(isNil(customer.profileImage) || isEmpty(customer.profileImage)) ? (
                           <Avatar>
                             {PERSON_OUTLINE_ICON}
                           </Avatar>
@@ -83,10 +83,10 @@ function CustomersAllTabContent({ customers = [] }) {
                   </div>
                   <div className='c-customers-all-tab-content__single-buttons'>
                     <div className='c-customers-all-tab-content__single-button'>
-                      <span>{R.toUpper('Trips')}</span>
+                      <span>{toUpper('Trips')}</span>
                     </div>
                     <div className='c-customers-all-tab-content__single-button'>
-                      <span>{R.toUpper('Notes')}</span>
+                      <span>{toUpper('Notes')}</span>
                     </div>
                   </div>
                 </div>
