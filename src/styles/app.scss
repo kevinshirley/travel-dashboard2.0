@@ -47,6 +47,7 @@ $customers__single-avatar-background-color: $blue-50;
 $customers__single-avatar-color: $navbar-bg-color;
 $customers__single-background-color: $white;
 $customers__single-border-color: $grey-100;
+$customer-side-menu-profile-tabs-background-color: $side-menu-bg-color;
 
 // Custom Variables
 $itinerary-side-menu-width: 15%;
@@ -1408,6 +1409,42 @@ a {
 
       .email {
         margin-bottom: 5px;
+      }
+    }
+
+    .c-customers-side-menu-tabs {
+      .MuiAppBar-colorDefault {
+        background: $customer-side-menu-profile-tabs-background-color;
+
+        .MuiButtonBase-root {
+          box-shadow: none;
+          outline: none;
+          min-width: 50px;
+        }
+
+        .MuiTabs-flexContainer {
+          width: 250px;
+        }
+
+        .c-customers-side-menu-tabs__header-wrapper {
+          display: flex;
+          justify-content: space-between;
+
+          .MuiTab-textColorPrimary {
+            color: $white;
+          }
+          .PrivateTabIndicator-colorPrimary-2 {
+            background-color: $white;
+          }
+        }
+      }
+
+      .MuiPaper-elevation4 {
+        box-shadow: none;
+      }
+
+      .c-customers-side-menu-tabs__content {
+        // height: 80vh;
       }
     }
   }

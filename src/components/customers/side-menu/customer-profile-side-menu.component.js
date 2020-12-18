@@ -7,6 +7,7 @@ import { selectCustomer } from 'src/store/selectors/customers';
 import Avatar from 'src/components/material-ui/avatar';
 import Badge from '@material-ui/core/Badge';
 import Button from 'src/components/material-ui/text-button';
+import CustomersSideMenuTabs from 'src/components/customers/side-menu/customer-profile-side-menu-tabs.component';
 
 const BEM_BLOCK = 'c-customer-side-menu';
 
@@ -44,6 +45,7 @@ function CustomerProfileSideMenu() {
             <span className='email'>{customer.email}</span>
             <span className='phoneNumber'>{customer.phoneNumber}</span>
           </div>
+          <CustomersSideMenuTabs />
         </div>
       )}
     </div>

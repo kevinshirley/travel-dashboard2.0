@@ -7,9 +7,6 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import SearchBar from 'src/components/common/search-bar';
-import selectMockCustomers from 'src/store/constants/customers';
-import CustomersAllTabContent from 'src/components/customers/customers-all-tab-content.component';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -41,10 +38,11 @@ function a11yProps(index) {
   };
 }
 
-export default function CustomersTabs({ userCustomers }) {
+const BEM_BLOCK = 'c-customers-side-menu-tabs';
+
+export default function CustomersSideMenuTabs() {
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
-  // const mockCustomers = selectMockCustomers();
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -55,9 +53,9 @@ export default function CustomersTabs({ userCustomers }) {
   };
 
   return (
-    <div className='c-customers-tabs'>
+    <div className={BEM_BLOCK}>
       <AppBar position="static" color="default">
-        <div className='c-customers-tabs__header-wrapper'>
+        <div className={`${BEM_BLOCK}__header-wrapper`}>
           <Tabs
             value={value}
             onChange={handleChange}
@@ -66,22 +64,19 @@ export default function CustomersTabs({ userCustomers }) {
             variant="fullWidth"
             aria-label="action tabs example"
           >
-            <Tab label="All" {...a11yProps(0)} />
-            <Tab label="Customers" {...a11yProps(1)} />
+            <Tab label="Trips" {...a11yProps(0)} />
+            <Tab label="Notes" {...a11yProps(1)} />
           </Tabs>
-          <div className='c-customers-tabs__search-bar-wrapper'>
-            <SearchBar placeholder='Search by name' />
-          </div>
         </div>
       </AppBar>
       <SwipeableViews
         axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-        className='c-customer-tab-content'
+        className={`${BEM_BLOCK}__content`}
         index={value}
         onChangeIndex={handleChangeIndex}
       >
         <TabPanel value={value} index={0} dir={theme.direction}>
-          <CustomersAllTabContent customers={userCustomers} />
+          A
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
           B

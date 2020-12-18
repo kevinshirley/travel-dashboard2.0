@@ -35,7 +35,6 @@ function* closeCustomerSideMenu() {
 }
 
 function* addCustomer({ payload }) {
-  console.log({ 'addCustomer saga': payload });
   yield put(forms.isSubmitting({ isSubmitting: true, form: 'addCustomer' }));
   const profile = yield select(selectSessionProfile);
 
@@ -46,13 +45,13 @@ function* addCustomer({ payload }) {
       createdBy: !isEmpty(profile) ? profile.id : '',
     };
     const result = yield call(axiosPost, '/api/customer/add', customerData);
-  
+
     if (result.status === 200 && result.data.success) {
       // add customer
       yield put(forms.isSubmitting({ isSubmitting: false, form: 'addCustomer' }));
       yield put(forms.setSuccess({ message: 'You\'ve successfully added this customer!', form: 'addCustomer' }));
       yield put(ui.closeModal());
-  
+
       // fetch user customers
       yield call(fetchUserCustomers);
     } else {

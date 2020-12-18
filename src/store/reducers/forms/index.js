@@ -175,7 +175,6 @@ function addCustomer(state = initialState, { type, payload }) {
   switch (type) {
     case FORMS.SET_ERROR:
       if (form === 'addCustomer') {
-        console.log({ message });
         return {
           ...state,
           error: {

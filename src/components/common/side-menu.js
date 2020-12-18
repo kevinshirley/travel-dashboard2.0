@@ -4,7 +4,7 @@ import cx from 'classnames';
 import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 import SideMenuTabs from 'src/components/common/side-menu-tabs';
-import CustomerProfileSideMenu from 'src/components/common/customer-profile-side-menu.component';
+import CustomerProfileSideMenu from 'src/components/customers/side-menu/customer-profile-side-menu.component';
 import { ITINERARY, CUSTOMERS } from 'src/store/constants/url';
 import { selectCustomer } from 'src/store/selectors/customers';
 import { selectIsCustomerSideMenu } from 'src/store/selectors/common';
