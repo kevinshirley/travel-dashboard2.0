@@ -53,7 +53,7 @@ function SignUpModal({ isLoading }) {
           }
         }}
       >
-        <Form className='c-sign-in-form'>
+        <Form className='c-generic-modal-form'>
           {!R.isEmpty(signUpError) && !R.isEmpty(signUpError.message) && (
             <>
               <Alert type='warning'>{signUpError.message}</Alert>

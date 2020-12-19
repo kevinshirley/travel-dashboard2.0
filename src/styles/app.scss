@@ -203,6 +203,11 @@ a {
   .MuiInputBase-multiline {
     padding: 0;
   }
+
+  #text-area-input {
+    text-indent: 15px;
+    padding: 18.5px 14px;
+  }
 }
 
 .upload-image {
@@ -1052,12 +1057,16 @@ a {
         margin-bottom: 100px;
       }
 
-      .c-sign-in-form {
+      .c-generic-modal-form {
         width: 90%;
         padding-bottom: 60px;
 
-        .text-field {
+        .text-field, .text-area-field {
           width: 100%;
+
+          .MuiFormControl-root {
+            width: 100%;
+          }
         }
 
         #rounded-button {
@@ -1101,7 +1110,7 @@ a {
         }
       }
       
-      .c-sign-in-form {
+      .c-generic-modal-form {
         padding-top: 20px;
       }
     }
@@ -1481,6 +1490,14 @@ a {
         color: $white;
         border: 1px solid $white;
       }
+    }
+  }
+}
+
+.c-add-customer-notes {
+  .c-add-customer-notes__date {
+    span {
+      font-weight: bold;
     }
   }
 }

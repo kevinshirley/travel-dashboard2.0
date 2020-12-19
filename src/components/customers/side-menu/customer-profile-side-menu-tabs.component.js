@@ -9,6 +9,9 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import { ADD_CIRCLE_OUTLINE_ICON, SPACING } from 'src/components/material-ui/icons';
 import Button from 'src/components/material-ui/text-button';
+import { useAction } from 'src/store/hooks';
+import * as actions from 'src/store/actions';
+import { MODALS } from 'src/store/constants/modals';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -45,6 +48,7 @@ const BEM_BLOCK = 'c-customers-side-menu-tabs';
 export default function CustomersSideMenuTabs() {
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
+  const openModal = useAction(actions.ui.openModal);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -86,7 +90,12 @@ export default function CustomersSideMenuTabs() {
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
           <div className={`${BEM_BLOCK}__notes-btn-wrapper`}>
-            <Button className={`${BEM_BLOCK}__notes-btn`} onClick={() => console.log('button add itinerary')}>
+            <Button
+              className={`${BEM_BLOCK}__notes-btn`}
+              onClick={() => openModal({
+                modal: MODALS.ADD_NOTES,
+              })}
+              >
               {ADD_CIRCLE_OUTLINE_ICON}{SPACING}Add notes
             </Button>
           </div>
