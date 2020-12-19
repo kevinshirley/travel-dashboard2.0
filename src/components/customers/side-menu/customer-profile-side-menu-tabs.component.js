@@ -7,6 +7,8 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
+import { ADD_CIRCLE_OUTLINE_ICON, SPACING } from 'src/components/material-ui/icons';
+import Button from 'src/components/material-ui/text-button';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -76,10 +78,18 @@ export default function CustomersSideMenuTabs() {
         onChangeIndex={handleChangeIndex}
       >
         <TabPanel value={value} index={0} dir={theme.direction}>
-          A
+          <div className={`${BEM_BLOCK}__add-itinerary-btn-wrapper`}>
+            <Button className={`${BEM_BLOCK}__add-itinerary-btn`} onClick={() => console.log('button add itinerary')}>
+              {ADD_CIRCLE_OUTLINE_ICON}{SPACING}Add itinerary
+            </Button>
+          </div>
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
-          B
+          <div className={`${BEM_BLOCK}__notes-btn-wrapper`}>
+            <Button className={`${BEM_BLOCK}__notes-btn`} onClick={() => console.log('button add itinerary')}>
+              {ADD_CIRCLE_OUTLINE_ICON}{SPACING}Add notes
+            </Button>
+          </div>
         </TabPanel>
       </SwipeableViews>
     </div>

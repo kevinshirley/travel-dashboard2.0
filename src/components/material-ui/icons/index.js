@@ -47,6 +47,7 @@ import LinkIcon from '@material-ui/icons/Link';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import PersonIcon from '@material-ui/icons/Person';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 
 export const PORTFOLIO_ICON = (
   <BurstModeOutlinedIcon />
@@ -236,4 +237,8 @@ export const PERSON_ICON = (
 
 export const MORE_VERT_ICON = (
   <MoreVertIcon />
+);
+
+export const ADD_CIRCLE_OUTLINE_ICON = (
+  <AddCircleOutlineIcon />
 );

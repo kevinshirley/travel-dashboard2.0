@@ -1444,7 +1444,42 @@ a {
       }
 
       .c-customers-side-menu-tabs__content {
-        // height: 80vh;
+        .MuiBox-root-21 {
+          padding: 0;
+        }
+
+        .c-customers-side-menu-tabs__add-itinerary-btn-wrapper {
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+
+          .c-customers-side-menu-tabs__add-itinerary-btn {
+            color: $white;
+          }
+        }
+
+        .c-customers-side-menu-tabs__notes-btn-wrapper {
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+
+          .c-customers-side-menu-tabs__notes-btn {
+            color: $white;
+          }
+        }
+      }
+    }
+
+    .c-customer-side-menu__full-profile-btn-wrapper {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+
+      .c-customer-side-menu__full-profile-btn {
+        color: $white;
+        border: 1px solid $white;
       }
     }
   }
