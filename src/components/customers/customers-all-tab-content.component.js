@@ -19,7 +19,11 @@ function CustomersAllTabContent({ customers = [] }) {
     phoneNumber,
     profileImage,
     trips,
-    isOnline
+    isOnline,
+    id,
+    createdAt,
+    createdBy,
+    notes,
   }) =>
     setCustomer({
       firstName,
@@ -28,7 +32,11 @@ function CustomersAllTabContent({ customers = [] }) {
       phoneNumber,
       profileImage,
       trips,
-      isOnline
+      isOnline,
+      id,
+      createdAt,
+      createdBy,
+      notes,
     });
 
   return (
@@ -38,10 +46,10 @@ function CustomersAllTabContent({ customers = [] }) {
           <>
             {customers.map((customer, i) => {
               const badgeClasses = cx('c-customers-all-tab-content__single-avatar', {
-                'badge__is-online': customer.isOnline,
-                'badge__not-online': !customer.isOnline,
+                'badge__is-online': customer.isOnline === 'true',
+                'badge__not-online': customer.isOnline === 'false',
               });
-
+              console.log({ customer });
               return (
                 <div className='c-customers-all-tab-content__single-wrapper'>
                   <div className='c-customers-all-tab-content__single' index={i} onClick={() => onCustomerClicked({
@@ -52,6 +60,10 @@ function CustomersAllTabContent({ customers = [] }) {
                     profileImage: customer.profileImage,
                     trips: customer.trips,
                     isOnline: customer.isOnline,
+                    id: customer.id,
+                    createdAt: customer.createdAt,
+                    createdBy: customer.createdBy,
+                    notes: customer.notes,
                   })}>
                     <div className='c-customers-all-tab-content__single-more'>
                       <IconButton aria-label="messages" color="inherit">{MORE_VERT_ICON}</IconButton>

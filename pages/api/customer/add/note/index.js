@@ -1,5 +1,4 @@
 const AWS = require('aws-sdk');
-const moment = require('moment');
 
 const {
   AWS_ACCESS_KEY_ID, 
@@ -16,8 +15,20 @@ const config = {
   }
 };
 
-const AddCustomer = (req, res) => {
-  const { id, firstName, lastName, email, phoneNumber, createdBy, isOnline } = req.body;
+const AddCustomerNote = (req, res) => {
+  const parsed = JSON.parse(req.body);
+
+  const {
+    id,
+    firstName,
+    lastName,
+    email,
+    phoneNumber,
+    createdBy,
+    createdAt,
+    isOnline,
+    notes,
+  } = parsed;
 
   AWS.config.update(config.aws_remote_config);
   const db = new AWS.DynamoDB.DocumentClient();
@@ -26,13 +37,14 @@ const AddCustomer = (req, res) => {
     TableName: config.aws_table_name,
     Item: {
       id,
-      createdAt: moment().format(),
-      createdBy: createdBy ? createdBy : '',
+      createdAt,
+      createdBy,
       firstName,
       lastName,
       email,
       phoneNumber,
       isOnline,
+      notes,
     }
   };
 
@@ -52,4 +64,4 @@ const AddCustomer = (req, res) => {
   });
 };
 
-export default AddCustomer;
+export default AddCustomerNote;

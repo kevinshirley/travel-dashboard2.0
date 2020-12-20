@@ -2,7 +2,7 @@ import { isEmpty, isNil } from 'ramda';
 import { put, takeLatest, select, call } from 'redux-saga/effects';
 import { CUSTOMER, ui, forms, SESSION, customers } from 'src/store/actions';
 import { selectIsCustomerSideMenu } from 'src/store/selectors/common';
-import { axiosPost } from 'src/utils/fetch';
+import { axiosPost, post } from 'src/utils/fetch';
 import uuidv4 from 'src/utils/uuidv4';
 import { selectSessionProfile } from 'src/store/selectors/session';
 
@@ -47,6 +47,7 @@ function* addCustomer({ payload }) {
       ...payload,
       id: uuidv4(),
       createdBy: !isEmpty(profile) ? profile.id : '',
+      isOnline: false,
     };
     const result = yield call(axiosPost, '/api/customer/add', customerData);
 
@@ -89,4 +90,7 @@ function* fetchUserCustomers() {
 
 function* addNote({ payload }) {
   console.log({ 'addNote payload': payload });
+
+  const result = yield call(post, '/api/customer/add/note', payload);
+  console.log({ result });
 }

@@ -18,8 +18,8 @@ function CustomerProfileSideMenu() {
   const closeCustomerSideMenu = useAction(actions.customer.closeCustomerSideMenu);
 
   const badgeClasses = cx(`${BEM_BLOCK}__single-avatar`, {
-    'badge__is-online': customer.isOnline,
-    'badge__not-online': !customer.isOnline,
+    'badge__is-online': customer.isOnline === 'true',
+    'badge__not-online': customer.isOnline === 'false',
   });
 
   return (

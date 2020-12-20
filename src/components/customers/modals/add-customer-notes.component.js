@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { Formik, Field, Form } from 'formik';
 import { useSelector } from 'react-redux';
-import { isEmpty, isNil } from 'ramda';
+import { isEmpty } from 'ramda';
 import * as moment from 'moment';
 import { useToasts } from 'react-toast-notifications';
 import * as actions from 'src/store/actions';
@@ -11,6 +11,8 @@ import { SPACING } from 'src/components/material-ui/icons';
 import RoundedButton from 'src/components/material-ui/rounded-button';
 import { selectAddCustomerIsSubmitting } from 'src/store/selectors/forms';
 import TextAreaField from 'src/components/common/text-area-field';
+import { selectCustomer } from 'src/store/selectors/customers';
+import uuidv4 from 'src/utils/uuidv4';
 
 const BEM_BLOCK = 'c-add-customer-notes';
 
@@ -18,13 +20,11 @@ function AddCustomerNotesModal() {
   const closeModal = useAction(actions.ui.closeModal);
   const addNote = useAction(actions.customer.addNote);
   const isSubmitting = useSelector(selectAddCustomerIsSubmitting);
+  const customer = useSelector(selectCustomer);
   const closeBtnRef = useRef();
-  const [date, setDate] = useState(new Date());
+  const [date, setDate] = useState(moment().format());
+  const [noteId, setNoteId] = useState(uuidv4());
   const { addToast } = useToasts();
-
-  useEffect(() => {
-    setDate(new Date());
-  }, []);
 
   return (
     <>
@@ -45,7 +45,17 @@ function AddCustomerNotesModal() {
             const { note } = values;
 
             if (!isEmpty(note)) {
-              addNote({ note, date });
+              const customerWithNewNote = {
+                ...customer,
+                notes: customer.notes ? [
+                  ...customer.notes,
+                  { id: noteId, note, createdAt: date },
+                ] : [
+                  { id: noteId, note, createdAt: date },
+                ],
+              };
+
+              addNote(customerWithNewNote);
             } else {
               addToast('Please add a note before submitting', {
                 appearance: 'warning',
@@ -64,7 +74,7 @@ function AddCustomerNotesModal() {
           <Field name='note' label='Note' type='text' component={TextAreaField} />
           {SPACING}
           <div className={`${BEM_BLOCK}__date`}>
-            <span>Date:{SPACING}</span>
+            <span>Created on:{SPACING}</span>
             {moment(date).format('LLL')}
           </div>
           {SPACING}
