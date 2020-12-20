@@ -22,6 +22,10 @@ export function* watchAddCustomer() {
   yield takeLatest(CUSTOMER.ADD, addCustomer);
 }
 
+export function* watchAddCustomerNote() {
+  yield takeLatest(CUSTOMER.ADD_NOTE, addNote);
+}
+
 function* setCustomer() {
   const isCustomerSideMenuOpened = yield select(selectIsCustomerSideMenu);
 
@@ -81,4 +85,8 @@ function* fetchUserCustomers() {
       console.log({ userCustomers });
     }
   }
+}
+
+function* addNote({ payload }) {
+  console.log({ 'addNote payload': payload });
 }

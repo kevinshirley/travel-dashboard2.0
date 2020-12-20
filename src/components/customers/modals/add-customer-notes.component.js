@@ -16,7 +16,7 @@ const BEM_BLOCK = 'c-add-customer-notes';
 
 function AddCustomerNotesModal() {
   const closeModal = useAction(actions.ui.closeModal);
-  const addCustomer = useAction(actions.customer.add);
+  const addNote = useAction(actions.customer.addNote);
   const isSubmitting = useSelector(selectAddCustomerIsSubmitting);
   const closeBtnRef = useRef();
   const [date, setDate] = useState(new Date());
@@ -45,8 +45,7 @@ function AddCustomerNotesModal() {
             const { note } = values;
 
             if (!isEmpty(note)) {
-              const customerNotes = { note, date };
-              console.log({ customerNotes });
+              addNote({ note, date });
             } else {
               addToast('Please add a note before submitting', {
                 appearance: 'warning',

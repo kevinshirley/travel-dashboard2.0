@@ -115,6 +115,7 @@ export const CUSTOMER = createTypes('CUSTOMER', [
   'SET',
   'CLOSE_CUSTOMER_SIDE_MENU',
   'ADD',
+  'ADD_NOTE',
 ]);
 
 export const CUSTOMERS = createTypes('CUSTOMERS', [
@@ -216,6 +217,7 @@ export const customer = {
   set: payload => action(CUSTOMER.SET, payload),
   closeCustomerSideMenu: () => action(CUSTOMER.CLOSE_CUSTOMER_SIDE_MENU),
   add: payload => action(CUSTOMER.ADD, payload),
+  addNote: payload => action(CUSTOMER.ADD_NOTE, payload),
 };
 
 export const customers = {
