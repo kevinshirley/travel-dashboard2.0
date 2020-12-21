@@ -1468,14 +1468,29 @@ a {
           }
         }
 
-        .c-customers-side-menu-tabs__notes-btn-wrapper {
-          width: 100%;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
+        .c-customers-side-menu-tabs__notes-wrapper {
+          .c-customers-side-menu-tabs__notes {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
 
-          .c-customers-side-menu-tabs__notes-btn {
-            color: $white;
+            .c-customers-side-menu-tabs__note {
+              margin-bottom: 20px;
+              display: flex;
+              flex-direction: column;
+            }
+          }
+
+          .c-customers-side-menu-tabs__notes-btn-wrapper {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+  
+            .c-customers-side-menu-tabs__notes-btn {
+              color: $white;
+            }
           }
         }
       }

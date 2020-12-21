@@ -49,7 +49,7 @@ function CustomersAllTabContent({ customers = [] }) {
                 'badge__is-online': customer.isOnline === 'true',
                 'badge__not-online': customer.isOnline === 'false',
               });
-              console.log({ customer });
+
               return (
                 <div className='c-customers-all-tab-content__single-wrapper'>
                   <div className='c-customers-all-tab-content__single' index={i} onClick={() => onCustomerClicked({
