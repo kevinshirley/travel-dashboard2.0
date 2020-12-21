@@ -48,6 +48,8 @@ $customers__single-avatar-color: $navbar-bg-color;
 $customers__single-background-color: $white;
 $customers__single-border-color: $grey-100;
 $customer-side-menu-profile-tabs-background-color: $side-menu-bg-color;
+$customer-side-menu-notes__background-color: $blue-50;
+$customer-side-menu-notes__color: $side-menu-bg-color;
 
 // Custom Variables
 $itinerary-side-menu-width: 15%;
@@ -1474,11 +1476,31 @@ a {
             display: flex;
             flex-direction: column;
             align-items: center;
+            height: 220px;
+            overflow-y: auto;
+            background: $customer-side-menu-notes__background-color;
+            margin-bottom: 20px;
+            padding: 10px;
+            border-radius: 8px;
 
             .c-customers-side-menu-tabs__note {
               margin-bottom: 20px;
               display: flex;
               flex-direction: column;
+              color: $customer-side-menu-notes__color;
+
+              .c-customers-side-menu-tabs__note-date {
+                background: $customer-side-menu-notes__color;
+                color: $customer-side-menu-notes__background-color;
+                text-align: center;
+                border-radius: 6px;
+                padding: 2px 10px;
+              }
+            }
+
+            .c-customers-side-menu-tabs__see-more-notes {
+              color: $customer-side-menu-notes__color;
+              cursor: pointer;
             }
           }
 
