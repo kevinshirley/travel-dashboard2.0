@@ -4,6 +4,7 @@ import { selectAddCustomerSuccess, selectAddCustomerIsSubmitting, selectAddCusto
 
 const emptyObject = {};
 const emptyArray = [];
+const limitedCustomerNotesAmount = 3;
 
 export const selectCustomer = pathOr(emptyObject, ['customer']);
 export const selectUserCustomers = pathOr(emptyObject, ['customers', 'userCustomers']);
@@ -18,7 +19,15 @@ export const selectLimitedCustomerNotes = createSelector(
   selectCustomerNotes,
   customerNotes => {
     if (isEmpty(customerNotes)) return emptyArray;
-    return reverse(takeLast(3, customerNotes));
+    return reverse(takeLast(limitedCustomerNotesAmount, customerNotes));
+  },
+);
+
+export const selectIsCustomerNotesMoreThanLimited = createSelector(
+  selectCustomerNotes,
+  customerNotes => {
+    if (isEmpty(customerNotes)) return false;
+    return customerNotes.length > limitedCustomerNotesAmount;
   },
 );
 
