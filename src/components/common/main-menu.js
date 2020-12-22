@@ -19,7 +19,14 @@ import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 import Button from 'src/components/material-ui/text-button';
 import DayToDayTabs from 'src/components/common/day-to-day-tabs.js';
-import { ITINERARY_EDITOR_PATHNAMES, ADD_ITINERARY, MANAGE_ITINERARY, ITINERARY, CUSTOMERS } from 'src/store/constants/url';
+import {
+  ITINERARY_EDITOR_PATHNAMES,
+  ADD_ITINERARY,
+  MANAGE_ITINERARY,
+  ITINERARY,
+  CUSTOMERS,
+  CUSTOMER_PROFILE,
+} from 'src/store/constants/url';
 import { selectDayToDayToManage } from 'src/store/selectors/manage-itinerary';
 import { useAction } from 'src/store/hooks';
 
@@ -36,7 +43,7 @@ function MainMenu({
   const logout = useAction(actions.session.logout);
 
   const mainMenuClasses = cx({
-    'main-menu__no-box-shadow': router.pathname === CUSTOMERS,
+    'main-menu__no-box-shadow': router.pathname === CUSTOMERS || router.pathname === CUSTOMER_PROFILE,
   }, 'main-menu');
 
   const dayToDayListTabs = () => {

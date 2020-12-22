@@ -48,7 +48,7 @@ $customers__single-avatar-color: $navbar-bg-color;
 $customers__single-background-color: $white;
 $customers__single-border-color: $grey-100;
 $customer-side-menu-profile-tabs-background-color: $side-menu-bg-color;
-$customer-side-menu-notes__background-color: $blue-50;
+$customer-side-menu-notes__background-color: $grey-50;
 $customer-side-menu-notes__color: $side-menu-bg-color;
 
 // Custom Variables
@@ -183,6 +183,18 @@ a {
 
 .long-text-displayed {
 	display: block;
+}
+
+.MuiPaper-root {
+  .MuiTabs-root {
+    .MuiButtonBase-root {
+      outline: none;
+    }
+  }
+}
+
+.MuiTable-root {
+  min-width: 350px;
 }
 
 /* Components */
@@ -1576,6 +1588,18 @@ a {
   .c-add-customer-notes__date {
     span {
       font-weight: bold;
+    }
+  }
+}
+
+.c-customer-profile {
+  .c-customer-profile-tabs {
+    .MuiPaper-elevation4 {
+      box-shadow: none;
+    }
+
+    .MuiAppBar-colorDefault {
+      background: #fafafa;
     }
   }
 }

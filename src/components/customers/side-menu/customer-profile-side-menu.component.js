@@ -10,6 +10,7 @@ import Badge from '@material-ui/core/Badge';
 import Button from 'src/components/material-ui/text-button';
 import CustomersSideMenuTabs from 'src/components/customers/side-menu/customer-profile-side-menu-tabs.component';
 import { PERSON_OUTLINE_ICON, KEYBOARD_ARROW_RIGHT_ICON, SPACING } from 'src/components/material-ui/icons';
+import Link from 'src/components/common/link';
 
 const BEM_BLOCK = 'c-customer-side-menu';
 
@@ -55,7 +56,9 @@ function CustomerProfileSideMenu() {
           </div>
           <CustomersSideMenuTabs />
           <div className={`${BEM_BLOCK}__full-profile-btn-wrapper`}>
-            <Button className={`${BEM_BLOCK}__full-profile-btn`} onClick={() => console.log('see full profile')}>See more{SPACING}{KEYBOARD_ARROW_RIGHT_ICON}</Button>
+            <Link href={`/customers/${customer.id}`}>
+              <Button className={`${BEM_BLOCK}__full-profile-btn`}>See full profile{SPACING}{KEYBOARD_ARROW_RIGHT_ICON}</Button>
+            </Link>
           </div>
         </div>
       )}
