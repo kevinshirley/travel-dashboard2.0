@@ -52,7 +52,7 @@ function* addCustomer({ payload }) {
     const result = yield call(axiosPost, '/api/customer/add', customerData);
 
     if (result.status === 200 && result.data.success) {
-      // add customer
+      // customer added message
       yield put(forms.isSubmitting({ isSubmitting: false, form: 'addCustomer' }));
       yield put(forms.setSuccess({ message: 'You\'ve successfully added this customer!', form: 'addCustomer' }));
       yield put(ui.closeModal());
@@ -82,15 +82,30 @@ function* fetchUserCustomers() {
 
     if (userCustomers.status === 200 && userCustomers.data.success) {
       yield put(customers.setUser(userCustomers.data.customers));
+      yield put(forms.isSubmitting({ isSubmitting: false, form: 'userCustomers' }));
     } else {
-      console.log({ userCustomers });
+      yield put(forms.setError({ message: result.error.message ? result.error.message : 'An error occured when pulling the customers list.', form: 'addCustomer' }));
+      yield put(forms.isSubmitting({ isSubmitting: false, form: 'userCustomers' }));
     }
   }
 }
 
 function* addNote({ payload }) {
-  console.log({ 'addNote payload': payload });
-
+  yield put(forms.isSubmitting({ isSubmitting: true, form: 'addCustomerNote' }));
   const result = yield call(post, '/api/customer/add/note', payload);
-  console.log({ result });
+
+  if (result.success) {
+    // note added
+    yield put(forms.isSubmitting({ isSubmitting: false, form: 'addCustomerNote' }));
+    yield put(forms.setSuccess({ message: 'You\'ve successfully added a note for this customer', form: 'addCustomerNote' }));
+    yield put(ui.closeModal());
+
+    // fetch user customers
+    yield call(fetchUserCustomers);
+  } else {
+    yield put(forms.isSubmitting({ isSubmitting: false, form: 'addCustomerNote' }));
+    yield put(forms.setError({ message: 'An error occured when adding a note for this customer', form: 'addCustomerNote' }));
+    yield put(ui.closeModal());
+    console.log({ result });
+  }
 }

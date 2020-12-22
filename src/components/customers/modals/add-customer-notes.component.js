@@ -9,7 +9,7 @@ import { useAction } from 'src/store/hooks';
 import { CLOSE_ICON } from 'src/components/material-ui/icons';
 import { SPACING } from 'src/components/material-ui/icons';
 import RoundedButton from 'src/components/material-ui/rounded-button';
-import { selectAddCustomerIsSubmitting } from 'src/store/selectors/forms';
+import { selectAddCustomerNoteIsSubmitting } from 'src/store/selectors/forms';
 import TextAreaField from 'src/components/common/text-area-field';
 import { selectCustomer } from 'src/store/selectors/customers';
 import uuidv4 from 'src/utils/uuidv4';
@@ -19,7 +19,7 @@ const BEM_BLOCK = 'c-add-customer-notes';
 function AddCustomerNotesModal() {
   const closeModal = useAction(actions.ui.closeModal);
   const addNote = useAction(actions.customer.addNote);
-  const isSubmitting = useSelector(selectAddCustomerIsSubmitting);
+  const isSubmitting = useSelector(selectAddCustomerNoteIsSubmitting);
   const customer = useSelector(selectCustomer);
   const closeBtnRef = useRef();
   const [date, setDate] = useState(moment().format());

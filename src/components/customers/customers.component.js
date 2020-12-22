@@ -9,7 +9,9 @@ function Customers({
   addCustomerError,
   resetSuccess,
   resetError,
-  userCustomers
+  userCustomers,
+  addCustomerNoteSuccess,
+  addCustomerNoteError,
 }) {
   const { addToast } = useToasts();
 
@@ -27,7 +29,26 @@ function Customers({
         autoDismiss: false,
       }, () => resetError({ form: 'addCustomer' }));
     }
-  }, [addCustomerSuccess, addCustomerError]);
+
+    if (!isEmpty(addCustomerNoteSuccess)) {
+      addToast(addCustomerNoteSuccess.message, {
+        appearance: 'success',
+        autoDismiss: false,
+      }, () => resetSuccess({ form: 'addCustomerNote' }));
+    }
+
+    if (!isEmpty(addCustomerNoteError)) {
+      addToast(addCustomerNoteError.message, {
+        appearance: 'error',
+        autoDismiss: false,
+      }, () => resetError({ form: 'addCustomerNote' }));
+    }
+  }, [
+    addCustomerSuccess,
+    addCustomerError,
+    addCustomerNoteSuccess,
+    addCustomerNoteError,
+  ]);
 
   return (
     <section className='c-customers'>
@@ -54,6 +75,8 @@ Customers.prototypes = {
       isOnline: PropTypes.bool,
     }),
   ),
+  addCustomerNoteSuccess: PropTypes.object,
+  addCustomerNoteError: PropTypes.object,
 };
 
 export default Customers;

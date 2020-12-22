@@ -9,7 +9,9 @@ function CustomersPage({
   addCustomerError,
   resetSuccess,
   resetError,
-  userCustomers
+  userCustomers,
+  addCustomerNoteSuccess,
+  addCustomerNoteError,
 }) {
   return (
     <>
@@ -21,6 +23,8 @@ function CustomersPage({
           resetError={resetError}
           resetSuccess={resetSuccess}
           userCustomers={userCustomers}
+          addCustomerNoteSuccess={addCustomerNoteSuccess}
+          addCustomerNoteError={addCustomerNoteError}
         />
       </ToastProvider>
     </>
@@ -43,6 +47,8 @@ CustomersPage.prototypes = {
       isOnline: PropTypes.bool,
     }),
   ),
+  addCustomerNoteSuccess: PropTypes.object,
+  addCustomerNoteError: PropTypes.object,
 };
 
 export default CustomersPage;

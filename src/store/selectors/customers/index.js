@@ -1,6 +1,13 @@
 import { pathOr, isEmpty, takeLast, reverse } from 'ramda';
 import { createStructuredSelector, createSelector } from 'reselect';
-import { selectAddCustomerSuccess, selectAddCustomerIsSubmitting, selectAddCustomerError } from 'src/store/selectors/forms';
+import {
+  selectAddCustomerSuccess,
+  selectAddCustomerIsSubmitting,
+  selectAddCustomerError,
+  selectAddCustomerNoteSuccess,
+  selectAddCustomerNoteError,
+  selectAddCustomerNoteIsSubmitting,
+} from 'src/store/selectors/forms';
 
 const emptyObject = {};
 const emptyArray = [];
@@ -36,4 +43,7 @@ export default createStructuredSelector({
   isSubmitting: selectAddCustomerIsSubmitting,
   addCustomerError: selectAddCustomerError,
   userCustomers: selectUserCustomers,
+  addCustomerNoteSuccess: selectAddCustomerNoteSuccess,
+  addCustomerNoteError: selectAddCustomerNoteError,
+  addCustomerNoteIsSubmitting: selectAddCustomerNoteIsSubmitting,
 });

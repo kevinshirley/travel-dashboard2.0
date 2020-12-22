@@ -34,14 +34,12 @@ function AddCustomerModal() {
         }}
         onSubmit={async values => {
           try {
-            console.log({ values });
             addCustomer(values);
           } catch (err) {
-            addToast('Error', {
+            addToast(`Error: ${err}`, {
               appearance: 'error',
               autoDismiss: true, 
             });
-            console.error({ err });
           }
         }}
       >
