@@ -51,7 +51,7 @@ function CustomersAllTabContent({ customers = [] }) {
               });
 
               return (
-                <div className='c-customers-all-tab-content__single-wrapper'>
+                <div className='c-customers-all-tab-content__single-wrapper' key={i}>
                   <div className='c-customers-all-tab-content__single' index={i} onClick={() => onCustomerClicked({
                     firstName: customer.firstName,
                     lastName: customer.lastName,

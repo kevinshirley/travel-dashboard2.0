@@ -150,6 +150,41 @@ a {
   }
 }
 
+.text-with-read-more {
+	.read-more {
+		color: $link-color;
+		text-transform: lowercase;
+		cursor: pointer;
+		&:hover {
+			text-decoration: underline;
+		}
+	}
+}
+
+.short-text-hidden {
+	display: none;
+}
+
+.medium-text-hidden {
+	display: none;
+}
+
+.long-text-hidden {
+	display: none;
+}
+
+.short-text-displayed {
+	display: block;
+}
+
+.medium-text-displayed {
+	display: block;
+}
+
+.long-text-displayed {
+	display: block;
+}
+
 /* Components */
 .mini-card {
   border-radius: 7px;
@@ -1455,6 +1490,10 @@ a {
       }
 
       .c-customers-side-menu-tabs__content {
+        .MuiBox-root {
+          padding: 24px 5px;
+        }
+
         .MuiBox-root-21 {
           padding: 0;
         }
@@ -1484,6 +1523,7 @@ a {
             border-radius: 8px;
 
             .c-customers-side-menu-tabs__note {
+              width: 100%;
               margin-bottom: 20px;
               display: flex;
               flex-direction: column;
@@ -1495,6 +1535,7 @@ a {
                 text-align: center;
                 border-radius: 6px;
                 padding: 2px 10px;
+                margin-bottom: 7px;
               }
             }
 

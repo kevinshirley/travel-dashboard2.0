@@ -8,6 +8,7 @@ import { useAction } from 'src/store/hooks';
 import * as actions from 'src/store/actions';
 import { MODALS } from 'src/store/constants/modals';
 import { selectLimitedCustomerNotes, selectIsCustomerNotesMoreThanLimited } from 'src/store/selectors/customers';
+import ReadMoreText from 'src/components/common/read-more-text';
 
 const BEM_BLOCK = 'c-customers-side-menu-tabs';
 
@@ -20,14 +21,28 @@ function CustomerSideMenuProfileNotes() {
     <div className={`${BEM_BLOCK}__notes-wrapper`}>
       {!isEmpty(limitedCustomerNotes) && (
         <div className={`${BEM_BLOCK}__notes`}>
-          {limitedCustomerNotes && limitedCustomerNotes.map(noteItem => (
-            <div className={`${BEM_BLOCK}__note`} key={noteItem.id}>
-              <span className={`${BEM_BLOCK}__note-date`}>{moment(noteItem.createdAt).format('L')} {moment(noteItem.createdAt).format('LT')}</span>
-              <span className={`${BEM_BLOCK}__note-text`}>{noteItem.note}</span>
-            </div>
-          ))}
+          {limitedCustomerNotes && limitedCustomerNotes.map(noteItem => {
+            let shortNoteText;
+
+            if (noteItem.note && noteItem.note.length > 88) {
+              shortNoteText = noteItem.note.substr(0, 88) + ' ... ';
+            }
+
+            return (
+              <div className={`${BEM_BLOCK}__note`} key={noteItem.id}>
+                <span className={`${BEM_BLOCK}__note-date`}>{moment(noteItem.createdAt).format('L')} {moment(noteItem.createdAt).format('LT')}</span>
+                <span className={`${BEM_BLOCK}__note-text`}>
+                  {shortNoteText ? (
+                    <ReadMoreText short={shortNoteText} long={noteItem.note} />
+                  ) : (
+                    <>{noteItem.note}</>
+                  )}
+                </span>
+              </div>
+            );
+          })}
           {isCustomerNotesMoreThanLimited && (
-            <span className={`${BEM_BLOCK}__see-more-notes`}>See more notes{SPACING}{KEYBOARD_ARROW_RIGHT_ICON}</span>
+            <span className={`${BEM_BLOCK}__see-more-notes`} onClick={() => console.log('display all notes in full customer profile page')}>See more notes{SPACING}{KEYBOARD_ARROW_RIGHT_ICON}</span>
           )}
         </div>
       )}

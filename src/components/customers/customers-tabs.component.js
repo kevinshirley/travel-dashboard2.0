@@ -8,7 +8,6 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import SearchBar from 'src/components/common/search-bar';
-import selectMockCustomers from 'src/store/constants/customers';
 import CustomersAllTabContent from 'src/components/customers/customers-all-tab-content.component';
 
 function TabPanel(props) {
@@ -44,7 +43,6 @@ function a11yProps(index) {
 export default function CustomersTabs({ userCustomers }) {
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
-  // const mockCustomers = selectMockCustomers();
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
