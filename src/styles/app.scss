@@ -1603,3 +1603,21 @@ a {
     }
   }
 }
+
+.c-customer-details-tab {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+
+  @media screen and (max-width: 950px) {
+   flex-direction: column; 
+  }
+
+  .c-customer-info {
+    margin-right: 10px;
+  }
+
+  .c-customer-billing {
+    margin-left: 10px;
+  }
+}

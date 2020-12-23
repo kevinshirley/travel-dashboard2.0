@@ -54,7 +54,8 @@ import {
   watchCloseCustomerSideMenu,
   watchAddCustomer,
   watchFetchUserCustomers,
-  watchAddCustomerNote
+  watchAddCustomerNote,
+  watchSetCustomerOnInit
 } from 'src/store/sagas/customers';
 
 function* rootSaga() {
@@ -100,7 +101,8 @@ function* rootSaga() {
     watchCloseCustomerSideMenu(),
     watchAddCustomer(),
     watchFetchUserCustomers(),
-    watchAddCustomerNote()
+    watchAddCustomerNote(),
+    watchSetCustomerOnInit()
   ]);
 }
 

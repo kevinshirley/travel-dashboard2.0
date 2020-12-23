@@ -8,6 +8,7 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import CustomerDetailsTab from 'src/components/customer-profile/customer-details-tab.component';
+import CustomerInvoicesTab from 'src/components/customer-profile/customer-invoices-tab.component';
 import CustomerNotesTab from 'src/components/customer-profile/customer-notes-tab.component';
 
 function TabPanel(props) {
@@ -82,7 +83,7 @@ export default function CustomersSideMenuTabs({ customer, descendantCustomerNote
           <CustomerDetailsTab customer={customer} />
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
-          B
+          <CustomerInvoicesTab />
         </TabPanel>
         <TabPanel value={value} index={2} dir={theme.direction}>
           <CustomerNotesTab descendantCustomerNotes={descendantCustomerNotes} />

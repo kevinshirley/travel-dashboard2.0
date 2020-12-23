@@ -1,5 +1,4 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -8,36 +7,27 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
-const BEM_BLOCK = 'c-customer-info';
+const BEM_BLOCK = 'c-customer-billing';
 
 function createData(fieldName, value) {
   return { fieldName, value };
 }
 
 function BasicTable({ customer }) {
-  let rows;
-  if (customer.country) {
-    rows = [
-      createData('Email', customer.email),
-      createData('Phone number', customer.phoneNumber),
-      createData('Country', ''),
-      createData('State/Region', ''),
-      createData('Address 1', ''),
-      createData('Address 2', ''),
-    ];
-  } else {
-    rows = [
-      createData('Email', customer.email),
-      createData('Phone number', customer.phoneNumber),
-    ];
-  }
+  const rows = [
+    createData('Credit Card', ''),
+    createData('Paid', ''),
+    createData('Unpaid/Due', ''),
+    createData('Refunded', ''),
+    createData('Gross Income', ''),
+  ];
 
   return (
     <TableContainer className={`${BEM_BLOCK}`} component={Paper}>
       <Table aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell>Customer info</TableCell>
+            <TableCell>Invoices/Billing</TableCell>
             <TableCell align="right"></TableCell>
             <TableCell align="right"></TableCell>
             <TableCell align="right"></TableCell>

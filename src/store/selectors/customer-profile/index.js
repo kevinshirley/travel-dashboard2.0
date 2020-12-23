@@ -1,6 +1,6 @@
 import { createStructuredSelector, createSelector } from 'reselect';
 import { pathOr, reverse, isEmpty } from 'ramda';
-import { selectCustomerNotes } from 'src/store/selectors/customers';
+import { selectCustomerNotes, selectUserCustomers } from 'src/store/selectors/customers';
 
 const emptyObject = {};
 const emptyArray = [];
@@ -18,4 +18,5 @@ export const selectDescendantCustomerNotes = createSelector(
 export default createStructuredSelector({
   customer: selectCustomer,
   descendantCustomerNotes: selectDescendantCustomerNotes,
+  userCustomers: selectUserCustomers,
 });

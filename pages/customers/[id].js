@@ -4,8 +4,7 @@ import storeConnector from 'src/store/selectors/customer-profile';
 import * as actions from 'src/store/actions';
 
 const actionCreators = {
-  resetSuccess: actions.forms.resetSuccess,
-  resetError: actions.forms.resetError,
+  setCustomerOnInit: actions.customer.setCustomerOnInit,
 };
 
 export default connect(

@@ -1,10 +1,11 @@
 import { isEmpty, isNil } from 'ramda';
 import { put, takeLatest, select, call } from 'redux-saga/effects';
-import { CUSTOMER, ui, forms, SESSION, customers } from 'src/store/actions';
+import { CUSTOMER, ui, forms, SESSION, customers, customer } from 'src/store/actions';
 import { selectIsCustomerSideMenu } from 'src/store/selectors/common';
 import { axiosPost, post } from 'src/utils/fetch';
 import uuidv4 from 'src/utils/uuidv4';
 import { selectSessionProfile } from 'src/store/selectors/session';
+import { selectUserCustomers } from 'src/store/selectors/customers';
 
 export function* watchSetCustomer() {
   yield takeLatest(CUSTOMER.SET, setCustomer);
@@ -24,6 +25,10 @@ export function* watchAddCustomer() {
 
 export function* watchAddCustomerNote() {
   yield takeLatest(CUSTOMER.ADD_NOTE, addNote);
+}
+
+export function* watchSetCustomerOnInit() {
+  yield takeLatest(CUSTOMER.SET_ON_INIT, setCustomerOnInit);
 }
 
 function* setCustomer() {
@@ -108,4 +113,19 @@ function* addNote({ payload }) {
     yield put(ui.closeModal());
     console.log({ result });
   }
+}
+
+function* setCustomerOnInit({ payload }) {
+  const { query: id } = payload;
+  const customerID = id.id;
+  const userCustomers = yield select(selectUserCustomers);
+  let cxData = {};
+
+  userCustomers.map(cx => {
+    if (cx.id === customerID) {
+      cxData = cx;
+    }
+  });
+
+  yield put(customer.set(cxData));
 }

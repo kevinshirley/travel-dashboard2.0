@@ -14,7 +14,7 @@ const emptyArray = [];
 const limitedCustomerNotesAmount = 3;
 
 export const selectCustomer = pathOr(emptyObject, ['customer']);
-export const selectUserCustomers = pathOr(emptyObject, ['customers', 'userCustomers']);
+export const selectUserCustomers = pathOr(emptyArray, ['customers', 'userCustomers']);
 export const selectCustomerId = pathOr(emptyObject, ['customer', 'id']);
 
 export const selectCustomerNotes = createSelector(
