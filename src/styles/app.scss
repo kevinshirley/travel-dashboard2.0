@@ -1390,13 +1390,15 @@ a {
         border-bottom-right-radius: 15px;
 
         .c-customers-all-tab-content__single-button {
-          width: 50%;
+          width: 100%;
           height: 45px;
           border-right: 1px solid $grey-125;
           display: flex;
           justify-content: center;
           align-items: center;
           background: $grey-100;
+          color: $black;
+          @include transition-ease-out;
 
           &:nth-child(1) {
             border-bottom-left-radius: 15px;
@@ -1610,7 +1612,7 @@ a {
   justify-content: space-around;
 
   @media screen and (max-width: 950px) {
-   flex-direction: column; 
+   flex-direction: column;
   }
 
   .c-customer-info {

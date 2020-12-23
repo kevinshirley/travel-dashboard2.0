@@ -7,7 +7,10 @@ import { MORE_VERT_ICON } from 'src/components/material-ui/icons';
 import IconButton from '@material-ui/core/IconButton';
 import { useAction } from 'src/store/hooks';
 import * as actions from 'src/store/actions';
-import { PERSON_OUTLINE_ICON } from 'src/components/material-ui/icons';
+import { PERSON_OUTLINE_ICON, ARROW_RIGHT_ALT_ICON } from 'src/components/material-ui/icons';
+import Link from 'src/components/common/link';
+
+const BEM_BLOCK = 'c-customers-all-tab-content';
 
 function CustomersAllTabContent({ customers = [] }) {
   const setCustomer = useAction(actions.customer.set);
@@ -40,19 +43,19 @@ function CustomersAllTabContent({ customers = [] }) {
     });
 
   return (
-    <section className='c-customers-all-tab-content__container'>
+    <section className={`${BEM_BLOCK}__container`}>
       <div className='inner'>
         {!isEmpty(customers) ? (
           <>
             {customers.map((customer, i) => {
-              const badgeClasses = cx('c-customers-all-tab-content__single-avatar', {
+              const badgeClasses = cx(`${BEM_BLOCK}__single-avatar`, {
                 'badge__is-online': customer.isOnline === 'true',
                 'badge__not-online': customer.isOnline === 'false',
               });
 
               return (
-                <div className='c-customers-all-tab-content__single-wrapper' key={i}>
-                  <div className='c-customers-all-tab-content__single' index={i} onClick={() => onCustomerClicked({
+                <div className={`${BEM_BLOCK}__single-wrapper`} key={i}>
+                  <div className={`${BEM_BLOCK}__single`} index={i} onClick={() => onCustomerClicked({
                     firstName: customer.firstName,
                     lastName: customer.lastName,
                     email: customer.email,
@@ -65,10 +68,10 @@ function CustomersAllTabContent({ customers = [] }) {
                     createdBy: customer.createdBy,
                     notes: customer.notes,
                   })}>
-                    <div className='c-customers-all-tab-content__single-more'>
+                    <div className={`${BEM_BLOCK}__single-more`}>
                       <IconButton aria-label="messages" color="inherit">{MORE_VERT_ICON}</IconButton>
                     </div>
-                    <div className='c-customers-all-tab-content__single-avatar-wrapper'>
+                    <div className={`${BEM_BLOCK}__single-avatar-wrapper`}>
                       <Badge
                         badgeContent=" "
                         className={badgeClasses}
@@ -87,19 +90,19 @@ function CustomersAllTabContent({ customers = [] }) {
                         )}
                       </Badge>
                     </div>
-                    <div className='c-customers-all-tab-content__single-details'>
+                    <div className={`${BEM_BLOCK}__single-details`}>
                       <span className='name'>{`${customer.firstName} ${customer.lastName}`}</span>
                       <span className='email'>{customer.email}</span>
                       <span className='phoneNumber'>{customer.phoneNumber}</span>
                     </div>
                   </div>
-                  <div className='c-customers-all-tab-content__single-buttons'>
-                    <div className='c-customers-all-tab-content__single-button'>
-                      <span>{toUpper('Trips')}</span>
-                    </div>
-                    <div className='c-customers-all-tab-content__single-button'>
-                      <span>{toUpper('Notes')}</span>
-                    </div>
+                  <div className={`${BEM_BLOCK}__single-buttons`}>
+                    <Link
+                      className={`${BEM_BLOCK}__single-button`}
+                      href={`/customers/${customer.id}`}
+                    >
+                      {ARROW_RIGHT_ALT_ICON}
+                    </Link>
                   </div>
                 </div>
               );
