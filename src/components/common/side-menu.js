@@ -1,32 +1,48 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import * as R from 'ramda';
+import cx from 'classnames';
 import { useRouter } from 'next/router';
-import * as actions from 'src/store/actions';
-import storeConnector from 'src/store/selectors/common';
+import { useSelector } from 'react-redux';
 import SideMenuTabs from 'src/components/common/side-menu-tabs';
-import { ITINERARY } from 'src/store/constants/url';
+import CustomerProfileSideMenu from 'src/components/customers/side-menu/customer-profile-side-menu.component';
+import { ITINERARY, CUSTOMERS } from 'src/store/constants/url';
+import { selectCustomer } from 'src/store/selectors/customers';
+import { selectIsCustomerSideMenu } from 'src/store/selectors/common';
 
 function SideMenu() {
   const router = useRouter();
+  const customer = useSelector(selectCustomer);
+  const isCustomerSideMenuOpened = useSelector(selectIsCustomerSideMenu);
+
+  const sideMenuClasses = cx('side-menu', {
+    'side-menu__no-box-shadow': router.pathname === CUSTOMERS,
+  });
 
   const SideMenuItineraryPage = () => (
     <div className='side-menu side-menu__itinerary-page' />
   );
 
+  const renderSideMenu = () => {
+    if (router.pathname === ITINERARY) {
+      return <SideMenuItineraryPage />;
+    }
+
+    if (router.pathname === CUSTOMERS && !R.isEmpty(customer) && isCustomerSideMenuOpened) {
+      return <CustomerProfileSideMenu />;
+    }
+
+    return (
+      <div className={sideMenuClasses}>
+        <SideMenuTabs />
+      </div>
+    );
+  };
+
   return (
     <>
-      {router.pathname === ITINERARY ? (
-        <SideMenuItineraryPage />
-      ) : (
-        <div className='side-menu'>
-          <SideMenuTabs />
-        </div>
-      )}
+      {renderSideMenu()}
     </>
   );
 }
 
-export default connect(
-  storeConnector,
-  {},
-)(SideMenu);
+export default SideMenu;

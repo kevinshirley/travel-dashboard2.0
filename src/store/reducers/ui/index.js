@@ -114,6 +114,15 @@ function shouldResetItinerariesTable(state = false, { type, payload }) {
   }
 }
 
+function isCustomerSideMenu(state = false, { type, payload }) {
+  switch (type) {
+    case UI.IS_CUSTOMER_SIDE_MENU:
+      return payload;
+    default:
+      return state;
+  }
+}
+
 export default combineReducers({
   isModalOpened,
   isMenuOpened,
@@ -126,4 +135,5 @@ export default combineReducers({
   modalUi,
   modalUiPayload,
   shouldResetItinerariesTable,
+  isCustomerSideMenu,
 });

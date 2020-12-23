@@ -19,7 +19,14 @@ import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 import Button from 'src/components/material-ui/text-button';
 import DayToDayTabs from 'src/components/common/day-to-day-tabs.js';
-import { ITINERARY_EDITOR_PATHNAMES, ADD_ITINERARY, MANAGE_ITINERARY, ITINERARY } from 'src/store/constants/url';
+import {
+  ITINERARY_EDITOR_PATHNAMES,
+  ADD_ITINERARY,
+  MANAGE_ITINERARY,
+  ITINERARY,
+  CUSTOMERS,
+  CUSTOMER_PROFILE,
+} from 'src/store/constants/url';
 import { selectDayToDayToManage } from 'src/store/selectors/manage-itinerary';
 import { useAction } from 'src/store/hooks';
 
@@ -34,6 +41,10 @@ function MainMenu({
   const tab = dayToDayTab;
   const dayToDayToManage = useSelector(selectDayToDayToManage);
   const logout = useAction(actions.session.logout);
+
+  const mainMenuClasses = cx({
+    'main-menu__no-box-shadow': router.pathname === CUSTOMERS || router.pathname === CUSTOMER_PROFILE,
+  }, 'main-menu');
 
   const dayToDayListTabs = () => {
     if (router.pathname === MANAGE_ITINERARY) {
@@ -55,28 +66,28 @@ function MainMenu({
   }
 
   const MainMenuContent = () => (
-    <div className="main-menu">
+    <div className={mainMenuClasses}>
       <div className='inner'>
         <div className='main-navigation'>
-          <Link className='main-navigation-icon' href="/">
+          <Link className='main-navigation-icon' href='/'>
             {HOME_ICON}
           </Link>
-          <Link className='main-navigation-icon' href="/profiles">
+          <Link className='main-navigation-icon' href='/customers'>
             {PEOPLE_ICON}
           </Link>
-          <Link className='main-navigation-icon' href="/itineraries">
+          <Link className='main-navigation-icon' href='/itineraries'>
             {TODAY_CALENDAR_ICON}
           </Link>
-          <Link className='main-navigation-icon' href="/reports">
+          <Link className='main-navigation-icon' href='/reports'>
             {BAR_CHART_ICON}
           </Link>
-          <Link className='main-navigation-icon' href="/search-history">
-            {CLOCK_ICON}
-          </Link>
-          <Link className='main-navigation-icon' href="/notifications">
+          <Link className='main-navigation-icon' href='/notifications'>
             {NOTIFICATIONS_ICON}
           </Link>
-          <Link className='main-navigation-icon' href="/settings">
+          <Link className='main-navigation-icon' href='/search-history'>
+            {CLOCK_ICON}
+          </Link>
+          <Link className='main-navigation-icon' href='/settings'>
             {SETTINGS_ICON}
           </Link>
         </div>
@@ -90,7 +101,7 @@ function MainMenu({
   );
 
   const AddItineraryMenuContent = ({ setDayToDayTab }) => (
-    <div className="main-menu add-itinerary-menu">
+    <div className='main-menu add-itinerary-menu'>
       <div className='inner'>
         <DayToDayTabs setDayToDayTab={setDayToDayTab} list={dayToDayListTabs()} tab={tab} />
         <Button onClick={handleAddedItineraryDay}>

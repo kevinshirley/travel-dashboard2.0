@@ -1,9 +1,9 @@
 import { isEmpty, isNil, dissoc } from 'ramda';
+import Router from 'next/router';
 import { put, takeLatest, select } from 'redux-saga/effects';
 import { UI, ui, ROOT } from 'src/store/actions';
 import { localStore } from 'src/utils/storage';
 import { selectDayToDayTab } from 'src/store/selectors/common';
-import Router from 'next/router';
 
 export function* watchOpenMenu() {
   yield takeLatest(UI.OPEN_MENU, openMenu);

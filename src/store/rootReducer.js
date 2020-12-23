@@ -9,6 +9,8 @@ import manageItinerary from 'src/store/reducers/manage-itinerary';
 import session from 'src/store/reducers/session';
 import forms from 'src/store/reducers/forms';
 import displayItinerary from 'src/store/reducers/display-itinerary';
+import customer from 'src/store/reducers/customer';
+import customers from 'src/store/reducers/customers';
 
 export default combineReducers({
   ui,
@@ -20,4 +22,6 @@ export default combineReducers({
   blog,
   session,
   forms,
+  customer,
+  customers,
 });

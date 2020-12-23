@@ -4,6 +4,8 @@ $white: #fff;
 $black: #000;
 $grey-50: #fafafa;
 $grey-100: #f5f5f5;
+$grey-120: #e9e9e9;
+$grey-125: #e3e3e3;
 $grey-150: #c8c8c8;
 $blue-50: #e3f2fd;
 $blue-300: #64b5f6;
@@ -11,10 +13,12 @@ $blue-800: #1565c0;
 $blue-900: #0d47a1;
 $blue-1200: #093170;
 $white-015: rgba(255, 255, 255, 0.10);
+$white-210: rgba(210, 210, 210, 0.5);
 $black-015: rgba(5, 5, 5, 0.15);
 $link-color: #007bff;
 $pink-A400: #f50057;
 $pink-A900: #ab003c;
+$limegreen: limegreen;
 
 // Component color
 $navbar-bg-color: $blue-1200;
@@ -23,16 +27,29 @@ $side-menu-bg-color: $blue-1200;
 $container-bg-color: $grey-50;
 $rounded-button-cta-bg-color: $blue-800;
 $navbar-search-bar-bg-color: $white-015;
+$customers-search-bar-bg-color: $white-210;
 $add-itinerary-text-field-bg-color: $black-015;
 $included-item-link-color: $link-color;
-$new-event-cta-bg-color: $blue-1200;
+$new-event-cta-bg-color: $navbar-bg-color;
 $new-event-cta-color: $white;
 $daily-event-border-color: $grey-150;
 $single-itinerary-bg-color: $white;
 $single-itinerary-border-color: $grey-100;
-$sign-in-header-bg-color: $blue-1200;
+$sign-in-header-bg-color: $navbar-bg-color;
 $sign-in-header-color: $white;
 $sign-in-header-close-color: $white;
+$customers-tabs-background-color: $container-bg-color;
+$customers-tabs__add-customer-background-color: $navbar-bg-color;
+$customers-tabs__add-customer-color: $white;
+$badge__is-online: $limegreen;
+$badge__not-online: $pink-A400;
+$customers__single-avatar-background-color: $blue-50;
+$customers__single-avatar-color: $navbar-bg-color;
+$customers__single-background-color: $white;
+$customers__single-border-color: $grey-100;
+$customer-side-menu-profile-tabs-background-color: $side-menu-bg-color;
+$customer-side-menu-notes__background-color: $grey-50;
+$customer-side-menu-notes__color: $side-menu-bg-color;
 
 // Custom Variables
 $itinerary-side-menu-width: 15%;
@@ -119,6 +136,67 @@ a {
   margin-bottom: 0 !important;
 }
 
+.badge__not-online {
+  .MuiBadge-badge {
+    background: $white;
+    border: 2px solid $badge__not-online;
+  }
+}
+
+.badge__is-online {
+  .MuiBadge-badge {
+    background: $white;
+    border: 2px solid $badge__is-online;
+  }
+}
+
+.text-with-read-more {
+	.read-more {
+		color: $link-color;
+		text-transform: lowercase;
+		cursor: pointer;
+		&:hover {
+			text-decoration: underline;
+		}
+	}
+}
+
+.short-text-hidden {
+	display: none;
+}
+
+.medium-text-hidden {
+	display: none;
+}
+
+.long-text-hidden {
+	display: none;
+}
+
+.short-text-displayed {
+	display: block;
+}
+
+.medium-text-displayed {
+	display: block;
+}
+
+.long-text-displayed {
+	display: block;
+}
+
+.MuiPaper-root {
+  .MuiTabs-root {
+    .MuiButtonBase-root {
+      outline: none;
+    }
+  }
+}
+
+.MuiTable-root {
+  min-width: 350px;
+}
+
 /* Components */
 .mini-card {
   border-radius: 7px;
@@ -152,6 +230,7 @@ a {
     display: flex;
     align-items: center;
     padding-right: 10px;
+    cursor: pointer;
   }
 }
 
@@ -172,6 +251,11 @@ a {
   .MuiOutlinedInput-multiline,
   .MuiInputBase-multiline {
     padding: 0;
+  }
+
+  #text-area-input {
+    text-indent: 15px;
+    padding: 18.5px 14px;
   }
 }
 
@@ -227,6 +311,20 @@ a {
     display: flex;
     justify-content: space-between;
     align-items: center;
+  }
+
+  .page-header__title {
+    display: flex;
+    align-items: center;
+
+    .page-header__add-customer {
+      margin-left: 15px;
+      
+      #text-button {
+        background: $customers-tabs__add-customer-background-color;
+        color: $customers-tabs__add-customer-color;
+      }
+    }
   }
 }
 
@@ -453,6 +551,10 @@ a {
 
     .main-menu__itinerary-page {
       width: $itinerary-side-menu-width;
+    }
+
+    .main-menu__no-box-shadow, .side-menu__no-box-shadow {
+      box-shadow: none !important;
     }
 
     .add-itinerary-menu {
@@ -1004,12 +1106,16 @@ a {
         margin-bottom: 100px;
       }
 
-      .c-sign-in-form {
+      .c-generic-modal-form {
         width: 90%;
         padding-bottom: 60px;
 
-        .text-field {
+        .text-field, .text-area-field {
           width: 100%;
+
+          .MuiFormControl-root {
+            width: 100%;
+          }
         }
 
         #rounded-button {
@@ -1053,7 +1159,7 @@ a {
         }
       }
       
-      .c-sign-in-form {
+      .c-generic-modal-form {
         padding-top: 20px;
       }
     }
@@ -1133,5 +1239,387 @@ a {
   .c-itinerary-event-manager__cta-group {
     display: flex;
     justify-content: space-between;
+  }
+}
+
+.c-customers {
+  width: 100%;
+  margin-top: 15px;
+
+  .overlay {
+    .c-customers-tabs {
+      .MuiAppBar-colorDefault {
+        background: $customers-tabs-background-color;
+
+        .MuiButtonBase-root {
+          box-shadow: none;
+          outline: none;
+          min-width: 50px;
+        }
+
+        .MuiTabs-flexContainer {
+          width: 250px;
+        }
+
+        .c-customers-tabs__header-wrapper {
+          display: flex;
+          justify-content: space-between;
+
+          .c-customers-tabs__search-bar-wrapper {
+            .search-bar {
+              height: 80%;
+              background: $customers-search-bar-bg-color;
+            }
+          }
+        }
+      }
+
+      .MuiPaper-elevation4 {
+        box-shadow: none;
+        border-bottom: 1px solid lightgray;
+      }
+
+      .c-customer-tab-content {
+        height: 80vh;
+      }
+    }
+  }
+}
+
+.c-customers-all-tab-content__container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .inner {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 50%);
+
+    @media screen and (min-width: 1250px) {
+      display: grid;
+      grid-template-columns: repeat(3, 33%);
+    }
+
+    @media screen and (max-width: 925px) {
+      display: grid;
+      justify-content: space-evenly;
+      grid-template-columns: none;
+    }
+
+    .c-customers-all-tab-content__single-wrapper {
+      width: 250px;
+      height: auto;
+      margin-bottom: 30px;
+      cursor: pointer;
+
+      .c-customers-all-tab-content__single {
+        width: 100%;
+        height: auto;
+        border-top: 2px solid $customers__single-border-color;
+        border-right: 2px solid $customers__single-border-color;
+        border-left: 2px solid $customers__single-border-color;
+        background: $customers__single-background-color;
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+        @include transition-ease-out;
+
+        &:hover {
+          @include light-box-shadow;
+        }
+
+        .c-customers-all-tab-content__single-more {
+          width: 100%;
+          display: flex;
+          justify-content: flex-end;
+
+          .MuiIconButton-root {
+            margin-right: 5px;
+            margin-top: 5px;
+            padding: 0;
+            outline: none;
+          }
+        }
+
+        .c-customers-all-tab-content__single-avatar-wrapper {
+          width: 100%;
+          display: flex;
+          justify-content: center;
+
+          .c-customers-all-tab-content__single-avatar {
+            .MuiAvatar-root {
+              width: 90px;
+              height: 90px;
+              background: $customers__single-avatar-background-color;
+              color: $customers__single-avatar-color;
+            }
+
+            .MuiAvatar-dot {
+              height: 6px;
+              min-width: 6px;
+              border-radius: 6px;
+            }
+          }
+        }
+
+        .c-customers-all-tab-content__single-details {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          padding: 20px 0;
+
+          .name {
+            font-weight: bold;
+            margin-bottom: 5px;
+          }
+
+          .email {
+            margin-bottom: 5px;
+          }
+        }
+      }
+
+      .c-customers-all-tab-content__single-buttons {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        border-top: 1px solid $customers__single-border-color;
+        background: $grey-100;
+        border-bottom-left-radius: 15px;
+        border-bottom-right-radius: 15px;
+
+        .c-customers-all-tab-content__single-button {
+          width: 100%;
+          height: 45px;
+          border-right: 1px solid $grey-125;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background: $grey-100;
+          color: $black;
+          @include transition-ease-out;
+
+          &:nth-child(1) {
+            border-bottom-left-radius: 15px;
+          }
+
+          &:last-child {
+            border-bottom-right-radius: 15px;
+            border-right: none;
+          }
+
+          &:hover {
+            background: $white;
+          }
+
+          span {
+            font-size: 12px;
+            font-weight: 500;
+          }
+        }
+      }
+    }
+  }
+}
+
+.c-customer-side-menu {
+  .c-customer-side-menu__profile-wrapper {
+    .c-customer-side-menu__close-profile {
+      width: 100%;
+      display: flex;
+      justify-content: flex-end;
+
+      #text-button {
+        color: $white;
+      }
+    }
+
+    .c-customer-side-menu__profile-avatar {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+
+      .c-customer-side-menu__single-avatar {
+        .MuiAvatar-root {
+          width: 90px;
+          height: 90px;
+          background: $customers__single-avatar-background-color;
+          color: $customers__single-avatar-color;
+        }
+
+        .MuiAvatar-dot {
+          height: 6px;
+          min-width: 6px;
+          border-radius: 6px;
+        }
+      }
+    }
+
+    .c-customer-side-menu__details {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px 0;
+
+      .name {
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+
+      .email {
+        margin-bottom: 5px;
+      }
+    }
+
+    .c-customers-side-menu-tabs {
+      .MuiAppBar-colorDefault {
+        background: $customer-side-menu-profile-tabs-background-color;
+
+        .MuiButtonBase-root {
+          box-shadow: none;
+          outline: none;
+          min-width: 50px;
+        }
+
+        .MuiTabs-flexContainer {
+          width: 250px;
+        }
+
+        .c-customers-side-menu-tabs__header-wrapper {
+          display: flex;
+          justify-content: space-between;
+
+          .MuiTab-textColorPrimary {
+            color: $white;
+          }
+          .PrivateTabIndicator-colorPrimary-2 {
+            background-color: $white;
+          }
+        }
+      }
+
+      .MuiPaper-elevation4 {
+        box-shadow: none;
+      }
+
+      .c-customers-side-menu-tabs__content {
+        .MuiBox-root {
+          padding: 24px 5px;
+        }
+
+        .MuiBox-root-21 {
+          padding: 0;
+        }
+
+        .c-customers-side-menu-tabs__add-itinerary-btn-wrapper {
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+
+          .c-customers-side-menu-tabs__add-itinerary-btn {
+            color: $white;
+          }
+        }
+
+        .c-customers-side-menu-tabs__notes-wrapper {
+          .c-customers-side-menu-tabs__notes {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 220px;
+            overflow-y: auto;
+            background: $customer-side-menu-notes__background-color;
+            margin-bottom: 20px;
+            padding: 10px;
+            border-radius: 8px;
+
+            .c-customers-side-menu-tabs__note {
+              width: 100%;
+              margin-bottom: 20px;
+              display: flex;
+              flex-direction: column;
+              color: $customer-side-menu-notes__color;
+
+              .c-customers-side-menu-tabs__note-date {
+                background: $customer-side-menu-notes__color;
+                color: $customer-side-menu-notes__background-color;
+                text-align: center;
+                border-radius: 6px;
+                padding: 2px 10px;
+                margin-bottom: 7px;
+              }
+            }
+
+            .c-customers-side-menu-tabs__see-more-notes {
+              color: $customer-side-menu-notes__color;
+              cursor: pointer;
+            }
+          }
+
+          .c-customers-side-menu-tabs__notes-btn-wrapper {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+  
+            .c-customers-side-menu-tabs__notes-btn {
+              color: $white;
+            }
+          }
+        }
+      }
+    }
+
+    .c-customer-side-menu__full-profile-btn-wrapper {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+
+      .c-customer-side-menu__full-profile-btn {
+        color: $white;
+        border: 1px solid $white;
+      }
+    }
+  }
+}
+
+.c-add-customer-notes {
+  .c-add-customer-notes__date {
+    span {
+      font-weight: bold;
+    }
+  }
+}
+
+.c-customer-profile {
+  .c-customer-profile-tabs {
+    .MuiPaper-elevation4 {
+      box-shadow: none;
+    }
+
+    .MuiAppBar-colorDefault {
+      background: #fafafa;
+    }
+  }
+}
+
+.c-customer-details-tab {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+
+  @media screen and (max-width: 950px) {
+   flex-direction: column;
+  }
+
+  .c-customer-info {
+    margin-right: 10px;
+  }
+
+  .c-customer-billing {
+    margin-left: 10px;
   }
 }

@@ -56,6 +56,11 @@ export const selectShouldResetItinerariesTable = R.pathOr(false, [
   'shouldResetItinerariesTable',
 ]);
 
+export const selectIsCustomerSideMenu = R.pathOr(false, [
+  'ui',
+  'isCustomerSideMenu',
+]);
+
 export default createStructuredSelector({
   isModalOpened: selectIsModalOpened,
   isMenuOpened: selectIsMenuOpened,

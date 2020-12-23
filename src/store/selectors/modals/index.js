@@ -8,6 +8,8 @@ import DeleteDayConfirmationModal from 'src/components/add-itinerary/delete-day-
 import saveUpdatedItinerary from 'src/components/manage-itinerary/save-updated-itinerary-modal';
 import signIn from 'src/components/sign-in/sign-in-modal';
 import signUp from 'src/components/sign-up/sign-up-modal';
+import AddCustomerModal from 'src/components/customers/modals/add-customer.component';
+import AddCustomerNotesModal from 'src/components/customers/modals/add-customer-notes.component';
 
 export const selectStaticModals = createStructuredSelector({
   [MODALS.SAVE_NEW_ITINERARY]: createStructuredSelector({
@@ -37,5 +39,17 @@ export const selectStaticModals = createStructuredSelector({
     modalSize: R.always(MODAL_SIZE.SMALL),
     innerModalPadding: R.always(true),
     isSubmitting: selectSignUpIsSubmitting,
+  }),
+  [MODALS.ADD_CUSTOMER]: createStructuredSelector({
+    innerModal: R.always(AddCustomerModal),
+    modalSize: R.always(MODAL_SIZE.MEDIUM),
+    innerModalPadding: R.always(false),
+    isSubmitting: R.F,
+  }),
+  [MODALS.ADD_NOTES]: createStructuredSelector({
+    innerModal: R.always(AddCustomerNotesModal),
+    modalSize: R.always(MODAL_SIZE.MEDIUM),
+    innerModalPadding: R.always(false),
+    isSubmitting: R.F,
   }),
 });

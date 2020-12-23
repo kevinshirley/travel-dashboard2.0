@@ -49,6 +49,14 @@ import {
   watchSignUp,
 } from 'src/store/sagas/session';
 import { watchSetItineraryToDisplay } from 'src/store/sagas/display-itinerary';
+import {
+  watchSetCustomer,
+  watchCloseCustomerSideMenu,
+  watchAddCustomer,
+  watchFetchUserCustomers,
+  watchAddCustomerNote,
+  watchSetCustomerOnInit
+} from 'src/store/sagas/customers';
 
 function* rootSaga() {
   yield all([
@@ -88,7 +96,13 @@ function* rootSaga() {
     watchDeleteManagedDayToDay(),
     watchDeleteManagedEventToDay(),
     watchDeleteUserItinerary(),
-    watchSetItineraryToDisplay()
+    watchSetItineraryToDisplay(),
+    watchSetCustomer(),
+    watchCloseCustomerSideMenu(),
+    watchAddCustomer(),
+    watchFetchUserCustomers(),
+    watchAddCustomerNote(),
+    watchSetCustomerOnInit()
   ]);
 }
 

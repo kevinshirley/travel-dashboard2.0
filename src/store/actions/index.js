@@ -47,6 +47,7 @@ export const UI = createTypes('UI', [
   'TOGGLE_EVENT_DRAWER',
   'TOGGLE_IS_EDITING_TRIP_START_DATE',
   'RESET_ITINERARIES_TABLE',
+  'IS_CUSTOMER_SIDE_MENU',
 ]);
 
 export const DESTINATIONS = createTypes('DESTINATIONS', [
@@ -107,6 +108,20 @@ export const FORMS = createTypes('FORMS', [
   'SET_SUCCESS',
   'IS_SUBMITTING',
   'RESET_SUCCESS',
+  'RESET_ERROR',
+]);
+
+export const CUSTOMER = createTypes('CUSTOMER', [
+  'SET',
+  'CLOSE_CUSTOMER_SIDE_MENU',
+  'ADD',
+  'ADD_NOTE',
+  'SET_ON_INIT',
+]);
+
+export const CUSTOMERS = createTypes('CUSTOMERS', [
+  'SET_USER',
+  'SET_ORGANIZATION',
 ]);
 
 export const root = {
@@ -136,6 +151,7 @@ export const ui = {
   toggleEventDrawer: value => action(UI.TOGGLE_EVENT_DRAWER, value),
   isEditingTripStartDate: value => action(UI.TOGGLE_IS_EDITING_TRIP_START_DATE, value),
   resetItinerariesTable: payload => action(UI.RESET_ITINERARIES_TABLE, payload),
+  isCustomerSideMenu: payload => action(UI.IS_CUSTOMER_SIDE_MENU, payload),
 };
 
 export const destinations = {
@@ -195,4 +211,17 @@ export const forms = {
   setSuccess: payload => action(FORMS.SET_SUCCESS, payload),
   isSubmitting: payload => action(FORMS.IS_SUBMITTING, payload),
   resetSuccess: payload => action(FORMS.RESET_SUCCESS, payload),
+  resetError: payload => action(FORMS.RESET_ERROR, payload),
+};
+
+export const customer = {
+  set: payload => action(CUSTOMER.SET, payload),
+  closeCustomerSideMenu: () => action(CUSTOMER.CLOSE_CUSTOMER_SIDE_MENU),
+  add: payload => action(CUSTOMER.ADD, payload),
+  addNote: payload => action(CUSTOMER.ADD_NOTE, payload),
+  setCustomerOnInit: payload => action(CUSTOMER.SET_ON_INIT, payload),
+};
+
+export const customers = {
+  setUser: payload => action(CUSTOMERS.SET_USER, payload),
 };

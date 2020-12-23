@@ -134,7 +134,7 @@ export default function FloatingActionButtonZoom() {
       </SwipeableViews>
       {fabs.map((fab, index) => (
         <Zoom
-          key={fab.color}
+          key={index}
           in={value === index}
           timeout={transitionDuration}
           style={{

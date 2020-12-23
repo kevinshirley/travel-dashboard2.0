@@ -170,10 +170,99 @@ function manageItinerary(state = initialState, { type, payload }) {
   }
 }
 
+function addCustomer(state = initialState, { type, payload }) {
+  const { form, message, isSubmitting } = payload || {};
+  switch (type) {
+    case FORMS.SET_ERROR:
+      if (form === 'addCustomer') {
+        return {
+          ...state,
+          error: {
+            message,
+          },
+        };
+      }
+    case FORMS.IS_SUBMITTING:
+      if (form === 'addCustomer') {
+        return {
+          ...state,
+          isSubmitting,
+        };
+      }
+    case FORMS.SET_SUCCESS:
+      if (form === 'addCustomer') {
+        return {
+          ...state,
+          success: {
+            message,
+          },
+        };
+      }
+    case FORMS.RESET_SUCCESS:
+      if (form === 'addCustomer') {
+        return {
+          ...state,
+          success: {},
+        };
+      }
+    case FORMS.RESET_ERROR:
+      if (form === 'addCustomer') {
+        return {
+          ...state,
+          error: {},
+        };
+      }
+    default:
+      return state;
+  }
+}
+
+function addCustomerNote(state = initialState, { type, payload }) {
+  const { form, message, isSubmitting } = payload || {};
+  switch (type) {
+    case FORMS.SET_ERROR:
+      if (form === 'addCustomerNote') {
+        return {
+          ...state,
+          error: {
+            message,
+          },
+        };
+      }
+    case FORMS.IS_SUBMITTING:
+      if (form === 'addCustomerNote') {
+        return {
+          ...state,
+          isSubmitting,
+        };
+      }
+    case FORMS.RESET_SUCCESS:
+      if (form === 'addCustomerNote') {
+        return {
+          ...state,
+          success: {},
+        };
+      }
+    case FORMS.SET_SUCCESS:
+      if (form === 'addCustomerNote') {
+        return {
+          ...state,
+          success: {
+            message,
+          },
+        };
+      }
+    default:
+      return state;
+  }
+}
+
 export default combineReducers({
   signIn,
   signUp,
   itineraries,
   addItinerary,
   manageItinerary,
+  addCustomer,
+  addCustomerNote,
 });
