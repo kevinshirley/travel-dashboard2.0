@@ -49,6 +49,7 @@ import PersonIcon from '@material-ui/icons/Person';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import ArrowRightAltIcon from '@material-ui/icons/ArrowRightAlt';
+import ReceiptIcon from '@material-ui/icons/Receipt';
 
 export const PORTFOLIO_ICON = (
   <BurstModeOutlinedIcon />
@@ -246,4 +247,8 @@ export const ADD_CIRCLE_OUTLINE_ICON = (
 
 export const ARROW_RIGHT_ALT_ICON = (
   <ArrowRightAltIcon />
+);
+
+export const RECEIPT_ICON = (
+  <ReceiptIcon />
 );

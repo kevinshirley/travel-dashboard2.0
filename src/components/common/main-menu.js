@@ -13,6 +13,7 @@ import {
   NOTIFICATIONS_ICON,
   SETTINGS_ICON,
   LOGOUT_ICON,
+  RECEIPT_ICON,
 } from 'src/components/material-ui/icons';
 import IconButton from '@material-ui/core/IconButton';
 import { useRouter } from 'next/router';
@@ -42,9 +43,9 @@ function MainMenu({
   const dayToDayToManage = useSelector(selectDayToDayToManage);
   const logout = useAction(actions.session.logout);
 
-  const mainMenuClasses = cx({
+  const mainMenuClasses = cx('main-menu', {
     'main-menu__no-box-shadow': router.pathname === CUSTOMERS || router.pathname === CUSTOMER_PROFILE,
-  }, 'main-menu');
+  });
 
   const dayToDayListTabs = () => {
     if (router.pathname === MANAGE_ITINERARY) {
@@ -78,11 +79,11 @@ function MainMenu({
           <Link className='main-navigation-icon' href='/itineraries'>
             {TODAY_CALENDAR_ICON}
           </Link>
+          <Link className='main-navigation-icon' href='/accounting'>
+            {RECEIPT_ICON}
+          </Link>
           <Link className='main-navigation-icon' href='/reports'>
             {BAR_CHART_ICON}
-          </Link>
-          <Link className='main-navigation-icon' href='/notifications'>
-            {NOTIFICATIONS_ICON}
           </Link>
           <Link className='main-navigation-icon' href='/search-history'>
             {CLOCK_ICON}

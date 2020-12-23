@@ -348,7 +348,7 @@ a {
 
   .navbar {
     width: 100%;
-    height: 48px;
+    height: 6vh;
     padding: 5px 5px 0 5px;
 
     .inner {
@@ -485,7 +485,7 @@ a {
   .main {
     display: flex;
     justify-content: space-between;
-    height: 100%;
+    height: 94vh;
     padding: 5px;
 
     .main-menu {
@@ -599,7 +599,7 @@ a {
 
     .main-content {
       width: 100%;
-      height: 100vh;
+      height: auto;
       overflow-y: auto;
   
       .content {
@@ -966,6 +966,7 @@ a {
 
       .copyright {
         width: 45%;
+        white-space: nowrap;
       }
 
       .logo {
