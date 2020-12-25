@@ -123,6 +123,15 @@ function isCustomerSideMenu(state = false, { type, payload }) {
   }
 }
 
+function isSideMenuMinimized(state = false, { type }) {
+  switch (type) {
+    case UI.IS_SIDE_MENU_MINIMIZED:
+      return !state;
+    default:
+      return state;
+  }
+}
+
 export default combineReducers({
   isModalOpened,
   isMenuOpened,
@@ -136,4 +145,5 @@ export default combineReducers({
   modalUiPayload,
   shouldResetItinerariesTable,
   isCustomerSideMenu,
+  isSideMenuMinimized,
 });

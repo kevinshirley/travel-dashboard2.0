@@ -621,6 +621,7 @@ a {
       color: $white;
       border-radius: 15px;
       @include light-box-shadow;
+      @include transition-ease-in-out;
 
       .side-menu-tabs {
         position: relative;
@@ -655,6 +656,20 @@ a {
 
     .side-menu__itinerary-page {
       width: $itinerary-side-menu-width;
+    }
+
+    .side-menu__minimized {
+      width: 40px !important;
+
+      .side-menu-tabs {
+        header {
+          display: none;
+        }
+
+        .MuiButtonBase-root {
+          display: none;
+        }
+      }
     }
   }
 }

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import SwipeableViews from 'react-swipeable-views';
+import { useSelector } from 'react-redux';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
@@ -14,7 +15,10 @@ import EditIcon from '@material-ui/icons/Edit';
 import UpIcon from '@material-ui/icons/KeyboardArrowUp';
 import { green } from '@material-ui/core/colors';
 import Box from '@material-ui/core/Box';
-import { CHEVRON_RIGHT_ICON } from 'src/components/material-ui/icons';
+import { CHEVRON_RIGHT_ICON, CHEVRON_LEFT_ICON } from 'src/components/material-ui/icons';
+import * as actions from 'src/store/actions';
+import { useAction } from 'src/store/hooks';
+import { selectIsSideMenuMinimized } from 'src/store/selectors/common';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -71,6 +75,8 @@ export default function FloatingActionButtonZoom() {
   const classes = useStyles();
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
+  const shouldSideMenuMinimize = useAction(actions.ui.isSideMenuMinimized);
+  const isSideMenuMinimized = useSelector(selectIsSideMenuMinimized);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -85,9 +91,7 @@ export default function FloatingActionButtonZoom() {
     exit: theme.transitions.duration.leavingScreen,
   };
 
-  const onMinimizeClicked = () => {
-    console.log('minimize side menu');
-  };
+  const onMinimizeClicked = () => shouldSideMenuMinimize();
 
   const fabs = [
     {
@@ -153,7 +157,11 @@ export default function FloatingActionButtonZoom() {
         </Zoom>
       ))}
       <div className='side-menu-tabs__minimize' onClick={() => onMinimizeClicked()}>
-        {CHEVRON_RIGHT_ICON}
+        {isSideMenuMinimized ? (
+          <>{CHEVRON_LEFT_ICON}</>
+        ) : (
+          <>{CHEVRON_RIGHT_ICON}</>
+        )}
       </div>
     </div>
   );

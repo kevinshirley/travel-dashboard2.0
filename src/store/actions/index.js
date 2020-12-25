@@ -48,6 +48,7 @@ export const UI = createTypes('UI', [
   'TOGGLE_IS_EDITING_TRIP_START_DATE',
   'RESET_ITINERARIES_TABLE',
   'IS_CUSTOMER_SIDE_MENU',
+  'IS_SIDE_MENU_MINIMIZED',
 ]);
 
 export const DESTINATIONS = createTypes('DESTINATIONS', [
@@ -152,6 +153,7 @@ export const ui = {
   isEditingTripStartDate: value => action(UI.TOGGLE_IS_EDITING_TRIP_START_DATE, value),
   resetItinerariesTable: payload => action(UI.RESET_ITINERARIES_TABLE, payload),
   isCustomerSideMenu: payload => action(UI.IS_CUSTOMER_SIDE_MENU, payload),
+  isSideMenuMinimized: () => action(UI.IS_SIDE_MENU_MINIMIZED),
 };
 
 export const destinations = {
