@@ -638,7 +638,7 @@ a {
         .side-menu-tabs__minimize {
           position: absolute;
           top: 150px;
-          left: -12px;
+          left: -13px;
           background: $white;
           border-radius: 50%;
           @include light-box-shadow;
@@ -646,7 +646,7 @@ a {
           border: 1px solid $grey-150;
 
           svg {
-            font-size: 1.8em;
+            font-size: 1.6em;
             color: $side-menu-bg-color;
           }
         }
