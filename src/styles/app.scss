@@ -623,7 +623,8 @@ a {
       @include light-box-shadow;
 
       .side-menu-tabs {
-        background-color: none;
+        position: relative;
+        height: 100%;
 
         .MuiPaper-root {
           .MuiTabs-root {
@@ -631,6 +632,22 @@ a {
               min-width: 0;
               outline: none;
             }
+          }
+        }
+
+        .side-menu-tabs__minimize {
+          position: absolute;
+          top: 150px;
+          left: -12px;
+          background: $white;
+          border-radius: 50%;
+          @include light-box-shadow;
+          cursor: pointer;
+          border: 1px solid $grey-150;
+
+          svg {
+            font-size: 1.8em;
+            color: $side-menu-bg-color;
           }
         }
       }
@@ -1618,6 +1635,10 @@ a {
 
   .c-customer-info {
     margin-right: 10px;
+
+    .MuiTableCell-head {
+      white-space: nowrap;
+    }
   }
 
   .c-customer-billing {

@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function InfoEvent({ day, deleteEvent, event }) {
+export default function InfoEvent() {
   return (
     <div>
       Accounting taking place here

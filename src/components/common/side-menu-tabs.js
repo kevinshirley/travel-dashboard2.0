@@ -14,6 +14,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import UpIcon from '@material-ui/icons/KeyboardArrowUp';
 import { green } from '@material-ui/core/colors';
 import Box from '@material-ui/core/Box';
+import { CHEVRON_RIGHT_ICON } from 'src/components/material-ui/icons';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -84,6 +85,10 @@ export default function FloatingActionButtonZoom() {
     exit: theme.transitions.duration.leavingScreen,
   };
 
+  const onMinimizeClicked = () => {
+    console.log('minimize side menu');
+  };
+
   const fabs = [
     {
       color: 'secondary',
@@ -147,6 +152,9 @@ export default function FloatingActionButtonZoom() {
           </Fab>
         </Zoom>
       ))}
+      <div className='side-menu-tabs__minimize' onClick={() => onMinimizeClicked()}>
+        {CHEVRON_RIGHT_ICON}
+      </div>
     </div>
   );
 }
