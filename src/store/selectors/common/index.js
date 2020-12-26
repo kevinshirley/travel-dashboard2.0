@@ -66,6 +66,11 @@ export const selectIsSideMenuMinimized = R.pathOr(false, [
   'isSideMenuMinimized',
 ]);
 
+export const selectIsMainMenuMinimized = R.pathOr(false, [
+  'ui',
+  'isMainMenuMinimized',
+]);
+
 export default createStructuredSelector({
   isModalOpened: selectIsModalOpened,
   isMenuOpened: selectIsMenuOpened,

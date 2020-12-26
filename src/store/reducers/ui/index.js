@@ -132,6 +132,15 @@ function isSideMenuMinimized(state = true, { type }) {
   }
 }
 
+function isMainMenuMinimized(state = false, { type }) {
+  switch (type) {
+    case UI.IS_MAIN_MENU_MINIMIZED:
+      return !state;
+    default:
+      return state;
+  }
+}
+
 export default combineReducers({
   isModalOpened,
   isMenuOpened,
@@ -146,4 +155,5 @@ export default combineReducers({
   shouldResetItinerariesTable,
   isCustomerSideMenu,
   isSideMenuMinimized,
+  isMainMenuMinimized,
 });

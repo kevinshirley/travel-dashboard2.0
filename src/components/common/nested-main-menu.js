@@ -1,4 +1,6 @@
 import React from 'react';
+import cx from 'classnames';
+import { useSelector } from 'react-redux';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -21,14 +23,24 @@ import {
 import * as actions from 'src/store/actions';
 import { useAction } from 'src/store/hooks';
 import Link from 'src/components/common/link';
+import { CHEVRON_RIGHT_ICON, CHEVRON_LEFT_ICON } from 'src/components/material-ui/icons';
+import { selectIsMainMenuMinimized } from 'src/store/selectors/common';
 
 export default function NestedList() {
   const [open, setOpen] = React.useState(false);
   const logout = useAction(actions.session.logout);
+  const isMainMenuMinimized = useSelector(selectIsMainMenuMinimized);
+  const shouldMainMenuMinimize = useAction(actions.ui.isMainMenuMinimized);
+
+  const nestedMainMenuClasses = cx('nested-main-menu', {
+    'nested-main-menu__minimized': isMainMenuMinimized,
+  });
 
   const handleClick = () => {
     setOpen(!open);
   };
+
+  const onMinimizeClicked = () => shouldMainMenuMinimize();
 
   return (
     <List
@@ -36,10 +48,12 @@ export default function NestedList() {
       aria-labelledby='nested-list-subheader'
       subheader={
         <ListSubheader component='div' id='nested-list-subheader'>
-          Travel Dashboard
+          <span>
+            Travel Dashboard
+          </span>
         </ListSubheader>
       }
-      className='nested-main-menu'
+      className={nestedMainMenuClasses}
     >
       <div className='inner'>
         <div className='main-navigation'>
@@ -82,6 +96,18 @@ export default function NestedList() {
                 </ListItemIcon>
                 <ListItemText primary='Starred' />
               </ListItem>
+              <ListItem button>
+                <ListItemIcon>
+                  <StarBorder />
+                </ListItemIcon>
+                <ListItemText primary='Starred 2' />
+              </ListItem>
+              <ListItem button>
+                <ListItemIcon>
+                  <StarBorder />
+                </ListItemIcon>
+                <ListItemText primary='Starred 3' />
+              </ListItem>
             </List>
           </Collapse>
           <Link className='main-navigation-icon' href='/reports'>
@@ -117,6 +143,13 @@ export default function NestedList() {
             <ListItemText primary='Logout' />
           </ListItem>
         </div>
+      </div>
+      <div className='nested-main-menu__minimize' onClick={() => onMinimizeClicked()}>
+        {isMainMenuMinimized ? (
+          <>{CHEVRON_RIGHT_ICON}</>
+        ) : (
+          <>{CHEVRON_LEFT_ICON}</>
+        )}
       </div>
     </List>
   );

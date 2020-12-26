@@ -49,6 +49,7 @@ export const UI = createTypes('UI', [
   'RESET_ITINERARIES_TABLE',
   'IS_CUSTOMER_SIDE_MENU',
   'IS_SIDE_MENU_MINIMIZED',
+  'IS_MAIN_MENU_MINIMIZED',
 ]);
 
 export const DESTINATIONS = createTypes('DESTINATIONS', [
@@ -154,6 +155,7 @@ export const ui = {
   resetItinerariesTable: payload => action(UI.RESET_ITINERARIES_TABLE, payload),
   isCustomerSideMenu: payload => action(UI.IS_CUSTOMER_SIDE_MENU, payload),
   isSideMenuMinimized: () => action(UI.IS_SIDE_MENU_MINIMIZED),
+  isMainMenuMinimized: () => action(UI.IS_MAIN_MENU_MINIMIZED),
 };
 
 export const destinations = {
