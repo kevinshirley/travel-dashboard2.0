@@ -29,6 +29,7 @@ import {
 } from 'src/store/constants/url';
 import { selectDayToDayToManage } from 'src/store/selectors/manage-itinerary';
 import { useAction } from 'src/store/hooks';
+import NestedMainMenu from 'src/components/common/nested-main-menu';
 
 function MainMenu({
   setDayToDayTab,
@@ -118,7 +119,7 @@ function MainMenu({
   return (
     <>
       {!(ITINERARY_EDITOR_PATHNAMES.includes(router.pathname)) && router.pathname !== ITINERARY && (
-        <MainMenuContent />
+        <NestedMainMenu />
       )}
       {ITINERARY_EDITOR_PATHNAMES.includes(router.pathname) && router.pathname !== ITINERARY && (
         <AddItineraryMenuContent setDayToDayTab={setDayToDayTab} />

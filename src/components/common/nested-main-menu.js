@@ -1,32 +1,30 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Collapse from '@material-ui/core/Collapse';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import DraftsIcon from '@material-ui/icons/Drafts';
-import SendIcon from '@material-ui/icons/Send';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import StarBorder from '@material-ui/icons/StarBorder';
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    width: '100%',
-    maxWidth: 360,
-    backgroundColor: theme.palette.background.paper,
-  },
-  nested: {
-    paddingLeft: theme.spacing(4),
-  },
-}));
+import {
+  HOME_ICON, 
+  PEOPLE_ICON, 
+  BAR_CHART_ICON,
+  TODAY_CALENDAR_ICON,
+  CLOCK_ICON,
+  SETTINGS_ICON,
+  LOGOUT_ICON,
+  RECEIPT_ICON,
+} from 'src/components/material-ui/icons';
+import * as actions from 'src/store/actions';
+import { useAction } from 'src/store/hooks';
+import Link from 'src/components/common/link';
 
 export default function NestedList() {
-  const classes = useStyles();
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
+  const logout = useAction(actions.session.logout);
 
   const handleClick = () => {
     setOpen(!open);
@@ -34,44 +32,92 @@ export default function NestedList() {
 
   return (
     <List
-      component="nav"
-      aria-labelledby="nested-list-subheader"
+      component='nav'
+      aria-labelledby='nested-list-subheader'
       subheader={
-        <ListSubheader component="div" id="nested-list-subheader">
-          Nested List Items
+        <ListSubheader component='div' id='nested-list-subheader'>
+          Travel Dashboard
         </ListSubheader>
       }
-      className={classes.root}
+      className='nested-main-menu'
     >
-      <ListItem button>
-        <ListItemIcon>
-          <SendIcon />
-        </ListItemIcon>
-        <ListItemText primary="Sent mail" />
-      </ListItem>
-      <ListItem button>
-        <ListItemIcon>
-          <DraftsIcon />
-        </ListItemIcon>
-        <ListItemText primary="Drafts" />
-      </ListItem>
-      <ListItem button onClick={handleClick}>
-        <ListItemIcon>
-          <InboxIcon />
-        </ListItemIcon>
-        <ListItemText primary="Inbox" />
-        {open ? <ExpandLess /> : <ExpandMore />}
-      </ListItem>
-      <Collapse in={open} timeout="auto" unmountOnExit>
-        <List component="div" disablePadding>
-          <ListItem button className={classes.nested}>
+      <div className='inner'>
+        <div className='main-navigation'>
+          <Link className='main-navigation-icon' href='/'>
+            <ListItem button>
+              <ListItemIcon>
+                {HOME_ICON}
+              </ListItemIcon>
+              <ListItemText primary='Home' />
+            </ListItem>
+          </Link>
+          <Link className='main-navigation-icon' href='/customers'>
+            <ListItem button>
+              <ListItemIcon>
+                {PEOPLE_ICON}
+              </ListItemIcon>
+              <ListItemText primary='Customers' />
+            </ListItem>
+          </Link>
+          <Link className='main-navigation-icon' href='/itineraries'>
+            <ListItem button>
+              <ListItemIcon>
+                {TODAY_CALENDAR_ICON}
+              </ListItemIcon>
+              <ListItemText primary='Itineraries' />
+            </ListItem>
+          </Link>
+          <ListItem button onClick={handleClick}>
             <ListItemIcon>
-              <StarBorder />
+              {RECEIPT_ICON}
             </ListItemIcon>
-            <ListItemText primary="Starred" />
+            <ListItemText primary='Accounting' />
+            {open ? <ExpandLess /> : <ExpandMore />}
           </ListItem>
-        </List>
-      </Collapse>
+          <Collapse in={open} timeout='auto' unmountOnExit>
+            <List component='div' disablePadding>
+              <ListItem button>
+                <ListItemIcon>
+                  <StarBorder />
+                </ListItemIcon>
+                <ListItemText primary='Starred' />
+              </ListItem>
+            </List>
+          </Collapse>
+          <Link className='main-navigation-icon' href='/reports'>
+            <ListItem button>
+              <ListItemIcon>
+                {BAR_CHART_ICON}
+              </ListItemIcon>
+              <ListItemText primary='Reports' />
+            </ListItem>
+          </Link>
+          <Link className='main-navigation-icon' href='/search-history'>
+            <ListItem button>
+              <ListItemIcon>
+                {CLOCK_ICON}
+              </ListItemIcon>
+              <ListItemText primary='Search History' />
+            </ListItem>
+          </Link>
+          <Link className='main-navigation-icon' href='/settings'>
+            <ListItem button>
+              <ListItemIcon>
+                {SETTINGS_ICON}
+              </ListItemIcon>
+              <ListItemText primary='Settings' />
+            </ListItem>
+          </Link>
+        </div>
+        <div className='logout'>
+          <ListItem button onClick={() => logout()}>
+            <ListItemIcon>
+              {LOGOUT_ICON}
+            </ListItemIcon>
+            <ListItemText primary='Logout' />
+          </ListItem>
+        </div>
+      </div>
     </List>
   );
 }

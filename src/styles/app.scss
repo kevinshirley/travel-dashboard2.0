@@ -557,6 +557,44 @@ a {
       box-shadow: none !important;
     }
 
+    .nested-main-menu {
+      background: $blue-1200;
+      width: 240px;
+
+      #nested-list-subheader {
+        color: $white;
+      }
+
+      .inner {
+        .main-navigation {
+          color: $white;
+
+          svg {
+            color: $white;
+          }
+
+          .main-navigation-icon {
+            color: $white;
+          }
+
+          .MuiCollapse-container {
+            .MuiListItem-root {
+              padding-left: 32px;
+            }
+          }
+        }
+
+        .logout {
+          color: $white;
+          padding-top: 40px;
+        }
+
+        svg {
+          color: $white;
+        }
+      }
+    }
+
     .add-itinerary-menu {
       width: 220px;
 
@@ -601,6 +639,7 @@ a {
       width: 100%;
       height: auto;
       overflow-y: auto;
+      padding-right: 45px;
   
       .content {
         padding: 10px 2% 0 2%;
@@ -622,6 +661,11 @@ a {
       border-radius: 15px;
       @include light-box-shadow;
       @include transition-ease-in-out;
+      position: absolute;
+      right: 0;
+      height: 93vh;
+      width: 250px;
+      margin-right: 5px;
 
       .side-menu-tabs {
         position: relative;

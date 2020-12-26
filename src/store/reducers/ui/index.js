@@ -123,7 +123,7 @@ function isCustomerSideMenu(state = false, { type, payload }) {
   }
 }
 
-function isSideMenuMinimized(state = false, { type }) {
+function isSideMenuMinimized(state = true, { type }) {
   switch (type) {
     case UI.IS_SIDE_MENU_MINIMIZED:
       return !state;
