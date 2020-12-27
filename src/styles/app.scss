@@ -50,6 +50,7 @@ $customers__single-border-color: $grey-100;
 $customer-side-menu-profile-tabs-background-color: $side-menu-bg-color;
 $customer-side-menu-notes__background-color: $grey-50;
 $customer-side-menu-notes__color: $side-menu-bg-color;
+$nested-main-menu__collapsed-background-color: $side-menu-bg-color;
 
 // Custom Variables
 $itinerary-side-menu-width: 15%;
@@ -642,6 +643,42 @@ a {
 
           .MuiListItem-button {
             margin-bottom: 20px;
+          }
+
+          .MuiCollapse-container {
+            position: absolute;
+            background: $nested-main-menu__collapsed-background-color;
+            z-index: 100;
+            width: 220px;
+            border-radius: 15px;
+            margin-left: 10px;
+
+            .MuiListItemText-root {
+              display: block;
+            }
+          }
+
+          .nested-main-menu__collapsing-btn {
+            display: flex;
+            flex-direction: column;
+
+            .MuiListItemIcon-root {
+              display: flex;
+              justify-content: center;
+            }
+
+            .nested-main-menu__collapsing-icon {
+              display: none;
+            }
+          }
+
+          .nested-main-menu__collapsing-btn-inverse {
+            background: $white;
+            margin-bottom: 0;
+
+            svg {
+              color: $nested-main-menu__collapsed-background-color;
+            }
           }
         }
 

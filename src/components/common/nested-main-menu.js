@@ -36,6 +36,10 @@ export default function NestedList() {
     'nested-main-menu__minimized': isMainMenuMinimized,
   });
 
+  const collapseBtnClasses = cx('nested-main-menu__collapsing-btn', {
+    'nested-main-menu__collapsing-btn-inverse': open,
+  });
+
   const handleClick = () => {
     setOpen(!open);
   };
@@ -81,12 +85,14 @@ export default function NestedList() {
               <ListItemText primary='Itineraries' />
             </ListItem>
           </Link>
-          <ListItem button onClick={handleClick}>
+          <ListItem button className={collapseBtnClasses} onClick={handleClick}>
             <ListItemIcon>
               {RECEIPT_ICON}
             </ListItemIcon>
             <ListItemText primary='Accounting' />
-            {open ? <ExpandLess /> : <ExpandMore />}
+            <div className='nested-main-menu__collapsing-icon'>
+              {open ? <ExpandLess /> : <ExpandMore />}
+            </div>
           </ListItem>
           <Collapse in={open} timeout='auto' unmountOnExit>
             <List component='div' disablePadding>
