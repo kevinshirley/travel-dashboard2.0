@@ -5,7 +5,7 @@ function SettingsSection1() {
     <section className="settings-section-1">
       <div className="overlay">
 
-        Settings section 1
+        Coming soon...
         
       </div>
     </section>

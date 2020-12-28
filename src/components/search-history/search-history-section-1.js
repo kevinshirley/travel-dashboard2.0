@@ -5,7 +5,7 @@ function SearchHistorySection1() {
     <section className="search-history-section-1">
       <div className="overlay">
 
-        Search History section 1
+        Coming soon...
 
       </div>
     </section>

@@ -2,6 +2,9 @@ import React from 'react';
 
 export default function ExpensesPage() {
   return (
-    <>All Expenses</>
+    <>
+      <h1>Expenses</h1>
+      <>Coming soon...</>
+    </>
   );
 }

@@ -5,7 +5,7 @@ function ReportsSection1() {
     <section className="reports-section-1">
       <div className="overlay">
 
-        Reports section 1
+        Coming soon...
         
       </div>
     </section>
