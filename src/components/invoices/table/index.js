@@ -27,7 +27,11 @@ import Router from 'next/router';
 import { useSelector } from 'react-redux';
 import { selectShouldResetItinerariesTable } from 'src/store/selectors/common';
 import Spinner from 'src/components/common/spinner';
-import { ARROW_FORWARD_ICON } from 'src/components/material-ui/icons';
+import { ARROW_FORWARD_ICON, SPACING } from 'src/components/material-ui/icons';
+import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
 
 function createData(id, firstName, lastName, email, status, amount, date) {
   return { id, firstName, lastName, email, status, amount, date };
@@ -138,6 +142,12 @@ const EnhancedTableToolbar = (props) => {
   const classes = useToolbarStyles();
   const { deleteItinerary, isDeleting, numSelected, selected } = props;
 
+  const [status, setStatus] = React.useState('');
+
+  const handleChange = (event) => {
+    setStatus(event.target.value);
+  };
+
   return (
     <Toolbar
       className={clsx(classes.root, {
@@ -145,24 +155,40 @@ const EnhancedTableToolbar = (props) => {
       })}
     >
       {numSelected > 0 ? (
-        <Typography className={classes.title} color="inherit" variant="subtitle1" component="div">
+        <Typography className={classes.title} color='inherit' variant='subtitle1' component='div'>
           {numSelected} selected
         </Typography>
       ) : (
-        <Typography className={classes.title} variant="h6" id="tableTitle" component="div">
-          Select an itinerary
+        <Typography className={`${BEM_BLOCK}__status-select`} variant='h6' id='tableTitle' component='div'>
+          <FormControl variant='outlined' className={classes.formControl}>
+            <InputLabel id='demo-simple-select-outlined-label'>Status</InputLabel>
+            <Select
+              labelId='demo-simple-select-outlined-label'
+              id='demo-simple-select-outlined'
+              value={status}
+              onChange={handleChange}
+              label='Status'
+            >
+              <MenuItem value=''>
+                <em>None</em>
+              </MenuItem>
+              <MenuItem value='paid'>Paid</MenuItem>
+              <MenuItem value='pending'>Pending</MenuItem>
+              <MenuItem value='canceled'>Canceled</MenuItem>
+            </Select>
+          </FormControl>
         </Typography>
       )}
 
       {numSelected > 0 ? (
-        <Tooltip className='c-itineraries-table__delete-tooltip' disabled={isDeleting} onClick={() => deleteItinerary(selected)} title="Delete">
-          <IconButton aria-label="delete">
+        <Tooltip className='c-itineraries-table__delete-tooltip' disabled={isDeleting} onClick={() => deleteItinerary(selected)} title='Delete'>
+          <IconButton aria-label='delete'>
             {isDeleting ? <Spinner /> : <DeleteIcon />}
           </IconButton>
         </Tooltip>
       ) : (
-        <Tooltip title="Filter list">
-          <IconButton aria-label="filter list">
+        <Tooltip title='Filter list'>
+          <IconButton aria-label='filter list'>
             <FilterListIcon />
           </IconButton>
         </Tooltip>
@@ -292,7 +318,7 @@ function EnhancedTable({ deleteItinerary, isDeleting, itineraries, resetItinerar
   }, [shouldResetItinerariesTable]);
 
   return (
-    <div className={classes.root}>
+    <div className={`${BEM_BLOCK}`}>
       <Paper className={classes.paper}>
         <EnhancedTableToolbar
           deleteItinerary={deleteItinerary}
@@ -303,9 +329,9 @@ function EnhancedTable({ deleteItinerary, isDeleting, itineraries, resetItinerar
         <TableContainer>
           <Table
             className={classes.table}
-            aria-labelledby="tableTitle"
+            aria-labelledby='tableTitle'
             size={dense ? 'small' : 'medium'}
-            aria-label="enhanced table"
+            aria-label='enhanced table'
           >
             <EnhancedTableHead
               classes={classes}
@@ -322,43 +348,46 @@ function EnhancedTable({ deleteItinerary, isDeleting, itineraries, resetItinerar
                 .map((row, index) => {
                   const isItemSelected = isSelected(row.id);
                   const labelId = `enhanced-table-checkbox-${index}`;
-                  // id, firstName, lastName, email, status, amount, date
+
                   return (
                     <TableRow
                       hover
                       // onClick={() => handleSelectedItinerary(row.id)}
-                      role="checkbox"
+                      role='checkbox'
                       aria-checked={isItemSelected}
                       tabIndex={-1}
                       key={row.id}
                       selected={isItemSelected}
                       className='single-itinerary'
                     >
-                      <TableCell align="left">
+                      <TableCell align='left'>
                         <Checkbox
                           checked={isItemSelected}
                           inputProps={{ 'aria-labelledby': labelId }}
                           onClick={(event) => handleClick(event, row.id)}
                         />
                       </TableCell>
-                      <TableCell component="th" id={labelId} scope="row" padding="none">
-                        <div>
-                          <Link href={`/`} className='trip-cover'>
-                            <Avatar alt={`${row.firstName}`}></Avatar>
-                          </Link>
-                        </div>
-                        <div>
-                          {row.firstName} {row.lastName}
-                          <br/>
-                          {row.email}
+                      <TableCell component='th' id={labelId} scope='row' padding='none'>
+                        <div className={`${BEM_BLOCK}__customer-cell`}>
+                          <div>
+                            <Link href={`/invoices/${row.id}`} className={`${BEM_BLOCK}__invoice-avatar`}>
+                              <Avatar alt={`${row.firstName}`}></Avatar>
+                            </Link>
+                          </div>
+                          {SPACING}
+                          {SPACING}
+                          <div>
+                            <h3>{row.firstName} {row.lastName}</h3>
+                            <span>{row.email}</span>
+                          </div>
                         </div>
                       </TableCell>
-                      <TableCell align="left">{row.status}</TableCell>
-                      <TableCell align="left">{row.amount}</TableCell>
-                      <TableCell align="left">{row.id}</TableCell>
-                      <TableCell align="left">{row.date}</TableCell>
-                      <TableCell align="left">
-                        <Link href={`/`}  className={`${BEM_BLOCK}__view-invoice`}>
+                      <TableCell align='left'>{row.status}</TableCell>
+                      <TableCell align='left'>{row.amount}</TableCell>
+                      <TableCell align='left'>{row.id}</TableCell>
+                      <TableCell align='left'>{row.date}</TableCell>
+                      <TableCell align='left'>
+                        <Link href={`/invoices/${row.id}`} className={`${BEM_BLOCK}__view-invoice`}>
                           {ARROW_FORWARD_ICON}
                         </Link>
                       </TableCell>
@@ -375,7 +404,7 @@ function EnhancedTable({ deleteItinerary, isDeleting, itineraries, resetItinerar
         </TableContainer>
         <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
-          component="div"
+          component='div'
           count={rows.length}
           rowsPerPage={rowsPerPage}
           page={page}
@@ -385,7 +414,7 @@ function EnhancedTable({ deleteItinerary, isDeleting, itineraries, resetItinerar
       </Paper>
       <FormControlLabel
         control={<Switch checked={dense} onChange={handleChangeDense} />}
-        label="Dense padding"
+        label='Dense padding'
       />
     </div>
   );

@@ -1801,3 +1801,20 @@ a {
     margin-left: 10px;
   }
 }
+
+.c-invoices-table {
+  width: 100%;
+
+  .c-invoices-table__customer-cell {
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  .c-invoices-table__status-select {
+    flex: 1 1 100%;
+
+    .MuiFormControl-root {
+      width: 160px;
+    }
+  }
+}
