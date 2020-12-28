@@ -6,7 +6,7 @@ const BEM_BLOCK = 'c-customer-invoice-tab';
 function CustomerInvoiceTab() {
   return (
     <div className={`${BEM_BLOCK}`}>
-      invoices table
+      Coming soon...
     </div>
   );
 }

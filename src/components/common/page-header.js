@@ -8,12 +8,7 @@ import * as actions from 'src/store/actions';
 import Button from 'src/components/material-ui/text-button';
 import RoundedButton from 'src/components/material-ui/rounded-button';
 import { CAMERA_ICON, SPACING, LINK_ICON } from 'src/components/material-ui/icons';
-import {
-  ITINERARY_EDITOR_PATHNAMES,
-  ITINERARY,
-  MANAGE_ITINERARY,
-  CUSTOMERS
-} from 'src/store/constants/url';
+import { ITINERARY_EDITOR_PATHNAMES, URL } from 'src/store/constants/url';
 import Link from 'src/components/common/link';
 import { MODALS } from 'src/store/constants/modals';
 
@@ -35,8 +30,8 @@ function PageHeader({ coverImage = null, itineraryId = '', title }) {
   };
 
   const updateTripInfoClasses = cx({
-    'update-trip-info': router.pathname !== ITINERARY,
-    'update-trip-info__hidden': router.pathname === ITINERARY,
+    'update-trip-info': router.pathname !== URL.ITINERARY,
+    'update-trip-info__hidden': router.pathname === URL.ITINERARY,
   });
 
   return (
@@ -74,7 +69,7 @@ function PageHeader({ coverImage = null, itineraryId = '', title }) {
           </div>
           <div className='title'>
             <h1>{title}</h1>
-            {router.pathname === MANAGE_ITINERARY && (
+            {router.pathname === URL.MANAGE_ITINERARY && (
               <Link href={`/itinerary/${itineraryId}`} newTab>
                 <Button type='button'>
                   <span>{LINK_ICON}{SPACING}</span>
@@ -87,7 +82,7 @@ function PageHeader({ coverImage = null, itineraryId = '', title }) {
       ) : (
         <div className='page-header__title'>
           <h1>{title}</h1>
-          {router.pathname === CUSTOMERS && (
+          {router.pathname === URL.CUSTOMERS && (
             <div className='page-header__add-customer'>
               <Button
                 onClick={() => openModal({
@@ -96,6 +91,18 @@ function PageHeader({ coverImage = null, itineraryId = '', title }) {
                 type='button'
               >
                 + Add
+              </Button>
+            </div>
+          )}
+          {router.pathname === URL.INVOICES && (
+            <div className='page-header__add-customer'>
+              <Button
+                onClick={() => openModal({
+                  modal: MODALS.ADD_CUSTOMER,
+                })}
+                type='button'
+              >
+                + New
               </Button>
             </div>
           )}

@@ -247,13 +247,13 @@ function EnhancedTable({ deleteItinerary, isDeleting, itineraries, resetItinerar
 
   const rows = [
     createData('5ecb868d0f437390ef3ac62c', 'Nancy', 'Doe', 'nancydoe@gmail.com', 'paid', '253.76', '27/12/2020'),
-    createData('5ecb868d0f437390ef3ws34e', 'Bobby', 'Doe', 'bobbydoe@gmail.com', 'canceled', '433.22', '21/11/2020'),
-    createData('5ecb868d0f437390ef3cf87q', 'Amanda', 'Doe', 'amandadoe@gmail.com', 'canceled', '365.85', '12/10/2020'),
-    createData('5ecb868d0f437390ef3bt64m', 'Jared', 'Doe', 'jareddoe@gmail.com', 'paid', '734.88', '17/11/2020'),
-    createData('5ecb868d0f437390ef3ac61s', 'Nancy', 'Doe', 'nancydoe@gmail.com', 'paid', '253.76', '27/12/2020'),
-    createData('5ecb868d0f437390ef3ws37h', 'Bobby', 'Doe', 'bobbydoe@gmail.com', 'canceled', '433.22', '21/11/2020'),
-    createData('5ecb868d0f437390ef3cf89k', 'Amanda', 'Doe', 'amandadoe@gmail.com', 'canceled', '365.85', '12/10/2020'),
-    createData('5ecb868d0f437390ef3bt63n', 'Jared', 'Doe', 'jareddoe@gmail.com', 'paid', '734.88', '17/11/2020'),
+    createData('5ecb868d0f437390ef3ws34e', 'Bobby', 'Paris', 'bobbydoe@gmail.com', 'canceled', '433.22', '21/11/2020'),
+    createData('5ecb868d0f437390ef3cf87q', 'Amanda', 'Tennesse', 'amandadoe@gmail.com', 'canceled', '365.85', '12/10/2020'),
+    createData('5ecb868d0f437390ef3bt64m', 'Jared', 'Orlando', 'jareddoe@gmail.com', 'paid', '734.88', '17/11/2020'),
+    createData('5ecb868d0f437390ef3ac61s', 'Fred', 'Colergreen', 'ginodoe@gmail.com', 'paid', '253.76', '27/12/2020'),
+    createData('5ecb868d0f437390ef3ws37h', 'Larry', 'Brazil', 'larrydoe@gmail.com', 'canceled', '433.22', '21/11/2020'),
+    createData('5ecb868d0f437390ef3cf89k', 'Warner', 'Polo', 'warnerdoe@gmail.com', 'canceled', '365.85', '12/10/2020'),
+    createData('5ecb868d0f437390ef3bt63n', 'Vince', 'Doe', 'vincedoe@gmail.com', 'paid', '734.88', '17/11/2020'),
   ];
 
   const handleRequestSort = (event, property) => {
@@ -364,7 +364,7 @@ function EnhancedTable({ deleteItinerary, isDeleting, itineraries, resetItinerar
                       tabIndex={-1}
                       key={row.id}
                       selected={isItemSelected}
-                      className='single-itinerary'
+                      className={`${BEM_BLOCK}__invoice`}
                     >
                       <TableCell align='left'>
                         <Checkbox
