@@ -32,6 +32,7 @@ import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
+import { firstLetterOfEach } from 'src/utils/string';
 
 function createData(id, firstName, lastName, email, status, amount, date) {
   return { id, firstName, lastName, email, status, amount, date };
@@ -249,6 +250,10 @@ function EnhancedTable({ deleteItinerary, isDeleting, itineraries, resetItinerar
     createData('5ecb868d0f437390ef3ws34e', 'Bobby', 'Doe', 'bobbydoe@gmail.com', 'canceled', '433.22', '21/11/2020'),
     createData('5ecb868d0f437390ef3cf87q', 'Amanda', 'Doe', 'amandadoe@gmail.com', 'canceled', '365.85', '12/10/2020'),
     createData('5ecb868d0f437390ef3bt64m', 'Jared', 'Doe', 'jareddoe@gmail.com', 'paid', '734.88', '17/11/2020'),
+    createData('5ecb868d0f437390ef3ac61s', 'Nancy', 'Doe', 'nancydoe@gmail.com', 'paid', '253.76', '27/12/2020'),
+    createData('5ecb868d0f437390ef3ws37h', 'Bobby', 'Doe', 'bobbydoe@gmail.com', 'canceled', '433.22', '21/11/2020'),
+    createData('5ecb868d0f437390ef3cf89k', 'Amanda', 'Doe', 'amandadoe@gmail.com', 'canceled', '365.85', '12/10/2020'),
+    createData('5ecb868d0f437390ef3bt63n', 'Jared', 'Doe', 'jareddoe@gmail.com', 'paid', '734.88', '17/11/2020'),
   ];
 
   const handleRequestSort = (event, property) => {
@@ -348,6 +353,7 @@ function EnhancedTable({ deleteItinerary, isDeleting, itineraries, resetItinerar
                 .map((row, index) => {
                   const isItemSelected = isSelected(row.id);
                   const labelId = `enhanced-table-checkbox-${index}`;
+                  const name = `${row.firstName} ${row.lastName}`;
 
                   return (
                     <TableRow
@@ -371,7 +377,7 @@ function EnhancedTable({ deleteItinerary, isDeleting, itineraries, resetItinerar
                         <div className={`${BEM_BLOCK}__customer-cell`}>
                           <div>
                             <Link href={`/invoices/${row.id}`} className={`${BEM_BLOCK}__invoice-avatar`}>
-                              <Avatar alt={`${row.firstName}`}></Avatar>
+                              <Avatar alt={name}>{firstLetterOfEach(name)}</Avatar>
                             </Link>
                           </div>
                           {SPACING}
@@ -383,7 +389,7 @@ function EnhancedTable({ deleteItinerary, isDeleting, itineraries, resetItinerar
                         </div>
                       </TableCell>
                       <TableCell align='left'>{row.status}</TableCell>
-                      <TableCell align='left'>{row.amount}</TableCell>
+                      <TableCell align='left'>${row.amount}</TableCell>
                       <TableCell align='left'>{row.id}</TableCell>
                       <TableCell align='left'>{row.date}</TableCell>
                       <TableCell align='left'>

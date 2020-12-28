@@ -1808,6 +1808,10 @@ a {
   .c-invoices-table__customer-cell {
     display: flex;
     justify-content: flex-start;
+
+    .MuiAvatar-root {
+      background: coral;
+    }
   }
 
   .c-invoices-table__status-select {

@@ -71,3 +71,20 @@ export const camelCaseToNormal = (param) => {
 
   return null;
 }
+
+export const firstLetterOfEach = (param) => {
+  let str;
+  if (typeof param === 'string') {
+    if (param.indexOf('-') > 0) {
+      str = dashToSpace(param);
+    } else {
+      str = param;
+    }
+
+    let splitString = str.split(" ");
+    splitString = splitString.map(s => s.substr(0, 1));
+    return splitString.toString().replace(',', '');
+  }
+
+  return null;
+}
