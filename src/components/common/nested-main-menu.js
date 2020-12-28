@@ -9,7 +9,6 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Collapse from '@material-ui/core/Collapse';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
-import StarBorder from '@material-ui/icons/StarBorder';
 import {
   HOME_ICON, 
   PEOPLE_ICON, 
@@ -19,6 +18,8 @@ import {
   SETTINGS_ICON,
   LOGOUT_ICON,
   RECEIPT_ICON,
+  MONETIZATION_ON_ICON,
+  CREDIT_CARD_ICON,
 } from 'src/components/material-ui/icons';
 import * as actions from 'src/store/actions';
 import { useAction } from 'src/store/hooks';
@@ -96,24 +97,22 @@ export default function NestedList() {
           </ListItem>
           <Collapse in={open} timeout='auto' unmountOnExit>
             <List component='div' disablePadding>
-              <ListItem button>
-                <ListItemIcon>
-                  <StarBorder />
-                </ListItemIcon>
-                <ListItemText primary='Starred' />
-              </ListItem>
-              <ListItem button>
-                <ListItemIcon>
-                  <StarBorder />
-                </ListItemIcon>
-                <ListItemText primary='Starred 2' />
-              </ListItem>
-              <ListItem button>
-                <ListItemIcon>
-                  <StarBorder />
-                </ListItemIcon>
-                <ListItemText primary='Starred 3' />
-              </ListItem>
+              <Link className='main-navigation-icon' href='/invoices'>
+                <ListItem button>
+                  <ListItemIcon>
+                    {MONETIZATION_ON_ICON}
+                  </ListItemIcon>
+                  <ListItemText primary='Invoices' />
+                </ListItem>
+              </Link>
+              <Link className='main-navigation-icon' href='/expenses'>
+                <ListItem button>
+                  <ListItemIcon>
+                    {CREDIT_CARD_ICON}
+                  </ListItemIcon>
+                  <ListItemText primary='Expenses' />
+                </ListItem>
+              </Link>
             </List>
           </Collapse>
           <Link className='main-navigation-icon' href='/reports'>
