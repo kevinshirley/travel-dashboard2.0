@@ -1,18 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import PageHeader from 'src/components/common/page-header';
-import Invoices from 'src/components/invoices/invoices.component';
+import NewInvoice from 'src/components/new-invoice/new-invoice.component';
 import { ToastProvider } from 'react-toast-notifications';
 
-function InvoicesContainer() {
+function NewInvoiceContainer() {
   return (
     <>
-      <PageHeader title='Invoices' />
+      <PageHeader title='New Invoice' />
       <ToastProvider>
-        <Invoices />
+        <NewInvoice />
       </ToastProvider>
     </>
   );
 };
 
-export default InvoicesContainer;
+export default NewInvoiceContainer;

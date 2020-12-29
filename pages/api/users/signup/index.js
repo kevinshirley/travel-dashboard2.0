@@ -22,7 +22,7 @@ const SignUp = (req, res) => {
 
       axiosPost(`${process.env.APP_URL}/api/profile`, profileData)
         .then(result => {
-          if (result.status === 200) {
+          if (result.status === 200 && result.data.success) {
             return res.send({
               success: true,
               message: 'Successfully created profile!',

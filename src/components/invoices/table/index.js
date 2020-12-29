@@ -250,7 +250,7 @@ function EnhancedTable({ deleteItinerary, isDeleting, itineraries, resetItinerar
     createData('5ecb868d0f437390ef3ws34e', 'Bobby', 'Paris', 'bobbydoe@gmail.com', 'canceled', '433.22', '21/11/2020'),
     createData('5ecb868d0f437390ef3cf87q', 'Amanda', 'Tennesse', 'amandadoe@gmail.com', 'canceled', '365.85', '12/10/2020'),
     createData('5ecb868d0f437390ef3bt64m', 'Jared', 'Orlando', 'jareddoe@gmail.com', 'paid', '734.88', '17/11/2020'),
-    createData('5ecb868d0f437390ef3ac61s', 'Fred', 'Colergreen', 'ginodoe@gmail.com', 'paid', '253.76', '27/12/2020'),
+    createData('5ecb868d0f437390ef3ac61s', 'Fred', 'Colergreen', 'fredcolergreen@gmail.com', 'pending', '253.76', '27/12/2020'),
     createData('5ecb868d0f437390ef3ws37h', 'Larry', 'Brazil', 'larrydoe@gmail.com', 'canceled', '433.22', '21/11/2020'),
     createData('5ecb868d0f437390ef3cf89k', 'Warner', 'Polo', 'warnerdoe@gmail.com', 'canceled', '365.85', '12/10/2020'),
     createData('5ecb868d0f437390ef3bt63n', 'Vince', 'Doe', 'vincedoe@gmail.com', 'paid', '734.88', '17/11/2020'),

@@ -318,7 +318,7 @@ a {
     display: flex;
     align-items: center;
 
-    .page-header__add-customer {
+    .page-header__add-customer, .page-header__new-invoice {
       margin-left: 15px;
       
       #text-button {
@@ -1819,6 +1819,75 @@ a {
 
     .MuiFormControl-root {
       width: 160px;
+    }
+  }
+}
+
+.c-new-invoice {
+  width: 100%;
+
+  .c-new-invoice__invoice {
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    padding: 30px;
+    background: $white;
+
+    .c-new-invoice__company-details {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 40px;
+
+      .c-new-invoice__company-logo {
+        text-align: center;
+        border: 1px dashed lightgray;
+        border-radius: 10px;
+        padding: 20px;
+        width: 250px;
+        height: 140px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .c-new-invoice__company-info {
+        display: flex;
+        justify-content: space-around;
+
+        .c-new-invoice__company-representative-contact {
+          text-align: right;
+          margin-right: 30px;
+
+          span {
+            font-size: 14px;
+          }
+        }
+
+        .c-new-invoice__company-address {
+          display: flex;
+          flex-direction: column;
+          text-align: right;
+
+          span {
+            font-size: 14px;
+          }
+        }
+      }
+    }
+
+    .c-new-invoice__client-details {
+      .c-new-invoice__billed-to {
+        display: flex;
+        flex-direction: column;
+
+        span {
+          font-size: 14px;
+        }
+
+        .c-new-invoice__billed-to-title {
+          color: $side-menu-bg-color;
+          font-weight: 500;
+        }
+      }
     }
   }
 }

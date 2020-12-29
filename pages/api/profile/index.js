@@ -5,7 +5,8 @@ const { head, isEmpty } = require('ramda');
 const {
   AWS_ACCESS_KEY_ID, 
   AWS_SECRET_ACCESS_KEY,
-  AWS_REGION
+  AWS_REGION,
+  AWS_SESSION_TOKEN
 } = process.env;
 
 const config = {
@@ -19,7 +20,7 @@ const config = {
 
 const Profile = (req, res) => {
   AWS.config.update(config.aws_remote_config);
-  const db = new AWS.DynamoDB.DocumentClient();
+  const db = new AWS.DynamoDB.DocumentClient({ sessionToken: AWS_SESSION_TOKEN });
 
   if (req.method === 'GET') {
     const id = req.query.id;
@@ -63,15 +64,15 @@ const Profile = (req, res) => {
         ...req.body,
       }
     };
-  
+
     db.put(params, function(err, data) {
       if (err) {
-        res.send({
+        return res.send({
           success: false,
           error: err
         });
       } else {
-        res.send({
+        return res.send({
           success: true,
           profile: params.Item,
         });

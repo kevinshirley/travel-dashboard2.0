@@ -95,15 +95,12 @@ function PageHeader({ coverImage = null, itineraryId = '', title }) {
             </div>
           )}
           {router.pathname === URL.INVOICES && (
-            <div className='page-header__add-customer'>
-              <Button
-                onClick={() => openModal({
-                  modal: MODALS.ADD_CUSTOMER,
-                })}
-                type='button'
-              >
-                + New
-              </Button>
+            <div className='page-header__new-invoice'>
+              <Link href='/invoices/new'>
+                <Button type='button'>
+                  + New
+                </Button>
+              </Link>
             </div>
           )}
         </div>
