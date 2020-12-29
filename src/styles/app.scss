@@ -1875,6 +1875,10 @@ a {
     }
 
     .c-new-invoice__client-details {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 40px;
+
       .c-new-invoice__billed-to {
         display: flex;
         flex-direction: column;
@@ -1888,6 +1892,91 @@ a {
           font-weight: 500;
         }
       }
+
+      .c-new-invoice__billed-to-date {
+        .c-new-invoice__date-issued {
+          display: flex;
+          flex-direction: column;
+          margin-bottom: 20px;
+
+          span {
+            font-size: 14px;
+          }
+
+          .c-new-invoice__date-issued-title {
+            color: $side-menu-bg-color;
+            font-weight: 500;
+          }
+        }
+
+        .c-new-invoice__due-date {
+          display: flex;
+          flex-direction: column;
+
+          span {
+            font-size: 14px;
+          }
+
+          .c-new-invoice__due-date-title {
+            color: $side-menu-bg-color;
+            font-weight: 500;
+          }
+        }
+      }
+
+      .c-new-invoice__invoice-id {
+        .c-new-invoice__invoice-number {
+          display: flex;
+          flex-direction: column;
+          margin-bottom: 20px;
+
+          span {
+            font-size: 14px;
+          }
+
+          .c-new-invoice__invoice-number-title {
+            color: $side-menu-bg-color;
+            font-weight: 500;
+          }
+        }
+
+        .c-new-invoice__reference-number {
+          display: flex;
+          flex-direction: column;
+
+          span {
+            font-size: 14px;
+          }
+
+          .c-new-invoice__reference-number-title {
+            color: $side-menu-bg-color;
+            font-weight: 500;
+          }
+        }
+      }
+
+      .c-new-invoice__amount-due {
+        display: flex;
+        flex-direction: column;
+
+        span {
+          font-size: 14px;
+        }
+
+        .c-new-invoice__amount-due-title {
+          color: $side-menu-bg-color;
+          font-weight: 500;
+        }
+
+        .c-new-invoice__amount {
+          font-size: 2.4em;
+        }
+      }
+    }
+
+    .c-new-invoice__invoice-message {
+      border-bottom: 3px solid $side-menu-bg-color;
+      padding-bottom: 40px;
     }
   }
 }
