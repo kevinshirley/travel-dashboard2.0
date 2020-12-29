@@ -76,6 +76,35 @@ function NewInvoice() {
             This is for your trip itinerary to Venezuela. Thanks for your business and please contact for more details.
           </span>
         </div>
+        <div className={`${BEM_BLOCK}__invoice-breakdown`}>
+          <div className={`${BEM_BLOCK}__item-description`}>
+            <div className={`${BEM_BLOCK}__item-description--title`}>Description</div>
+            <div className={`${BEM_BLOCK}__item-description--content`}>
+              <span className={`${BEM_BLOCK}__item--title`}>
+                Plane tickets
+              </span>
+              <span className={`${BEM_BLOCK}__item--sub-title`}>
+                Air Atlanta
+              </span>
+            </div>
+            <div className={`${BEM_BLOCK}__item-description--content`}>
+              <span className={`${BEM_BLOCK}__item--title`}>
+                Accomodations
+              </span>
+              <span className={`${BEM_BLOCK}__item--sub-title`}>
+                AirBnb
+              </span>
+            </div>
+            <div className={`${BEM_BLOCK}__item-description--content`}>
+              <span className={`${BEM_BLOCK}__item--title`}>
+                Activity reservations
+              </span>
+              <span className={`${BEM_BLOCK}__item--sub-title`}>
+                Jetski, Spa, Safari, Tour
+              </span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -51,6 +51,7 @@ $customer-side-menu-profile-tabs-background-color: $side-menu-bg-color;
 $customer-side-menu-notes__background-color: $grey-50;
 $customer-side-menu-notes__color: $side-menu-bg-color;
 $nested-main-menu__collapsed-background-color: $side-menu-bg-color;
+$new-invoice__color: $side-menu-bg-color;
 
 // Custom Variables
 $itinerary-side-menu-width: 15%;
@@ -1888,7 +1889,7 @@ a {
         }
 
         .c-new-invoice__billed-to-title {
-          color: $side-menu-bg-color;
+          color: $new-invoice__color;
           font-weight: 500;
         }
       }
@@ -1904,7 +1905,7 @@ a {
           }
 
           .c-new-invoice__date-issued-title {
-            color: $side-menu-bg-color;
+            color: $new-invoice__color;
             font-weight: 500;
           }
         }
@@ -1918,7 +1919,7 @@ a {
           }
 
           .c-new-invoice__due-date-title {
-            color: $side-menu-bg-color;
+            color: $new-invoice__color;
             font-weight: 500;
           }
         }
@@ -1935,7 +1936,7 @@ a {
           }
 
           .c-new-invoice__invoice-number-title {
-            color: $side-menu-bg-color;
+            color: $new-invoice__color;
             font-weight: 500;
           }
         }
@@ -1949,7 +1950,7 @@ a {
           }
 
           .c-new-invoice__reference-number-title {
-            color: $side-menu-bg-color;
+            color: $new-invoice__color;
             font-weight: 500;
           }
         }
@@ -1964,7 +1965,7 @@ a {
         }
 
         .c-new-invoice__amount-due-title {
-          color: $side-menu-bg-color;
+          color: $new-invoice__color;
           font-weight: 500;
         }
 
@@ -1975,8 +1976,44 @@ a {
     }
 
     .c-new-invoice__invoice-message {
-      border-bottom: 3px solid $side-menu-bg-color;
-      padding-bottom: 40px;
+      border-bottom: 3px solid $new-invoice__color;
+      padding-bottom: 35px;
+
+      .c-new-invoice__message {
+        font-size: 14px;
+      }
+    }
+
+    .c-new-invoice__invoice-breakdown {
+      padding-top: 15px;
+
+      .c-new-invoice__item-description {
+        span {
+          font-size: 13px;
+        }
+
+        .c-new-invoice__item-description--title {
+          color: $new-invoice__color;
+          font-weight: 500;
+          font-size: 14px;
+          margin-bottom: 10px;
+        }
+
+        .c-new-invoice__item-description--content {
+          display: flex;
+          flex-direction: column;
+          margin-bottom: 25px;
+
+          .c-new-invoice__item--title {
+            font-weight: 500;
+            margin-bottom: 5px;
+          }
+
+          .c-new-invoice__item--sub-title {
+            color: lightslategrey;
+          }
+        }
+      }
     }
   }
 }
