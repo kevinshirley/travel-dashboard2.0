@@ -489,6 +489,7 @@ a {
     justify-content: space-between;
     height: 94vh;
     padding: 5px;
+    position: relative;
 
     .main-menu {
       width: 120px;
@@ -1838,7 +1839,7 @@ a {
     .c-new-invoice__company-details {
       display: flex;
       justify-content: space-between;
-      margin-bottom: 50px;
+      margin-bottom: 70px;
 
       .c-new-invoice__company-logo {
         text-align: center;
@@ -2067,6 +2068,98 @@ a {
 
           .c-new-invoice__amount-item--content {
             font-size: 13px;
+          }
+        }
+      }
+    }
+
+    .c-new-invoice__invoice-summary {
+      display: flex;
+      justify-content: flex-end;
+      width: 100%;
+      margin-top: 80px;
+
+      .c-new-invoice__invoice-summary-inner {
+        width: 215px;
+
+        .c-new-invoice__subtotal {
+          display: flex;
+          justify-content: space-between;
+
+          .c-new-invoice__title {
+            width: 30%;
+            display: flex;
+            justify-content: flex-end;
+
+            span {
+              color: $new-invoice__color;
+              font-weight: 500;
+              font-size: 13px;
+            }
+          }
+
+          .c-new-invoice__amount {
+            width: 70%;
+            display: flex;
+            justify-content: flex-end;
+
+            span {
+              font-size: 13px;
+            }
+          }
+        }
+
+        .c-new-invoice__tax {
+          display: flex;
+          justify-content: space-between;
+
+          .c-new-invoice__title {
+            width: 30%;
+            display: flex;
+            justify-content: flex-end;
+
+            span {
+              color: $new-invoice__color;
+              font-weight: 500;
+              font-size: 13px;
+            }
+          }
+
+          .c-new-invoice__amount {
+            width: 70%;
+            display: flex;
+            justify-content: flex-end;
+
+            span {
+              font-size: 13px;
+            }
+          }
+        }
+
+        .c-new-invoice__total {
+          display: flex;
+          justify-content: space-between;
+
+          .c-new-invoice__title {
+            width: 30%;
+            display: flex;
+            justify-content: flex-end;
+
+            span {
+              color: $new-invoice__color;
+              font-weight: 500;
+              font-size: 13px;
+            }
+          }
+
+          .c-new-invoice__amount {
+            width: 70%;
+            display: flex;
+            justify-content: flex-end;
+
+            span {
+              font-size: 13px;
+            }
           }
         }
       }

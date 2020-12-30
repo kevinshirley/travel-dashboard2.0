@@ -69,7 +69,7 @@ function NewInvoice() {
           </div>
           <div className={`${BEM_BLOCK}__amount-due`}>
             <span className={`${BEM_BLOCK}__amount-due-title`}>Amount Due (USD)</span>
-            <span className={`${BEM_BLOCK}__amount`}>$2232.99</span>
+            <span className={`${BEM_BLOCK}__amount`}>$2465.99</span>
           </div>
         </div>
         <div className={`${BEM_BLOCK}__invoice-message`}>
@@ -140,6 +140,34 @@ function NewInvoice() {
               </div>
               <span className={`${BEM_BLOCK}__qty-item--content`}>4</span>
               <span className={`${BEM_BLOCK}__amount-item--content`}>$450.00</span>
+            </div>
+          </div>
+        </div>
+        <div className={`${BEM_BLOCK}__invoice-summary`}>
+          <div className={`${BEM_BLOCK}__invoice-summary-inner`}>
+            <div className={`${BEM_BLOCK}__subtotal`}>
+              <div className={`${BEM_BLOCK}__title`}>
+                <span>Subtotal</span>
+              </div>
+              <div className={`${BEM_BLOCK}__amount`}>
+                <span>$2232.99</span>
+              </div>
+            </div>
+            <div className={`${BEM_BLOCK}__tax`}>
+              <div className={`${BEM_BLOCK}__title`}>
+                <span>Tax</span>
+              </div>
+              <div className={`${BEM_BLOCK}__amount`}>
+                <span>$233.00</span>
+              </div>
+            </div>
+            <div className={`${BEM_BLOCK}__total`}>
+              <div className={`${BEM_BLOCK}__title`}>
+                <span>Total</span>
+              </div>
+              <div className={`${BEM_BLOCK}__amount`}>
+                <span>$2465.99</span>
+              </div>
             </div>
           </div>
         </div>
