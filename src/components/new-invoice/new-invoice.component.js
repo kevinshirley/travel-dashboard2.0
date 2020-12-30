@@ -39,6 +39,7 @@ function NewInvoice() {
         <div className={`${BEM_BLOCK}__client-details`}>
           <div className={`${BEM_BLOCK}__billed-to`}>
             <span className={`${BEM_BLOCK}__billed-to-title`}>Billed To</span>
+            <span className={`${BEM_BLOCK}__client-business-name`}></span>
             <span className={`${BEM_BLOCK}__client-name`}>Chrishelle Moss</span>
             <span className={`${BEM_BLOCK}__address-line-1`}>123 Main street</span>
             <span className={`${BEM_BLOCK}__address-line-2`}></span>
@@ -77,31 +78,68 @@ function NewInvoice() {
           </span>
         </div>
         <div className={`${BEM_BLOCK}__invoice-breakdown`}>
-          <div className={`${BEM_BLOCK}__item-description`}>
-            <div className={`${BEM_BLOCK}__item-description--title`}>Description</div>
-            <div className={`${BEM_BLOCK}__item-description--content`}>
-              <span className={`${BEM_BLOCK}__item--title`}>
-                Plane tickets
-              </span>
-              <span className={`${BEM_BLOCK}__item--sub-title`}>
-                Air Atlanta
-              </span>
+          <div className={`${BEM_BLOCK}__row--titles`}>
+            <div className={`${BEM_BLOCK}__description--title`}>
+              <span className={`${BEM_BLOCK}__title`}>Description</span>
             </div>
-            <div className={`${BEM_BLOCK}__item-description--content`}>
-              <span className={`${BEM_BLOCK}__item--title`}>
-                Accomodations
-              </span>
-              <span className={`${BEM_BLOCK}__item--sub-title`}>
-                AirBnb
-              </span>
+            <div className={`${BEM_BLOCK}__totals`}>
+              <span className={`${BEM_BLOCK}__unit-cost--title`}>Unit Cost</span>
+              <span className={`${BEM_BLOCK}__qty--title`}>Qty</span>
+              <span className={`${BEM_BLOCK}__amount--title`}>Amount</span>
             </div>
-            <div className={`${BEM_BLOCK}__item-description--content`}>
-              <span className={`${BEM_BLOCK}__item--title`}>
-                Activity reservations
-              </span>
-              <span className={`${BEM_BLOCK}__item--sub-title`}>
-                Jetski, Spa, Safari, Tour
-              </span>
+          </div>
+          <div className={`${BEM_BLOCK}__row--line`}>
+            <div className={`${BEM_BLOCK}__description--item`}>
+              <span className={`${BEM_BLOCK}__item--title`}>Plane tickets</span>
+              <span className={`${BEM_BLOCK}__item--sub-title`}>Air Atlanta</span>
+            </div>
+            <div className={`${BEM_BLOCK}__totals--items`}>
+              <div className={`${BEM_BLOCK}__unit-cost-item--content`}>
+                <span className={`${BEM_BLOCK}__item--price`}>
+                  $932.99
+                </span>
+                <span className={`${BEM_BLOCK}__item--tax`}>
+                  +HST
+                </span>
+              </div>
+              <span className={`${BEM_BLOCK}__qty-item--content`}>1</span>
+              <span className={`${BEM_BLOCK}__amount-item--content`}>$932.99</span>
+            </div>
+          </div>
+          <div className={`${BEM_BLOCK}__row--line`}>
+            <div className={`${BEM_BLOCK}__description--item`}>
+              <span className={`${BEM_BLOCK}__item--title`}>Accomodations</span>
+              <span className={`${BEM_BLOCK}__item--sub-title`}>AirBnb</span>
+            </div>
+            <div className={`${BEM_BLOCK}__totals--items`}>
+              <div className={`${BEM_BLOCK}__unit-cost-item--content`}>
+                <span className={`${BEM_BLOCK}__item--price`}>
+                  $850.00
+                </span>
+                <span className={`${BEM_BLOCK}__item--tax`}>
+                  +HST
+                </span>
+              </div>
+              <span className={`${BEM_BLOCK}__qty-item--content`}>1</span>
+              <span className={`${BEM_BLOCK}__amount-item--content`}>$850.00</span>
+            </div>
+          </div>
+          <div className={`${BEM_BLOCK}__row--line`}>
+            <div className={`${BEM_BLOCK}__description--item`}>
+              <span className={`${BEM_BLOCK}__item--title`}>Activity reservations</span>
+              <span className={`${BEM_BLOCK}__item--sub-title`}>Jetski, Spa, Safari, Tour</span>
+            </div>
+            <div className={`${BEM_BLOCK}__totals--items`}>
+              <div className={`${BEM_BLOCK}__unit-cost-item--content`}>
+                <span className={`${BEM_BLOCK}__item--price`}>
+                  $450.00
+                </span>
+                <span className={`${BEM_BLOCK}__item--tax`}>
+                  +HST
+                </span>
+              </div>
+              <span className={`${BEM_BLOCK}__qty-item--content`}>4</span>
+              <span className={`${BEM_BLOCK}__amount-item--content`}>$450.00</span>
             </div>
           </div>
         </div>
