@@ -2018,6 +2018,14 @@ a {
             font-size: 14px;
             margin-bottom: 10px;
           }
+
+          .c-new-invoice__unit-cost--title {
+            width: 62px;
+          }
+
+          .c-new-invoice__qty--title {
+            width: 24px;
+          }
         }
       }
 
@@ -2049,6 +2057,7 @@ a {
           .c-new-invoice__unit-cost-item--content {
             display: flex;
             flex-direction: column;
+            width: 62px;
 
             span {
               text-align: right;
@@ -2062,7 +2071,7 @@ a {
 
           .c-new-invoice__qty-item--content {
             text-align: right;
-            width: 30px;
+            width: 24px;
             font-size: 13px;
           }
 
@@ -2162,6 +2171,22 @@ a {
             }
           }
         }
+      }
+    }
+
+    .c-new-invoice__terms {
+      width: 100%;
+      padding-top: 40px;
+      display: flex;
+      flex-direction: column;
+
+      .c-new-invoice__terms--title {
+        font-size: 13px;
+        color: lightslategrey;
+      }
+
+      .c-new-invoice__terms--content {
+        font-size: 13px;
       }
     }
   }

@@ -171,6 +171,10 @@ function NewInvoice() {
             </div>
           </div>
         </div>
+        <div className={`${BEM_BLOCK}__terms`}>
+          <span className={`${BEM_BLOCK}__terms--title`}>Terms</span>
+          <span className={`${BEM_BLOCK}__terms--content`}>Payment is required within 30 days. Thanks for your business.</span>
+        </div>
       </div>
     </div>
   );
