@@ -278,7 +278,7 @@ a {
   }
 }
 
-.page-header {
+.c-page-header {
   width: 100%;
   overflow-y: hidden;
 
@@ -315,16 +315,34 @@ a {
     align-items: center;
   }
 
-  .page-header__title {
+  .c-page-header__title {
     display: flex;
     align-items: center;
 
-    .page-header__add-customer, .page-header__new-invoice {
+    .c-page-header__add-customer,
+    .c-page-header__invoices,
+    .c-page-header__new-invoice {
       margin-left: 15px;
-      
+
       #text-button {
         background: $customers-tabs__add-customer-background-color;
         color: $customers-tabs__add-customer-color;
+      }
+    }
+
+    .c-page-header__new-invoice {
+      #text-button {
+        margin-right: 15px;
+      }
+
+      .c-page-header__preview {
+        background: lightgray !important;
+        color: $black !important;
+      }
+
+      .c-page-header__save-draft {
+        background: lightgray !important;
+        color: $black !important;
       }
     }
   }

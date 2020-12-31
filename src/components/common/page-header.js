@@ -12,6 +12,8 @@ import { ITINERARY_EDITOR_PATHNAMES, URL } from 'src/store/constants/url';
 import Link from 'src/components/common/link';
 import { MODALS } from 'src/store/constants/modals';
 
+const BEM_BLOCK = 'c-page-header';
+
 function PageHeader({ coverImage = null, itineraryId = '', title }) {
   const router = useRouter();
 
@@ -35,7 +37,7 @@ function PageHeader({ coverImage = null, itineraryId = '', title }) {
   });
 
   return (
-    <div className='page-header'>
+    <div className={`${BEM_BLOCK}`}>
       {(coverImage && coverImage.location) || ITINERARY_EDITOR_PATHNAMES.includes(router.pathname) ? (
         <>
           <div className='cover' style={{
@@ -80,10 +82,10 @@ function PageHeader({ coverImage = null, itineraryId = '', title }) {
           </div>
         </>
       ) : (
-        <div className='page-header__title'>
+        <div className={`${BEM_BLOCK}__title`}>
           <h1>{title}</h1>
           {router.pathname === URL.CUSTOMERS && (
-            <div className='page-header__add-customer'>
+            <div className={`${BEM_BLOCK}__add-customer`}>
               <Button
                 onClick={() => openModal({
                   modal: MODALS.ADD_CUSTOMER,
@@ -95,12 +97,19 @@ function PageHeader({ coverImage = null, itineraryId = '', title }) {
             </div>
           )}
           {router.pathname === URL.INVOICES && (
-            <div className='page-header__new-invoice'>
+            <div className={`${BEM_BLOCK}__invoices`}>
               <Link href='/invoices/new'>
                 <Button type='button'>
                   + New
                 </Button>
               </Link>
+            </div>
+          )}
+          {router.pathname === URL.NEW_INVOICE && (
+            <div className={`${BEM_BLOCK}__new-invoice`}>
+              <Button className={`${BEM_BLOCK}__preview`} type='button'>Preview</Button>
+              <Button className={`${BEM_BLOCK}__save-draft`} type='button'>Save as draft</Button>
+              <Button className={`${BEM_BLOCK}__send`} type='button'>Send</Button>
             </div>
           )}
         </div>

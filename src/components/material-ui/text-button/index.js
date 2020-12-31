@@ -10,7 +10,7 @@ export default function TextButton({ children, className, type, onClick }) {
   return (
     <Button 
       className={textButtonClasses} 
-      id='text-button' 
+      id='text-button'
       onClick={onClick}
       type={type}
     >
