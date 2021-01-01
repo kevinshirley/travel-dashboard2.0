@@ -2062,6 +2062,14 @@ a {
             font-size: 13px;
           }
 
+          .c-new-invoice__item--title--hidden {
+            display: none;
+          }
+
+          .c-new-invoice__item--edit-title--hidden {
+            display: none;
+          }
+
           .c-new-invoice__item--sub-title {
             font-size: 13px;
             color: lightslategrey;
