@@ -1,9 +1,26 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useState } from 'react';
+import { SPACING } from 'src/components/material-ui/icons';
+import InvoiceBreakdownLine from 'src/components/new-invoice/invoice-breakdown-line.component';
 
 const BEM_BLOCK = 'c-new-invoice';
 
 function NewInvoice() {
+  const [breakdownLines, setBreakdownLines] = useState([]);
+
+  const onAddNewBreakdownLine = () => {
+    setBreakdownLines([
+      ...breakdownLines,
+      {
+        index: breakdownLines.length+1,
+        unitCost: 0,
+        qty: 1,
+        total: 0,
+        itemName: '',
+        itemdescription: '',
+      },
+    ]);
+  };
+
   return (
     <div  className={`${BEM_BLOCK}`}>
       <div className={`${BEM_BLOCK}__invoice`}>
@@ -88,58 +105,14 @@ function NewInvoice() {
               <span className={`${BEM_BLOCK}__amount--title`}>Amount</span>
             </div>
           </div>
-          <div className={`${BEM_BLOCK}__row--line`}>
-            <div className={`${BEM_BLOCK}__description--item`}>
-              <span className={`${BEM_BLOCK}__item--title`}>Plane tickets</span>
-              <span className={`${BEM_BLOCK}__item--sub-title`}>Air Atlanta</span>
-            </div>
-            <div className={`${BEM_BLOCK}__totals--items`}>
-              <div className={`${BEM_BLOCK}__unit-cost-item--content`}>
-                <span className={`${BEM_BLOCK}__item--price`}>
-                  $932.99
-                </span>
-                <span className={`${BEM_BLOCK}__item--tax`}>
-                  +HST
-                </span>
-              </div>
-              <span className={`${BEM_BLOCK}__qty-item--content`}>1</span>
-              <span className={`${BEM_BLOCK}__amount-item--content`}>$932.99</span>
-            </div>
-          </div>
-          <div className={`${BEM_BLOCK}__row--line`}>
-            <div className={`${BEM_BLOCK}__description--item`}>
-              <span className={`${BEM_BLOCK}__item--title`}>Accomodations</span>
-              <span className={`${BEM_BLOCK}__item--sub-title`}>AirBnb</span>
-            </div>
-            <div className={`${BEM_BLOCK}__totals--items`}>
-              <div className={`${BEM_BLOCK}__unit-cost-item--content`}>
-                <span className={`${BEM_BLOCK}__item--price`}>
-                  $850.00
-                </span>
-                <span className={`${BEM_BLOCK}__item--tax`}>
-                  +HST
-                </span>
-              </div>
-              <span className={`${BEM_BLOCK}__qty-item--content`}>1</span>
-              <span className={`${BEM_BLOCK}__amount-item--content`}>$850.00</span>
-            </div>
-          </div>
-          <div className={`${BEM_BLOCK}__row--line`}>
-            <div className={`${BEM_BLOCK}__description--item`}>
-              <span className={`${BEM_BLOCK}__item--title`}>Activity reservations</span>
-              <span className={`${BEM_BLOCK}__item--sub-title`}>Jetski, Spa, Safari, Tour</span>
-            </div>
-            <div className={`${BEM_BLOCK}__totals--items`}>
-              <div className={`${BEM_BLOCK}__unit-cost-item--content`}>
-                <span className={`${BEM_BLOCK}__item--price`}>
-                  $450.00
-                </span>
-                <span className={`${BEM_BLOCK}__item--tax`}>
-                  +HST
-                </span>
-              </div>
-              <span className={`${BEM_BLOCK}__qty-item--content`}>4</span>
-              <span className={`${BEM_BLOCK}__amount-item--content`}>$450.00</span>
+          {breakdownLines.map(line => {
+            return (
+              <InvoiceBreakdownLine key={line.index} {...line} />
+            );
+          })}
+          <div className={`${BEM_BLOCK}__row--add-line`} onClick={() => onAddNewBreakdownLine()}>
+            <div className={`${BEM_BLOCK}__row--add-line--text`}>
+              <span>+</span>{SPACING}{SPACING}Add a Line
             </div>
           </div>
         </div>

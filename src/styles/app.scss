@@ -1846,6 +1846,7 @@ a {
 .c-new-invoice {
   width: 100%;
   min-width: 680px;
+  margin-top: 30px;
 
   .c-new-invoice__invoice {
     width: 100%;
@@ -2095,6 +2096,33 @@ a {
 
           .c-new-invoice__amount-item--content {
             font-size: 13px;
+          }
+        }
+      }
+
+      .c-new-invoice__row--add-line {
+        width: 100%;
+        border: 1px dashed lightgray;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 5px 0;
+        color: $black;
+        cursor: pointer;
+        border-radius: 8px;
+
+        &:hover {
+          background: rgba(230, 230, 230, 0.5);
+        }
+
+        .c-new-invoice__row--add-line--text {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          span {
+            color: lightslategray;
+            font-size: 1.5em;
           }
         }
       }
