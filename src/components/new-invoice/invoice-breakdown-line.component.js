@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 
@@ -14,13 +14,16 @@ function InvoiceBreakdownLine({
   const itemNameState = {'item-name-state': 'display'};
   const editItemNameState = {'item-name-state': 'edit'};
   const [shouldEditItemName, setShouldEditItemName] = useState(false);
+  const [itemNameValue, setItemNameValue] = useState(itemName);
+  const editItemNameRef = useRef();
 
   const onToggleItemNameState = e => {
-    const target = e.target.getAttribute('item-name-state');
+    const targetState = e.target.getAttribute('item-name-state');
 
-    if (target === 'display') {
+    if (targetState === 'display') {
       setShouldEditItemName(true);
-    } else if (target === 'edit') {
+      editItemNameRef.current.focus();
+    } else if (targetState === 'edit') {
       setShouldEditItemName(false);
     }
   };
@@ -41,7 +44,7 @@ function InvoiceBreakdownLine({
           onClick={e => onToggleItemNameState(e)}
           {...itemNameState}
         >
-          {itemName ? itemName : 'Enter an item name'}
+          {itemNameValue ? itemNameValue : 'Enter an item name'}
         </span>
         <input
           className={editItemNameClasses}
@@ -49,6 +52,8 @@ function InvoiceBreakdownLine({
           name='itemName'
           placeholder='Enter an item name'
           onBlur={e => onToggleItemNameState(e)}
+          onChange={e => setItemNameValue(e.target.value)}
+          ref={editItemNameRef}
           {...editItemNameState}
         />
         <span className={`${BEM_BLOCK}__item--sub-title`}>
