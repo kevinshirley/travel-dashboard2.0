@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
+import { formatPrice } from 'src/utils/string';
 
 const BEM_BLOCK = 'c-new-invoice';
 
@@ -20,13 +21,18 @@ function InvoiceBreakdownLine({
   const itemQtyState = {'item-qty-state': 'display'};
   const editItemQtyState = {'item-qty-state': 'edit'};
 
+  const totalAmountState = {'total-amount-state': 'display'};
+  const editTotalAmountState = {'total-amount-state': 'edit'};
+
   const [shouldEditItemName, setShouldEditItemName] = useState(false);
   const [shouldEditItemDescription, setShouldEditItemDescription] = useState(false);
   const [shouldEditItemQty, setShouldEditItemQty] = useState(false);
+  const [shouldEditTotalAmount, setShouldEditTotalAmount] = useState(false);
 
   const [itemNameValue, setItemNameValue] = useState(itemName);
   const [itemDescriptionValue, setItemDescriptionValue] = useState(itemdescription);
   const [itemQtyValue, setItemQtyValue] = useState(qty);
+  const [totalAmountValue, setTotalAmountValue] = useState(total);
 
   const editItemNameRef = useRef();
 
@@ -61,6 +67,16 @@ function InvoiceBreakdownLine({
     }
   };
 
+  const onToggleTotalAmountState = e => {
+    const targetState = e.target.getAttribute('total-amount-state');
+
+    if (targetState === 'display') {
+      setShouldEditTotalAmount(true);
+    } else if (targetState === 'edit') {
+      setShouldEditTotalAmount(false);
+    }
+  };
+
   const itemNameClasses = cx(`${BEM_BLOCK}__item--item-name`, {
     [`${BEM_BLOCK}__item--item-name--hidden`]: shouldEditItemName,
   });
@@ -83,6 +99,14 @@ function InvoiceBreakdownLine({
 
   const editItemQtyClasses = cx(`${BEM_BLOCK}__edit-qty-item--content`, {
     [`${BEM_BLOCK}__edit-qty-item--content--hidden`]: !shouldEditItemQty,
+  });
+
+  const totalAmountClasses = cx(`${BEM_BLOCK}__total-amount--content`, {
+    [`${BEM_BLOCK}__total-amount--content--hidden`]: shouldEditTotalAmount,
+  });
+
+  const editTotalAmountClasses = cx(`${BEM_BLOCK}__edit-total-amount--content`, {
+    [`${BEM_BLOCK}__edit-total-amount--content--hidden`]: !shouldEditTotalAmount,
   });
 
   return (
@@ -125,7 +149,7 @@ function InvoiceBreakdownLine({
       <div className={`${BEM_BLOCK}__totals--items`}>
         <div className={`${BEM_BLOCK}__unit-cost-item--content`}>
           <span className={`${BEM_BLOCK}__item--price`}>
-            {`$${unitCost}`}
+            {`$${formatPrice(unitCost)}`}
           </span>
           <span className={`${BEM_BLOCK}__item--tax`}>
             +HST
@@ -148,7 +172,23 @@ function InvoiceBreakdownLine({
           value={itemQtyValue}
           {...editItemQtyState}
         />
-        <span className={`${BEM_BLOCK}__amount-item--content`}>{`$${total}`}</span>
+        <span
+          className={totalAmountClasses}
+          onClick={e => onToggleTotalAmountState(e)}
+          {...totalAmountState}
+        >
+          {`$${formatPrice(Number(totalAmountValue))}`}
+        </span>
+        <input
+          className={editTotalAmountClasses}
+          type='text'
+          name='invoiceTotal'
+          placeholder='Total amount'
+          onBlur={e => onToggleTotalAmountState(e)}
+          onChange={e => setTotalAmountValue(e.target.value)}
+          value={totalAmountValue}
+          {...editTotalAmountState}
+        />
       </div>
     </div>
   );

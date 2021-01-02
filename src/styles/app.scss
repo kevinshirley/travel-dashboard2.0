@@ -2123,8 +2123,20 @@ a {
             display: none;
           }
 
-          .c-new-invoice__amount-item--content {
+          .c-new-invoice__total-amount--content {
             font-size: 13px;
+          }
+
+          .c-new-invoice__edit-total-amount--content {
+            width: 40px;
+          }
+
+          .c-new-invoice__total-amount--content--hidden {
+            display: none;
+          }
+
+          .c-new-invoice__edit-total-amount--content--hidden {
+            display: none;
           }
         }
       }
