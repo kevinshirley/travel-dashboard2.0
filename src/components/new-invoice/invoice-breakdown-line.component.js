@@ -13,8 +13,15 @@ function InvoiceBreakdownLine({
 }) {
   const itemNameState = {'item-name-state': 'display'};
   const editItemNameState = {'item-name-state': 'edit'};
+
+  const itemDescriptionState = {'item-description-state': 'display'};
+  const editItemDescriptionState = {'item-description-state': 'edit'};
+
   const [shouldEditItemName, setShouldEditItemName] = useState(false);
+  const [shouldEditItemDescription, setShouldEditItemDescription] = useState(false);
   const [itemNameValue, setItemNameValue] = useState(itemName);
+  const [itemDescriptionValue, setItemDescriptionValue] = useState(itemdescription);
+
   const editItemNameRef = useRef();
 
   const onToggleItemNameState = e => {
@@ -28,12 +35,31 @@ function InvoiceBreakdownLine({
     }
   };
 
-  const itemNameClasses = cx(`${BEM_BLOCK}__item--title`, {
-    [`${BEM_BLOCK}__item--title--hidden`]: shouldEditItemName,
+  const onToggleItemDescriptionState = e => {
+    const targetState = e.target.getAttribute('item-description-state');
+
+    if (targetState === 'display') {
+      setShouldEditItemDescription(true);
+      editItemNameRef.current.focus();
+    } else if (targetState === 'edit') {
+      setShouldEditItemDescription(false);
+    }
+  };
+
+  const itemNameClasses = cx(`${BEM_BLOCK}__item--item-name`, {
+    [`${BEM_BLOCK}__item--item-name--hidden`]: shouldEditItemName,
   });
 
-  const editItemNameClasses = cx(`${BEM_BLOCK}__item--edit-title`, {
-    [`${BEM_BLOCK}__item--edit-title--hidden`]: !shouldEditItemName,
+  const editItemNameClasses = cx(`${BEM_BLOCK}__item--edit-item-name`, {
+    [`${BEM_BLOCK}__item--edit-item-name--hidden`]: !shouldEditItemName,
+  });
+
+  const itemDescriptionClasses = cx(`${BEM_BLOCK}__item--item-desc`, {
+    [`${BEM_BLOCK}__item--item-desc--hidden`]: shouldEditItemDescription,
+  });
+
+  const editItemDescriptionClasses = cx(`${BEM_BLOCK}__item--edit-item-desc`, {
+    [`${BEM_BLOCK}__item--edit-item-desc--hidden`]: !shouldEditItemDescription,
   });
 
   return (
@@ -56,9 +82,22 @@ function InvoiceBreakdownLine({
           ref={editItemNameRef}
           {...editItemNameState}
         />
-        <span className={`${BEM_BLOCK}__item--sub-title`}>
-          {itemdescription ? itemdescription : 'Enter an item description'}
+        <span
+          className={itemDescriptionClasses}
+          onClick={e => onToggleItemDescriptionState(e)}
+          {...itemDescriptionState}
+        >
+          {itemDescriptionValue ? itemDescriptionValue : 'Enter an item description'}
         </span>
+        <input
+          className={editItemDescriptionClasses}
+          type='text'
+          name='itemDescription'
+          placeholder='Enter an item description'
+          onBlur={e => onToggleItemDescriptionState(e)}
+          onChange={e => setItemDescriptionValue(e.target.value)}
+          {...editItemDescriptionState}
+        />
       </div>
       <div className={`${BEM_BLOCK}__totals--items`}>
         <div className={`${BEM_BLOCK}__unit-cost-item--content`}>

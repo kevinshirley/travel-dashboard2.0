@@ -2052,25 +2052,35 @@ a {
         display: flex;
         justify-content: space-between;
         margin-bottom: 20px;
+        border-bottom: 1px solid $grey-125;
+        padding-bottom: 5px;
 
         .c-new-invoice__description--item {
           display: flex;
           flex-direction: column;
           width: 60%;
 
-          .c-new-invoice__item--title {
+          .c-new-invoice__item--item-name {
             font-size: 13px;
           }
 
-          .c-new-invoice__item--title--hidden {
+          .c-new-invoice__item--item-name--hidden {
             display: none;
           }
 
-          .c-new-invoice__item--edit-title--hidden {
+          .c-new-invoice__item--edit-item-name--hidden {
             display: none;
           }
 
-          .c-new-invoice__item--sub-title {
+          .c-new-invoice__item--item-desc--hidden {
+            display: none;
+          }
+
+          .c-new-invoice__item--edit-item-desc--hidden {
+            display: none;
+          }
+
+          .c-new-invoice__item--item-desc {
             font-size: 13px;
             color: lightslategrey;
           }
