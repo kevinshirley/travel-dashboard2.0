@@ -2107,9 +2107,20 @@ a {
           }
 
           .c-new-invoice__qty-item--content {
-            text-align: right;
             width: 24px;
             font-size: 13px;
+          }
+
+          .c-new-invoice__edit-qty-item--content {
+            width: 40px;
+          }
+
+          .c-new-invoice__qty-item--content--hidden {
+            display: none;
+          }
+
+          .c-new-invoice__edit-qty-item--content--hidden {
+            display: none;
           }
 
           .c-new-invoice__amount-item--content {

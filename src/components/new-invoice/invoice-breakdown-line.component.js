@@ -17,10 +17,16 @@ function InvoiceBreakdownLine({
   const itemDescriptionState = {'item-description-state': 'display'};
   const editItemDescriptionState = {'item-description-state': 'edit'};
 
+  const itemQtyState = {'item-qty-state': 'display'};
+  const editItemQtyState = {'item-qty-state': 'edit'};
+
   const [shouldEditItemName, setShouldEditItemName] = useState(false);
   const [shouldEditItemDescription, setShouldEditItemDescription] = useState(false);
+  const [shouldEditItemQty, setShouldEditItemQty] = useState(false);
+
   const [itemNameValue, setItemNameValue] = useState(itemName);
   const [itemDescriptionValue, setItemDescriptionValue] = useState(itemdescription);
+  const [itemQtyValue, setItemQtyValue] = useState(qty);
 
   const editItemNameRef = useRef();
 
@@ -40,9 +46,18 @@ function InvoiceBreakdownLine({
 
     if (targetState === 'display') {
       setShouldEditItemDescription(true);
-      editItemNameRef.current.focus();
     } else if (targetState === 'edit') {
       setShouldEditItemDescription(false);
+    }
+  };
+
+  const onToggleItemQtyState = e => {
+    const targetState = e.target.getAttribute('item-qty-state');
+
+    if (targetState === 'display') {
+      setShouldEditItemQty(true);
+    } else if (targetState === 'edit') {
+      setShouldEditItemQty(false);
     }
   };
 
@@ -60,6 +75,14 @@ function InvoiceBreakdownLine({
 
   const editItemDescriptionClasses = cx(`${BEM_BLOCK}__item--edit-item-desc`, {
     [`${BEM_BLOCK}__item--edit-item-desc--hidden`]: !shouldEditItemDescription,
+  });
+
+  const itemQtyClasses = cx(`${BEM_BLOCK}__qty-item--content`, {
+    [`${BEM_BLOCK}__qty-item--content--hidden`]: shouldEditItemQty,
+  });
+
+  const editItemQtyClasses = cx(`${BEM_BLOCK}__edit-qty-item--content`, {
+    [`${BEM_BLOCK}__edit-qty-item--content--hidden`]: !shouldEditItemQty,
   });
 
   return (
@@ -108,7 +131,23 @@ function InvoiceBreakdownLine({
             +HST
           </span>
         </div>
-        <span className={`${BEM_BLOCK}__qty-item--content`}>{qty}</span>
+        <span
+          className={itemQtyClasses}
+          onClick={e => onToggleItemQtyState(e)}
+          {...itemQtyState}
+        >
+          {itemQtyValue}
+        </span>
+        <input
+          className={editItemQtyClasses}
+          type='text'
+          name='itemQty'
+          placeholder='Qty'
+          onBlur={e => onToggleItemQtyState(e)}
+          onChange={e => setItemQtyValue(e.target.value)}
+          value={itemQtyValue}
+          {...editItemQtyState}
+        />
         <span className={`${BEM_BLOCK}__amount-item--content`}>{`$${total}`}</span>
       </div>
     </div>
