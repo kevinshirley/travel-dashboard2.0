@@ -209,7 +209,12 @@ function InvoiceBreakdownLine({
           name='itemQty'
           placeholder='Qty'
           onBlur={e => onToggleItemQtyState(e)}
-          onChange={e => setItemQtyValue(e.target.value)}
+          onChange={e => {
+            const newQty = Number(e.target.value);
+            setItemQtyValue(newQty);
+            const newTotalAmount = newQty * unitCostValue;
+            setTotalAmountValue(newTotalAmount);
+          }}
           value={itemQtyValue}
           {...editItemQtyState}
         />
