@@ -2101,6 +2101,18 @@ a {
               font-size: 13px;
             }
 
+            .c-new-invoice__edit-item--price {
+              width: 80px;
+            }
+
+            .c-new-invoice__item--price--hidden {
+              display: none;
+            }
+
+            .c-new-invoice__edit-item--price--hidden {
+              display: none;
+            }
+
             .c-new-invoice__item--tax {
               color: lightslategrey;
             }
@@ -2128,7 +2140,7 @@ a {
           }
 
           .c-new-invoice__edit-total-amount--content {
-            width: 40px;
+            width: 80px;
           }
 
           .c-new-invoice__total-amount--content--hidden {
