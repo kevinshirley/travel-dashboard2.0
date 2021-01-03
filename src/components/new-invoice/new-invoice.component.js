@@ -1,11 +1,19 @@
 import React, { useState } from 'react';
 import { SPACING } from 'src/components/material-ui/icons';
+import { formatPrice } from 'src/utils/string';
 import InvoiceBreakdownLine from 'src/components/new-invoice/invoice-breakdown-line.component';
 
 const BEM_BLOCK = 'c-new-invoice';
 
 function NewInvoice() {
   const [breakdownLines, setBreakdownLines] = useState([]);
+  const [listItem, setListItem] = useState([]);
+  const [totalAmountDue, setTotalAmountDue] = useState(0);
+  const [previousItemAmount, setPreviousItemAmount] = useState(0);
+  const [previousTotalAmount, setPreviousTotalAmount] = useState(0);
+
+  // console.log({ listItem, totalAmountDue, previousItemAmount });
+  console.log({ previousTotalAmount });
 
   const onAddNewBreakdownLine = () => {
     setBreakdownLines([
@@ -19,6 +27,22 @@ function NewInvoice() {
         itemdescription: '',
       },
     ]);
+  };
+
+  const onSetTotalAmountDue = data => {
+    if (data.amountTotal === 0) {
+      setPreviousTotalAmount(totalAmountDue);
+      setTotalAmountDue(totalAmountDue-previousItemAmount);
+    } else if (data.amountTotal !== 0 && data.amountTotal < previousItemAmount) {
+      const newTotal = totalAmountDue-previousItemAmount;
+      setPreviousTotalAmount(newTotal);
+      setTotalAmountDue(newTotal+data.amountTotal);
+    } else {
+      setPreviousTotalAmount(totalAmountDue);
+      setTotalAmountDue(data.amountTotal+totalAmountDue);
+    }
+    console.log({ 'previousItemAmount before change': previousItemAmount });
+    setPreviousItemAmount(data.amountTotal);
   };
 
   return (
@@ -86,7 +110,7 @@ function NewInvoice() {
           </div>
           <div className={`${BEM_BLOCK}__amount-due`}>
             <span className={`${BEM_BLOCK}__amount-due-title`}>Amount Due (USD)</span>
-            <span className={`${BEM_BLOCK}__amount`}>$2465.99</span>
+            <span className={`${BEM_BLOCK}__amount`}>${formatPrice(totalAmountDue)}</span>
           </div>
         </div>
         <div className={`${BEM_BLOCK}__invoice-message`}>
@@ -107,7 +131,11 @@ function NewInvoice() {
           </div>
           {breakdownLines.map(line => {
             return (
-              <InvoiceBreakdownLine key={line.index} {...line} />
+              <InvoiceBreakdownLine
+                key={line.index}
+                setTotalAmountDue={onSetTotalAmountDue}
+                {...line}
+              />
             );
           })}
           <div className={`${BEM_BLOCK}__row--add-line`} onClick={() => onAddNewBreakdownLine()}>
@@ -123,7 +151,7 @@ function NewInvoice() {
                 <span>Subtotal</span>
               </div>
               <div className={`${BEM_BLOCK}__amount`}>
-                <span>$2232.99</span>
+                <span>${formatPrice(totalAmountDue)}</span>
               </div>
             </div>
             <div className={`${BEM_BLOCK}__tax`}>
@@ -131,7 +159,7 @@ function NewInvoice() {
                 <span>Tax</span>
               </div>
               <div className={`${BEM_BLOCK}__amount`}>
-                <span>$233.00</span>
+                <span>${formatPrice(0)}</span>
               </div>
             </div>
             <div className={`${BEM_BLOCK}__total`}>
@@ -139,7 +167,7 @@ function NewInvoice() {
                 <span>Total</span>
               </div>
               <div className={`${BEM_BLOCK}__amount`}>
-                <span>$2465.99</span>
+                <span>${formatPrice(totalAmountDue)}</span>
               </div>
             </div>
           </div>

@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import { formatPrice } from 'src/utils/string';
+import uuidv4 from 'src/utils/uuidv4';
 
 const BEM_BLOCK = 'c-new-invoice';
 
@@ -11,6 +12,7 @@ function InvoiceBreakdownLine({
   qty,
   total,
   unitCost,
+  setTotalAmountDue,
 }) {
   const itemNameState = {'item-name-state': 'display'};
   const editItemNameState = {'item-name-state': 'edit'};
@@ -184,7 +186,14 @@ function InvoiceBreakdownLine({
             type='text'
             name='unitCost'
             placeholder='Cost'
-            onBlur={e => onToggleUnitCostState(e)}
+            onBlur={e => {
+              onToggleUnitCostState(e);
+              setTotalAmountDue({
+                id: uuidv4(),
+                itemName: 'new-item-name',
+                amountTotal: Number(e.target.value)
+              });
+            }}
             onChange={e => {
               setUnitCostValue(e.target.value);
               setTotalAmountValue(e.target.value);
