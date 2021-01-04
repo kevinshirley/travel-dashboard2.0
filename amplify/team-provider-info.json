@@ -10,6 +10,11 @@
             "StackName": "amplify-traveldashboard-main-132640",
             "StackId": "arn:aws:cloudformation:us-east-1:518889762667:stack/amplify-traveldashboard-main-132640/66c740f0-4eba-11eb-b78a-0e4143cc1ab7",
             "AmplifyAppId": "d3pei9h96be6cw"
+        },
+        "categories": {
+            "auth": {
+                "traveldashboard5af1deed": {}
+            }
         }
     }
 }

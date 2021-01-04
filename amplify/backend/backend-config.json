@@ -1,1 +1,9 @@
-{}
+{
+	"auth": {
+		"traveldashboard5af1deed": {
+			"service": "Cognito",
+			"providerPlugin": "awscloudformation",
+			"dependsOn": []
+		}
+	}
+}
