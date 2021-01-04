@@ -2,7 +2,6 @@ import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import { formatPrice } from 'src/utils/string';
-import uuidv4 from 'src/utils/uuidv4';
 
 const BEM_BLOCK = 'c-new-invoice';
 
@@ -191,14 +190,14 @@ function InvoiceBreakdownLine({
               onToggleUnitCostState(e);
               setTotalAmountDue({
                 itemName: itemNameValue,
-                amountTotal: Number(e.target.value),
+                amountTotal: Number(e.target.value)*itemQtyValue,
                 previousAmountTotal: previousTotalAmountValue,
               });
-              setPreviousTotalAmountValue(Number(e.target.value));
+              setPreviousTotalAmountValue(Number(e.target.value)*itemQtyValue);
             }}
             onChange={e => {
               setUnitCostValue(e.target.value);
-              setTotalAmountValue(e.target.value);
+              setTotalAmountValue(Number(e.target.value)*itemQtyValue);
             }}
             value={unitCostValue}
             {...editUnitCostState}
@@ -219,7 +218,15 @@ function InvoiceBreakdownLine({
           type='text'
           name='itemQty'
           placeholder='Qty'
-          onBlur={e => onToggleItemQtyState(e)}
+          onBlur={e => {
+            onToggleItemQtyState(e);
+            setTotalAmountDue({
+              itemName: itemNameValue,
+              amountTotal: Number(totalAmountValue),
+              previousAmountTotal: previousTotalAmountValue,
+            });
+            setPreviousTotalAmountValue(Number(totalAmountValue));
+          }}
           onChange={e => {
             const newQty = Number(e.target.value);
             setItemQtyValue(newQty);
