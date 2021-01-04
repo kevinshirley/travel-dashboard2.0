@@ -7,13 +7,7 @@ const BEM_BLOCK = 'c-new-invoice';
 
 function NewInvoice() {
   const [breakdownLines, setBreakdownLines] = useState([]);
-  const [listItem, setListItem] = useState([]);
   const [totalAmountDue, setTotalAmountDue] = useState(0);
-  const [previousItemAmount, setPreviousItemAmount] = useState(0);
-  const [previousTotalAmount, setPreviousTotalAmount] = useState(0);
-
-  // console.log({ listItem, totalAmountDue, previousItemAmount });
-  console.log({ previousTotalAmount });
 
   const onAddNewBreakdownLine = () => {
     setBreakdownLines([
@@ -30,19 +24,12 @@ function NewInvoice() {
   };
 
   const onSetTotalAmountDue = data => {
-    if (data.amountTotal === 0) {
-      setPreviousTotalAmount(totalAmountDue);
-      setTotalAmountDue(totalAmountDue-previousItemAmount);
-    } else if (data.amountTotal !== 0 && data.amountTotal < previousItemAmount) {
-      const newTotal = totalAmountDue-previousItemAmount;
-      setPreviousTotalAmount(newTotal);
+    if (data.previousAmountTotal > 0) {
+      const newTotal = totalAmountDue-data.previousAmountTotal;
       setTotalAmountDue(newTotal+data.amountTotal);
     } else {
-      setPreviousTotalAmount(totalAmountDue);
-      setTotalAmountDue(data.amountTotal+totalAmountDue);
+      setTotalAmountDue(totalAmountDue+data.amountTotal);
     }
-    console.log({ 'previousItemAmount before change': previousItemAmount });
-    setPreviousItemAmount(data.amountTotal);
   };
 
   return (

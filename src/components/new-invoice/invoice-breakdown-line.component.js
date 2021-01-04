@@ -10,7 +10,6 @@ function InvoiceBreakdownLine({
   itemName,
   itemdescription,
   qty,
-  total,
   unitCost,
   setTotalAmountDue,
 }) {
@@ -28,6 +27,8 @@ function InvoiceBreakdownLine({
 
   const unitCostState = {'unit-cost-state': 'display'};
   const editUnitCostState = {'unit-cost-state': 'edit'};
+
+  const [previousTotalAmountValue, setPreviousTotalAmountValue] = useState(0);
 
   const [shouldEditItemName, setShouldEditItemName] = useState(false);
   const [shouldEditItemDescription, setShouldEditItemDescription] = useState(false);
@@ -189,10 +190,11 @@ function InvoiceBreakdownLine({
             onBlur={e => {
               onToggleUnitCostState(e);
               setTotalAmountDue({
-                id: uuidv4(),
-                itemName: 'new-item-name',
-                amountTotal: Number(e.target.value)
+                itemName: itemNameValue,
+                amountTotal: Number(e.target.value),
+                previousAmountTotal: previousTotalAmountValue,
               });
+              setPreviousTotalAmountValue(Number(e.target.value));
             }}
             onChange={e => {
               setUnitCostValue(e.target.value);
@@ -252,8 +254,8 @@ InvoiceBreakdownLine.prototypes = {
   itemName: PropTypes.string,
   itemdescription: PropTypes.string,
   qty: PropTypes.number,
-  total: PropTypes.number,
   unitCost: PropTypes.number,
+  setTotalAmountDue: PropTypes.func,
 };
 
 export default InvoiceBreakdownLine;
