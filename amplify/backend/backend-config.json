@@ -1,3 +1,9 @@
 {
-	"auth": {}
+	"auth": {
+		"traveldashboardbe048508": {
+			"service": "Cognito",
+			"providerPlugin": "awscloudformation",
+			"dependsOn": []
+		}
+	}
 }

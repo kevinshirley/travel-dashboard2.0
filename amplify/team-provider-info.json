@@ -23,6 +23,11 @@
             "StackName": "amplify-traveldashboard-dev-184244",
             "StackId": "arn:aws:cloudformation:us-east-1:518889762667:stack/amplify-traveldashboard-dev-184244/8d3dbc10-4ee6-11eb-8611-1266e578c117",
             "AmplifyAppId": "d3oxtin87pdok"
+        },
+        "categories": {
+            "auth": {
+                "traveldashboardbe048508": {}
+            }
         }
     }
 }
