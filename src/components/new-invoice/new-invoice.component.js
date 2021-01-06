@@ -1,13 +1,21 @@
-import React, { useState } from 'react';
-import { SPACING } from 'src/components/material-ui/icons';
+import 'date-fns';
+import React, { useState, useRef } from 'react';
+import { SPACING, CALENDAR_TODAY_ICON } from 'src/components/material-ui/icons';
 import { formatPrice } from 'src/utils/string';
 import InvoiceBreakdownLine from 'src/components/new-invoice/invoice-breakdown-line.component';
+import DatePicker from 'react-datepicker';
 
 const BEM_BLOCK = 'c-new-invoice';
 
 function NewInvoice() {
   const [breakdownLines, setBreakdownLines] = useState([]);
   const [totalAmountDue, setTotalAmountDue] = useState(0);
+
+  const [dueDate, setDueDate] = useState(new Date());
+  const [dateIssued, setDateIssued] = useState(new Date());
+
+  const dueDateRef = useRef(null);
+  const dateIssuedRef = useRef(null);
 
   const onAddNewBreakdownLine = () => {
     setBreakdownLines([
@@ -78,11 +86,33 @@ function NewInvoice() {
           <div className={`${BEM_BLOCK}__billed-to-date`}>
             <div className={`${BEM_BLOCK}__date-issued`}>
               <span className={`${BEM_BLOCK}__date-issued-title`}>Date Issued</span>
-              <span className={`${BEM_BLOCK}__date`}>12/28/2020</span>
+              <div
+                className={`${BEM_BLOCK}__date--wrapper`}
+                onClick={() => dateIssuedRef.current.setFocus()}
+              >
+                <DatePicker
+                  className={`${BEM_BLOCK}__date`}
+                  selected={dateIssued}
+                  onChange={date => setDateIssued(date)}
+                  ref={dateIssuedRef}
+                />
+                {CALENDAR_TODAY_ICON}
+              </div>
             </div>
             <div className={`${BEM_BLOCK}__due-date`}>
               <span className={`${BEM_BLOCK}__due-date-title`}>Due Date</span>
-              <span className={`${BEM_BLOCK}__date`}>01/12/2021</span>
+              <div
+                className={`${BEM_BLOCK}__date--wrapper`}
+                onClick={() => dueDateRef.current.setFocus()}
+              >
+                <DatePicker
+                  className={`${BEM_BLOCK}__date`}
+                  selected={dueDate}
+                  onChange={date => setDueDate(date)}
+                  ref={dueDateRef}
+                />
+                {CALENDAR_TODAY_ICON}
+              </div>
             </div>
           </div>
           <div className={`${BEM_BLOCK}__invoice-id`}>

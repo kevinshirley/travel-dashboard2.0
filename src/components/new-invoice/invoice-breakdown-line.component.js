@@ -42,7 +42,7 @@ function InvoiceBreakdownLine({
   const [taxValue, setTaxValue] = useState([]);
   const [totalAmountValue, setTotalAmountValue] = useState(unitCost);
 
-  const editItemNameRef = useRef();
+  const editItemNameRef = useRef(null);
 
   const onToggleItemNameState = e => {
     const targetState = e.target.getAttribute('item-name-state');

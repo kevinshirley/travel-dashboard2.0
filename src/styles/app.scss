@@ -1930,6 +1930,24 @@ a {
             color: $new-invoice__color;
             font-weight: 500;
           }
+
+          .c-new-invoice__date {
+            font-size: 14px;
+            border: none;
+            padding: 0;
+            width: 80px;
+          }
+
+          .c-new-invoice__date--wrapper {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+
+            svg {
+              font-size: 16px;
+              cursor: pointer;
+            }
+          }
         }
 
         .c-new-invoice__due-date {
@@ -1943,6 +1961,24 @@ a {
           .c-new-invoice__due-date-title {
             color: $new-invoice__color;
             font-weight: 500;
+          }
+
+          .c-new-invoice__date {
+            font-size: 14px;
+            border: none;
+            padding: 0;
+            width: 80px;
+          }
+
+          .c-new-invoice__date--wrapper {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+
+            svg {
+              font-size: 16px;
+              cursor: pointer;
+            }
           }
         }
       }

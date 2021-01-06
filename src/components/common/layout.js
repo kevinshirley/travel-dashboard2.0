@@ -3,6 +3,7 @@ import Head from 'next/head';
 
 import 'bootstrap/dist/css/bootstrap-reboot.min.css';
 import 'react-calendar/dist/Calendar.css';
+import "react-datepicker/dist/react-datepicker.css";
 import 'src/styles/app.scss';
 import { useAction } from 'src/store/hooks';
 import * as actions from 'src/store/actions';

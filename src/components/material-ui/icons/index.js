@@ -55,6 +55,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
 import CreditCardIcon from '@material-ui/icons/CreditCard';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
 
 export const PORTFOLIO_ICON = (
   <BurstModeOutlinedIcon />
@@ -276,4 +277,8 @@ export const CREDIT_CARD_ICON = (
 
 export const ARROW_FORWARD_ICON = (
   <ArrowForwardIcon />
+);
+
+export const CALENDAR_TODAY_ICON = (
+  <CalendarTodayIcon />
 );
