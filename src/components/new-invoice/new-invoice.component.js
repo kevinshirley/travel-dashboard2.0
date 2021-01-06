@@ -1,5 +1,6 @@
 import 'date-fns';
 import React, { useState, useRef } from 'react';
+import cx from 'classnames';
 import { SPACING, CALENDAR_TODAY_ICON } from 'src/components/material-ui/icons';
 import { formatPrice } from 'src/utils/string';
 import InvoiceBreakdownLine from 'src/components/new-invoice/invoice-breakdown-line.component';
@@ -16,6 +17,21 @@ function NewInvoice() {
 
   const dueDateRef = useRef(null);
   const dateIssuedRef = useRef(null);
+
+  const [invoiceNumberValue, setInvoiceNumberValue] = useState('0000000001');
+
+  const invoiceNumberState = {'invoice-number-state': 'display'};
+  const editInvoiceNumberState = {'invoice-number-state': 'edit'};
+
+  const [shouldEditInvoiceNumber, setShouldEditItemName] = useState(false);
+
+  const invoiceNumberClasses = cx(`${BEM_BLOCK}__number`, {
+    [`${BEM_BLOCK}__number--hidden`]: shouldEditInvoiceNumber,
+  });
+
+  const editInvoiceNumberClasses = cx(`${BEM_BLOCK}__edit-number`, {
+    [`${BEM_BLOCK}__edit-number--hidden`]: !shouldEditInvoiceNumber,
+  });
 
   const onAddNewBreakdownLine = () => {
     setBreakdownLines([
@@ -37,6 +53,16 @@ function NewInvoice() {
       setTotalAmountDue(newTotal+data.amountTotal);
     } else {
       setTotalAmountDue(totalAmountDue+data.amountTotal);
+    }
+  };
+
+  const onToggleInvoiceNumberState = e => {
+    const targetState = e.target.getAttribute('invoice-number-state');
+
+    if (targetState === 'display') {
+      setShouldEditItemName(true);
+    } else if (targetState === 'edit') {
+      setShouldEditItemName(false);
     }
   };
 
@@ -117,8 +143,26 @@ function NewInvoice() {
           </div>
           <div className={`${BEM_BLOCK}__invoice-id`}>
             <div className={`${BEM_BLOCK}__invoice-number`}>
-              <span className={`${BEM_BLOCK}__invoice-number-title`}>Invoice Number</span>
-              <span className={`${BEM_BLOCK}__number`}>1000011111222000</span>
+              <span className={`${BEM_BLOCK}__invoice-number-title`}>
+                Invoice Number
+              </span>
+              <span
+                className={invoiceNumberClasses}
+                onClick={e => onToggleInvoiceNumberState(e)}
+                {...invoiceNumberState}
+              >
+                {invoiceNumberValue}
+              </span>
+              <input
+                className={editInvoiceNumberClasses}
+                type='text'
+                name='invoiceNumber'
+                placeholder='Enter invoice number'
+                onBlur={e => onToggleInvoiceNumberState(e)}
+                onChange={e => setInvoiceNumberValue(e.target.value)}
+                value={invoiceNumberValue}
+                {...editInvoiceNumberState}
+              />
             </div>
             <div className={`${BEM_BLOCK}__reference-number`}>
               <span className={`${BEM_BLOCK}__reference-number-title`}>Reference</span>

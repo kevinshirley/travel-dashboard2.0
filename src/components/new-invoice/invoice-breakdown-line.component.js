@@ -189,7 +189,6 @@ function InvoiceBreakdownLine({
             onBlur={e => {
               onToggleUnitCostState(e);
               setTotalAmountDue({
-                itemName: itemNameValue,
                 amountTotal: Number(e.target.value)*itemQtyValue,
                 previousAmountTotal: previousTotalAmountValue,
               });
@@ -221,7 +220,6 @@ function InvoiceBreakdownLine({
           onBlur={e => {
             onToggleItemQtyState(e);
             setTotalAmountDue({
-              itemName: itemNameValue,
               amountTotal: Number(totalAmountValue),
               previousAmountTotal: previousTotalAmountValue,
             });
