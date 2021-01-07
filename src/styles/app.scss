@@ -1893,6 +1893,32 @@ a {
               display: none;
             }
           }
+
+          .c-new-invoice__company-representative-name {
+            .c-new-invoice__company-rep-name--wrapper {
+              white-space: nowrap;
+
+              .c-new-invoice__rep-first-name--hidden {
+                display: none;
+              }
+
+              .c-new-invoice__rep-last-name--hidden {
+                display: none;
+              }
+            }
+
+            .c-new-invoice__edit-company-rep-name--wrapper {
+              white-space: nowrap;
+
+              .c-new-invoice__edit-rep-first-name--hidden {
+                display: none;
+              }
+
+              .c-new-invoice__edit-rep-last-name--hidden {
+                display: none;
+              }
+            }
+          }
         }
 
         .c-new-invoice__company-address {
