@@ -19,11 +19,15 @@ function NewInvoice() {
   const dateIssuedRef = useRef(null);
 
   const [invoiceNumberValue, setInvoiceNumberValue] = useState('0000000001');
+  const [referenceNumberValue, setReferenceNumberValue] = useState('');
 
   const invoiceNumberState = {'invoice-number-state': 'display'};
   const editInvoiceNumberState = {'invoice-number-state': 'edit'};
+  const referenceNumberState = {'reference-number-state': 'display'};
+  const editReferenceNumberState = {'reference-number-state': 'edit'};
 
-  const [shouldEditInvoiceNumber, setShouldEditItemName] = useState(false);
+  const [shouldEditInvoiceNumber, setShouldEditInvoiceNumber] = useState(false);
+  const [shouldEditReferenceNumber, setShouldEditReferenceNumber] = useState(false);
 
   const invoiceNumberClasses = cx(`${BEM_BLOCK}__number`, {
     [`${BEM_BLOCK}__number--hidden`]: shouldEditInvoiceNumber,
@@ -31,6 +35,14 @@ function NewInvoice() {
 
   const editInvoiceNumberClasses = cx(`${BEM_BLOCK}__edit-number`, {
     [`${BEM_BLOCK}__edit-number--hidden`]: !shouldEditInvoiceNumber,
+  });
+
+  const referenceNumberClasses = cx(`${BEM_BLOCK}__number`, {
+    [`${BEM_BLOCK}__number--hidden`]: shouldEditReferenceNumber,
+  });
+
+  const editReferenceNumberClasses = cx(`${BEM_BLOCK}__edit-number`, {
+    [`${BEM_BLOCK}__edit-number--hidden`]: !shouldEditReferenceNumber,
   });
 
   const onAddNewBreakdownLine = () => {
@@ -60,9 +72,19 @@ function NewInvoice() {
     const targetState = e.target.getAttribute('invoice-number-state');
 
     if (targetState === 'display') {
-      setShouldEditItemName(true);
+      setShouldEditInvoiceNumber(true);
     } else if (targetState === 'edit') {
-      setShouldEditItemName(false);
+      setShouldEditInvoiceNumber(false);
+    }
+  };
+
+  const onToggleReferenceNumberState = e => {
+    const targetState = e.target.getAttribute('reference-number-state');
+
+    if (targetState === 'display') {
+      setShouldEditReferenceNumber(true);
+    } else if (targetState === 'edit') {
+      setShouldEditReferenceNumber(false);
     }
   };
 
@@ -151,7 +173,7 @@ function NewInvoice() {
                 onClick={e => onToggleInvoiceNumberState(e)}
                 {...invoiceNumberState}
               >
-                {invoiceNumberValue}
+                {invoiceNumberValue ? invoiceNumberValue : 'Enter invoice number'}
               </span>
               <input
                 className={editInvoiceNumberClasses}
@@ -166,7 +188,23 @@ function NewInvoice() {
             </div>
             <div className={`${BEM_BLOCK}__reference-number`}>
               <span className={`${BEM_BLOCK}__reference-number-title`}>Reference</span>
-              <span className={`${BEM_BLOCK}__number`}>363528</span>
+              <span
+                className={referenceNumberClasses}
+                onClick={e => onToggleReferenceNumberState(e)}
+                {...referenceNumberState}
+              >
+                {referenceNumberValue ? referenceNumberValue : 'Enter reference number'}
+              </span>
+              <input
+                className={editReferenceNumberClasses}
+                type='text'
+                name='referenceNumber'
+                placeholder='Enter reference number'
+                onBlur={e => onToggleReferenceNumberState(e)}
+                onChange={e => setReferenceNumberValue(e.target.value)}
+                value={referenceNumberValue}
+                {...editReferenceNumberState}
+              />
             </div>
           </div>
           <div className={`${BEM_BLOCK}__amount-due`}>

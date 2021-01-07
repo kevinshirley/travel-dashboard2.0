@@ -2019,6 +2019,14 @@ a {
             color: $new-invoice__color;
             font-weight: 500;
           }
+
+          .c-new-invoice__number--hidden {
+            display: none;
+          }
+
+          .c-new-invoice__edit-number--hidden {
+            display: none;
+          }
         }
       }
 
