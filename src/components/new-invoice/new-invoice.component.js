@@ -20,14 +20,22 @@ function NewInvoice() {
 
   const [invoiceNumberValue, setInvoiceNumberValue] = useState('0000000001');
   const [referenceNumberValue, setReferenceNumberValue] = useState('');
+  const [companyNameValue, setCompanyNameValue] = useState('');
 
   const invoiceNumberState = {'invoice-number-state': 'display'};
   const editInvoiceNumberState = {'invoice-number-state': 'edit'};
   const referenceNumberState = {'reference-number-state': 'display'};
   const editReferenceNumberState = {'reference-number-state': 'edit'};
+  const companyNameState = {'company-name-state': 'display'};
+  const editCompanyNameState = {'company-name-state': 'edit'};
+  const repFirstNameState = {'rep-first-name-state': 'display'};
+  const editRepFirstNameState = {'rep-first-name-state': 'edit'};
+  const repLastNameState = {'rep-last-name-state': 'display'};
+  const editRepLastNameState = {'rep-last-name-state': 'edit'};
 
   const [shouldEditInvoiceNumber, setShouldEditInvoiceNumber] = useState(false);
   const [shouldEditReferenceNumber, setShouldEditReferenceNumber] = useState(false);
+  const [shouldEditCompanyName, setShouldEditCompanyName] = useState(false);
 
   const invoiceNumberClasses = cx(`${BEM_BLOCK}__number`, {
     [`${BEM_BLOCK}__number--hidden`]: shouldEditInvoiceNumber,
@@ -43,6 +51,14 @@ function NewInvoice() {
 
   const editReferenceNumberClasses = cx(`${BEM_BLOCK}__edit-number`, {
     [`${BEM_BLOCK}__edit-number--hidden`]: !shouldEditReferenceNumber,
+  });
+
+  const companyNameClasses = cx(`${BEM_BLOCK}__company-name-value`, {
+    [`${BEM_BLOCK}__company-name-value--hidden`]: shouldEditCompanyName,
+  });
+
+  const editCompanyNameClasses = cx(`${BEM_BLOCK}__edit-company-name-value`, {
+    [`${BEM_BLOCK}__edit-company-name-value--hidden`]: !shouldEditCompanyName,
   });
 
   const onAddNewBreakdownLine = () => {
@@ -88,6 +104,16 @@ function NewInvoice() {
     }
   };
 
+  const onToggleCompanyNameState = e => {
+    const targetState = e.target.getAttribute('company-name-state');
+
+    if (targetState === 'display') {
+      setShouldEditCompanyName(true);
+    } else if (targetState === 'edit') {
+      setShouldEditCompanyName(false);
+    }
+  };
+
   return (
     <div  className={`${BEM_BLOCK}`}>
       <div className={`${BEM_BLOCK}__invoice`}>
@@ -102,10 +128,60 @@ function NewInvoice() {
           <div className={`${BEM_BLOCK}__company-info`}>
             <div className={`${BEM_BLOCK}__company-representative-contact`}>
               <div className={`${BEM_BLOCK}__company-name`}>
-                <span>Trip Imagine</span>
+                <span
+                  className={companyNameClasses}
+                  onClick={e => onToggleCompanyNameState(e)}
+                  {...companyNameState}
+                >
+                  {companyNameValue ? companyNameValue : 'Company Name'}
+                </span>
+                <input
+                  className={editCompanyNameClasses}
+                  type='text'
+                  name='companyName'
+                  placeholder='Company Name'
+                  onBlur={e => onToggleCompanyNameState(e)}
+                  onChange={e => setCompanyNameValue(e.target.value)}
+                  value={companyNameValue}
+                  {...editCompanyNameState}
+                />
               </div>
               <div className={`${BEM_BLOCK}__company-representative-name`}>
-                <span>David Delcy-Dubourg</span>
+                <span  className={`${BEM_BLOCK}__company-rep-name--wrapper`}>
+                  <span
+                    {...repFirstNameState}
+                  >
+                    David
+                  </span>
+                  {SPACING}
+                  <span
+                    {...repLastNameState}
+                  >
+                    Delcy-Dubourg
+                  </span>
+                </span>
+                <span  className={`${BEM_BLOCK}__edit-company-rep-name--wrapper`}>
+                  <input
+                    className={editCompanyNameClasses}
+                    type='text'
+                    name='firstName'
+                    placeholder='First Name'
+                    onBlur={e => onToggleCompanyNameState(e)}
+                    onChange={e => setCompanyNameValue(e.target.value)}
+                    value={companyNameValue}
+                    {...editRepFirstNameState}
+                  />
+                  <input
+                    className={editCompanyNameClasses}
+                    type='text'
+                    name='lastName'
+                    placeholder='Last Name'
+                    onBlur={e => onToggleCompanyNameState(e)}
+                    onChange={e => setCompanyNameValue(e.target.value)}
+                    value={companyNameValue}
+                    {...editRepLastNameState}
+                  />
+                </span>
               </div>
               <div className={`${BEM_BLOCK}__company-representative-number`}>
                 <span>514-922-1846</span>

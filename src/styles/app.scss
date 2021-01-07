@@ -1883,6 +1883,16 @@ a {
           span {
             font-size: 14px;
           }
+
+          .c-new-invoice__company-name {
+            .c-new-invoice__company-name-value--hidden {
+              display: none;
+            }
+
+            .c-new-invoice__edit-company-name-value--hidden {
+              display: none;
+            }
+          }
         }
 
         .c-new-invoice__company-address {
