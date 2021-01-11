@@ -25,7 +25,7 @@ function Home() {
       <HomeSection1 />
       <HomeSection2 />
       <div className='c-generic-modal-form'>
-        { user && <h1>Welcome, {user.attributes.email}</h1> }
+        { user && <h1>Welcome, {user.attributes.email}!</h1> }
         <AmplifySignOut />
       </div>
     </>

@@ -29,5 +29,23 @@
                 "traveldashboardbe048508": {}
             }
         }
+    },
+    "prod": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-traveldashboard-prod-211105-authRole",
+            "UnauthRoleArn": "arn:aws:iam::518889762667:role/amplify-traveldashboard-prod-211105-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::518889762667:role/amplify-traveldashboard-prod-211105-authRole",
+            "Region": "us-east-1",
+            "DeploymentBucketName": "amplify-traveldashboard-prod-211105-deployment",
+            "UnauthRoleName": "amplify-traveldashboard-prod-211105-unauthRole",
+            "StackName": "amplify-traveldashboard-prod-211105",
+            "StackId": "arn:aws:cloudformation:us-east-1:518889762667:stack/amplify-traveldashboard-prod-211105/43f13f20-53b2-11eb-a49e-0e08ce19eddf",
+            "AmplifyAppId": "d3oxtin87pdok"
+        },
+        "categories": {
+            "auth": {
+                "traveldashboardbe048508": {}
+            }
+        }
     }
 }
