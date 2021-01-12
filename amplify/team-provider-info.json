@@ -1,0 +1,51 @@
+{
+    "main": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-traveldashboard-main-132640-authRole",
+            "UnauthRoleArn": "arn:aws:iam::518889762667:role/amplify-traveldashboard-main-132640-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::518889762667:role/amplify-traveldashboard-main-132640-authRole",
+            "Region": "us-east-1",
+            "DeploymentBucketName": "amplify-traveldashboard-main-132640-deployment",
+            "UnauthRoleName": "amplify-traveldashboard-main-132640-unauthRole",
+            "StackName": "amplify-traveldashboard-main-132640",
+            "StackId": "arn:aws:cloudformation:us-east-1:518889762667:stack/amplify-traveldashboard-main-132640/66c740f0-4eba-11eb-b78a-0e4143cc1ab7",
+            "AmplifyAppId": "d3pei9h96be6cw"
+        }
+    },
+    "dev": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-traveldashboard-dev-184244-authRole",
+            "UnauthRoleArn": "arn:aws:iam::518889762667:role/amplify-traveldashboard-dev-184244-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::518889762667:role/amplify-traveldashboard-dev-184244-authRole",
+            "Region": "us-east-1",
+            "DeploymentBucketName": "amplify-traveldashboard-dev-184244-deployment",
+            "UnauthRoleName": "amplify-traveldashboard-dev-184244-unauthRole",
+            "StackName": "amplify-traveldashboard-dev-184244",
+            "StackId": "arn:aws:cloudformation:us-east-1:518889762667:stack/amplify-traveldashboard-dev-184244/8d3dbc10-4ee6-11eb-8611-1266e578c117",
+            "AmplifyAppId": "d3oxtin87pdok"
+        },
+        "categories": {
+            "auth": {
+                "traveldashboardbe048508": {}
+            }
+        }
+    },
+    "prod": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-traveldashboard-prod-211105-authRole",
+            "UnauthRoleArn": "arn:aws:iam::518889762667:role/amplify-traveldashboard-prod-211105-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::518889762667:role/amplify-traveldashboard-prod-211105-authRole",
+            "Region": "us-east-1",
+            "DeploymentBucketName": "amplify-traveldashboard-prod-211105-deployment",
+            "UnauthRoleName": "amplify-traveldashboard-prod-211105-unauthRole",
+            "StackName": "amplify-traveldashboard-prod-211105",
+            "StackId": "arn:aws:cloudformation:us-east-1:518889762667:stack/amplify-traveldashboard-prod-211105/43f13f20-53b2-11eb-a49e-0e08ce19eddf",
+            "AmplifyAppId": "d3oxtin87pdok"
+        },
+        "categories": {
+            "auth": {
+                "traveldashboardbe048508": {}
+            }
+        }
+    }
+}
