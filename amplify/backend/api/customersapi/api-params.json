@@ -1,0 +1,41 @@
+{
+    "paths": [
+        {
+            "name": "/customers",
+            "lambdaFunction": "customersapilambda",
+            "privacy": {
+                "private": true,
+                "auth": [
+                    "/POST",
+                    "/GET",
+                    "/PUT",
+                    "/PATCH",
+                    "/DELETE"
+                ]
+            }
+        }
+    ],
+    "resourceName": "customersapi",
+    "apiName": "customersapi",
+    "functionArns": [
+        {
+            "lambdaFunction": "customersapilambda"
+        }
+    ],
+    "privacy": {
+        "auth": 1,
+        "unauth": 0,
+        "authRoleName": "amplify-traveldashboard-prod-211105-authRole",
+        "unAuthRoleName": "amplify-traveldashboard-prod-211105-unauthRole"
+    },
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "customersapilambda",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        }
+    ]
+}
