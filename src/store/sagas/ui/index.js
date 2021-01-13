@@ -63,7 +63,7 @@ function* openModal({ payload }) {
   if (modalPayload) {
     yield put(ui.setModalUiPayload(modalPayload));
   }
-
+  console.log({ Router, payload });
   removeOverlayQuery();
 
   Router.push({
