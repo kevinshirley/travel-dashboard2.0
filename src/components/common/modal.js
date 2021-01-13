@@ -26,7 +26,7 @@ function Modal() {
     'modal-inner-with-padding': modalUi && staticModals[modalUi].innerModalPadding === true,
     'modal-inner-without-padding': modalUi && staticModals[modalUi].innerModalPadding === false,
   });
-
+  console.log({ isModalOpened, modalUi, modalUiPayload });
   return (
     <>
       {isModalOpened && (
