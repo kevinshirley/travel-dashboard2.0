@@ -57,7 +57,6 @@ function removeOverlayQuery() {
 }
 
 function* openModal({ payload }) {
-  console.log({ payload });
   const { modal, modalPayload } = payload;
   yield put(ui.setModalUi(modal));
 
@@ -65,8 +64,7 @@ function* openModal({ payload }) {
     yield put(ui.setModalUiPayload(modalPayload));
   }
 
-  console.log({ Router });
-  // removeOverlayQuery();
+  removeOverlayQuery();
 
   Router.push({
     pathname: Router.router.pathname,
