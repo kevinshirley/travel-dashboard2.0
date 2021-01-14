@@ -5,7 +5,8 @@ const SessionReducer = (state = {}, { type, payload }) => {
     case SESSION.SET_IS_LOGGED_IN:
       return {
         isLoggedIn: payload.success,
-        username: payload.data.username,
+        username: payload.username,
+        id: payload.sub,
         ...payload,
       };
     default:

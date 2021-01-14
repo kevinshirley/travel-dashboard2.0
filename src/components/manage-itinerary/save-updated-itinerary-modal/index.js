@@ -16,7 +16,7 @@ import { selectIsNewEventListOpened } from 'src/store/selectors/common';
 import selectItineraryEvents from 'src/store/constants/new-events';
 import RoundedButton from 'src/components/material-ui/rounded-button';
 import { MANAGE_ITINERARY } from 'src/store/constants/url';
-import { selectIsLoggedIn, selectSessionProfile } from 'src/store/selectors/session';
+import { selectIsLoggedIn, selectSession } from 'src/store/selectors/session';
 import {
   selectManageItinerarySuccess,
   selectManageItineraryError,
@@ -30,7 +30,7 @@ function SaveUpdatedItineraryModal() {
   const dayToDayList = indexedObjectToArray(dayToDay);
   const tripOverview = head(dayToDayList);
   const isLoggedIn = useSelector(selectIsLoggedIn);
-  const profile = useSelector(selectSessionProfile);
+  const profile = useSelector(selectSession);
   const createdAt = useSelector(selectDayToDayCreatedAtToManage);
   const manageItinerarySuccess = useSelector(selectManageItinerarySuccess);
   const manageItineraryError = useSelector(selectManageItineraryError);

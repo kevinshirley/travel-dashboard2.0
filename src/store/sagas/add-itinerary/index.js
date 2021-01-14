@@ -10,7 +10,7 @@ import { localStore } from 'src/utils/storage';
 import { ADD_ITINERARY, MANAGE_ITINERARY } from 'src/store/constants/url';
 import { ITINERARY, itinerary, ui, ROOT, forms } from 'src/store/actions';
 import { indexedObjectToArray } from 'src/utils/object';
-import { selectSessionProfile } from 'src/store/selectors/session';
+import { selectSession } from 'src/store/selectors/session';
 
 export function* watchAddItinerary() {
   yield takeLatest(ITINERARY.ADD, addItinerary);
@@ -58,7 +58,7 @@ export function* watchDeleteEventToDay() {
 
 function* addItinerary({ payload }) {
   const { path } = payload;
-  const profile = yield select(selectSessionProfile);
+  const profile = yield select(selectSession);
   const { id } = profile;
 
   if (path === ADD_ITINERARY) {

@@ -6,7 +6,7 @@ import { CUSTOMER, ui, forms, SESSION, customers, customer, ROOT } from 'src/sto
 import { selectIsCustomerSideMenu } from 'src/store/selectors/common';
 import { axiosPost, post, dynamoGet } from 'src/utils/fetch';
 import uuidv4 from 'src/utils/uuidv4';
-import { selectSessionProfile } from 'src/store/selectors/session';
+import { selectSession } from 'src/store/selectors/session';
 import { selectUserCustomers } from 'src/store/selectors/customers';
 
 export function* watchSetCustomer() {
@@ -48,7 +48,7 @@ function* closeCustomerSideMenu() {
 
 function* addCustomer({ payload }) {
   // yield put(forms.isSubmitting({ isSubmitting: true, form: 'addCustomer' }));
-  const profile = yield select(selectSessionProfile);
+  const profile = yield select(selectSession);
   console.log({ profile });
 
   const customerData = {
@@ -107,7 +107,7 @@ function* fetchUserCustomers() {
   // fetchUserCustomersx(userCustomers);
   // yield put(customers.setUser([]));
   // API.get('customersapi', '/customers/id').then(customers => console.log({ customers }));
-  // const profile = yield select(selectSessionProfile);
+  // const profile = yield select(selectSession);
   // const { id } = profile;
 
   // if (!isEmpty(id) && !isNil(id)) {

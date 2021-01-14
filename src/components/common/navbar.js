@@ -14,7 +14,7 @@ import { useAction } from 'src/store/hooks';
 import * as actions from 'src/store/actions';
 import { ITINERARY_EDITOR_PATHNAMES, ADD_ITINERARY, MANAGE_ITINERARY, ITINERARY } from 'src/store/constants/url';
 import { MODALS } from 'src/store/constants/modals';
-import { selectSessionProfile, selectIsLoggedIn } from 'src/store/selectors/session';
+import { selectSession, selectIsLoggedIn } from 'src/store/selectors/session';
 
 const selectItineraryOverviewModal = pathname => {
   if (pathname === ADD_ITINERARY) return MODALS.SAVE_NEW_ITINERARY;
@@ -25,11 +25,11 @@ const selectItineraryOverviewModal = pathname => {
 function Navbar() {
   const router = useRouter();
   const openModal = useAction(actions.ui.openModal);
-  const sessionProfile = useSelector(selectSessionProfile);
+  const sessionProfile = useSelector(selectSession);
   const isLoggedIn = useSelector(selectIsLoggedIn);
-
-  const userName = `${sessionProfile.firstName} ${sessionProfile.lastName}`;
-  const profileName = R.isEmpty(sessionProfile.firstName) || R.isEmpty(sessionProfile.lastName) || R.isNil(sessionProfile.firstName) || R.isNil(sessionProfile.lastName) ? 'Account' : userName;
+  console.log({ sessionProfile });
+  // const userName = `${sessionProfile.firstName} ${sessionProfile.lastName}`;
+  // const profileName = R.isEmpty(sessionProfile.firstName) || R.isEmpty(sessionProfile.lastName) || R.isNil(sessionProfile.firstName) || R.isNil(sessionProfile.lastName) ? 'Account' : userName;
 
   const MainNavbarContent = () => (
     <div className='inner'>
@@ -42,7 +42,7 @@ function Navbar() {
         <SearchBar />
       </div>
       <div className='profile'>
-        <ProfileDetails name={profileName} />
+        <ProfileDetails name={sessionProfile.username} />
       </div>
     </div>
   );

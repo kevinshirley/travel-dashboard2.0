@@ -40,18 +40,23 @@ function* logout() {
 }
 
 function* signIn({ payload }) {
-  yield put(forms.isSubmitting({ isSubmitting: true, form: 'signIn' }));
-  const result = yield call(axiosPost, '/api/users/signin', payload);
-
-  if (result.status === 200 && result.data.success) {
-    yield put(forms.isSubmitting({ isSubmitting: false, form: 'signIn' }));
-    typeof window !== "undefined" ? window.location.href = '/account' : null;
-    yield call(delay, 1000);
-    // typeof window !== "undefined" ? window.location.reload() : null;
-  } else {
-    yield put(forms.isSubmitting({ isSubmitting: false, form: 'signIn' }));
-    yield put(forms.setError({ ...result.data, form: 'signIn' }));
+  const { attributes, username } = payload;
+  console.log({ 'sign in attributes payload': attributes });
+  if (attributes.sub) {
+    yield put(session.setIsLoggedIn({ ...attributes, success: true, username }));
   }
+  // yield put(forms.isSubmitting({ isSubmitting: true, form: 'signIn' }));
+  // const result = yield call(axiosPost, '/api/users/signin', payload);
+
+  // if (result.status === 200 && result.data.success) {
+  //   yield put(forms.isSubmitting({ isSubmitting: false, form: 'signIn' }));
+  //   typeof window !== "undefined" ? window.location.href = '/account' : null;
+  //   yield call(delay, 1000);
+  //   // typeof window !== "undefined" ? window.location.reload() : null;
+  // } else {
+  //   yield put(forms.isSubmitting({ isSubmitting: false, form: 'signIn' }));
+  //   yield put(forms.setError({ ...result.data, form: 'signIn' }));
+  // }
 }
 
 function* signUp({ payload }) {

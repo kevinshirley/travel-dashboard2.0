@@ -15,7 +15,7 @@ import { selectIsNewEventListOpened } from 'src/store/selectors/common';
 import selectItineraryEvents from 'src/store/constants/new-events';
 import RoundedButton from 'src/components/material-ui/rounded-button';
 import { useToasts } from 'react-toast-notifications';
-import { selectIsLoggedIn, selectSessionProfile } from 'src/store/selectors/session';
+import { selectIsLoggedIn, selectSession } from 'src/store/selectors/session';
 import { selectAddItinerarySuccess, selectAddItineraryError, selectAddItineraryIsSubmitting } from 'src/store/selectors/forms';
 import { MODALS } from 'src/store/constants/modals';
 import Router from 'next/router';
@@ -24,7 +24,7 @@ import { ADD_ITINERARY } from 'src/store/constants/url';
 function SaveNewItineraryModal() {
   const isNewEventListOpened = useSelector(selectIsNewEventListOpened);
   const isLoggedIn = useSelector(selectIsLoggedIn);
-  const profile = useSelector(selectSessionProfile);
+  const profile = useSelector(selectSession);
   const dayToDay = useSelector(selectDayToDayList);
   const dayToDayList = indexedObjectToArray(dayToDay);
   const tripOverview = dayToDayList[0];

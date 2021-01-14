@@ -1,5 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
+import { Auth } from 'aws-amplify';
+import { isNil, isEmpty } from 'ramda';
 
 import 'bootstrap/dist/css/bootstrap-reboot.min.css';
 import 'react-calendar/dist/Calendar.css';
@@ -8,13 +10,33 @@ import { useAction } from 'src/store/hooks';
 import * as actions from 'src/store/actions';
 
 function Layout(props) {
+  const [user, setUser] = useState(null);
+  const signIn = useAction(actions.session.signIn);
   const initialLoad = useAction(actions.root.initialLoad);
   const isLoggedIn = useAction(actions.session.isLoggedIn);
 
   useEffect(() => {
     initialLoad();
     isLoggedIn();
+
+    // Access the user session on the client
+    Auth.currentAuthenticatedUser()
+      .then(user => {
+        console.log('User: ', user)
+        setUser(user)
+      })
+      .catch(err => setUser(null))
   }, []);
+
+  useEffect(() => {
+    if (!isNil(user)) {
+      console.log('user present');
+      console.log({ user });
+      signIn({...user});
+    }
+  }, [user]);
+
+  console.log('user ', user);
 
   return (
     <>

@@ -42,9 +42,13 @@ export const selectSessionProfile = R.pathOr({}, [
   'profile',
 ]);
 
+export const selectSession = R.pathOr({}, [
+  'session',
+]);
+
 export default createStructuredSelector({
   signInError: selectsignInError,
   signUpError: selectsignUpError,
   signUpSuccess: selectSignUpSuccess,
-  profile: selectSessionProfile,
+  profile: selectSession,
 });

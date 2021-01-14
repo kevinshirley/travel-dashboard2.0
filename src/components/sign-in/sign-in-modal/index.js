@@ -9,7 +9,7 @@ import RoundedButton from 'src/components/material-ui/rounded-button';
 import { useToasts } from 'react-toast-notifications';
 import { useSelector } from 'react-redux';
 import { selectsignInError } from 'src/store/selectors/session';
-import TextField from 'src/components/common/text-field';
+import AmplifySignInContainer from 'src/components/sign-in/amplify-sign-in.component';
 import { SPACING } from 'src/components/material-ui/icons';
 import Alert from 'src/components/material-ui/alert';
 import { MODALS } from 'src/store/constants/modals';
@@ -32,45 +32,7 @@ function SignInModal({ isLoading }) {
           <h2 className='title'>Sign into your TripImagine account</h2>
         </div>
       </div>
-      <Formik
-        initialValues={{
-          email: '',
-          password: '',
-        }}
-        onSubmit={async values => {
-          try {
-            signIn(values);
-          } catch (err) {
-            addToast('Error', {
-              appearance: 'error',
-              autoDismiss: true, 
-            });
-            console.error({ err });
-          }
-        }}
-      >
-        <Form className='c-generic-modal-form'>
-          {!R.isEmpty(signInError) && !R.isEmpty(signInError.message) && (
-            <>
-              <Alert type='warning'>{signInError.message}</Alert>
-              {SPACING}
-            </>
-          )}
-          <Field name='email' label='Email' type='text' component={TextField} />
-          {SPACING}
-          <Field name='password' label='Password' type='password' component={TextField} />
-          {SPACING}
-          <RoundedButton
-            className='sign-in-cta'
-            isLoading={isLoading}
-            text='Sign in'
-            type='submit'
-          />
-          <div className='rotate-form'>
-            <span className='text'>New to TripImagine? <span className='cta' onClick={() => openModal({ modal: MODALS.SIGN_UP })}>Create an account</span></span>
-          </div>
-        </Form>
-      </Formik>
+      <AmplifySignInContainer />
     </>
   );
 }

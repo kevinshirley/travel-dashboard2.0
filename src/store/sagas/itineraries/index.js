@@ -2,7 +2,7 @@ import * as R from 'ramda';
 import { takeLatest, select, call, put } from 'redux-saga/effects';
 import { itinerary, SESSION, forms, ITINERARY } from 'src/store/actions';
 import { axiosGet, axiosPost } from 'src/utils/fetch';
-import { selectSessionProfile } from 'src/store/selectors/session';
+import { selectSession } from 'src/store/selectors/session';
 import { selectItineraries } from 'src/store/selectors/itineraries';
 
 export function* watchFetchItineraries() {
@@ -14,7 +14,7 @@ export function* watchDeleteUserItinerary() {
 }
 
 function* fetchItineraries() {
-  const profile = yield select(selectSessionProfile);
+  const profile = yield select(selectSession);
   const { id } = profile;
 
   if (!R.isEmpty(id) && !R.isNil(id)) {
@@ -40,7 +40,7 @@ function* fetchItineraries() {
 
 function* deleteUserItinerary({ payload }) {
   const itineraryID = R.head(payload);
-  const profile = yield select(selectSessionProfile);
+  const profile = yield select(selectSession);
   const itineraries = yield select(selectItineraries);
   const { id } = profile;
 
