@@ -36,12 +36,12 @@
 				"FunctionName": {
 					"Fn::If": [
 						"ShouldNotCreateEnvResources",
-						"customersapilambda",
+						"fetchCustomers",
 						{
 							"Fn::Join": [
 								"",
 								[
-									"customersapilambda",
+									"fetchCustomers",
 									"-",
 									{
 										"Ref": "env"
@@ -71,7 +71,7 @@
 				"Timeout": "25",
 				"Code": {
 					"S3Bucket": "amplify-traveldashboard-prod-211105-deployment",
-					"S3Key": "amplify-builds/customersapilambda-30524b2b725736666571-build.zip"
+					"S3Key": "amplify-builds/fetchCustomers-6b6e6d567765586b4556-build.zip"
 				}
 			}
 		},
@@ -81,12 +81,12 @@
 				"RoleName": {
 					"Fn::If": [
 						"ShouldNotCreateEnvResources",
-						"traveldashboardLambdaRolecdd808e4",
+						"traveldashboardLambdaRole68ab8d96",
 						{
 							"Fn::Join": [
 								"",
 								[
-									"traveldashboardLambdaRolecdd808e4",
+									"traveldashboardLambdaRole68ab8d96",
 									"-",
 									{
 										"Ref": "env"

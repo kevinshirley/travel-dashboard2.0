@@ -1,8 +1,8 @@
 {
     "paths": [
         {
-            "name": "/customers",
-            "lambdaFunction": "customersapilambda",
+            "name": "/items",
+            "lambdaFunction": "fetchCustomers",
             "privacy": {
                 "private": true,
                 "auth": [
@@ -15,11 +15,11 @@
             }
         }
     ],
-    "resourceName": "customersapi",
-    "apiName": "customersapi",
+    "resourceName": "customers",
+    "apiName": "customers",
     "functionArns": [
         {
-            "lambdaFunction": "customersapilambda"
+            "lambdaFunction": "fetchCustomers"
         }
     ],
     "privacy": {
@@ -31,7 +31,7 @@
     "dependsOn": [
         {
             "category": "function",
-            "resourceName": "customersapilambda",
+            "resourceName": "fetchCustomers",
             "attributes": [
                 "Name",
                 "Arn"

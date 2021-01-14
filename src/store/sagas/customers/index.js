@@ -1,8 +1,10 @@
 import { isEmpty, isNil } from 'ramda';
+import { API } from 'aws-amplify';
+import moment from 'moment';
 import { put, takeLatest, select, call } from 'redux-saga/effects';
-import { CUSTOMER, ui, forms, SESSION, customers, customer } from 'src/store/actions';
+import { CUSTOMER, ui, forms, SESSION, customers, customer, ROOT } from 'src/store/actions';
 import { selectIsCustomerSideMenu } from 'src/store/selectors/common';
-import { axiosPost, post } from 'src/utils/fetch';
+import { axiosPost, post, dynamoGet } from 'src/utils/fetch';
 import uuidv4 from 'src/utils/uuidv4';
 import { selectSessionProfile } from 'src/store/selectors/session';
 import { selectUserCustomers } from 'src/store/selectors/customers';
@@ -16,7 +18,8 @@ export function* watchCloseCustomerSideMenu() {
 }
 
 export function* watchFetchUserCustomers() {
-  yield takeLatest(SESSION.SET_IS_LOGGED_IN, fetchUserCustomers);
+  // yield takeLatest(SESSION.SET_IS_LOGGED_IN, fetchUserCustomers);
+  yield takeLatest(ROOT.INITIAL_LOAD, fetchUserCustomers);
 }
 
 export function* watchAddCustomer() {
@@ -52,10 +55,18 @@ function* addCustomer({ payload }) {
     ...payload,
     id: uuidv4(),
     // createdBy: !isEmpty(profile) ? profile.id : '',
+    createdAt: moment().format(),
     createdBy: uuidv4(),
     isOnline: false,
   };
   console.log({ customerData });
+
+  API.post('customersapi', '/customers', {
+    body: {
+      ...customerData,
+    }
+  }).then(res => console.log({ 'post results ': res }));
+
   if (profile && profile.id) {
     // const customerData = {
     //   ...payload,
@@ -86,22 +97,32 @@ function* addCustomer({ payload }) {
 }
 
 function* fetchUserCustomers() {
-  const profile = yield select(selectSessionProfile);
-  const { id } = profile;
+  // const userCustomers = await API.get(
+  //   'customersapi',
+  //   '/customers/id'
+  // )
+  //   .then(res => res)
+  //   .catch(e => console.log('DynamoDB error:', e));
+  // console.log({ userCustomers });
+  // fetchUserCustomersx(userCustomers);
+  // yield put(customers.setUser([]));
+  // API.get('customersapi', '/customers/id').then(customers => console.log({ customers }));
+  // const profile = yield select(selectSessionProfile);
+  // const { id } = profile;
 
-  if (!isEmpty(id) && !isNil(id)) {
-    yield put(forms.isSubmitting({ isSubmitting: true, form: 'userCustomers' }));
+  // if (!isEmpty(id) && !isNil(id)) {
+  //   yield put(forms.isSubmitting({ isSubmitting: true, form: 'userCustomers' }));
 
-    const userCustomers = yield call(axiosPost, '/api/customers/user', { id });
+  //   const userCustomers = yield call(axiosPost, '/api/customers/user', { id });
 
-    if (userCustomers.status === 200 && userCustomers.data.success) {
-      yield put(customers.setUser(userCustomers.data.customers));
-      yield put(forms.isSubmitting({ isSubmitting: false, form: 'userCustomers' }));
-    } else {
-      yield put(forms.setError({ message: result.error.message ? result.error.message : 'An error occured when pulling the customers list.', form: 'addCustomer' }));
-      yield put(forms.isSubmitting({ isSubmitting: false, form: 'userCustomers' }));
-    }
-  }
+  //   if (userCustomers.status === 200 && userCustomers.data.success) {
+  //     yield put(customers.setUser(userCustomers.data.customers));
+  //     yield put(forms.isSubmitting({ isSubmitting: false, form: 'userCustomers' }));
+  //   } else {
+  //     yield put(forms.setError({ message: result.error.message ? result.error.message : 'An error occured when pulling the customers list.', form: 'addCustomer' }));
+  //     yield put(forms.isSubmitting({ isSubmitting: false, form: 'userCustomers' }));
+  //   }
+  // }
 }
 
 function* addNote({ payload }) {

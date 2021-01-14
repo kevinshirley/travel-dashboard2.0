@@ -1,6 +1,7 @@
 import fetch from 'isomorphic-unfetch';
 import axios from 'axios';
 import qs from 'qs';
+import { API } from 'aws-amplify';
 
 export const get = async url => {
   try {
@@ -88,4 +89,15 @@ export const axiosPost = async (url, payload = {}) => {
     });
 
   return response;
+};
+
+export const dynamoGet = async (table, path) => {
+  const response = await API.get(
+    table,
+    path
+  )
+    .then(res => res)
+    .catch(e => console.log('DynamoDB error:', e));
+
+  return await response;
 };

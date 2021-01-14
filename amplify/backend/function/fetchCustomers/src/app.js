@@ -28,7 +28,7 @@ const partitionKeyType = "S";
 const sortKeyName = "createdAt";
 const sortKeyType = "S";
 const hasSortKey = sortKeyName !== "";
-const path = "/customers";
+const path = "/items";
 const UNAUTH = 'UNAUTH';
 const hashKeyPath = '/:' + partitionKeyName;
 const sortKeyPath = hasSortKey ? '/:' + sortKeyName : '';
@@ -80,7 +80,7 @@ app.get(path + hashKeyPath, function(req, res) {
     KeyConditions: condition
   }
 
-  dynamodb.scan(queryParams, (err, data) => {
+  dynamodb.query(queryParams, (err, data) => {
     if (err) {
       res.statusCode = 500;
       res.json({error: 'Could not load items: ' + err});

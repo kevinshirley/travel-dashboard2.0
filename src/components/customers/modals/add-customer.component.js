@@ -9,19 +9,11 @@ import { SPACING } from 'src/components/material-ui/icons';
 import RoundedButton from 'src/components/material-ui/rounded-button';
 import { selectAddCustomerIsSubmitting } from 'src/store/selectors/forms';
 
-import { API } from 'aws-amplify';
-import uuidv4 from 'src/utils/uuidv4';
-
 function AddCustomerModal() {
   const closeModal = useAction(actions.ui.closeModal);
   const addCustomer = useAction(actions.customer.add);
   const isSubmitting = useSelector(selectAddCustomerIsSubmitting);
   const closeBtnRef = useRef();
-
-  React.useEffect(() => {
-    console.log('pulling customersapi');
-    API.get('customersapi', '/customers/id').then(customers => console.log({ customers }));
-  });
 
   return (
     <>
@@ -42,21 +34,21 @@ function AddCustomerModal() {
         }}
         onSubmit={async values => {
           try {
-            // addCustomer(values);
             console.log({ values });
-            API.post('customersapi', '/customers', {
-              body: {
-                id: uuidv4(),
-                createdAt: new Date(),
-                createdBy: 'kevin-testing',
-                email: values.email,
-                firstName: values.firstName,
-                lastName: values.lastName,
-                isOnline: false,
-                phoneNumber: values.phoneNumber,
-                notes: []
-              }
-            });
+            addCustomer(values);
+            // API.post('customersapi', '/customers', {
+            //   body: {
+            //     id: uuidv4(),
+            //     createdAt: new Date(),
+            //     createdBy: 'kevin-testing',
+            //     email: values.email,
+            //     firstName: values.firstName,
+            //     lastName: values.lastName,
+            //     isOnline: false,
+            //     phoneNumber: values.phoneNumber,
+            //     notes: []
+            //   }
+            // });
           } catch (err) {
             addToast(`Error: ${err}`, {
               appearance: 'error',

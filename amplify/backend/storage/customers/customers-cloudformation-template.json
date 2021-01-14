@@ -47,6 +47,11 @@
                   {
                       "AttributeName": "createdAt",
                       "AttributeType": "S"
+                  }  , 
+                  
+                  {
+                      "AttributeName": "createdBy",
+                      "AttributeType": "S"
                   } 
                   
                 ],
@@ -93,6 +98,34 @@
                         }
                     ]
                 }
+                
+                ,"GlobalSecondaryIndexes": [
+                  
+                    {
+                        "IndexName": "createdBy-index",
+                        "KeySchema": [
+                            
+                            {
+                                "AttributeName": "createdBy",
+                                "KeyType": "HASH"
+                            }  , 
+                            
+                            {
+                                "AttributeName": "createdAt",
+                                "KeyType": "RANGE"
+                            } 
+                            
+                        ],
+                        "Projection": {
+                            "ProjectionType": "ALL"
+                        },
+                        "ProvisionedThroughput": {
+                            "ReadCapacityUnits": "5",
+                            "WriteCapacityUnits": "5"
+                        }
+                    } 
+                  
+                ]
                 
             }
         }

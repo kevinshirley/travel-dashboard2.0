@@ -13,7 +13,7 @@
 		}
 	},
 	"function": {
-		"customersapilambda": {
+		"fetchCustomers": {
 			"service": "Lambda",
 			"providerPlugin": "awscloudformation",
 			"build": true,
@@ -30,13 +30,13 @@
 		}
 	},
 	"api": {
-		"customersapi": {
+		"customers": {
 			"service": "API Gateway",
 			"providerPlugin": "awscloudformation",
 			"dependsOn": [
 				{
 					"category": "function",
-					"resourceName": "customersapilambda",
+					"resourceName": "fetchCustomers",
 					"attributes": [
 						"Name",
 						"Arn"

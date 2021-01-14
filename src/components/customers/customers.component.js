@@ -1,8 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { isEmpty } from 'ramda';
 import PropTypes from 'prop-types';
-import CustomersTabs from 'src/components/customers/customers-tabs.component';
 import { useToasts } from 'react-toast-notifications';
+import CustomersTabs from 'src/components/customers/customers-tabs.component';
+import { useIsoEffect } from 'src/store/hooks';
+import { dynamoGet } from 'src/utils/fetch';
+
+import { API } from 'aws-amplify';
 
 function Customers({
   addCustomerSuccess,
@@ -14,6 +18,15 @@ function Customers({
   addCustomerNoteError,
 }) {
   const { addToast } = useToasts();
+  const [customers, setCustomers] = useState([]);
+
+  useIsoEffect(() => {
+    if (isEmpty(customers)) {
+      dynamoGet('customersapi', '/customers/id')
+        .then(res => setCustomers(res));
+    }
+    return () => setCustomers([]);
+  }, []);
 
   useEffect(() => {
     if (!isEmpty(addCustomerSuccess)) {
@@ -53,7 +66,7 @@ function Customers({
   return (
     <section className='c-customers'>
       <div className='overlay'>
-        <CustomersTabs userCustomers={userCustomers} />
+        <CustomersTabs userCustomers={customers} />
       </div>
     </section>
   );

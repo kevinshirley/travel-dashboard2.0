@@ -1,5 +1,5 @@
+import React, { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
-import { useCallback } from 'react';
 
 /**
  * Creates an action dispatcher.
@@ -21,4 +21,10 @@ export function useAction(action) {
     },
     [action, dispatch],
   );
-}
+};
+
+export function useIsoEffect(effect, dependencies) {
+  const effectHandler = process.env.CLIENT ? React.useEffect : f => f();
+
+  effectHandler(effect, dependencies);
+};
