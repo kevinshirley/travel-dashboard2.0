@@ -104,6 +104,7 @@ server.key.passphrase
 .yarn_cache
 yarn-error.log
 .env
+.env.local
 yarn.lock
 
 # Vagrant
