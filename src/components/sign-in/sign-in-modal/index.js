@@ -14,6 +14,14 @@ import { SPACING } from 'src/components/material-ui/icons';
 import Alert from 'src/components/material-ui/alert';
 import { MODALS } from 'src/store/constants/modals';
 
+import firebaseClient from "firebase/app";
+import initFirebase from 'src/lib/auth/initFirebase';
+import { setUserCookie } from 'src/lib/auth/userCookies';
+import { mapUserData } from 'src/lib/auth/mapUserData';
+
+// Init the Firebase app.
+initFirebase();
+
 function SignInModal({ isLoading }) {
   const closeModal = useAction(actions.ui.closeModal);
   const openModal = useAction(actions.ui.openModal);
@@ -39,7 +47,15 @@ function SignInModal({ isLoading }) {
         }}
         onSubmit={async values => {
           try {
-            signIn(values);
+            // signIn(values);
+            console.log({ values });
+            await firebaseClient.auth().signInWithEmailAndPassword(values.email, values.password).then(
+              async userAuth => {
+                console.log({ userAuth });
+                const userData = await mapUserData(userAuth);
+                setUserCookie(userData);
+              }
+            );
           } catch (err) {
             addToast('Error', {
               appearance: 'error',

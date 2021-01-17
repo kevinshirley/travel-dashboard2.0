@@ -20,8 +20,8 @@ export function* watchSignUp() {
 
 function* isLoggedIn() {
   console.log('isLoggedIn session saga');
-  const result = yield call(axiosPost, '/api/users/session');
-  console.log({ result });
+  // const result = yield call(axiosPost, '/api/users/session');
+  // console.log({ result });
   // if (result.status === 200) {
   //   yield put(session.setIsLoggedIn(result.data));
   // } else {
@@ -35,7 +35,7 @@ function* logout() {
   if (result.status === 200 && result.data.success) {
     typeof window !== "undefined" ? window.location.href = '/' : null;
     yield call(delay, 1000);
-    typeof window !== "undefined" ? window.location.reload() : null;
+    // typeof window !== "undefined" ? window.location.reload() : null;
   }
 }
 

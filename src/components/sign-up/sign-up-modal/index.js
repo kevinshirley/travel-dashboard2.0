@@ -14,6 +14,13 @@ import { SPACING } from 'src/components/material-ui/icons';
 import Alert from 'src/components/material-ui/alert';
 import { MODALS } from 'src/store/constants/modals';
 
+import firebaseClient from "firebase/app";
+import initFirebase from 'src/lib/auth/initFirebase';
+import { setUserCookie } from 'src/lib/auth/userCookies';
+import { mapUserData } from 'src/lib/auth/mapUserData';
+
+initFirebase();
+
 function SignUpModal({ isLoading }) {
   const closeModal = useAction(actions.ui.closeModal);
   const signUp = useAction(actions.session.signUp);
@@ -43,7 +50,15 @@ function SignUpModal({ isLoading }) {
         }}
         onSubmit={async values => {
           try {
-            signUp(values);
+            // signUp(values);
+            console.log({ values });
+            await firebaseClient.auth().createUserWithEmailAndPassword(values.email, values.password).then(
+              async userAuth => {
+                console.log({ userAuth });
+                const userData = await mapUserData(userAuth);
+                setUserCookie(userData);
+              }
+            );
           } catch (err) {
             addToast('Error', {
               appearance: 'error',
