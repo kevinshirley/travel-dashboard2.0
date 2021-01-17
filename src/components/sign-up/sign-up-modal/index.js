@@ -15,7 +15,7 @@ import Alert from 'src/components/material-ui/alert';
 import { MODALS } from 'src/store/constants/modals';
 
 import firebaseClient from "firebase/app";
-import initFirebase from 'src/lib/auth/initFirebase';
+import initFirebase, { useDB } from 'src/lib/auth/initFirebase';
 import { setUserCookie } from 'src/lib/auth/userCookies';
 import { mapUserData } from 'src/lib/auth/mapUserData';
 
@@ -29,6 +29,7 @@ function SignUpModal({ isLoading }) {
   const openModal = useAction(actions.ui.openModal);
   const { addToast } = useToasts();
   const closeBtnRef = useRef();
+  const { db } = useDB();
 
   return (
     <>
@@ -52,19 +53,34 @@ function SignUpModal({ isLoading }) {
           try {
             // signUp(values);
             console.log({ values });
-            await firebaseClient.auth().createUserWithEmailAndPassword(values.email, values.password).then(
-              async userAuth => {
-                console.log({ userAuth });
-                const userData = await mapUserData(userAuth);
-                setUserCookie(userData);
-              }
-            );
+            // db.collection('userProfile').add({
+            //   firstName: values.firstName,
+            //   lastName: values.lastName,
+            //   username: values.username,
+            //   email: values.email,
+            // });
+            // const res = firebaseClient.auth().createUserWithEmailAndPassword(values.email, values.password);
+            // console.log({ 'user created res': res });
+            firebaseClient.auth().createUserWithEmailAndPassword(values.email, values.password).then(userAuth => userAuth).then(async user => {
+              const userData = await mapUserData(user.user);
+              console.log({ 'user created user': user });
+              console.log({ 'user created userData': userData });
+              // setUserCookie(userData);
+
+              db.collection('userProfile').add({
+                firstName: values.firstName,
+                lastName: values.lastName,
+                username: values.username,
+                email: values.email,
+              });
+              console.log('account and profile created!');
+            }).catch(err => console.log('firebase error', err));
           } catch (err) {
             addToast('Error', {
-              appearance: 'error',
+              appearance: err.message ? err.message : 'Error when signing up',
               autoDismiss: true, 
             });
-            console.error({ err });
+            console.log({ err });
           }
         }}
       >

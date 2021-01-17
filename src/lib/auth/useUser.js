@@ -36,9 +36,10 @@ const useUser = () => {
     const cancelAuthListener = firebase
       .auth()
       .onIdTokenChanged(async (user) => {
-
+        console.log('useUser checking user exist', user);
         if (user) {
           const userData = await mapUserData(user)
+          console.log('useUser checking userData', userData);
           // setUserCookie(userData)
           setUser(userData)
         } else {
