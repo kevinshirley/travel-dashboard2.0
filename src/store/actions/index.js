@@ -103,6 +103,8 @@ export const SESSION = createTypes('SESSION', [
   'LOGOUT',
   'SIGN_IN',
   'SIGN_UP',
+  'SET_USER_TOKEN',
+  'SET_PROVISIONAL_USER',
 ]);
 
 export const FORMS = createTypes('FORMS', [
@@ -208,6 +210,8 @@ export const session = {
   logout: () => action(SESSION.LOGOUT),
   signIn: payload => action(SESSION.SIGN_IN, payload),
   signUp: payload => action(SESSION.SIGN_UP, payload),
+  setUserToken: payload => action(SESSION.SET_USER_TOKEN, payload),
+  setProvisionalUser: payload => action(SESSION.SET_PROVISIONAL_USER, payload),
 };
 
 export const forms = {

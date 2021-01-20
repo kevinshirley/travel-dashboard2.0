@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import * as R from 'ramda';
 import { Formik, Field, Form } from 'formik';
 
@@ -14,19 +14,23 @@ import { SPACING } from 'src/components/material-ui/icons';
 import Alert from 'src/components/material-ui/alert';
 import { MODALS } from 'src/store/constants/modals';
 
+import firebase from "firebase";
 import firebaseClient from "firebase/app";
 import initFirebase, { useDB } from 'src/lib/auth/initFirebase';
-import { setUserCookie } from 'src/lib/auth/userCookies';
 import { mapUserData } from 'src/lib/auth/mapUserData';
+import axios from 'axios';
 
 initFirebase();
 
 function SignUpModal({ isLoading }) {
   const closeModal = useAction(actions.ui.closeModal);
   const signUp = useAction(actions.session.signUp);
+  const setUserToken = useAction(actions.session.setUserToken);
+  const setIsLoggedIn = useAction(actions.session.setIsLoggedIn);
   const signUpError = useSelector(selectsignUpError);
   const signUpSuccess = useSelector(selectSignUpSuccess);
   const openModal = useAction(actions.ui.openModal);
+  const [user, setUser] = useState(null);
   const { addToast } = useToasts();
   const closeBtnRef = useRef();
   const { db } = useDB();
@@ -53,34 +57,28 @@ function SignUpModal({ isLoading }) {
           try {
             // signUp(values);
             console.log({ values });
-            // db.collection('userProfile').add({
-            //   firstName: values.firstName,
-            //   lastName: values.lastName,
-            //   username: values.username,
-            //   email: values.email,
-            // });
-            // const res = firebaseClient.auth().createUserWithEmailAndPassword(values.email, values.password);
-            // console.log({ 'user created res': res });
             firebaseClient.auth().createUserWithEmailAndPassword(values.email, values.password).then(userAuth => userAuth).then(async user => {
               const userData = await mapUserData(user.user);
-              console.log({ 'user created user': user });
-              console.log({ 'user created userData': userData });
-              // setUserCookie(userData);
 
               db.collection('userProfile').add({
+                id: userData.id,
                 firstName: values.firstName,
                 lastName: values.lastName,
                 username: values.username,
                 email: values.email,
-              });
-              console.log('account and profile created!');
+                createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+              })
+              addToast('Successfully signed up!', {
+                appearance: 'success',
+                autoDismiss: true, 
+              })
             }).catch(err => console.log('firebase error', err));
           } catch (err) {
-            addToast('Error', {
-              appearance: err.message ? err.message : 'Error when signing up',
-              autoDismiss: true, 
-            });
-            console.log({ err });
+            addToast(err.message ? err.message : 'Error when signing up', {
+              appearance: 'error',
+              autoDismiss: false, 
+            })
+            console.log({ err })
           }
         }}
       >

@@ -18,6 +18,10 @@ export function* watchSignUp() {
   yield takeLatest(SESSION.SIGN_UP, signUp);
 }
 
+export function* watchSetUserToken() {
+  yield takeLatest(SESSION.SET_USER_TOKEN, setUserToken);
+}
+
 function* isLoggedIn() {
   console.log('isLoggedIn session saga');
   // const result = yield call(axiosPost, '/api/users/session');
@@ -67,4 +71,10 @@ function* signUp({ payload }) {
     yield put(forms.setError({ ...result.data, form: 'signUp' }));
     yield put(forms.setSuccess({ message: '', form: 'signUp' }));
   }
+}
+
+function* setUserToken({ payload }) {
+  console.log('setUserToken payload', payload);
+  const result = yield call(axiosPost, '/api/cookie/set', payload);
+  console.log({ 'setUserToken saga result': result });
 }

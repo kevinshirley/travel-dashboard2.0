@@ -47,6 +47,7 @@ import {
   watchLogout,
   watchSignIn,
   watchSignUp,
+  watchSetUserToken,
 } from 'src/store/sagas/session';
 import { watchSetItineraryToDisplay } from 'src/store/sagas/display-itinerary';
 import {
@@ -102,7 +103,8 @@ function* rootSaga() {
     watchAddCustomer(),
     watchFetchUserCustomers(),
     watchAddCustomerNote(),
-    watchSetCustomerOnInit()
+    watchSetCustomerOnInit(),
+    watchSetUserToken()
   ]);
 }
 

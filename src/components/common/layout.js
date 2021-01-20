@@ -12,6 +12,7 @@ import { useUser } from 'src/lib/auth/useUser';
 function Layout(props) {
   const initialLoad = useAction(actions.root.initialLoad);
   const isLoggedIn = useAction(actions.session.isLoggedIn);
+  const setIsLoggedIn = useAction(actions.session.setIsLoggedIn);
   const { user, logout } = useUser();
   console.log({ user });
 
@@ -19,6 +20,12 @@ function Layout(props) {
     initialLoad();
     isLoggedIn();
   }, []);
+
+  useEffect(() => {
+    if (user) {
+      setIsLoggedIn(user);
+    }
+  }, [user]);
 
   return (
     <>
