@@ -1,5 +1,5 @@
-import React, { useRef } from 'react';
-import * as R from 'ramda';
+import React, { useRef, useEffect } from 'react';
+import { isEmpty } from 'ramda';
 import { Formik, Field, Form } from 'formik';
 
 import * as actions from 'src/store/actions';
@@ -11,7 +11,6 @@ import { useSelector } from 'react-redux';
 import { selectsignUpError, selectSignUpSuccess } from 'src/store/selectors/session';
 import TextField from 'src/components/common/text-field';
 import { SPACING } from 'src/components/material-ui/icons';
-import Alert from 'src/components/material-ui/alert';
 import { MODALS } from 'src/store/constants/modals';
 
 function SignUpModal({ isLoading }) {
@@ -20,8 +19,29 @@ function SignUpModal({ isLoading }) {
   const signUpError = useSelector(selectsignUpError);
   const signUpSuccess = useSelector(selectSignUpSuccess);
   const openModal = useAction(actions.ui.openModal);
+  const resetSuccess = useAction(actions.forms.resetSuccess);
+  const resetError = useAction(actions.forms.resetError);
   const { addToast } = useToasts();
   const closeBtnRef = useRef();
+
+  useEffect(() => {
+    if (!isEmpty(signUpSuccess) && !isEmpty(signUpSuccess.message)) {
+      addToast(signUpSuccess.message, {
+        appearance: 'success',
+        autoDismiss: false,
+      });
+      closeBtnRef.current.click();
+      resetSuccess({ form: 'signUp' });
+    }
+
+    if (!isEmpty(signUpError) && !isEmpty(signUpError.message)) {
+      addToast(signUpError.message, {
+        appearance: 'error',
+        autoDismiss: false,
+      });
+      resetError({ form: 'signUp' })
+    }
+  }, [signUpSuccess, signUpError]);
 
   return (
     <>
@@ -43,29 +63,18 @@ function SignUpModal({ isLoading }) {
         }}
         onSubmit={async values => {
           try {
+            console.log({ values });
             signUp(values);
           } catch (err) {
-            addToast('Error', {
+            addToast(err.message ? err.message : 'Error when signing up', {
               appearance: 'error',
-              autoDismiss: true, 
-            });
-            console.error({ err });
+              autoDismiss: false, 
+            })
+            console.log({ err })
           }
         }}
       >
         <Form className='c-generic-modal-form'>
-          {!R.isEmpty(signUpError) && !R.isEmpty(signUpError.message) && (
-            <>
-              <Alert type='warning'>{signUpError.message}</Alert>
-              {SPACING}
-            </>
-          )}
-          {!R.isEmpty(signUpSuccess) && !R.isEmpty(signUpSuccess.message) && (
-            <>
-              <Alert type='success'>{signUpSuccess.message}</Alert>
-              {SPACING}
-            </>
-          )}
           <Field name='firstName' label='First Name' type='text' component={TextField} />
           {SPACING}
           <Field name='lastName' label='Last Name' type='text' component={TextField} />

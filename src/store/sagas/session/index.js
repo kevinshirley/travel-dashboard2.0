@@ -18,10 +18,14 @@ export function* watchSignUp() {
   yield takeLatest(SESSION.SIGN_UP, signUp);
 }
 
+export function* watchSetUserToken() {
+  yield takeLatest(SESSION.SET_USER_TOKEN, setUserToken);
+}
+
 function* isLoggedIn() {
   console.log('isLoggedIn session saga');
-  const result = yield call(axiosPost, '/api/users/session');
-  console.log({ result });
+  // const result = yield call(axiosPost, '/api/users/session');
+  // console.log({ result });
   // if (result.status === 200) {
   //   yield put(session.setIsLoggedIn(result.data));
   // } else {
@@ -35,7 +39,7 @@ function* logout() {
   if (result.status === 200 && result.data.success) {
     typeof window !== "undefined" ? window.location.href = '/' : null;
     yield call(delay, 1000);
-    typeof window !== "undefined" ? window.location.reload() : null;
+    // typeof window !== "undefined" ? window.location.reload() : null;
   }
 }
 
@@ -60,11 +64,17 @@ function* signUp({ payload }) {
 
   if (result.status === 200 && result.data.success) {
     yield put(forms.isSubmitting({ isSubmitting: false, form: 'signUp' }));
-    yield put(forms.setSuccess({ message: 'You\'re almost there! We sent you a verification email. Just click on the link in that email to complete your profile.', form: 'signUp' }));
+    yield put(forms.setSuccess({ message: 'You\'ve successfully signed up!', form: 'signUp' }));
     yield put(forms.setError({ message: '', form: 'signUp' }));
   } else {
     yield put(forms.isSubmitting({ isSubmitting: false, form: 'signUp' }));
     yield put(forms.setError({ ...result.data, form: 'signUp' }));
     yield put(forms.setSuccess({ message: '', form: 'signUp' }));
   }
+}
+
+function* setUserToken({ payload }) {
+  console.log('setUserToken payload', payload);
+  const result = yield call(axiosPost, '/api/cookie/set', payload);
+  console.log({ 'setUserToken saga result': result });
 }

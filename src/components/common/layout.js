@@ -7,14 +7,25 @@ import 'src/styles/app.scss';
 import { useAction } from 'src/store/hooks';
 import * as actions from 'src/store/actions';
 
+import { useUser } from 'src/lib/auth/useUser';
+
 function Layout(props) {
   const initialLoad = useAction(actions.root.initialLoad);
   const isLoggedIn = useAction(actions.session.isLoggedIn);
+  const setIsLoggedIn = useAction(actions.session.setIsLoggedIn);
+  const { user, logout } = useUser();
+  console.log({ user });
 
   useEffect(() => {
     initialLoad();
     isLoggedIn();
   }, []);
+
+  useEffect(() => {
+    if (user) {
+      setIsLoggedIn(user);
+    }
+  }, [user]);
 
   return (
     <>
@@ -28,6 +39,19 @@ function Layout(props) {
         <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet" />
       </Head>
       <div className='main-content'>
+        {user && (
+          <div
+            style={{
+              display: 'inline-block',
+              color: 'blue',
+              textDecoration: 'underline',
+              cursor: 'pointer',
+            }}
+            onClick={() => logout()}
+          >
+            Log out
+          </div>
+        )}
         {props.children}
       </div>
     </>

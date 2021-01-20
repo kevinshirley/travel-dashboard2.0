@@ -104,6 +104,7 @@ server.key.passphrase
 .yarn_cache
 yarn-error.log
 .env
+.env.local
 yarn.lock
 
 # Vagrant
@@ -147,3 +148,6 @@ awsconfiguration.json
 amplifyconfiguration.json
 amplify-gradle-config.json
 amplifyxc.config
+
+out/
+.firebase
