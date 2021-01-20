@@ -14,13 +14,3 @@ export default function initFirebase() {
     firebase.initializeApp(config)
   }
 }
-
-export const useDB = () => {
-  if (!firebase.apps.length) {
-    firebase.initializeApp(config)
-  }
-
-  const db = firebase.firestore()
-
-  return { db }
-}
