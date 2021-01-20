@@ -59,18 +59,19 @@ function* signIn({ payload }) {
 }
 
 function* signUp({ payload }) {
-  yield put(forms.isSubmitting({ isSubmitting: true, form: 'signUp' }));
+  // yield put(forms.isSubmitting({ isSubmitting: true, form: 'signUp' }));
   const result = yield call(axiosPost, '/api/users/signup', payload);
+  console.log({ 'signUp api result': result });
 
-  if (result.status === 200 && result.data.success) {
-    yield put(forms.isSubmitting({ isSubmitting: false, form: 'signUp' }));
-    yield put(forms.setSuccess({ message: 'You\'re almost there! We sent you a verification email. Just click on the link in that email to complete your profile.', form: 'signUp' }));
-    yield put(forms.setError({ message: '', form: 'signUp' }));
-  } else {
-    yield put(forms.isSubmitting({ isSubmitting: false, form: 'signUp' }));
-    yield put(forms.setError({ ...result.data, form: 'signUp' }));
-    yield put(forms.setSuccess({ message: '', form: 'signUp' }));
-  }
+  // if (result.status === 200 && result.data.success) {
+  //   yield put(forms.isSubmitting({ isSubmitting: false, form: 'signUp' }));
+  //   yield put(forms.setSuccess({ message: 'You\'re almost there! We sent you a verification email. Just click on the link in that email to complete your profile.', form: 'signUp' }));
+  //   yield put(forms.setError({ message: '', form: 'signUp' }));
+  // } else {
+  //   yield put(forms.isSubmitting({ isSubmitting: false, form: 'signUp' }));
+  //   yield put(forms.setError({ ...result.data, form: 'signUp' }));
+  //   yield put(forms.setSuccess({ message: '', form: 'signUp' }));
+  // }
 }
 
 function* setUserToken({ payload }) {

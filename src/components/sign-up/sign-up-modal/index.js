@@ -55,24 +55,8 @@ function SignUpModal({ isLoading }) {
         }}
         onSubmit={async values => {
           try {
-            // signUp(values);
             console.log({ values });
-            firebaseClient.auth().createUserWithEmailAndPassword(values.email, values.password).then(userAuth => userAuth).then(async user => {
-              const userData = await mapUserData(user.user);
-
-              db.collection('userProfile').add({
-                id: userData.id,
-                firstName: values.firstName,
-                lastName: values.lastName,
-                username: values.username,
-                email: values.email,
-                createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-              })
-              addToast('Successfully signed up!', {
-                appearance: 'success',
-                autoDismiss: true, 
-              })
-            }).catch(err => console.log('firebase error', err));
+            signUp(values);
           } catch (err) {
             addToast(err.message ? err.message : 'Error when signing up', {
               appearance: 'error',
