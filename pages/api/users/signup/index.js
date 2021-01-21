@@ -1,10 +1,9 @@
 const { dissoc } = require('ramda');
 const firebaseAdmin = require('../../../../src/lib/auth/firebaseAdmin');
 
-const db = firebaseAdmin.firestore();
-
 const SignUp = (req, res) => {
   const { email, password, username } = req.body;
+  const db = firebaseAdmin.firestore();
 
   const profileData = {
     ...dissoc('password', req.body),
@@ -25,7 +24,7 @@ const SignUp = (req, res) => {
     .then((userRecord) => {
       // See the UserRecord reference doc for the contents of userRecord.
       console.log('Successfully created new user: ', userRecord);
-
+      console.log({ db });
       db.collection('userProfile').add({
         id: userRecord.uid,
         ...profileData,
