@@ -1,19 +1,15 @@
 import { SESSION } from 'src/store/actions';
 
-const initialState = {
-  provisionalUser: {},
-};
-
-const SessionReducer = (state = initialState, { type, payload }) => {
+const SessionReducer = (state = {}, { type, payload }) => {
   switch (type) {
     case SESSION.SET_IS_LOGGED_IN:
       return {
-        ...payload,
+        ...state,
       };
-    case SESSION.SET_PROVISIONAL_USER:
+    case SESSION.SET_PROFILE:
       return {
+        ...state,
         ...payload,
-        provisionalUser: payload,
       };
     default:
       return state;

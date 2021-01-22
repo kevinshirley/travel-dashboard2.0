@@ -211,7 +211,7 @@ export const session = {
   signIn: payload => action(SESSION.SIGN_IN, payload),
   signUp: payload => action(SESSION.SIGN_UP, payload),
   setUserToken: payload => action(SESSION.SET_USER_TOKEN, payload),
-  setProvisionalUser: payload => action(SESSION.SET_PROVISIONAL_USER, payload),
+  setProfile: payload => action(SESSION.SET_PROFILE, payload),
 };
 
 export const forms = {

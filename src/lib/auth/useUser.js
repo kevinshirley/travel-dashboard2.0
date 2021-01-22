@@ -3,11 +3,6 @@ import { useRouter } from 'next/router'
 import firebase from 'firebase/app'
 import 'firebase/auth'
 import initFirebase from './initFirebase'
-import {
-  removeUserCookie,
-  setUserCookie,
-  getUserFromCookie,
-} from './userCookies'
 import { mapUserData } from './mapUserData'
 
 initFirebase();
@@ -36,13 +31,10 @@ const useUser = () => {
     const cancelAuthListener = firebase
       .auth()
       .onIdTokenChanged(async (user) => {
-        getUserFromCookie();
         if (user) {
           const userData = await mapUserData(user)
-          setUserCookie(userData)
           setUser(userData)
         } else {
-          removeUserCookie()
           setUser()
         }
       })

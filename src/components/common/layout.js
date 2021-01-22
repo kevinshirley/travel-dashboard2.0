@@ -8,22 +8,31 @@ import { useAction } from 'src/store/hooks';
 import * as actions from 'src/store/actions';
 
 import { useUser } from 'src/lib/auth/useUser';
+import firebaseClient from 'firebase/app';
+import initFirebase from 'src/lib/auth/initFirebase';
+initFirebase();
 
 function Layout(props) {
+  const db = firebaseClient.firestore();
   const initialLoad = useAction(actions.root.initialLoad);
-  const isLoggedIn = useAction(actions.session.isLoggedIn);
+  const setProfile = useAction(actions.session.setProfile);
   const setIsLoggedIn = useAction(actions.session.setIsLoggedIn);
   const { user, logout } = useUser();
-  console.log({ user });
 
   useEffect(() => {
     initialLoad();
-    isLoggedIn();
   }, []);
 
   useEffect(() => {
     if (user) {
-      setIsLoggedIn(user);
+      db.collection('userProfile').where('email', '==', user.email)
+      .get()
+      .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+          const profile = doc.data();
+          setProfile(profile);
+        });
+      });
     }
   }, [user]);
 
