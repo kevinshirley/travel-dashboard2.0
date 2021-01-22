@@ -8,14 +8,17 @@ import RoundedButton from 'src/components/material-ui/rounded-button';
 import { SPACING } from 'src/components/material-ui/icons';
 import { useToasts } from 'react-toast-notifications';
 import Alert from 'src/components/material-ui/alert';
+import * as actions from 'src/store/actions';
+import { useAction } from 'src/store/hooks';
 
 import firebaseClient from 'firebase/app';
 import initFirebase from 'src/lib/auth/initFirebase';
 initFirebase();
 
-function SignIn({ signIn, signInError }) {
+function SignIn({ signIn, signInError, isSubmitting }) {
   const { addToast } = useToasts();
   const router = useRouter();
+  const isFormSubmitting = useAction(actions.forms.isSubmitting);
 
   return (
     <section className="c-sign-in">
@@ -26,11 +29,14 @@ function SignIn({ signIn, signInError }) {
             password: '',
           }}
           onSubmit={async values => {
+            isFormSubmitting({ isSubmitting: true, form: 'signIn' });
             try {
               // signIn(values);
               await firebaseClient.auth().signInWithEmailAndPassword(values.email, values.password);
+              isFormSubmitting({ isSubmitting: false, form: 'signIn' });
               router.push('/');
             } catch (err) {
+              isFormSubmitting({ isSubmitting: false, form: 'signIn' });
               addToast('Error', {
                 appearance: 'error',
                 autoDismiss: true, 
@@ -49,7 +55,8 @@ function SignIn({ signIn, signInError }) {
             {SPACING}
             <RoundedButton 
               className='add-trip-cta'
-              text='Join now'
+              isLoading={isSubmitting}
+              text='Sign in'
               type='submit'
             />
           </Form>

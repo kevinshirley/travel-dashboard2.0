@@ -1,5 +1,7 @@
 import React from 'react';
+import { isEmpty } from 'ramda';
 import * as moment from 'moment';
+import { useToasts } from 'react-toast-notifications';
 import RoundedButton from 'src/components/material-ui/rounded-button';
 import { SPACING } from 'src/components/material-ui/icons';
 import { useUser } from 'src/lib/auth/useUser';
@@ -7,6 +9,7 @@ import { useUser } from 'src/lib/auth/useUser';
 function Account({ profile }) {
   const { email, firstName, lastName, username, createdAt } = profile;
   const { logout } = useUser();
+  const { addToast } = useToasts();
 
   return (
     <section className="c-account">
@@ -36,7 +39,15 @@ function Account({ profile }) {
           )}
         </div>
         {SPACING}
-        <div onClick={() => logout()} type='button'>
+        <div onClick={() => {
+          if (!isEmpty(profile)) {
+            addToast('Logged out.', {
+              appearance: 'success',
+              autoDismiss: true, 
+            });
+            logout();
+          }
+        }} type='button'>
           <RoundedButton className='logout-cta' text='Logout' />
         </div>
       </div>

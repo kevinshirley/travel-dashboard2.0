@@ -1,6 +1,7 @@
 import React from 'react';
 import cx from 'classnames';
 import { connect } from 'react-redux';
+import { ToastProvider } from 'react-toast-notifications';
 import * as actions from 'src/store/actions';
 import storeConnector from 'src/store/selectors/add-itinerary';
 import Link from 'src/components/common/link';
@@ -120,7 +121,9 @@ function MainMenu({
   return (
     <>
       {!(ITINERARY_EDITOR_PATHNAMES.includes(router.pathname)) && router.pathname !== ITINERARY && (
-        <NestedMainMenu />
+        <ToastProvider>
+          <NestedMainMenu />
+        </ToastProvider>
       )}
       {ITINERARY_EDITOR_PATHNAMES.includes(router.pathname) && router.pathname !== ITINERARY && (
         <AddItineraryMenuContent setDayToDayTab={setDayToDayTab} />

@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import Head from 'next/head';
+import { ToastProvider } from 'react-toast-notifications';
 
 import 'bootstrap/dist/css/bootstrap-reboot.min.css';
 import 'react-calendar/dist/Calendar.css';
@@ -25,13 +26,13 @@ function Layout(props) {
   useEffect(() => {
     if (user) {
       db.collection('userProfile').where('id', '==', user.id)
-      .get()
-      .then(function(querySnapshot) {
-        querySnapshot.forEach(function(doc) {
-          const profile = doc.data();
-          setProfile(profile);
+        .get()
+        .then(function(querySnapshot) {
+          querySnapshot.forEach(function(doc) {
+            const profile = doc.data();
+            setProfile(profile);
+          });
         });
-      });
     }
   }, [user]);
 

@@ -9,17 +9,20 @@ import { SPACING } from 'src/components/material-ui/icons';
 import { useToasts } from 'react-toast-notifications';
 import Alert from 'src/components/material-ui/alert';
 import Link from 'src/components/common/link';
+import * as actions from 'src/store/actions';
+import { useAction } from 'src/store/hooks';
 
 import firebaseClient from 'firebase/app';
 import initFirebase from 'src/lib/auth/initFirebase';
 initFirebase();
 import { mapUserData } from 'src/lib/auth/mapUserData';
 
-function SignUp({ signUp, signUpError, signUpSuccess }) {
+function SignUp({ isSignUpSubmitting, signUp, signUpError, signUpSuccess }) {
   const { addToast } = useToasts();
   const [user, setUser] = useState(null);
   const router = useRouter();
   const db = firebaseClient.firestore();
+  const isFormSubmitting = useAction(actions.forms.isSubmitting);
 
   useEffect(() => {
     if (user && user.id) {
@@ -31,6 +34,7 @@ function SignUp({ signUp, signUpError, signUpSuccess }) {
         email: user.email,
         createdAt: firebaseClient.firestore.FieldValue.serverTimestamp(),
       });
+      isFormSubmitting({ isSubmitting: false, form: 'signUp' });
       router.push('/account');
     }
   }, [user]);
@@ -47,6 +51,7 @@ function SignUp({ signUp, signUpError, signUpSuccess }) {
             username: '',
           }}
           onSubmit={async values => {
+            isFormSubmitting({ isSubmitting: true, form: 'signUp' });
             try {
               // signUp(values);
               await firebaseClient
@@ -66,8 +71,8 @@ function SignUp({ signUp, signUpError, signUpSuccess }) {
                     });
                   }
                 })
-              // window.location.href = '/account';
             } catch (err) {
+              isFormSubmitting({ isSubmitting: false, form: 'signUp' });
               addToast('HTTP error', {
                 appearance: 'error',
                 autoDismiss: true, 
@@ -97,6 +102,7 @@ function SignUp({ signUp, signUpError, signUpSuccess }) {
             {SPACING}
             <RoundedButton
               className='add-trip-cta'
+              isLoading={isSignUpSubmitting}
               text='Join now'
               type='submit'
             />

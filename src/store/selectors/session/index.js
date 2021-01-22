@@ -46,4 +46,6 @@ export default createStructuredSelector({
   signUpError: selectsignUpError,
   signUpSuccess: selectSignUpSuccess,
   profile: selectSessionProfile,
+  isSignUpSubmitting: selectSignUpIsSubmitting,
+  isSignInSubmitting: selectSignInIsSubmitting,
 });
