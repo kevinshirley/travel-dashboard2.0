@@ -4,14 +4,18 @@ import firebase from 'firebase/app'
 import 'firebase/auth'
 import initFirebase from './initFirebase'
 import { mapUserData } from './mapUserData'
+import { useAction } from 'src/store/hooks';
+import * as actions from 'src/store/actions';
 
 initFirebase();
 
 const useUser = () => {
   const [user, setUser] = useState()
   const router = useRouter()
+  const setProfile = useAction(actions.session.setProfile);
 
   const logout = async () => {
+    setProfile({});
     return firebase
       .auth()
       .signOut()

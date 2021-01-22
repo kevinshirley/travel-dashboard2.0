@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import IconButton from '@material-ui/core/IconButton';
 import Badge from '@material-ui/core/Badge';
 import { 
@@ -8,15 +9,10 @@ import {
   SPACING
 } from 'src/components/material-ui/icons';
 import Link from 'src/components/common/link';
-import { useSelector } from 'react-redux';
-import { selectIsLoggedIn } from 'src/store/selectors/session';
-import { useAction } from 'src/store/hooks';
-import * as actions from 'src/store/actions';
-import { MODALS } from 'src/store/constants/modals';
+import { selectSessionProfile } from 'src/store/selectors/session';
 
 function ProfileDetails({ name }) {
-  const isLoggedIn = useSelector(selectIsLoggedIn);
-  const openModal = useAction(actions.ui.openModal);
+  const profile = useSelector(selectSessionProfile);
 
   return (
     <div className='profile-details'>
@@ -36,9 +32,8 @@ function ProfileDetails({ name }) {
           </IconButton>
         </li>
         <li>
-          {isLoggedIn ? (
+          {profile && profile.firstName ? (
             <Link href='/account'>
-              <span>{name}</span>
               <IconButton
                 aria-label="account of current user"
                 aria-controls="primary-search-account-menu"
@@ -47,24 +42,9 @@ function ProfileDetails({ name }) {
               >
                 {PROFILE_ICON}
               </IconButton>
+              <span>Hi, {profile.firstName}</span>
             </Link>
           ) : (
-            // <div
-            //   className='sign-in-trigger-wrapper'
-            //   onClick={() => openModal({
-            //     modal: MODALS.SIGN_IN,
-            //   })}
-            // >
-            //   <span>Sign in</span>
-            //   <IconButton
-            //     aria-label="account of current user"
-            //     aria-controls="primary-search-account-menu"
-            //     aria-haspopup="true"
-            //     color="inherit"
-            //   >
-            //     {PROFILE_ICON}
-            //   </IconButton>
-            // </div>
             <div className='sign-in-trigger-wrapper'>
               <span><Link href='/sign-in'>Sign in</Link></span>{SPACING}/{SPACING}<span><Link href='/sign-up'>Sign up</Link></span>{SPACING}{SPACING}
             </div>

@@ -1,10 +1,13 @@
 import React from 'react';
+import * as moment from 'moment';
 import RoundedButton from 'src/components/material-ui/rounded-button';
 import { SPACING } from 'src/components/material-ui/icons';
-import * as moment from 'moment';
+import { useUser } from 'src/lib/auth/useUser';
 
-function Account({ logout, profile }) {
+function Account({ profile }) {
   const { email, firstName, lastName, username, createdAt } = profile;
+  const { logout } = useUser();
+
   return (
     <section className="c-account">
       <div className="overlay">
@@ -28,7 +31,8 @@ function Account({ logout, profile }) {
           )}
           {SPACING}
           {createdAt && (
-            <div><h5>Joined:</h5> {moment.utc(createdAt).format('LLLL')}</div>
+            // <div><h5>Joined:</h5> {moment.utc(createdAt).format('LLLL')}</div>
+            <div><h5>Joined:</h5> {moment.utc(Date.now(createdAt)).format('LLLL')}</div>
           )}
         </div>
         {SPACING}

@@ -30,6 +30,7 @@ import {
 import { selectDayToDayToManage } from 'src/store/selectors/manage-itinerary';
 import { useAction } from 'src/store/hooks';
 import NestedMainMenu from 'src/components/common/nested-main-menu';
+import { useUser } from 'src/lib/auth/useUser';
 
 function MainMenu({
   setDayToDayTab,
@@ -41,7 +42,7 @@ function MainMenu({
   const router = useRouter();
   const tab = dayToDayTab;
   const dayToDayToManage = useSelector(selectDayToDayToManage);
-  const logout = useAction(actions.session.logout);
+  const { logout } = useUser();
 
   const mainMenuClasses = cx('main-menu', {
     'main-menu__no-box-shadow': router.pathname === CUSTOMERS || router.pathname === CUSTOMER_PROFILE,

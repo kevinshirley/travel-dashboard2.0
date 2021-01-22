@@ -16,8 +16,7 @@ function Layout(props) {
   const db = firebaseClient.firestore();
   const initialLoad = useAction(actions.root.initialLoad);
   const setProfile = useAction(actions.session.setProfile);
-  const setIsLoggedIn = useAction(actions.session.setIsLoggedIn);
-  const { user, logout } = useUser();
+  const { user } = useUser();
 
   useEffect(() => {
     initialLoad();
@@ -25,7 +24,7 @@ function Layout(props) {
 
   useEffect(() => {
     if (user) {
-      db.collection('userProfile').where('email', '==', user.email)
+      db.collection('userProfile').where('id', '==', user.id)
       .get()
       .then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
@@ -48,19 +47,6 @@ function Layout(props) {
         <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet" />
       </Head>
       <div className='main-content'>
-        {user && (
-          <div
-            style={{
-              display: 'inline-block',
-              color: 'blue',
-              textDecoration: 'underline',
-              cursor: 'pointer',
-            }}
-            onClick={() => logout()}
-          >
-            Log out
-          </div>
-        )}
         {props.children}
       </div>
     </>

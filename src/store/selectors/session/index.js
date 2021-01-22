@@ -38,7 +38,6 @@ export const selectSignInIsSubmitting = R.pathOr(false, [
 
 export const selectSessionProfile = R.pathOr({}, [
   'session',
-  'data',
   'profile',
 ]);
 

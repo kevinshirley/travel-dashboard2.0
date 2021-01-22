@@ -26,12 +26,13 @@ import { useAction } from 'src/store/hooks';
 import Link from 'src/components/common/link';
 import { CHEVRON_RIGHT_ICON, CHEVRON_LEFT_ICON } from 'src/components/material-ui/icons';
 import { selectIsMainMenuMinimized } from 'src/store/selectors/common';
+import { useUser } from 'src/lib/auth/useUser';
 
 export default function NestedList() {
   const [open, setOpen] = React.useState(false);
-  const logout = useAction(actions.session.logout);
   const isMainMenuMinimized = useSelector(selectIsMainMenuMinimized);
   const shouldMainMenuMinimize = useAction(actions.ui.isMainMenuMinimized);
+  const { logout } = useUser();
 
   const nestedMainMenuClasses = cx('nested-main-menu', {
     'nested-main-menu__minimized': isMainMenuMinimized,
