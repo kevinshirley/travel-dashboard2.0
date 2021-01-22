@@ -1,5 +1,4 @@
 import { connect } from 'react-redux';
-import Router, { useRouter } from 'next/router';
 import DisplayItineraryPage from 'src/components/display-itinerary';
 import storeConnector from 'src/store/selectors/display-itinerary';
 // import storeConnector from 'src/store/selectors/manage-itinerary';

@@ -1,6 +1,8 @@
 import React from 'react';
 import cx from 'classnames';
+import { isEmpty } from 'ramda';
 import { useSelector } from 'react-redux';
+import { useToasts } from 'react-toast-notifications';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -26,12 +28,16 @@ import { useAction } from 'src/store/hooks';
 import Link from 'src/components/common/link';
 import { CHEVRON_RIGHT_ICON, CHEVRON_LEFT_ICON } from 'src/components/material-ui/icons';
 import { selectIsMainMenuMinimized } from 'src/store/selectors/common';
+import { useUser } from 'src/lib/auth/useUser';
+import { selectSessionProfile } from 'src/store/selectors/session';
 
 export default function NestedList() {
   const [open, setOpen] = React.useState(false);
-  const logout = useAction(actions.session.logout);
   const isMainMenuMinimized = useSelector(selectIsMainMenuMinimized);
+  const profile = useSelector(selectSessionProfile);
   const shouldMainMenuMinimize = useAction(actions.ui.isMainMenuMinimized);
+  const { logout } = useUser();
+  const { addToast } = useToasts();
 
   const nestedMainMenuClasses = cx('nested-main-menu', {
     'nested-main-menu__minimized': isMainMenuMinimized,
@@ -141,7 +147,15 @@ export default function NestedList() {
           </Link>
         </div>
         <div className='logout'>
-          <ListItem button onClick={() => logout()}>
+          <ListItem button onClick={() => {
+            if (!isEmpty(profile)) {
+              addToast('Logged out.', {
+                appearance: 'success',
+                autoDismiss: true, 
+              });
+              logout();
+            }
+          }}>
             <ListItemIcon>
               {LOGOUT_ICON}
             </ListItemIcon>

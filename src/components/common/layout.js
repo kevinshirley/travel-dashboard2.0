@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import Head from 'next/head';
+import { ToastProvider } from 'react-toast-notifications';
 
 import 'bootstrap/dist/css/bootstrap-reboot.min.css';
 import 'react-calendar/dist/Calendar.css';
@@ -8,22 +9,30 @@ import { useAction } from 'src/store/hooks';
 import * as actions from 'src/store/actions';
 
 import { useUser } from 'src/lib/auth/useUser';
+import firebaseClient from 'firebase/app';
+import initFirebase from 'src/lib/auth/initFirebase';
+initFirebase();
 
 function Layout(props) {
+  const db = firebaseClient.firestore();
   const initialLoad = useAction(actions.root.initialLoad);
-  const isLoggedIn = useAction(actions.session.isLoggedIn);
-  const setIsLoggedIn = useAction(actions.session.setIsLoggedIn);
-  const { user, logout } = useUser();
-  console.log({ user });
+  const setProfile = useAction(actions.session.setProfile);
+  const { user } = useUser();
 
   useEffect(() => {
     initialLoad();
-    isLoggedIn();
   }, []);
 
   useEffect(() => {
     if (user) {
-      setIsLoggedIn(user);
+      db.collection('userProfile').where('id', '==', user.id)
+        .get()
+        .then(function(querySnapshot) {
+          querySnapshot.forEach(function(doc) {
+            const profile = doc.data();
+            setProfile(profile);
+          });
+        });
     }
   }, [user]);
 
@@ -39,19 +48,6 @@ function Layout(props) {
         <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet" />
       </Head>
       <div className='main-content'>
-        {user && (
-          <div
-            style={{
-              display: 'inline-block',
-              color: 'blue',
-              textDecoration: 'underline',
-              cursor: 'pointer',
-            }}
-            onClick={() => logout()}
-          >
-            Log out
-          </div>
-        )}
         {props.children}
       </div>
     </>

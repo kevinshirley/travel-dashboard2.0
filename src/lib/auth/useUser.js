@@ -1,22 +1,21 @@
+import 'firebase/auth'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import firebase from 'firebase/app'
-import 'firebase/auth'
 import initFirebase from './initFirebase'
-import {
-  removeUserCookie,
-  setUserCookie,
-  getUserFromCookie,
-} from './userCookies'
 import { mapUserData } from './mapUserData'
+import { useAction } from 'src/store/hooks';
+import * as actions from 'src/store/actions';
 
 initFirebase();
 
 const useUser = () => {
   const [user, setUser] = useState()
   const router = useRouter()
+  const setProfile = useAction(actions.session.setProfile);
 
   const logout = async () => {
+    setProfile({});
     return firebase
       .auth()
       .signOut()
@@ -36,13 +35,10 @@ const useUser = () => {
     const cancelAuthListener = firebase
       .auth()
       .onIdTokenChanged(async (user) => {
-        getUserFromCookie();
         if (user) {
           const userData = await mapUserData(user)
-          setUserCookie(userData)
           setUser(userData)
         } else {
-          removeUserCookie()
           setUser()
         }
       })

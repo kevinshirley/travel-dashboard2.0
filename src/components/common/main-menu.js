@@ -1,6 +1,7 @@
 import React from 'react';
 import cx from 'classnames';
 import { connect } from 'react-redux';
+import { ToastProvider } from 'react-toast-notifications';
 import * as actions from 'src/store/actions';
 import storeConnector from 'src/store/selectors/add-itinerary';
 import Link from 'src/components/common/link';
@@ -30,6 +31,7 @@ import {
 import { selectDayToDayToManage } from 'src/store/selectors/manage-itinerary';
 import { useAction } from 'src/store/hooks';
 import NestedMainMenu from 'src/components/common/nested-main-menu';
+import { useUser } from 'src/lib/auth/useUser';
 
 function MainMenu({
   setDayToDayTab,
@@ -41,7 +43,7 @@ function MainMenu({
   const router = useRouter();
   const tab = dayToDayTab;
   const dayToDayToManage = useSelector(selectDayToDayToManage);
-  const logout = useAction(actions.session.logout);
+  const { logout } = useUser();
 
   const mainMenuClasses = cx('main-menu', {
     'main-menu__no-box-shadow': router.pathname === CUSTOMERS || router.pathname === CUSTOMER_PROFILE,
@@ -119,7 +121,9 @@ function MainMenu({
   return (
     <>
       {!(ITINERARY_EDITOR_PATHNAMES.includes(router.pathname)) && router.pathname !== ITINERARY && (
-        <NestedMainMenu />
+        <ToastProvider>
+          <NestedMainMenu />
+        </ToastProvider>
       )}
       {ITINERARY_EDITOR_PATHNAMES.includes(router.pathname) && router.pathname !== ITINERARY && (
         <AddItineraryMenuContent setDayToDayTab={setDayToDayTab} />

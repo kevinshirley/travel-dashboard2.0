@@ -11,25 +11,29 @@ import Footer from 'src/components/footer';
 import Modal from 'src/components/common/modal';
 import { ToastProvider } from 'react-toast-notifications';
 
+import { AuthProvider } from '../auth';
+
 function Root({ Component, pageProps }) {
   return (
     <>
-      <div className='container layout'>
-        <Navbar />
-        <div className='main'>
-          <MainMenu />
-          <Layout>
-            <div className='content'>
-              <Component {...pageProps} />
-            </div>
-            <Footer />
-          </Layout>
-          <SideMenu />
+      <AuthProvider>
+        <div className='container layout'>
+          <Navbar />
+          <div className='main'>
+            <MainMenu />
+            <Layout>
+              <div className='content'>
+                <Component {...pageProps} />
+              </div>
+              <Footer />
+            </Layout>
+            <SideMenu />
+          </div>
         </div>
-      </div>
-      <ToastProvider>
-        <Modal />
-      </ToastProvider>
+        <ToastProvider>
+          <Modal />
+        </ToastProvider>
+      </AuthProvider>
     </>
   );
 }
