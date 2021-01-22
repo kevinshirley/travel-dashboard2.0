@@ -5,6 +5,7 @@ import {
   CHAT_ICON,
   NOTIFICATIONS_ICON,
   PROFILE_ICON,
+  SPACING
 } from 'src/components/material-ui/icons';
 import Link from 'src/components/common/link';
 import { useSelector } from 'react-redux';
@@ -48,21 +49,24 @@ function ProfileDetails({ name }) {
               </IconButton>
             </Link>
           ) : (
-            <div
-              className='sign-in-trigger-wrapper'
-              onClick={() => openModal({
-                modal: MODALS.SIGN_IN,
-              })}
-            >
-              <span>Sign in</span>
-              <IconButton
-                aria-label="account of current user"
-                aria-controls="primary-search-account-menu"
-                aria-haspopup="true"
-                color="inherit"
-              >
-                {PROFILE_ICON}
-              </IconButton>
+            // <div
+            //   className='sign-in-trigger-wrapper'
+            //   onClick={() => openModal({
+            //     modal: MODALS.SIGN_IN,
+            //   })}
+            // >
+            //   <span>Sign in</span>
+            //   <IconButton
+            //     aria-label="account of current user"
+            //     aria-controls="primary-search-account-menu"
+            //     aria-haspopup="true"
+            //     color="inherit"
+            //   >
+            //     {PROFILE_ICON}
+            //   </IconButton>
+            // </div>
+            <div className='sign-in-trigger-wrapper'>
+              <span><Link href='/sign-in'>Sign in</Link></span>{SPACING}/{SPACING}<span><Link href='/sign-up'>Sign up</Link></span>{SPACING}{SPACING}
             </div>
           )}
         </li>

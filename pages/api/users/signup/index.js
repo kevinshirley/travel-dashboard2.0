@@ -1,5 +1,6 @@
 const { dissoc } = require('ramda');
-const firebaseAdmin = require('../../../../src/lib/auth/firebaseAdmin');
+// const firebaseAdmin = require('../../../../src/lib/auth/firebaseAdmin');
+import { firebaseAdmin } from '../../../../firebaseAdmin'
 
 const SignUp = (req, res) => {
   const { email, password, username } = req.body;

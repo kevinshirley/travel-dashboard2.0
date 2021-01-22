@@ -1,15 +1,10 @@
-import { connect } from 'react-redux';
-import nookies from 'nookies';
-import CustomersPage from 'src/components/customers';
-import storeConnector from 'src/store/selectors/customers';
-import * as actions from 'src/store/actions';
-
-import { firebaseAdmin } from '../../firebaseAdmin';
-
-const actionCreators = {
-  resetSuccess: actions.forms.resetSuccess,
-  resetError: actions.forms.resetError,
-};
+import React from "react";
+import Link from 'next/link';
+import nookies from "nookies";
+import { firebaseAdmin } from "../firebaseAdmin";
+import firebaseClient from 'firebase/app';
+import initFirebase from 'src/lib/auth/initFirebase';
+initFirebase();
 
 export const getServerSideProps = async (ctx) => {
   try {
@@ -32,7 +27,6 @@ export const getServerSideProps = async (ctx) => {
     // either the `token` cookie didn't exist
     // or token verification failed
     // either way: redirect to the login page
-    console.log({ err });
     return {
       redirect: {
         permanent: false,
@@ -45,7 +39,23 @@ export const getServerSideProps = async (ctx) => {
   }
 };
 
-export default connect(
-  storeConnector,
-  actionCreators,
-)(CustomersPage);
+const AuthenticatedPage = (
+  props
+) => (
+  <div>
+    <Link href="/">
+      <a>Back Home</a>
+    </Link>
+    <p>{props.message}</p>
+    <button
+      onClick={async () => {
+        await firebaseClient.auth().signOut();
+        window.location.href = "/";
+      }}
+    >
+      Sign out
+    </button>
+  </div>
+);
+
+export default AuthenticatedPage;

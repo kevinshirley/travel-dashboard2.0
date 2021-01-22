@@ -1,6 +1,7 @@
 import React from 'react';
 import * as R from 'ramda';
 import { Formik, Field, Form } from 'formik';
+import { useRouter } from 'next/router';
 
 import TextField from 'src/components/common/text-field';
 import RoundedButton from 'src/components/material-ui/rounded-button';
@@ -8,8 +9,13 @@ import { SPACING } from 'src/components/material-ui/icons';
 import { useToasts } from 'react-toast-notifications';
 import Alert from 'src/components/material-ui/alert';
 
+import firebaseClient from 'firebase/app';
+import initFirebase from 'src/lib/auth/initFirebase';
+initFirebase();
+
 function SignIn({ signIn, signInError }) {
   const { addToast } = useToasts();
+  const router = useRouter();
 
   return (
     <section className="c-sign-in">
@@ -21,7 +27,9 @@ function SignIn({ signIn, signInError }) {
           }}
           onSubmit={async values => {
             try {
-              signIn(values);
+              // signIn(values);
+              await firebaseClient.auth().signInWithEmailAndPassword(values.email, values.password);
+              router.push('/');
             } catch (err) {
               addToast('Error', {
                 appearance: 'error',
