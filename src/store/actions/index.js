@@ -104,7 +104,7 @@ export const SESSION = createTypes('SESSION', [
   'SIGN_IN',
   'SIGN_UP',
   'SET_USER_TOKEN',
-  'SET_PROVISIONAL_USER',
+  'SET_PROFILE',
 ]);
 
 export const FORMS = createTypes('FORMS', [

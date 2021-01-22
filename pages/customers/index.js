@@ -14,7 +14,6 @@ const actionCreators = {
 export const getServerSideProps = async (ctx) => {
   try {
     const cookies = nookies.get(ctx);
-    // console.log(JSON.stringify(cookies, null, 2));
     const token = await firebaseAdmin.auth().verifyIdToken(cookies.token);
     const { uid, email } = token;
     console.log({ token });
@@ -36,7 +35,7 @@ export const getServerSideProps = async (ctx) => {
     return {
       redirect: {
         permanent: false,
-        destination: "/sign-in",
+        destination: '/sign-in',
       },
       // `as never` is required for correct type inference
       // by InferGetServerSidePropsType below
