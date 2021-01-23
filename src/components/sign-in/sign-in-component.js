@@ -56,7 +56,12 @@ function SignIn({ signIn, signInError, isSubmitting }) {
             {SPACING}
             <Field name='password' label='Password' type='password' component={TextField} />
             <div className='rotate-form'>
-              <span className='cta' onClick={() => console.log('forgot password')}>
+              <span className='cta' onClick={() => {
+                addToast('Coming soon...', {
+                  appearance: 'warning',
+                  autoDismiss: true, 
+                });
+              }}>
                 Forgot password?
               </span>
             </div>
@@ -67,7 +72,12 @@ function SignIn({ signIn, signInError, isSubmitting }) {
               type='submit'
             />
             {SPACING}
-            <div className='c-sign-in-form__sign-up-cta' onClick={() => console.log('create an account')}>
+            <div className='c-sign-in-form__sign-up-cta' onClick={() => {
+              addToast('Coming soon...', {
+                appearance: 'warning',
+                autoDismiss: true, 
+              });
+            }}>
               <RoundedButton text='Create new account' />
             </div>
           </Form>
