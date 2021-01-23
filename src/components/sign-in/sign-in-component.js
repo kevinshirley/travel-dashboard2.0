@@ -40,7 +40,7 @@ function SignIn({ signIn, signInError, isSubmitting }) {
               router.push('/');
             } catch (err) {
               isFormSubmitting({ isSubmitting: false, form: 'signIn' });
-              addToast('Error', {
+              addToast(err.message ? err.message : 'Error', {
                 appearance: 'error',
                 autoDismiss: true, 
               });
@@ -55,13 +55,21 @@ function SignIn({ signIn, signInError, isSubmitting }) {
             <Field name='email' label='Email' type='text' component={TextField} />
             {SPACING}
             <Field name='password' label='Password' type='password' component={TextField} />
-            {SPACING}
+            <div className='rotate-form'>
+              <span className='cta' onClick={() => console.log('forgot password')}>
+                Forgot password?
+              </span>
+            </div>
             <RoundedButton 
-              className='add-trip-cta'
+              className='c-sign-in-form__cta'
               isLoading={isSubmitting}
-              text='Sign in'
+              text='Login'
               type='submit'
             />
+            {SPACING}
+            <div className='c-sign-in-form__sign-up-cta' onClick={() => console.log('create an account')}>
+              <RoundedButton text='Create new account' />
+            </div>
           </Form>
         </Formik>
       </div>

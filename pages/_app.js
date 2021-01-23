@@ -51,11 +51,13 @@ function Root({ Component, pageProps }) {
           <div className='container layout'>
             <ToastProvider>
               <div className='c-initial-layout'>
-                <SignIn
-                  isSubmitting={isSignInSubmitting}
-                  signIn={signIn}
-                  signInError={signInError}
-                />
+                <div className='c-sign-in__wrapper'>
+                  <SignIn
+                    isSubmitting={isSignInSubmitting}
+                    signIn={signIn}
+                    signInError={signInError}
+                  />
+                </div>
                 <div className='c-initial-layout__sign-in-info'>
                   <div className='c-initial-layout__sign-in-info--content'>
                     <h1>A travel professional's<br/> all in one tool</h1>

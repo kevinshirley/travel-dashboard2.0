@@ -2203,33 +2203,62 @@ a {
   justify-content: space-around;
   width: 100%;
   height: 100vh;
-
-  .c-sign-in {
+// #CA8BCC
+  .c-sign-in__wrapper {
     width: 45%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     margin-top: 40px;
 
-    .c-sign-in__logo {
-      margin-bottom: 20px;
-    }
+    .c-sign-in {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
 
-    .c-sign-in__title {
-      margin-bottom: 20px;
-      font-size: 1.8em;
-      color: $rounded-button-cta-bg-color;
-    }
-
-    .overlay {
-      width: 400px;
-
-      @media screen and (max-width: 930px) {
-        width: 90%;
+      .c-sign-in__logo {
+        margin-bottom: 20px;
       }
+  
+      .c-sign-in__title {
+        margin-bottom: 20px;
+        font-size: 1.8em;
+        color: $rounded-button-cta-bg-color;
+      }
+  
+      .overlay {
+        width: 400px;
+  
+        @media screen and (max-width: 930px) {
+          width: 90%;
+        }
+  
+        #rounded-button {
+          width: 100%;
+        }
 
-      #rounded-button {
-        width: 100%;
+        .rotate-form {
+          margin-top: 10px;
+          text-align: left;
+
+          .cta {
+            color: $link-color;
+            cursor: pointer;
+          }
+        }
+
+        .c-sign-in-form__cta {
+          margin-top: 15px;
+        }
+
+        .c-sign-in-form__sign-up-cta {
+          #rounded-button {
+            background: $white;
+            color: $rounded-button-cta-bg-color;
+            @include transition-ease-in-out;
+
+            &:hover {
+              border: 1px solid $rounded-button-cta-bg-color;
+            }
+          }
+        }
       }
     }
   }
