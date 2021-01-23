@@ -10,6 +10,7 @@ import { useToasts } from 'react-toast-notifications';
 import Alert from 'src/components/material-ui/alert';
 import * as actions from 'src/store/actions';
 import { useAction } from 'src/store/hooks';
+import { LOGO } from 'src/components/common/images';
 
 import firebaseClient from 'firebase/app';
 import initFirebase from 'src/lib/auth/initFirebase';
@@ -21,8 +22,10 @@ function SignIn({ signIn, signInError, isSubmitting }) {
   const isFormSubmitting = useAction(actions.forms.isSubmitting);
 
   return (
-    <section className="c-sign-in">
-      <div className="overlay">
+    <section className='c-sign-in'>
+      <img className='c-sign-in__logo' src={LOGO} alt='Trip Imagine Logo' />
+      <h2 className='c-sign-in__title'>Welcome Back</h2>
+      <div className='overlay'>
         <Formik
           initialValues={{
             email: '',
