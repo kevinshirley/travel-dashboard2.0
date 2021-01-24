@@ -148,6 +148,7 @@ export default function NestedList() {
         </div>
         <div className='logout'>
           <ListItem button onClick={() => {
+            logout();
             if (!isEmpty(profile)) {
               addToast('Logged out.', {
                 appearance: 'success',

@@ -1,6 +1,12 @@
+import { isEmpty } from 'ramda';
 import { put, takeLatest, call, delay } from 'redux-saga/effects';
 import { SESSION, session, forms } from 'src/store/actions';
 import { axiosPost } from 'src/utils/fetch';
+import { mapUserData } from 'src/lib/auth/mapUserData';
+
+import firebaseClient from 'firebase/app';
+import initFirebase from 'src/lib/auth/initFirebase';
+initFirebase();
 
 export function* watchIsLoggedIn() {
   yield takeLatest(SESSION.IS_LOGGED_IN, isLoggedIn);
@@ -59,18 +65,22 @@ function* signIn({ payload }) {
 }
 
 function* signUp({ payload }) {
-  yield put(forms.isSubmitting({ isSubmitting: true, form: 'signUp' }));
-  const result = yield call(axiosPost, '/api/users/signup', payload);
+  const db = firebaseClient.firestore();
+  const user = firebaseClient.auth().currentUser;
+  const userData = yield call(mapUserData, user);
 
-  if (result.status === 200 && result.data.success) {
-    yield put(forms.isSubmitting({ isSubmitting: false, form: 'signUp' }));
-    yield put(forms.setSuccess({ message: 'You\'ve successfully signed up!', form: 'signUp' }));
-    yield put(forms.setError({ message: '', form: 'signUp' }));
-  } else {
-    yield put(forms.isSubmitting({ isSubmitting: false, form: 'signUp' }));
-    yield put(forms.setError({ ...result.data, form: 'signUp' }));
-    yield put(forms.setSuccess({ message: '', form: 'signUp' }));
+  if (userData) {
+    db.collection('userProfile').add({
+      id: userData.id,
+      createdAt: firebaseClient.firestore.FieldValue.serverTimestamp(),
+      firstName: payload.firstName,
+      lastName: payload.lastName,
+      username: payload.username,
+      email: payload.email,
+    });
   }
+
+  yield put(forms.isSubmitting({ isSubmitting: false, form: 'signUp' }));
 }
 
 function* setUserToken({ payload }) {

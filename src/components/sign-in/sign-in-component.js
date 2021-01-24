@@ -72,12 +72,7 @@ function SignIn({ signIn, signInError, isSubmitting }) {
               type='submit'
             />
             {SPACING}
-            <div className='c-sign-in-form__sign-up-cta' onClick={() => {
-              addToast('Coming soon...', {
-                appearance: 'warning',
-                autoDismiss: true, 
-              });
-            }}>
+            <div className='c-sign-in-form__sign-up-cta' onClick={() => router.push('/sign-up')}>
               <RoundedButton text='Create new account' />
             </div>
           </Form>
