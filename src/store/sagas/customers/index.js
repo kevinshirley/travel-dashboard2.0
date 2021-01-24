@@ -7,6 +7,10 @@ import uuidv4 from 'src/utils/uuidv4';
 import { selectSessionProfile } from 'src/store/selectors/session';
 import { selectUserCustomers } from 'src/store/selectors/customers';
 
+import firebaseClient from 'firebase/app';
+import initFirebase from 'src/lib/auth/initFirebase';
+initFirebase();
+
 export function* watchSetCustomer() {
   yield takeLatest(CUSTOMER.SET, setCustomer);
 }
@@ -46,6 +50,7 @@ function* closeCustomerSideMenu() {
 function* addCustomer({ payload }) {
   yield put(forms.isSubmitting({ isSubmitting: true, form: 'addCustomer' }));
   const profile = yield select(selectSessionProfile);
+  const db = firebaseClient.firestore();
 
   if (profile && profile.id) {
     const customerData = {
@@ -54,21 +59,30 @@ function* addCustomer({ payload }) {
       createdBy: !isEmpty(profile) ? profile.id : '',
       isOnline: false,
     };
-    const result = yield call(axiosPost, '/api/customer/add', customerData);
 
-    if (result.status === 200 && result.data.success) {
-      // customer added message
-      yield put(forms.isSubmitting({ isSubmitting: false, form: 'addCustomer' }));
-      yield put(forms.setSuccess({ message: 'You\'ve successfully added this customer!', form: 'addCustomer' }));
-      yield put(ui.closeModal());
+    db.collection('userClients').add({
+      ...customerData,
+      createdAt: firebaseClient.firestore.FieldValue.serverTimestamp(),
+    });
 
-      // fetch user customers
-      yield call(fetchUserCustomers);
-    } else {
-      yield put(forms.isSubmitting({ isSubmitting: false, form: 'addCustomer' }));
-      yield put(forms.setError({ message: result.error.message ? result.error.message : 'An error occured when saving this customer.', form: 'addCustomer' }));
-      yield put(ui.closeModal());
-    }
+    yield put(ui.closeModal());
+
+    // const result = yield call(axiosPost, '/api/customer/add', customerData);
+
+    // if (result.status === 200 && result.data.success) {
+    //   // customer added message
+    //   yield put(forms.isSubmitting({ isSubmitting: false, form: 'addCustomer' }));
+    //   yield put(forms.setSuccess({ message: 'You\'ve successfully added this customer!', form: 'addCustomer' }));
+    //   yield put(ui.closeModal());
+
+    //   // fetch user customers
+    //   yield call(fetchUserCustomers);
+    // } else {
+    //   yield put(forms.isSubmitting({ isSubmitting: false, form: 'addCustomer' }));
+    //   yield put(forms.setError({ message: result.error.message ? result.error.message : 'An error occured when saving this customer.', form: 'addCustomer' }));
+    //   yield put(ui.closeModal());
+    // }
+    yield put(forms.isSubmitting({ isSubmitting: false, form: 'addCustomer' }));
   } else {
     yield put(forms.setError({ message: 'Please login to add a new customer.', form: 'addCustomer' }));
     yield put(forms.isSubmitting({ isSubmitting: false, form: 'addCustomer' }));
