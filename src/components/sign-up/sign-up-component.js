@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { omit, isNil } from 'ramda';
+import { omit, isNil, equals } from 'ramda';
 import { Formik, Field, Form } from 'formik';
 
 import TextField from 'src/components/common/text-field';
@@ -15,7 +15,7 @@ import firebaseClient from 'firebase/app';
 import initFirebase from 'src/lib/auth/initFirebase';
 initFirebase();
 
-function SignUp({ isSignUpSubmitting, signUp, signUpError, signUpSuccess }) {
+function SignUp({ isSignUpSubmitting, signUp }) {
   const { addToast } = useToasts();
   const router = useRouter();
   const [profileValues, setProfileValues] = useState(null);
@@ -38,19 +38,27 @@ function SignUp({ isSignUpSubmitting, signUp, signUpError, signUpSuccess }) {
         <Formik
           initialValues={{
             email: '',
-            password: '',
             firstName: '',
             lastName: '',
             username: '',
+            password: '',
+            confirmPassword: '',
           }}
           onSubmit={async values => {
             isFormSubmitting({ isSubmitting: true, form: 'signUp' });
             try {
-              console.log('signUp triggered');
-              await firebaseClient
-                .auth()
-                .createUserWithEmailAndPassword(values.email, values.password);
-              setProfileValues({ ...omit(['password'], values) });
+              if (equals(values.password, values.confirmPassword)) {
+                await firebaseClient
+                  .auth()
+                  .createUserWithEmailAndPassword(values.email, values.password);
+                setProfileValues({ ...omit(['password', 'confirmPassword'], values) });
+              } else {
+                isFormSubmitting({ isSubmitting: false, form: 'signUp' });
+                addToast('Please confirm your password.', {
+                  appearance: 'error',
+                  autoDismiss: true, 
+                });
+              }
             } catch (err) {
               isFormSubmitting({ isSubmitting: false, form: 'signUp' });
               addToast(err.message ? err.message : 'Error while signing up', {
@@ -72,12 +80,12 @@ function SignUp({ isSignUpSubmitting, signUp, signUpError, signUpSuccess }) {
             {SPACING}
             <Field name='password' label='Password' type='password' component={TextField} />
             {SPACING}
-            {/* <Field name='confirmPassword' label='Confirm password' type='password' component={TextField} />
-            {SPACING} */}
+            <Field name='confirmPassword' label='Confirm password' type='password' component={TextField} />
+            {SPACING}
             <RoundedButton
               className='c-sign-up-form__cta'
               isLoading={isSignUpSubmitting}
-              text='Join now'
+              text='Start free trial'
               type='submit'
             />
             {SPACING}
