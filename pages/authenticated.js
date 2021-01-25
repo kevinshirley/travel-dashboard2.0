@@ -1,7 +1,7 @@
 import React from "react";
 import Link from 'next/link';
 import nookies from "nookies";
-import { firebaseAdmin } from "../firebaseAdmin";
+import { firebaseAdmin } from "../src/lib/auth/firebaseAdmin";
 import firebaseClient from 'firebase/app';
 import initFirebase from 'src/lib/auth/initFirebase';
 initFirebase();

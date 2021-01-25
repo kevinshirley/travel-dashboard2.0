@@ -20,7 +20,7 @@ export function* watchCloseCustomerSideMenu() {
 }
 
 export function* watchFetchUserCustomers() {
-  yield takeLatest(SESSION.SET_IS_LOGGED_IN, fetchUserCustomers);
+  yield takeLatest(SESSION.SET_PROFILE, fetchUserCustomers);
 }
 
 export function* watchAddCustomer() {
@@ -91,21 +91,39 @@ function* addCustomer({ payload }) {
 }
 
 function* fetchUserCustomers() {
+  const db = firebaseClient.firestore();
   const profile = yield select(selectSessionProfile);
   const { id } = profile;
+  let clients = [];
 
   if (!isEmpty(id) && !isNil(id)) {
     yield put(forms.isSubmitting({ isSubmitting: true, form: 'userCustomers' }));
+    db.collection('userClients')
+      .where('createdBy', '==', profile.id)
+      .get()
+      .then(snap => {
+        snap.forEach(doc => {
+          console.log('user id', profile.id);
+          console.log('client', doc.data());
+          const newClient = doc.data();
+          console.log({ newClient });
+          clients = [
+            ...clients,
+            newClient,
+          ];
+          console.log({ clients });
+        })
+      });
+    console.log({ clients });
+    // const userCustomers = yield call(axiosPost, '/api/customers/user', { id });
 
-    const userCustomers = yield call(axiosPost, '/api/customers/user', { id });
-
-    if (userCustomers.status === 200 && userCustomers.data.success) {
-      yield put(customers.setUser(userCustomers.data.customers));
-      yield put(forms.isSubmitting({ isSubmitting: false, form: 'userCustomers' }));
-    } else {
-      yield put(forms.setError({ message: result.error.message ? result.error.message : 'An error occured when pulling the customers list.', form: 'addCustomer' }));
-      yield put(forms.isSubmitting({ isSubmitting: false, form: 'userCustomers' }));
-    }
+    // if (userCustomers.status === 200 && userCustomers.data.success) {
+    //   yield put(customers.setUser(userCustomers.data.customers));
+    //   yield put(forms.isSubmitting({ isSubmitting: false, form: 'userCustomers' }));
+    // } else {
+    //   yield put(forms.setError({ message: result.error.message ? result.error.message : 'An error occured when pulling the customers list.', form: 'addCustomer' }));
+    //   yield put(forms.isSubmitting({ isSubmitting: false, form: 'userCustomers' }));
+    // }
   }
 }
 

@@ -4,7 +4,7 @@ import CustomersPage from 'src/components/customers';
 import storeConnector from 'src/store/selectors/customers';
 import * as actions from 'src/store/actions';
 
-import { firebaseAdmin } from '../../firebaseAdmin';
+import { firebaseAdmin } from '../../src/lib/auth/firebaseAdmin';
 
 const actionCreators = {
   resetSuccess: actions.forms.resetSuccess,
@@ -16,7 +16,6 @@ export const getServerSideProps = async (ctx) => {
     const cookies = nookies.get(ctx);
     const token = await firebaseAdmin.auth().verifyIdToken(cookies.token);
     const { uid, email } = token;
-    console.log({ token });
 
     // the user is authenticated!
     // FETCH STUFF HERE
@@ -31,11 +30,10 @@ export const getServerSideProps = async (ctx) => {
     // either the `token` cookie didn't exist
     // or token verification failed
     // either way: redirect to the login page
-    console.log({ err });
     return {
       redirect: {
         permanent: false,
-        destination: '/sign-in',
+        destination: '/',
       },
       // `as never` is required for correct type inference
       // by InferGetServerSidePropsType below

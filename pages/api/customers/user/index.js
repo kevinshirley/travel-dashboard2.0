@@ -18,36 +18,38 @@ const config = {
 
 const UserCustomers = (req, res, next) => {
   console.log('UserCustomers');
-  AWS.config.update(config.aws_remote_config);
-  const db = new AWS.DynamoDB.DocumentClient();
-  console.log('req.body', req.body);
   const { id } = req.body;
 
-  const params = {
-    TableName: config.aws_table_name,
-    IndexName: 'createdBy-index',
-    KeyConditionExpression: 'createdBy = :i',
-    ExpressionAttributeValues: {
-      ':i': id
-    }
-  };
+  // AWS.config.update(config.aws_remote_config);
+  // const db = new AWS.DynamoDB.DocumentClient();
+  // console.log('req.body', req.body);
+  // const { id } = req.body;
 
-  db.query(params, function(err, data) {
-    if (err) {
-      res.send({
-        success: false,
-        error: err
-      });
-      res.end();
-    } else {
-      const { Items } = data;
-      res.send({
-        success: true,
-        customers: Items
-      });
-      res.end();
-    }
-  });
+  // const params = {
+  //   TableName: config.aws_table_name,
+  //   IndexName: 'createdBy-index',
+  //   KeyConditionExpression: 'createdBy = :i',
+  //   ExpressionAttributeValues: {
+  //     ':i': id
+  //   }
+  // };
+
+  // db.query(params, function(err, data) {
+  //   if (err) {
+  //     res.send({
+  //       success: false,
+  //       error: err
+  //     });
+  //     res.end();
+  //   } else {
+  //     const { Items } = data;
+  //     res.send({
+  //       success: true,
+  //       customers: Items
+  //     });
+  //     res.end();
+  //   }
+  // });
 };
 
 export default UserCustomers;

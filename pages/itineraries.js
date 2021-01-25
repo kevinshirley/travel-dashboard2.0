@@ -3,7 +3,7 @@ import nookies from 'nookies';
 import ItinerariesPage from 'src/components/itineraries';
 import storeConnector from 'src/store/selectors/itineraries';
 import * as actions from 'src/store/actions';
-import { firebaseAdmin } from '../firebaseAdmin';
+import { firebaseAdmin } from '../src/lib/auth/firebaseAdmin';
 
 export const getServerSideProps = async (ctx) => {
   try {
@@ -25,11 +25,10 @@ export const getServerSideProps = async (ctx) => {
     // either the `token` cookie didn't exist
     // or token verification failed
     // either way: redirect to the login page
-    console.log({ err });
     return {
       redirect: {
         permanent: false,
-        destination: '/sign-in',
+        destination: '/',
       },
       // `as never` is required for correct type inference
       // by InferGetServerSidePropsType below
