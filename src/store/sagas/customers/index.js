@@ -91,39 +91,21 @@ function* addCustomer({ payload }) {
 }
 
 function* fetchUserCustomers() {
-  const db = firebaseClient.firestore();
   const profile = yield select(selectSessionProfile);
   const { id } = profile;
-  let clients = [];
 
   if (!isEmpty(id) && !isNil(id)) {
     yield put(forms.isSubmitting({ isSubmitting: true, form: 'userCustomers' }));
-    db.collection('userClients')
-      .where('createdBy', '==', profile.id)
-      .get()
-      .then(snap => {
-        snap.forEach(doc => {
-          console.log('user id', profile.id);
-          console.log('client', doc.data());
-          const newClient = doc.data();
-          console.log({ newClient });
-          clients = [
-            ...clients,
-            newClient,
-          ];
-          console.log({ clients });
-        })
-      });
-    console.log({ clients });
-    // const userCustomers = yield call(axiosPost, '/api/customers/user', { id });
 
-    // if (userCustomers.status === 200 && userCustomers.data.success) {
-    //   yield put(customers.setUser(userCustomers.data.customers));
-    //   yield put(forms.isSubmitting({ isSubmitting: false, form: 'userCustomers' }));
-    // } else {
-    //   yield put(forms.setError({ message: result.error.message ? result.error.message : 'An error occured when pulling the customers list.', form: 'addCustomer' }));
-    //   yield put(forms.isSubmitting({ isSubmitting: false, form: 'userCustomers' }));
-    // }
+    const userCustomers = yield call(axiosPost, '/api/customers/user', { id });
+
+    if (userCustomers.status === 200 && userCustomers.data.success) {
+      yield put(customers.setUser(userCustomers.data.clients));
+      yield put(forms.isSubmitting({ isSubmitting: false, form: 'userCustomers' }));
+    } else {
+      yield put(forms.setError({ message: userCustomers.data.error.message ? userCustomers.data.error.message : 'An error occured when pulling the clients list.', form: 'addCustomer' }));
+      yield put(forms.isSubmitting({ isSubmitting: false, form: 'userCustomers' }));
+    }
   }
 }
 
