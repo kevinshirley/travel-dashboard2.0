@@ -53,36 +53,29 @@ function* addCustomer({ payload }) {
   const db = firebaseClient.firestore();
 
   if (profile && profile.id) {
-    const customerData = {
-      ...payload,
-      id: uuidv4(),
-      createdBy: !isEmpty(profile) ? profile.id : '',
-      isOnline: false,
-    };
+    try {
+      const customerData = {
+        ...payload,
+        id: uuidv4(),
+        createdBy: !isEmpty(profile) ? profile.id : '',
+        isOnline: false,
+      };
+  
+      db.collection('userClients').add({
+        ...customerData,
+        createdAt: firebaseClient.firestore.FieldValue.serverTimestamp(),
+      });
 
-    db.collection('userClients').add({
-      ...customerData,
-      createdAt: firebaseClient.firestore.FieldValue.serverTimestamp(),
-    });
+      yield put(forms.isSubmitting({ isSubmitting: false, form: 'addCustomer' }));
+  
+      yield put(ui.closeModal());
 
-    yield put(ui.closeModal());
-
-    // const result = yield call(axiosPost, '/api/customer/add', customerData);
-
-    // if (result.status === 200 && result.data.success) {
-    //   // customer added message
-    //   yield put(forms.isSubmitting({ isSubmitting: false, form: 'addCustomer' }));
-    //   yield put(forms.setSuccess({ message: 'You\'ve successfully added this customer!', form: 'addCustomer' }));
-    //   yield put(ui.closeModal());
-
-    //   // fetch user customers
-    //   yield call(fetchUserCustomers);
-    // } else {
-    //   yield put(forms.isSubmitting({ isSubmitting: false, form: 'addCustomer' }));
-    //   yield put(forms.setError({ message: result.error.message ? result.error.message : 'An error occured when saving this customer.', form: 'addCustomer' }));
-    //   yield put(ui.closeModal());
-    // }
-    yield put(forms.isSubmitting({ isSubmitting: false, form: 'addCustomer' }));
+      yield call(fetchUserCustomers);
+    } catch (err) {
+      yield put(forms.isSubmitting({ isSubmitting: false, form: 'addCustomer' }));
+      yield put(forms.setError({ message: err.message ? err.message : 'An error occured when saving this customer.', form: 'addCustomer' }));
+      yield put(ui.closeModal());
+    }
   } else {
     yield put(forms.setError({ message: 'Please login to add a new customer.', form: 'addCustomer' }));
     yield put(forms.isSubmitting({ isSubmitting: false, form: 'addCustomer' }));
