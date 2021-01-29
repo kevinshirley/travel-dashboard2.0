@@ -70,13 +70,19 @@ function* signUp({ payload }) {
   const userData = yield call(mapUserData, user);
 
   if (userData) {
-    db.collection('userProfile').add({
+    db.collection('userProfile').doc(userData.id).set({
       id: userData.id,
       createdAt: firebaseClient.firestore.FieldValue.serverTimestamp(),
       firstName: payload.firstName,
       lastName: payload.lastName,
       username: payload.username,
       email: payload.email,
+    })
+    .then(function() {
+      console.log('Successfully created profile!');
+    })
+    .catch(function(error) {
+      console.log('An error occured while creating this profile.', error);
     });
   }
 
