@@ -61,8 +61,8 @@ module.exports = withVideos(
         redirects() {
           return [
             {
-              source: '/profiles',
-              destination: '/customers',
+              source: '/sign-in',
+              destination: '/',
               permanent: true,
             },
           ]

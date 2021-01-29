@@ -36,7 +36,7 @@ function AddCustomerModal() {
           try {
             addCustomer(values);
           } catch (err) {
-            addToast(`Error: ${err}`, {
+            addToast(err.message ? err.message : 'Error when adding this note', {
               appearance: 'error',
               autoDismiss: true, 
             });
