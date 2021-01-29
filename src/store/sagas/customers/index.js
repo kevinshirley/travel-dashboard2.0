@@ -106,25 +106,24 @@ function* addNote({ payload }) {
   const { id } = profile;
 
   if (!isEmpty(id) && !isNil(id)) {
-    console.log({ payload });
+
     yield put(forms.isSubmitting({ isSubmitting: true, form: 'addCustomerNote' }));
     const result = yield call(post, '/api/customer/add/note', payload);
 
     if (result.success) {
       yield put(forms.isSubmitting({ isSubmitting: false, form: 'addCustomerNote' }));
-      console.log({ result });
+
       // note added
-      // yield put(forms.setSuccess({ message: 'You\'ve successfully added a note for this customer', form: 'addCustomerNote' }));
-      // yield put(ui.closeModal());
+      yield put(forms.setSuccess({ message: 'You\'ve successfully added a note for this customer', form: 'addCustomerNote' }));
+      yield put(ui.closeModal());
 
       // fetch user customers
-      // yield call(fetchUserCustomers);
+      yield call(fetchUserCustomers);
     } else {
       yield put(forms.isSubmitting({ isSubmitting: false, form: 'addCustomerNote' }));
-      console.log({ result });
-      // yield put(forms.setError({ message: 'An error occured when adding a note for this customer', form: 'addCustomerNote' }));
-      // yield put(ui.closeModal());
-      // console.log({ result });
+
+      yield put(forms.setError({ message: 'An error occured when adding a note for this customer', form: 'addCustomerNote' }));
+      yield put(ui.closeModal());
     }
   }
 }
