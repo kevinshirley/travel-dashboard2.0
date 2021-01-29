@@ -12,13 +12,11 @@ const UserCustomers = (req, res, next) => {
         let clients = [];
         snap.forEach(doc => {
           const newClient = doc.data();
-          // clients.push(newClient);
           clients = [
             ...clients,
             newClient,
           ];
         });
-        console.log({ clients });
         res.send({
           success: true,
           clients,
