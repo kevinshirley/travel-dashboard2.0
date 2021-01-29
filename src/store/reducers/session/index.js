@@ -1,12 +1,21 @@
 import { SESSION } from 'src/store/actions';
 
-const SessionReducer = (state = {}, { type, payload }) => {
+const initialState = {
+  profile: {},
+};
+
+const SessionReducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case SESSION.SET_IS_LOGGED_IN:
       return {
-        isLoggedIn: payload.success,
-        username: payload.data.username,
-        ...payload,
+        ...state,
+      };
+    case SESSION.SET_PROFILE:
+      return {
+        ...state,
+        profile: {
+          ...payload,
+        },
       };
     default:
       return state;

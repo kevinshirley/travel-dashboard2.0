@@ -1,13 +1,15 @@
-import { connect } from 'react-redux';
-import nookies from 'nookies';
-import LogoutPage from 'src/components/logout';
-import storeConnector from 'src/store/selectors/common';
-import * as actions from 'src/store/actions';
-import { firebaseAdmin } from '../src/lib/auth/firebaseAdmin';
+import React from "react";
+import Link from 'next/link';
+import nookies from "nookies";
+import { firebaseAdmin } from "../src/lib/auth/firebaseAdmin";
+import firebaseClient from 'firebase/app';
+import initFirebase from 'src/lib/auth/initFirebase';
+initFirebase();
 
 export const getServerSideProps = async (ctx) => {
   try {
     const cookies = nookies.get(ctx);
+    // console.log(JSON.stringify(cookies, null, 2));
     const token = await firebaseAdmin.auth().verifyIdToken(cookies.token);
     const { uid, email } = token;
     console.log({ token });
@@ -16,7 +18,7 @@ export const getServerSideProps = async (ctx) => {
     // FETCH STUFF HERE
 
     return {
-      props: { email, uid },
+      props: { message: `Welcome! Your email is ${email} and your UID is ${uid}.` },
     };
   } catch (err) {
     // either the `token` cookie didn't exist
@@ -28,7 +30,7 @@ export const getServerSideProps = async (ctx) => {
     return {
       redirect: {
         permanent: false,
-        destination: '/',
+        destination: "/sign-in",
       },
       // `as never` is required for correct type inference
       // by InferGetServerSidePropsType below
@@ -37,7 +39,23 @@ export const getServerSideProps = async (ctx) => {
   }
 };
 
-export default connect(
-  storeConnector,
-  {},
-)(LogoutPage);
+const AuthenticatedPage = (
+  props
+) => (
+  <div>
+    <Link href="/">
+      <a>Back Home</a>
+    </Link>
+    <p>{props.message}</p>
+    <button
+      onClick={async () => {
+        await firebaseClient.auth().signOut();
+        window.location.href = "/";
+      }}
+    >
+      Sign out
+    </button>
+  </div>
+);
+
+export default AuthenticatedPage;

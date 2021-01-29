@@ -104,6 +104,7 @@ server.key.passphrase
 .yarn_cache
 yarn-error.log
 .env
+.env.local
 yarn.lock
 
 # Vagrant
@@ -129,6 +130,10 @@ junit
 # Next.js
 .next
 
+# Serverless directories
+.serverless
+.serverless_nextjs
+
 #amplify
 amplify/\#current-cloud-backend
 amplify/.config/local-*
@@ -144,6 +149,5 @@ amplifyconfiguration.json
 amplify-gradle-config.json
 amplifyxc.config
 
-# Serverless directories
-.serverless
-.serverless_nextjs
+out/
+.firebase

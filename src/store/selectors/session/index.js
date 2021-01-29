@@ -38,7 +38,6 @@ export const selectSignInIsSubmitting = R.pathOr(false, [
 
 export const selectSessionProfile = R.pathOr({}, [
   'session',
-  'data',
   'profile',
 ]);
 
@@ -47,4 +46,6 @@ export default createStructuredSelector({
   signUpError: selectsignUpError,
   signUpSuccess: selectSignUpSuccess,
   profile: selectSessionProfile,
+  isSignUpSubmitting: selectSignUpIsSubmitting,
+  isSignInSubmitting: selectSignInIsSubmitting,
 });

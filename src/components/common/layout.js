@@ -8,14 +8,33 @@ import 'src/styles/app.scss';
 import { useAction } from 'src/store/hooks';
 import * as actions from 'src/store/actions';
 
+import { useUser } from 'src/lib/auth/useUser';
+import firebaseClient from 'firebase/app';
+import initFirebase from 'src/lib/auth/initFirebase';
+initFirebase();
+
 function Layout(props) {
+  const db = firebaseClient.firestore();
   const initialLoad = useAction(actions.root.initialLoad);
-  const isLoggedIn = useAction(actions.session.isLoggedIn);
+  const setProfile = useAction(actions.session.setProfile);
+  const { user } = useUser();
 
   useEffect(() => {
     initialLoad();
-    isLoggedIn();
   }, []);
+
+  useEffect(() => {
+    if (user) {
+      db.collection('userProfile').where('id', '==', user.id)
+        .get()
+        .then(function(querySnapshot) {
+          querySnapshot.forEach(function(doc) {
+            const profile = doc.data();
+            setProfile(profile);
+          });
+        });
+    }
+  }, [user]);
 
   return (
     <>

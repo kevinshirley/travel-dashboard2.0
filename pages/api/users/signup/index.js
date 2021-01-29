@@ -1,55 +1,47 @@
 const { dissoc } = require('ramda');
-const moment = require('moment');
-const UserPool = require('../../../../src/lib/user-pool');
-const axiosPost = require('../../../../server/utils/axiosPost');
+import { firebaseAdmin } from '../../../../src/lib/auth/firebaseAdmin'
 
 const SignUp = (req, res) => {
-  const { email, password } = req.body;
+  const { email, password, username } = req.body;
+  const db = firebaseAdmin.firestore();
 
-  UserPool.signUp(email, password, [], null, (err, data) => {
-    if (err) {
-      return res.send({
-        success: false,
-        message: err.message,
-        error: err
+  const profileData = {
+    ...dissoc('password', req.body),
+    createdAt: firebaseAdmin.firestore.FieldValue.serverTimestamp(),
+  };
+
+  firebaseAdmin
+    .auth()
+    .createUser({
+      email,
+      emailVerified: false,
+      // phoneNumber: '',
+      password,
+      displayName: username,
+      // photoURL: '',
+      disabled: false,
+    })
+    .then((userRecord) => {
+      // See the UserRecord reference doc for the contents of userRecord.
+      console.log('Successfully created new user: ', userRecord);
+      console.log({ db });
+      db.collection('userProfile').add({
+        id: userRecord.uid,
+        ...profileData,
       });
-    } else {
-      const profileData = {
-        ...dissoc('password', req.body),
-        id: data.userSub,
-        createdAt: moment().format(),
-      };
 
-      axiosPost(`${process.env.APP_URL}/api/profile`, profileData)
-        .then(result => {
-          if (result.status === 200 && result.data.success) {
-            return res.send({
-              success: true,
-              message: 'Successfully created profile!',
-              data,
-              profile: {
-                ...result.data.profile,
-              },
-            });
-          } else {
-            return res.send({
-              success: false,
-              message: 'Able to sign up, but profile was not created.',
-              data,
-              error: result,
-            });
-          }
-        })
-        .catch(err => {
-          return res.send({
-            success: false,
-            message: 'Able to sign up, but profile was not created.',
-            data,
-            error: err,
-          });
-        });
-    }
-  });
+      res.send({
+        success: true,
+        data: { userRecord, profile: profileData },
+      });
+    })
+    .catch((error) => {
+      console.log('Error creating new user:', error);
+      res.send({
+        success: false,
+        error,
+      });
+    });
 };
 
 export default SignUp;

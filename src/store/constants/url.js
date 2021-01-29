@@ -10,6 +10,7 @@ export const CUSTOMERS = '/customers';
 export const CUSTOMER_PROFILE = '/customers/[id]';
 export const INVOICES = '/invoices';
 export const NEW_INVOICE = '/invoices/new';
+export const SIGN_UP = '/sign-up';
 
 export const URL = {
   ADD_ITINERARY,
@@ -19,4 +20,5 @@ export const URL = {
   CUSTOMER_PROFILE,
   INVOICES,
   NEW_INVOICE,
+  SIGN_UP,
 };
