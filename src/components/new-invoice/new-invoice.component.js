@@ -105,6 +105,14 @@ function NewInvoice() {
     }
   };
 
+  const onSetDueDate = value => {
+    setDueDate(value);
+  };
+
+  const onSetDateIssued = value => {
+    setDateIssued(value);
+  };
+
   const onToggleInvoiceNumberState = e => {
     const targetState = e.target.getAttribute('invoice-number-state');
 
@@ -260,7 +268,7 @@ function NewInvoice() {
                 className={`${BEM_BLOCK}__date--wrapper`}
                 // onClick={() => dateIssuedRef.current.setFocus()}
               >
-                <DatePicker isVisible={true} />
+                <DatePicker isVisible={true} onSetDate={onSetDateIssued} />
               </div>
             </div>
             <div className={`${BEM_BLOCK}__due-date`}>
@@ -269,7 +277,7 @@ function NewInvoice() {
                 className={`${BEM_BLOCK}__date--wrapper`}
                 // onClick={() => dueDateRef.current.setFocus()}
               >
-                <DatePicker isVisible={true} />
+                <DatePicker isVisible={true} onSetDate={onSetDueDate} />
               </div>
             </div>
           </div>

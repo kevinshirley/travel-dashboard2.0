@@ -1,11 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import DatePicker from 'react-date-picker/dist/entry.nostyle';
 import cx from 'classnames';
 
 import 'src/styles/DatePicker.css';
 
-function ReactDatePicker({ isVisible }) {
+function ReactDatePicker({ isVisible, onSetDate }) {
   const [value, onChange] = useState(new Date());
+
+  useEffect(() => {
+    onSetDate(value);
+  }, [value]);
 
   const datePickerClasses = cx('c-date-picker-container', {
     'not-visible': !isVisible,
