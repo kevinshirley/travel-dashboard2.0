@@ -24,6 +24,7 @@ function NewInvoice() {
   const [companyNameValue, setCompanyNameValue] = useState('');
   const [repFirstNameValue, setRepFirstNameValue] = useState('');
   const [repLastNameValue, setRepLastNameValue] = useState('');
+  const [repPhoneNumberValue, setRepPhoneNumberValue] = useState('');
 
   const invoiceNumberState = {'invoice-number-state': 'display'};
   const editInvoiceNumberState = {'invoice-number-state': 'edit'};
@@ -35,12 +36,15 @@ function NewInvoice() {
   const editRepFirstNameState = {'rep-first-name-state': 'edit'};
   const repLastNameState = {'rep-last-name-state': 'display'};
   const editRepLastNameState = {'rep-last-name-state': 'edit'};
+  const repPhoneNumberState = {'rep-phone-number-state': 'display'};
+  const editRepPhoneNumberState = {'rep-phone-number-state': 'edit'};
 
   const [shouldEditInvoiceNumber, setShouldEditInvoiceNumber] = useState(false);
   const [shouldEditReferenceNumber, setShouldEditReferenceNumber] = useState(false);
   const [shouldEditCompanyName, setShouldEditCompanyName] = useState(false);
   const [shouldEditRepFirstName, setShouldEditRepFirstName] = useState(false);
   const [shouldEditRepLastName, setShouldEditRepLastName] = useState(false);
+  const [shouldEditRepPhoneNumber, setShouldEditRepPhoneNumber] = useState(false);
 
   const invoiceNumberClasses = cx(`${BEM_BLOCK}__number`, {
     [`${BEM_BLOCK}__number--hidden`]: shouldEditInvoiceNumber,
@@ -80,6 +84,14 @@ function NewInvoice() {
 
   const editRepLastNameClasses = cx(`${BEM_BLOCK}__edit-rep-last-name`, {
     [`${BEM_BLOCK}__edit-rep-last-name--hidden`]: !shouldEditRepLastName,
+  });
+
+  const repPhoneNumberClasses = cx(`${BEM_BLOCK}__rep-phone-number`, {
+    [`${BEM_BLOCK}__rep-phone-number--hidden`]: shouldEditRepPhoneNumber,
+  });
+
+  const editRepPhoneNumberClasses = cx(`${BEM_BLOCK}__edit-rep-phone-number`, {
+    [`${BEM_BLOCK}__edit-rep-phone-number--hidden`]: !shouldEditRepPhoneNumber,
   });
 
   const onAddNewBreakdownLine = () => {
@@ -163,6 +175,16 @@ function NewInvoice() {
     }
   };
 
+  const onToggleRepPhoneNumberState = e => {
+    const targetState = e.target.getAttribute('rep-phone-number-state');
+
+    if (targetState === 'display') {
+      setShouldEditRepPhoneNumber(true);
+    } else if (targetState === 'edit') {
+      setShouldEditRepPhoneNumber(false);
+    }
+  };
+
   return (
     <div  className={`${BEM_BLOCK}`}>
       <div className={`${BEM_BLOCK}__invoice`}>
@@ -238,7 +260,23 @@ function NewInvoice() {
                 </span>
               </div>
               <div className={`${BEM_BLOCK}__company-representative-number`}>
-                <span>514-922-1846</span>
+                <span
+                  className={repPhoneNumberClasses}
+                  onClick={e => onToggleRepPhoneNumberState(e)}
+                  {...repPhoneNumberState}
+                >
+                  {repPhoneNumberValue ? repPhoneNumberValue : 'Phone Number'}
+                </span>
+                <input
+                  className={editRepPhoneNumberClasses}
+                  type='text'
+                  name='phoneNumber'
+                  placeholder='Phone Number'
+                  onBlur={e => onToggleRepPhoneNumberState(e)}
+                  onChange={e => setRepPhoneNumberValue(e.target.value)}
+                  value={repPhoneNumberValue}
+                  {...editRepPhoneNumberState}
+                />
               </div>
             </div>
             <div className={`${BEM_BLOCK}__company-address`}>

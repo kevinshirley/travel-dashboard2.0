@@ -1925,6 +1925,24 @@ a {
               }
             }
           }
+
+          .c-new-invoice__company-representative-number {
+            .c-new-invoice__rep-phone-number {
+              white-space: nowrap;
+            }
+
+            .c-new-invoice__rep-phone-number--hidden {
+              display: none;
+            }
+
+            .c-new-invoice__edit-rep-phone-number {
+              white-space: nowrap;
+            }
+
+            .c-new-invoice__edit-rep-phone-number--hidden {
+              display: none;
+            }
+          }
         }
 
         .c-new-invoice__company-address {
