@@ -1,10 +1,11 @@
-import 'date-fns';
+// import 'date-fns';
 import React, { useState, useRef } from 'react';
 import cx from 'classnames';
 import { SPACING, CALENDAR_TODAY_ICON } from 'src/components/material-ui/icons';
 import { formatPrice } from 'src/utils/string';
 import InvoiceBreakdownLine from 'src/components/new-invoice/invoice-breakdown-line.component';
-import DatePicker from 'react-datepicker';
+// import DatePicker from 'react-datepicker';
+import DatePicker from 'src/components/common/date-picker';
 
 const BEM_BLOCK = 'c-new-invoice';
 
@@ -257,30 +258,18 @@ function NewInvoice() {
               <span className={`${BEM_BLOCK}__date-issued-title`}>Date Issued</span>
               <div
                 className={`${BEM_BLOCK}__date--wrapper`}
-                onClick={() => dateIssuedRef.current.setFocus()}
+                // onClick={() => dateIssuedRef.current.setFocus()}
               >
-                <DatePicker
-                  className={`${BEM_BLOCK}__date`}
-                  selected={dateIssued}
-                  onChange={date => setDateIssued(date)}
-                  ref={dateIssuedRef}
-                />
-                {CALENDAR_TODAY_ICON}
+                <DatePicker isVisible={true} />
               </div>
             </div>
             <div className={`${BEM_BLOCK}__due-date`}>
               <span className={`${BEM_BLOCK}__due-date-title`}>Due Date</span>
               <div
                 className={`${BEM_BLOCK}__date--wrapper`}
-                onClick={() => dueDateRef.current.setFocus()}
+                // onClick={() => dueDateRef.current.setFocus()}
               >
-                <DatePicker
-                  className={`${BEM_BLOCK}__date`}
-                  selected={dueDate}
-                  onChange={date => setDueDate(date)}
-                  ref={dueDateRef}
-                />
-                {CALENDAR_TODAY_ICON}
+                <DatePicker isVisible={true} />
               </div>
             </div>
           </div>

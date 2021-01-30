@@ -1989,6 +1989,16 @@ a {
               font-size: 16px;
               cursor: pointer;
             }
+
+            .c-date-picker-container {
+              .react-date-picker__wrapper {
+                border: none;
+
+                .react-date-picker__clear-button {
+                  display: none;
+                }
+              }
+            }
           }
         }
 
@@ -2020,6 +2030,16 @@ a {
             svg {
               font-size: 16px;
               cursor: pointer;
+            }
+
+            .c-date-picker-container {
+              .react-date-picker__wrapper {
+                border: none;
+
+                .react-date-picker__clear-button {
+                  display: none;
+                }
+              }
             }
           }
         }

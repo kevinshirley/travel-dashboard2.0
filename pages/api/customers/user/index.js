@@ -27,6 +27,12 @@ const UserCustomers = (req, res, next) => {
           error: err,
         });
       }
+    })
+    .catch(error => {
+      res.send({
+        success: false,
+        error,
+      });
     });
 };
 
