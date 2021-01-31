@@ -1981,14 +1981,28 @@ a {
               .c-new-invoice__city--hidden {
                 display: none;
               }
-            }
 
-            .c-new-invoice__edit-company-city-state {
               .c-new-invoice__edit-city {
                 white-space: nowrap;
               }
 
               .c-new-invoice__edit-city--hidden {
+                display: none;
+              }
+
+              .c-new-invoice__state {
+                white-space: nowrap;
+              }
+
+              .c-new-invoice__state--hidden {
+                display: none;
+              }
+
+              .c-new-invoice__edit-state {
+                white-space: nowrap;
+              }
+
+              .c-new-invoice__edit-state--hidden {
                 display: none;
               }
             }

@@ -25,6 +25,7 @@ function NewInvoice() {
   const [repPhoneNumberValue, setRepPhoneNumberValue] = useState('');
   const [companyStreetAddressValue, setCompanyStreetAddressValue] = useState('');
   const [companyCityValue, setCompanyCityValue] = useState('');
+  const [companyStateValue, setCompanyStateValue] = useState('');
 
   const invoiceNumberState = {'invoice-number-state': 'display'};
   const editInvoiceNumberState = {'invoice-number-state': 'edit'};
@@ -42,6 +43,8 @@ function NewInvoice() {
   const editCompanyStreetAddressState = {'company-street-address-state': 'edit'};
   const companyCityState = {'company-city-state': 'display'};
   const editCompanyCityState = {'company-city-state': 'edit'};
+  const companyStateState = {'company-state-state': 'display'};
+  const editCompanyStateState = {'company-state-state': 'edit'};
 
   const [shouldEditInvoiceNumber, setShouldEditInvoiceNumber] = useState(false);
   const [shouldEditReferenceNumber, setShouldEditReferenceNumber] = useState(false);
@@ -51,6 +54,7 @@ function NewInvoice() {
   const [shouldEditRepPhoneNumber, setShouldEditRepPhoneNumber] = useState(false);
   const [shouldEditCompanyStreetAddress, setShouldEditCompanyStreetAddress] = useState(false);
   const [shouldEditCompanyCity, setShouldEditCompanyCity] = useState(false);
+  const [shouldEditCompanyState, setShouldEditCompanyState] = useState(false);
 
   const invoiceNumberClasses = cx(`${BEM_BLOCK}__number`, {
     [`${BEM_BLOCK}__number--hidden`]: shouldEditInvoiceNumber,
@@ -114,6 +118,14 @@ function NewInvoice() {
 
   const editCompanyCityClasses = cx(`${BEM_BLOCK}__edit-city`, {
     [`${BEM_BLOCK}__edit-city--hidden`]: !shouldEditCompanyCity,
+  });
+
+  const companyStateClasses = cx(`${BEM_BLOCK}__state`, {
+    [`${BEM_BLOCK}__state--hidden`]: shouldEditCompanyState,
+  });
+
+  const editCompanyStateClasses = cx(`${BEM_BLOCK}__edit-state`, {
+    [`${BEM_BLOCK}__edit-state--hidden`]: !shouldEditCompanyState,
   });
 
   const onAddNewBreakdownLine = () => {
@@ -224,6 +236,16 @@ function NewInvoice() {
       setShouldEditCompanyCity(true);
     } else if (targetState === 'edit') {
       setShouldEditCompanyCity(false);
+    }
+  };
+
+  const onToggleCompanyStateState = e => {
+    const targetState = e.target.getAttribute('company-state-state');
+
+    if (targetState === 'display') {
+      setShouldEditCompanyState(true);
+    } else if (targetState === 'edit') {
+      setShouldEditCompanyState(false);
     }
   };
 
@@ -353,14 +375,6 @@ function NewInvoice() {
                   >
                     {companyCityValue ? `${companyCityValue},` : 'City,'}
                   </span>
-                  <span
-                    className={`${BEM_BLOCK}__city-state`}
-                    {...companyCityState}
-                  >
-                    {SPACING}{`${'Quebec'}`}
-                  </span>
-                </div>
-                <div className={`${BEM_BLOCK}__edit-company-city-state`}>
                   <input
                     className={editCompanyCityClasses}
                     type='text'
@@ -370,6 +384,23 @@ function NewInvoice() {
                     onChange={e => setCompanyCityValue(e.target.value)}
                     value={companyCityValue}
                     {...editCompanyCityState}
+                  />
+                  <span
+                    className={companyStateClasses}
+                    onClick={e => onToggleCompanyStateState(e)}
+                    {...companyStateState}
+                  >
+                    {SPACING}{companyStateValue ? `${companyStateValue}` : 'State'}
+                  </span>
+                  <input
+                    className={editCompanyStateClasses}
+                    type='text'
+                    name='state'
+                    placeholder='State'
+                    onBlur={e => onToggleCompanyStateState(e)}
+                    onChange={e => setCompanyStateValue(e.target.value)}
+                    value={companyStateValue}
+                    {...editCompanyStateState}
                   />
                 </div>
               </div>
