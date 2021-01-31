@@ -25,6 +25,7 @@ function NewInvoice() {
   const [repFirstNameValue, setRepFirstNameValue] = useState('');
   const [repLastNameValue, setRepLastNameValue] = useState('');
   const [repPhoneNumberValue, setRepPhoneNumberValue] = useState('');
+  const [companyStreetAddressValue, setCompanyStreetAddressValue] = useState('');
 
   const invoiceNumberState = {'invoice-number-state': 'display'};
   const editInvoiceNumberState = {'invoice-number-state': 'edit'};
@@ -38,6 +39,8 @@ function NewInvoice() {
   const editRepLastNameState = {'rep-last-name-state': 'edit'};
   const repPhoneNumberState = {'rep-phone-number-state': 'display'};
   const editRepPhoneNumberState = {'rep-phone-number-state': 'edit'};
+  const companyStreetAddressState = {'company-street-address-state': 'display'};
+  const editCompanyStreetAddressState = {'company-street-address-state': 'edit'};
 
   const [shouldEditInvoiceNumber, setShouldEditInvoiceNumber] = useState(false);
   const [shouldEditReferenceNumber, setShouldEditReferenceNumber] = useState(false);
@@ -45,6 +48,7 @@ function NewInvoice() {
   const [shouldEditRepFirstName, setShouldEditRepFirstName] = useState(false);
   const [shouldEditRepLastName, setShouldEditRepLastName] = useState(false);
   const [shouldEditRepPhoneNumber, setShouldEditRepPhoneNumber] = useState(false);
+  const [shouldEditCompanyStreetAddress, setShouldEditCompanyStreetAddress] = useState(false);
 
   const invoiceNumberClasses = cx(`${BEM_BLOCK}__number`, {
     [`${BEM_BLOCK}__number--hidden`]: shouldEditInvoiceNumber,
@@ -92,6 +96,14 @@ function NewInvoice() {
 
   const editRepPhoneNumberClasses = cx(`${BEM_BLOCK}__edit-rep-phone-number`, {
     [`${BEM_BLOCK}__edit-rep-phone-number--hidden`]: !shouldEditRepPhoneNumber,
+  });
+
+  const companyStreetAddressClasses = cx(`${BEM_BLOCK}__street-address`, {
+    [`${BEM_BLOCK}__street-address--hidden`]: shouldEditCompanyStreetAddress,
+  });
+
+  const editCompanyStreetAddressClasses = cx(`${BEM_BLOCK}__edit-street-address`, {
+    [`${BEM_BLOCK}__edit-street-address--hidden`]: !shouldEditCompanyStreetAddress,
   });
 
   const onAddNewBreakdownLine = () => {
@@ -182,6 +194,16 @@ function NewInvoice() {
       setShouldEditRepPhoneNumber(true);
     } else if (targetState === 'edit') {
       setShouldEditRepPhoneNumber(false);
+    }
+  };
+
+  const onToggleCompanyStreetAddressState = e => {
+    const targetState = e.target.getAttribute('company-street-address-state');
+
+    if (targetState === 'display') {
+      setShouldEditCompanyStreetAddress(true);
+    } else if (targetState === 'edit') {
+      setShouldEditCompanyStreetAddress(false);
     }
   };
 
@@ -280,11 +302,37 @@ function NewInvoice() {
               </div>
             </div>
             <div className={`${BEM_BLOCK}__company-address`}>
-              <span className={`${BEM_BLOCK}__address-line-1`}>1898 RUE JOLIETTE</span>
-              <span className={`${BEM_BLOCK}__address-line-2`}></span>
-              <span className={`${BEM_BLOCK}__city-state`}>Montreal, Quebec</span>
-              <span className={`${BEM_BLOCK}__zip-code`}>H1W3G4</span>
-              <span className={`${BEM_BLOCK}__country`}>Canada</span>
+              <div className={`${BEM_BLOCK}__street-address--wrapper`}>
+                <span
+                  className={companyStreetAddressClasses}
+                  onClick={e => onToggleCompanyStreetAddressState(e)}
+                  {...companyStreetAddressState}
+                >
+                  {companyStreetAddressValue ? companyStreetAddressValue : 'Street Address'}
+                </span>
+                <input
+                  className={editCompanyStreetAddressClasses}
+                  type='text'
+                  name='streetAddress'
+                  placeholder='Street Address'
+                  onBlur={e => onToggleCompanyStreetAddressState(e)}
+                  onChange={e => setCompanyStreetAddressValue(e.target.value)}
+                  value={companyStreetAddressValue}
+                  {...editCompanyStreetAddressState}
+                />
+              </div>
+              <div className={`${BEM_BLOCK}__address-line-2--wrapper`}>
+                <span className={`${BEM_BLOCK}__address-line-2`}></span>
+              </div>
+              <div className={`${BEM_BLOCK}__city-state--wrapper`}>
+                <span className={`${BEM_BLOCK}__city-state`}>Montreal, Quebec</span>
+              </div>
+              <div className={`${BEM_BLOCK}__zip-code--wrapper`}>
+                <span className={`${BEM_BLOCK}__zip-code`}>H1W3G4</span>
+              </div>
+              <div className={`${BEM_BLOCK}__country--wrapper`}>
+                <span className={`${BEM_BLOCK}__country`}>Canada</span>
+              </div>
             </div>
           </div>
         </div>
@@ -293,7 +341,7 @@ function NewInvoice() {
             <span className={`${BEM_BLOCK}__billed-to-title`}>Billed To</span>
             <span className={`${BEM_BLOCK}__client-business-name`}></span>
             <span className={`${BEM_BLOCK}__client-name`}>Chrishelle Moss</span>
-            <span className={`${BEM_BLOCK}__address-line-1`}>123 Main street</span>
+            <span className={`${BEM_BLOCK}__street-address`}>123 Main street</span>
             <span className={`${BEM_BLOCK}__address-line-2`}></span>
             <span className={`${BEM_BLOCK}__city-state`}>Atlanta, Georgia</span>
             <span className={`${BEM_BLOCK}__zip-code`}>22394</span>

@@ -1953,6 +1953,24 @@ a {
           span {
             font-size: 14px;
           }
+
+          .c-new-invoice__street-address--wrapper {
+            .c-new-invoice__street-address {
+              white-space: nowrap;
+            }
+
+            .c-new-invoice__street-address--hidden {
+              display: none;
+            }
+
+            .c-new-invoice__edit-street-address {
+              white-space: nowrap;
+            }
+
+            .c-new-invoice__edit-street-address--hidden {
+              display: none;
+            }
+          }
         }
       }
     }
