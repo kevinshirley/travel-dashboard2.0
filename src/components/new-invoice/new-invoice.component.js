@@ -1,10 +1,8 @@
-// import 'date-fns';
 import React, { useState, useRef } from 'react';
 import cx from 'classnames';
-import { SPACING, CALENDAR_TODAY_ICON } from 'src/components/material-ui/icons';
+import { SPACING } from 'src/components/material-ui/icons';
 import { formatPrice } from 'src/utils/string';
 import InvoiceBreakdownLine from 'src/components/new-invoice/invoice-breakdown-line.component';
-// import DatePicker from 'react-datepicker';
 import DatePicker from 'src/components/common/date-picker';
 
 const BEM_BLOCK = 'c-new-invoice';
@@ -26,6 +24,7 @@ function NewInvoice() {
   const [repLastNameValue, setRepLastNameValue] = useState('');
   const [repPhoneNumberValue, setRepPhoneNumberValue] = useState('');
   const [companyStreetAddressValue, setCompanyStreetAddressValue] = useState('');
+  const [companyCityValue, setCompanyCityValue] = useState('');
 
   const invoiceNumberState = {'invoice-number-state': 'display'};
   const editInvoiceNumberState = {'invoice-number-state': 'edit'};
@@ -41,6 +40,8 @@ function NewInvoice() {
   const editRepPhoneNumberState = {'rep-phone-number-state': 'edit'};
   const companyStreetAddressState = {'company-street-address-state': 'display'};
   const editCompanyStreetAddressState = {'company-street-address-state': 'edit'};
+  const companyCityState = {'company-city-state': 'display'};
+  const editCompanyCityState = {'company-city-state': 'edit'};
 
   const [shouldEditInvoiceNumber, setShouldEditInvoiceNumber] = useState(false);
   const [shouldEditReferenceNumber, setShouldEditReferenceNumber] = useState(false);
@@ -49,6 +50,7 @@ function NewInvoice() {
   const [shouldEditRepLastName, setShouldEditRepLastName] = useState(false);
   const [shouldEditRepPhoneNumber, setShouldEditRepPhoneNumber] = useState(false);
   const [shouldEditCompanyStreetAddress, setShouldEditCompanyStreetAddress] = useState(false);
+  const [shouldEditCompanyCity, setShouldEditCompanyCity] = useState(false);
 
   const invoiceNumberClasses = cx(`${BEM_BLOCK}__number`, {
     [`${BEM_BLOCK}__number--hidden`]: shouldEditInvoiceNumber,
@@ -104,6 +106,14 @@ function NewInvoice() {
 
   const editCompanyStreetAddressClasses = cx(`${BEM_BLOCK}__edit-street-address`, {
     [`${BEM_BLOCK}__edit-street-address--hidden`]: !shouldEditCompanyStreetAddress,
+  });
+
+  const companyCityClasses = cx(`${BEM_BLOCK}__city`, {
+    [`${BEM_BLOCK}__city--hidden`]: shouldEditCompanyCity,
+  });
+
+  const editCompanyCityClasses = cx(`${BEM_BLOCK}__edit-city`, {
+    [`${BEM_BLOCK}__edit-city--hidden`]: !shouldEditCompanyCity,
   });
 
   const onAddNewBreakdownLine = () => {
@@ -204,6 +214,16 @@ function NewInvoice() {
       setShouldEditCompanyStreetAddress(true);
     } else if (targetState === 'edit') {
       setShouldEditCompanyStreetAddress(false);
+    }
+  };
+
+  const onToggleCompanyCityState = e => {
+    const targetState = e.target.getAttribute('company-city-state');
+
+    if (targetState === 'display') {
+      setShouldEditCompanyCity(true);
+    } else if (targetState === 'edit') {
+      setShouldEditCompanyCity(false);
     }
   };
 
@@ -325,7 +345,33 @@ function NewInvoice() {
                 <span className={`${BEM_BLOCK}__address-line-2`}></span>
               </div>
               <div className={`${BEM_BLOCK}__city-state--wrapper`}>
-                <span className={`${BEM_BLOCK}__city-state`}>Montreal, Quebec</span>
+                <div className={`${BEM_BLOCK}__company-city-state`}>
+                  <span
+                    className={companyCityClasses}
+                    onClick={e => onToggleCompanyCityState(e)}
+                    {...companyCityState}
+                  >
+                    {companyCityValue ? `${companyCityValue},` : 'City,'}
+                  </span>
+                  <span
+                    className={`${BEM_BLOCK}__city-state`}
+                    {...companyCityState}
+                  >
+                    {SPACING}{`${'Quebec'}`}
+                  </span>
+                </div>
+                <div className={`${BEM_BLOCK}__edit-company-city-state`}>
+                  <input
+                    className={editCompanyCityClasses}
+                    type='text'
+                    name='city'
+                    placeholder='City'
+                    onBlur={e => onToggleCompanyCityState(e)}
+                    onChange={e => setCompanyCityValue(e.target.value)}
+                    value={companyCityValue}
+                    {...editCompanyCityState}
+                  />
+                </div>
               </div>
               <div className={`${BEM_BLOCK}__zip-code--wrapper`}>
                 <span className={`${BEM_BLOCK}__zip-code`}>H1W3G4</span>

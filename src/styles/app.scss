@@ -1971,6 +1971,28 @@ a {
               display: none;
             }
           }
+
+          .c-new-invoice__city-state--wrapper {
+            .c-new-invoice__company-city-state {
+              .c-new-invoice__city {
+                white-space: nowrap;
+              }
+
+              .c-new-invoice__city--hidden {
+                display: none;
+              }
+            }
+
+            .c-new-invoice__edit-company-city-state {
+              .c-new-invoice__edit-city {
+                white-space: nowrap;
+              }
+
+              .c-new-invoice__edit-city--hidden {
+                display: none;
+              }
+            }
+          }
         }
       }
     }
