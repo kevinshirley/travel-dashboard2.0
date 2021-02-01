@@ -2025,6 +2025,24 @@ a {
               display: none;
             }
           }
+
+          .c-new-invoice__country--wrapper {
+            .c-new-invoice__country {
+              white-space: nowrap;
+            }
+
+            .c-new-invoice__country--hidden {
+              display: none;
+            }
+
+            .c-new-invoice__edit-country {
+              white-space: nowrap;
+            }
+
+            .c-new-invoice__edit-country--hidden {
+              display: none;
+            }
+          }
         }
       }
     }

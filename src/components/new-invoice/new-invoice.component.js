@@ -27,6 +27,7 @@ function NewInvoice() {
   const [companyCityValue, setCompanyCityValue] = useState('');
   const [companyStateValue, setCompanyStateValue] = useState('');
   const [companyZipCodeValue, setCompanyZipCodeValue] = useState('');
+  const [companyCountryValue, setCompanyCountryValue] = useState('');
 
   const invoiceNumberState = {'invoice-number-state': 'display'};
   const editInvoiceNumberState = {'invoice-number-state': 'edit'};
@@ -48,6 +49,8 @@ function NewInvoice() {
   const editCompanyStateState = {'company-state-state': 'edit'};
   const companyZipCodeState = {'company-zip-code-state': 'display'};
   const editCompanyZipCodeState = {'company-zip-code-state': 'edit'};
+  const companyCountryState = {'company-country-state': 'display'};
+  const editCompanyCountryState = {'company-country-state': 'edit'};
 
   const [shouldEditInvoiceNumber, setShouldEditInvoiceNumber] = useState(false);
   const [shouldEditReferenceNumber, setShouldEditReferenceNumber] = useState(false);
@@ -59,6 +62,7 @@ function NewInvoice() {
   const [shouldEditCompanyCity, setShouldEditCompanyCity] = useState(false);
   const [shouldEditCompanyState, setShouldEditCompanyState] = useState(false);
   const [shouldEditCompanyZipCode, setShouldEditCompanyZipCode] = useState(false);
+  const [shouldEditCompanyCountry, setShouldEditCompanyCountry] = useState(false);
 
   const invoiceNumberClasses = cx(`${BEM_BLOCK}__number`, {
     [`${BEM_BLOCK}__number--hidden`]: shouldEditInvoiceNumber,
@@ -138,6 +142,14 @@ function NewInvoice() {
 
   const editCompanyZipCodeClasses = cx(`${BEM_BLOCK}__edit-zip-code`, {
     [`${BEM_BLOCK}__edit-zip-code--hidden`]: !shouldEditCompanyZipCode,
+  });
+
+  const companyCountryClasses = cx(`${BEM_BLOCK}__country`, {
+    [`${BEM_BLOCK}__country--hidden`]: shouldEditCompanyCountry,
+  });
+
+  const editCompanyCountryClasses = cx(`${BEM_BLOCK}__edit-country`, {
+    [`${BEM_BLOCK}__edit-country--hidden`]: !shouldEditCompanyCountry,
   });
 
   const onAddNewBreakdownLine = () => {
@@ -268,6 +280,16 @@ function NewInvoice() {
       setShouldEditCompanyZipCode(true);
     } else if (targetState === 'edit') {
       setShouldEditCompanyZipCode(false);
+    }
+  };
+
+  const onToggleCompanyCountryState = e => {
+    const targetState = e.target.getAttribute('company-country-state');
+
+    if (targetState === 'display') {
+      setShouldEditCompanyCountry(true);
+    } else if (targetState === 'edit') {
+      setShouldEditCompanyCountry(false);
     }
   };
 
@@ -446,7 +468,23 @@ function NewInvoice() {
                 />
               </div>
               <div className={`${BEM_BLOCK}__country--wrapper`}>
-                <span className={`${BEM_BLOCK}__country`}>Canada</span>
+                <span
+                  className={companyCountryClasses}
+                  onClick={e => onToggleCompanyCountryState(e)}
+                  {...companyCountryState}
+                >
+                  {companyCountryValue ? companyCountryValue : 'Country'}
+                </span>
+                <input
+                  className={editCompanyCountryClasses}
+                  type='text'
+                  name='country'
+                  placeholder='Country'
+                  onBlur={e => onToggleCompanyCountryState(e)}
+                  onChange={e => setCompanyCountryValue(e.target.value)}
+                  value={companyCountryValue}
+                  {...editCompanyCountryState}
+                />
               </div>
             </div>
           </div>
