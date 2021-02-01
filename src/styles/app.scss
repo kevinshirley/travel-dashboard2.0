@@ -2007,6 +2007,24 @@ a {
               }
             }
           }
+
+          .c-new-invoice__zip-code--wrapper {
+            .c-new-invoice__zip-code {
+              white-space: nowrap;
+            }
+
+            .c-new-invoice__zip-code--hidden {
+              display: none;
+            }
+
+            .c-new-invoice__edit-zip-code {
+              white-space: nowrap;
+            }
+
+            .c-new-invoice__edit-zip-code--hidden {
+              display: none;
+            }
+          }
         }
       }
     }

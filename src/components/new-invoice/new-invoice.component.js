@@ -26,6 +26,7 @@ function NewInvoice() {
   const [companyStreetAddressValue, setCompanyStreetAddressValue] = useState('');
   const [companyCityValue, setCompanyCityValue] = useState('');
   const [companyStateValue, setCompanyStateValue] = useState('');
+  const [companyZipCodeValue, setCompanyZipCodeValue] = useState('');
 
   const invoiceNumberState = {'invoice-number-state': 'display'};
   const editInvoiceNumberState = {'invoice-number-state': 'edit'};
@@ -45,6 +46,8 @@ function NewInvoice() {
   const editCompanyCityState = {'company-city-state': 'edit'};
   const companyStateState = {'company-state-state': 'display'};
   const editCompanyStateState = {'company-state-state': 'edit'};
+  const companyZipCodeState = {'company-zip-code-state': 'display'};
+  const editCompanyZipCodeState = {'company-zip-code-state': 'edit'};
 
   const [shouldEditInvoiceNumber, setShouldEditInvoiceNumber] = useState(false);
   const [shouldEditReferenceNumber, setShouldEditReferenceNumber] = useState(false);
@@ -55,6 +58,7 @@ function NewInvoice() {
   const [shouldEditCompanyStreetAddress, setShouldEditCompanyStreetAddress] = useState(false);
   const [shouldEditCompanyCity, setShouldEditCompanyCity] = useState(false);
   const [shouldEditCompanyState, setShouldEditCompanyState] = useState(false);
+  const [shouldEditCompanyZipCode, setShouldEditCompanyZipCode] = useState(false);
 
   const invoiceNumberClasses = cx(`${BEM_BLOCK}__number`, {
     [`${BEM_BLOCK}__number--hidden`]: shouldEditInvoiceNumber,
@@ -126,6 +130,14 @@ function NewInvoice() {
 
   const editCompanyStateClasses = cx(`${BEM_BLOCK}__edit-state`, {
     [`${BEM_BLOCK}__edit-state--hidden`]: !shouldEditCompanyState,
+  });
+
+  const companyZipCodeClasses = cx(`${BEM_BLOCK}__zip-code`, {
+    [`${BEM_BLOCK}__zip-code--hidden`]: shouldEditCompanyZipCode,
+  });
+
+  const editCompanyZipCodeClasses = cx(`${BEM_BLOCK}__edit-zip-code`, {
+    [`${BEM_BLOCK}__edit-zip-code--hidden`]: !shouldEditCompanyZipCode,
   });
 
   const onAddNewBreakdownLine = () => {
@@ -246,6 +258,16 @@ function NewInvoice() {
       setShouldEditCompanyState(true);
     } else if (targetState === 'edit') {
       setShouldEditCompanyState(false);
+    }
+  };
+
+  const onToggleCompanyZipCodeState = e => {
+    const targetState = e.target.getAttribute('company-zip-code-state');
+
+    if (targetState === 'display') {
+      setShouldEditCompanyZipCode(true);
+    } else if (targetState === 'edit') {
+      setShouldEditCompanyZipCode(false);
     }
   };
 
@@ -405,7 +427,23 @@ function NewInvoice() {
                 </div>
               </div>
               <div className={`${BEM_BLOCK}__zip-code--wrapper`}>
-                <span className={`${BEM_BLOCK}__zip-code`}>H1W3G4</span>
+                <span
+                  className={companyZipCodeClasses}
+                  onClick={e => onToggleCompanyZipCodeState(e)}
+                  {...companyZipCodeState}
+                >
+                  {companyZipCodeValue ? companyZipCodeValue : 'Zip Code'}
+                </span>
+                <input
+                  className={editCompanyZipCodeClasses}
+                  type='text'
+                  name='zipCode'
+                  placeholder='Zip Code'
+                  onBlur={e => onToggleCompanyZipCodeState(e)}
+                  onChange={e => setCompanyZipCodeValue(e.target.value)}
+                  value={companyZipCodeValue}
+                  {...editCompanyZipCodeState}
+                />
               </div>
               <div className={`${BEM_BLOCK}__country--wrapper`}>
                 <span className={`${BEM_BLOCK}__country`}>Canada</span>
