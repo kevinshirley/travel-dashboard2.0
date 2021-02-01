@@ -2064,6 +2064,24 @@ a {
           color: $new-invoice__color;
           font-weight: 500;
         }
+
+        .c-new-invoice__client-name {
+          .c-new-invoice__client-first-name {
+            white-space: nowrap;
+          }
+
+          .c-new-invoice__client-first-name--hidden {
+            display: none;
+          }
+
+          .c-new-invoice__edit-client-first-name {
+            white-space: nowrap;
+          }
+
+          .c-new-invoice__edit-client-first-name--hidden {
+            display: none;
+          }
+        }
       }
 
       .c-new-invoice__billed-to-date {

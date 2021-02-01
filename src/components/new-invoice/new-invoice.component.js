@@ -28,6 +28,7 @@ function NewInvoice() {
   const [companyStateValue, setCompanyStateValue] = useState('');
   const [companyZipCodeValue, setCompanyZipCodeValue] = useState('');
   const [companyCountryValue, setCompanyCountryValue] = useState('');
+  const [clientFirstNameValue, setClientFirstNameValue] = useState('');
 
   const invoiceNumberState = {'invoice-number-state': 'display'};
   const editInvoiceNumberState = {'invoice-number-state': 'edit'};
@@ -51,6 +52,8 @@ function NewInvoice() {
   const editCompanyZipCodeState = {'company-zip-code-state': 'edit'};
   const companyCountryState = {'company-country-state': 'display'};
   const editCompanyCountryState = {'company-country-state': 'edit'};
+  const clientFirstNameState = {'client-first-name-state': 'display'};
+  const editClientFirstNameState = {'client-first-name-state': 'edit'};
 
   const [shouldEditInvoiceNumber, setShouldEditInvoiceNumber] = useState(false);
   const [shouldEditReferenceNumber, setShouldEditReferenceNumber] = useState(false);
@@ -63,6 +66,8 @@ function NewInvoice() {
   const [shouldEditCompanyState, setShouldEditCompanyState] = useState(false);
   const [shouldEditCompanyZipCode, setShouldEditCompanyZipCode] = useState(false);
   const [shouldEditCompanyCountry, setShouldEditCompanyCountry] = useState(false);
+  const [shouldEditClientFirstName, setShouldEditClientFirstName] = useState(false);
+  const [shouldEditClientLastName, setShouldEditClientLastName] = useState(false);
 
   const invoiceNumberClasses = cx(`${BEM_BLOCK}__number`, {
     [`${BEM_BLOCK}__number--hidden`]: shouldEditInvoiceNumber,
@@ -150,6 +155,14 @@ function NewInvoice() {
 
   const editCompanyCountryClasses = cx(`${BEM_BLOCK}__edit-country`, {
     [`${BEM_BLOCK}__edit-country--hidden`]: !shouldEditCompanyCountry,
+  });
+
+  const clientFirstNameClasses = cx(`${BEM_BLOCK}__client-first-name`, {
+    [`${BEM_BLOCK}__client-first-name--hidden`]: shouldEditClientFirstName,
+  });
+
+  const editClientFirstNameClasses = cx(`${BEM_BLOCK}__edit-client-first-name`, {
+    [`${BEM_BLOCK}__edit-client-first-name--hidden`]: !shouldEditClientFirstName,
   });
 
   const onAddNewBreakdownLine = () => {
@@ -290,6 +303,16 @@ function NewInvoice() {
       setShouldEditCompanyCountry(true);
     } else if (targetState === 'edit') {
       setShouldEditCompanyCountry(false);
+    }
+  };
+
+  const onToggleClientFirstNameState = e => {
+    const targetState = e.target.getAttribute('client-first-name-state');
+
+    if (targetState === 'display') {
+      setShouldEditClientFirstName(true);
+    } else if (targetState === 'edit') {
+      setShouldEditClientFirstName(false);
     }
   };
 
@@ -493,7 +516,30 @@ function NewInvoice() {
           <div className={`${BEM_BLOCK}__billed-to`}>
             <span className={`${BEM_BLOCK}__billed-to-title`}>Billed To</span>
             <span className={`${BEM_BLOCK}__client-business-name`}></span>
-            <span className={`${BEM_BLOCK}__client-name`}>Chrishelle Moss</span>
+            <div className={`${BEM_BLOCK}__client-name`}>
+              <span
+                className={clientFirstNameClasses}
+                onClick={e => onToggleClientFirstNameState(e)}
+                {...clientFirstNameState}
+              >
+                {clientFirstNameValue ? `${clientFirstNameValue}` : 'First Name'}{SPACING}
+              </span>
+              <input
+                className={editClientFirstNameClasses}
+                type='text'
+                name='clientFirstName'
+                placeholder='First Name'
+                onBlur={e => onToggleClientFirstNameState(e)}
+                onChange={e => setClientFirstNameValue(e.target.value)}
+                value={clientFirstNameValue}
+                {...editClientFirstNameState}
+              />
+              <span
+                className={`${BEM_BLOCK}__client-last-name`}
+              >
+                Moss
+              </span>
+            </div>
             <span className={`${BEM_BLOCK}__street-address`}>123 Main street</span>
             <span className={`${BEM_BLOCK}__address-line-2`}></span>
             <span className={`${BEM_BLOCK}__city-state`}>Atlanta, Georgia</span>
