@@ -29,6 +29,7 @@ function NewInvoice() {
   const [companyZipCodeValue, setCompanyZipCodeValue] = useState('');
   const [companyCountryValue, setCompanyCountryValue] = useState('');
   const [clientFirstNameValue, setClientFirstNameValue] = useState('');
+  const [clientLastNameValue, setClientLastNameValue] = useState('');
 
   const invoiceNumberState = {'invoice-number-state': 'display'};
   const editInvoiceNumberState = {'invoice-number-state': 'edit'};
@@ -54,6 +55,8 @@ function NewInvoice() {
   const editCompanyCountryState = {'company-country-state': 'edit'};
   const clientFirstNameState = {'client-first-name-state': 'display'};
   const editClientFirstNameState = {'client-first-name-state': 'edit'};
+  const clientLastNameState = {'client-last-name-state': 'display'};
+  const editClientLastNameState = {'client-last-name-state': 'edit'};
 
   const [shouldEditInvoiceNumber, setShouldEditInvoiceNumber] = useState(false);
   const [shouldEditReferenceNumber, setShouldEditReferenceNumber] = useState(false);
@@ -163,6 +166,14 @@ function NewInvoice() {
 
   const editClientFirstNameClasses = cx(`${BEM_BLOCK}__edit-client-first-name`, {
     [`${BEM_BLOCK}__edit-client-first-name--hidden`]: !shouldEditClientFirstName,
+  });
+
+  const clientLastNameClasses = cx(`${BEM_BLOCK}__client-last-name`, {
+    [`${BEM_BLOCK}__client-last-name--hidden`]: shouldEditClientLastName,
+  });
+
+  const editClientLastNameClasses = cx(`${BEM_BLOCK}__edit-client-last-name`, {
+    [`${BEM_BLOCK}__edit-client-last-name--hidden`]: !shouldEditClientLastName,
   });
 
   const onAddNewBreakdownLine = () => {
@@ -313,6 +324,16 @@ function NewInvoice() {
       setShouldEditClientFirstName(true);
     } else if (targetState === 'edit') {
       setShouldEditClientFirstName(false);
+    }
+  };
+
+  const onToggleClientLastNameState = e => {
+    const targetState = e.target.getAttribute('client-last-name-state');
+
+    if (targetState === 'display') {
+      setShouldEditClientLastName(true);
+    } else if (targetState === 'edit') {
+      setShouldEditClientLastName(false);
     }
   };
 
@@ -535,10 +556,22 @@ function NewInvoice() {
                 {...editClientFirstNameState}
               />
               <span
-                className={`${BEM_BLOCK}__client-last-name`}
+                className={clientLastNameClasses}
+                onClick={e => onToggleClientLastNameState(e)}
+                {...clientLastNameState}
               >
-                Moss
+                {clientLastNameValue ? `${clientLastNameValue}` : 'Last Name'}
               </span>
+              <input
+                className={editClientLastNameClasses}
+                type='text'
+                name='clientLastName'
+                placeholder='Last Name'
+                onBlur={e => onToggleClientLastNameState(e)}
+                onChange={e => setClientLastNameValue(e.target.value)}
+                value={clientLastNameValue}
+                {...editClientLastNameState}
+              />
             </div>
             <span className={`${BEM_BLOCK}__street-address`}>123 Main street</span>
             <span className={`${BEM_BLOCK}__address-line-2`}></span>
