@@ -2168,6 +2168,24 @@ a {
             display: none;
           }
         }
+
+        .c-new-invoice__client-country {
+          .c-new-invoice__country {
+            white-space: nowrap;
+          }
+
+          .c-new-invoice__country--hidden {
+            display: none;
+          }
+
+          .c-new-invoice__edit-country {
+            white-space: nowrap;
+          }
+
+          .c-new-invoice__edit-country--hidden {
+            display: none;
+          }
+        }
       }
 
       .c-new-invoice__billed-to-date {
@@ -2329,6 +2347,20 @@ a {
 
       .c-new-invoice__message {
         font-size: 14px;
+      }
+
+      .c-new-invoice__message--hidden {
+        display: none;
+      }
+
+      .c-new-invoice__edit-message {
+        font-size: 14px;
+        width: 90%;
+        min-height: 100px;
+      }
+
+      .c-new-invoice__edit-message--hidden {
+        display: none;
       }
     }
 

@@ -34,6 +34,8 @@ function NewInvoice() {
   const [clientCityValue, setClientCityValue] = useState('');
   const [clientStateValue, setClientStateValue] = useState('');
   const [clientZipCodeValue, setClientZipCodeValue] = useState('');
+  const [clientCountryValue, setClientCountryValue] = useState('');
+  const [invoiceMessageValue, setInvoiceMessageValue] = useState('');
 
   const invoiceNumberState = {'invoice-number-state': 'display'};
   const editInvoiceNumberState = {'invoice-number-state': 'edit'};
@@ -69,6 +71,10 @@ function NewInvoice() {
   const editClientStateState = {'client-state-state': 'edit'};
   const clientZipCodeState = {'client-zip-code-state': 'display'};
   const editClientZipCodeState = {'client-zip-code-state': 'edit'};
+  const clientCountryState = {'client-country-state': 'display'};
+  const editClientCountryState = {'client-country-state': 'edit'};
+  const invoiceMessageState = {'invoice-message-state': 'display'};
+  const editInvoiceMessageState = {'invoice-message-state': 'edit'};
 
   const [shouldEditInvoiceNumber, setShouldEditInvoiceNumber] = useState(false);
   const [shouldEditReferenceNumber, setShouldEditReferenceNumber] = useState(false);
@@ -87,6 +93,8 @@ function NewInvoice() {
   const [shouldEditClientCity, setShouldEditClientCity] = useState(false);
   const [shouldEditClientState, setShouldEditClientState] = useState(false);
   const [shouldEditClientZipCode, setShouldEditClientZipCode] = useState(false);
+  const [shouldEditClientCountry, setShouldEditClientCountry] = useState(false);
+  const [shouldEditInvoiceMessage, setShouldEditInvoiceMessage] = useState(false);
 
   const invoiceNumberClasses = cx(`${BEM_BLOCK}__number`, {
     [`${BEM_BLOCK}__number--hidden`]: shouldEditInvoiceNumber,
@@ -222,6 +230,22 @@ function NewInvoice() {
 
   const editClientZipCodeClasses = cx(`${BEM_BLOCK}__edit-zip-code`, {
     [`${BEM_BLOCK}__edit-zip-code--hidden`]: !shouldEditClientZipCode,
+  });
+
+  const clientCountryClasses = cx(`${BEM_BLOCK}__country`, {
+    [`${BEM_BLOCK}__country--hidden`]: shouldEditClientCountry,
+  });
+
+  const editClientCountryClasses = cx(`${BEM_BLOCK}__edit-country`, {
+    [`${BEM_BLOCK}__edit-country--hidden`]: !shouldEditClientCountry,
+  });
+
+  const invoiceMessageClasses = cx(`${BEM_BLOCK}__message`, {
+    [`${BEM_BLOCK}__message--hidden`]: shouldEditInvoiceMessage,
+  });
+
+  const editInvoiceMessageClasses = cx(`${BEM_BLOCK}__edit-message`, {
+    [`${BEM_BLOCK}__edit-message--hidden`]: !shouldEditInvoiceMessage,
   });
 
   const onAddNewBreakdownLine = () => {
@@ -422,6 +446,26 @@ function NewInvoice() {
       setShouldEditClientZipCode(true);
     } else if (targetState === 'edit') {
       setShouldEditClientZipCode(false);
+    }
+  };
+
+  const onToggleClientCountryState = e => {
+    const targetState = e.target.getAttribute('client-country-state');
+
+    if (targetState === 'display') {
+      setShouldEditClientCountry(true);
+    } else if (targetState === 'edit') {
+      setShouldEditClientCountry(false);
+    }
+  };
+
+  const onToggleInvoiceMessageState = e => {
+    const targetState = e.target.getAttribute('invoice-message-state');
+
+    if (targetState === 'display') {
+      setShouldEditInvoiceMessage(true);
+    } else if (targetState === 'edit') {
+      setShouldEditInvoiceMessage(false);
     }
   };
 
@@ -736,7 +780,25 @@ function NewInvoice() {
                 {...editClientZipCodeState}
               />
             </div>
-            <span className={`${BEM_BLOCK}__client-country`}>United States</span>
+            <div className={`${BEM_BLOCK}__client-country`}>
+              <span
+                className={clientCountryClasses}
+                onClick={e => onToggleClientCountryState(e)}
+                {...clientCountryState}
+              >
+                {clientCountryValue ? clientCountryValue : 'Country'}
+              </span>
+              <input
+                className={editClientCountryClasses}
+                type='text'
+                name='clientCountry'
+                placeholder='Country'
+                onBlur={e => onToggleClientCountryState(e)}
+                onChange={e => setClientCountryValue(e.target.value)}
+                value={clientCountryValue}
+                {...editClientCountryState}
+              />
+            </div>
           </div>
           <div className={`${BEM_BLOCK}__billed-to-date`}>
             <div className={`${BEM_BLOCK}__date-issued`}>
@@ -808,9 +870,23 @@ function NewInvoice() {
           </div>
         </div>
         <div className={`${BEM_BLOCK}__invoice-message`}>
-          <span className={`${BEM_BLOCK}__message`}>
-            This is for your trip itinerary to Venezuela. Thanks for your business and please contact for more details.
+          <span
+            className={invoiceMessageClasses}
+            onClick={e => onToggleInvoiceMessageState(e)}
+            {...invoiceMessageState}
+          >
+            {invoiceMessageValue ? invoiceMessageValue : 'Message'}
           </span>
+          <textarea
+            className={editInvoiceMessageClasses}
+            type='text'
+            name='invoiceMessage'
+            placeholder='Message'
+            onBlur={e => onToggleInvoiceMessageState(e)}
+            onChange={e => setInvoiceMessageValue(e.target.value)}
+            value={invoiceMessageValue}
+            {...editInvoiceMessageState}
+          />
         </div>
         <div className={`${BEM_BLOCK}__invoice-breakdown`}>
           <div className={`${BEM_BLOCK}__row--titles`}>
