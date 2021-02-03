@@ -33,6 +33,7 @@ function NewInvoice() {
   const [clientStreetAddressValue, setClientStreetAddressValue] = useState('');
   const [clientCityValue, setClientCityValue] = useState('');
   const [clientStateValue, setClientStateValue] = useState('');
+  const [clientZipCodeValue, setClientZipCodeValue] = useState('');
 
   const invoiceNumberState = {'invoice-number-state': 'display'};
   const editInvoiceNumberState = {'invoice-number-state': 'edit'};
@@ -66,6 +67,8 @@ function NewInvoice() {
   const editClientCityState = {'client-city-state': 'edit'};
   const clientStateState = {'client-state-state': 'display'};
   const editClientStateState = {'client-state-state': 'edit'};
+  const clientZipCodeState = {'client-zip-code-state': 'display'};
+  const editClientZipCodeState = {'client-zip-code-state': 'edit'};
 
   const [shouldEditInvoiceNumber, setShouldEditInvoiceNumber] = useState(false);
   const [shouldEditReferenceNumber, setShouldEditReferenceNumber] = useState(false);
@@ -83,6 +86,7 @@ function NewInvoice() {
   const [shouldEditClientStreetAddress, setShouldEditClientStreetAddress] = useState(false);
   const [shouldEditClientCity, setShouldEditClientCity] = useState(false);
   const [shouldEditClientState, setShouldEditClientState] = useState(false);
+  const [shouldEditClientZipCode, setShouldEditClientZipCode] = useState(false);
 
   const invoiceNumberClasses = cx(`${BEM_BLOCK}__number`, {
     [`${BEM_BLOCK}__number--hidden`]: shouldEditInvoiceNumber,
@@ -210,6 +214,14 @@ function NewInvoice() {
 
   const editClientStateClasses = cx(`${BEM_BLOCK}__edit-state`, {
     [`${BEM_BLOCK}__edit-state--hidden`]: !shouldEditClientState,
+  });
+
+  const clientZipCodeClasses = cx(`${BEM_BLOCK}__zip-code`, {
+    [`${BEM_BLOCK}__zip-code--hidden`]: shouldEditClientZipCode,
+  });
+
+  const editClientZipCodeClasses = cx(`${BEM_BLOCK}__edit-zip-code`, {
+    [`${BEM_BLOCK}__edit-zip-code--hidden`]: !shouldEditClientZipCode,
   });
 
   const onAddNewBreakdownLine = () => {
@@ -400,6 +412,16 @@ function NewInvoice() {
       setShouldEditClientState(true);
     } else if (targetState === 'edit') {
       setShouldEditClientState(false);
+    }
+  };
+
+  const onToggleClientZipCodeState = e => {
+    const targetState = e.target.getAttribute('client-zip-code-state');
+
+    if (targetState === 'display') {
+      setShouldEditClientZipCode(true);
+    } else if (targetState === 'edit') {
+      setShouldEditClientZipCode(false);
     }
   };
 
@@ -695,8 +717,26 @@ function NewInvoice() {
                 {...editClientStateState}
               />
             </div>
-            <span className={`${BEM_BLOCK}__zip-code`}>22394</span>
-            <span className={`${BEM_BLOCK}__country`}>United States</span>
+            <div className={`${BEM_BLOCK}__client-zip-code`}>
+              <span
+                className={clientZipCodeClasses}
+                onClick={e => onToggleClientZipCodeState(e)}
+                {...clientZipCodeState}
+              >
+                {clientZipCodeValue ? clientZipCodeValue : 'Zip Code'}
+              </span>
+              <input
+                className={editClientZipCodeClasses}
+                type='text'
+                name='clientZipCode'
+                placeholder='Zip Code'
+                onBlur={e => onToggleClientZipCodeState(e)}
+                onChange={e => setClientZipCodeValue(e.target.value)}
+                value={clientZipCodeValue}
+                {...editClientZipCodeState}
+              />
+            </div>
+            <span className={`${BEM_BLOCK}__client-country`}>United States</span>
           </div>
           <div className={`${BEM_BLOCK}__billed-to-date`}>
             <div className={`${BEM_BLOCK}__date-issued`}>
