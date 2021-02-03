@@ -2098,6 +2098,24 @@ a {
             display: none;
           }
         }
+
+        .c-new-invoice__client-street-address {
+          .c-new-invoice__street-address {
+            white-space: nowrap;
+          }
+
+          .c-new-invoice__street-address--hidden {
+            display: none;
+          }
+
+          .c-new-invoice__edit-street-address {
+            white-space: nowrap;
+          }
+
+          .c-new-invoice__edit-street-address--hidden {
+            display: none;
+          }
+        }
       }
 
       .c-new-invoice__billed-to-date {
