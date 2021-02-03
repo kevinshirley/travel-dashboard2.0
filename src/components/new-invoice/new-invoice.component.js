@@ -31,6 +31,8 @@ function NewInvoice() {
   const [clientFirstNameValue, setClientFirstNameValue] = useState('');
   const [clientLastNameValue, setClientLastNameValue] = useState('');
   const [clientStreetAddressValue, setClientStreetAddressValue] = useState('');
+  const [clientCityValue, setClientCityValue] = useState('');
+  const [clientStateValue, setClientStateValue] = useState('');
 
   const invoiceNumberState = {'invoice-number-state': 'display'};
   const editInvoiceNumberState = {'invoice-number-state': 'edit'};
@@ -60,6 +62,10 @@ function NewInvoice() {
   const editClientLastNameState = {'client-last-name-state': 'edit'};
   const clientStreetAddressState = {'client-street-address-state': 'display'};
   const editClientStreetAddressState = {'client-street-address-state': 'edit'};
+  const clientCityState = {'client-city-state': 'display'};
+  const editClientCityState = {'client-city-state': 'edit'};
+  const clientStateState = {'client-state-state': 'display'};
+  const editClientStateState = {'client-state-state': 'edit'};
 
   const [shouldEditInvoiceNumber, setShouldEditInvoiceNumber] = useState(false);
   const [shouldEditReferenceNumber, setShouldEditReferenceNumber] = useState(false);
@@ -75,6 +81,8 @@ function NewInvoice() {
   const [shouldEditClientFirstName, setShouldEditClientFirstName] = useState(false);
   const [shouldEditClientLastName, setShouldEditClientLastName] = useState(false);
   const [shouldEditClientStreetAddress, setShouldEditClientStreetAddress] = useState(false);
+  const [shouldEditClientCity, setShouldEditClientCity] = useState(false);
+  const [shouldEditClientState, setShouldEditClientState] = useState(false);
 
   const invoiceNumberClasses = cx(`${BEM_BLOCK}__number`, {
     [`${BEM_BLOCK}__number--hidden`]: shouldEditInvoiceNumber,
@@ -186,6 +194,22 @@ function NewInvoice() {
 
   const editClientStreetAddressClasses = cx(`${BEM_BLOCK}__edit-street-address`, {
     [`${BEM_BLOCK}__edit-street-address--hidden`]: !shouldEditClientStreetAddress,
+  });
+
+  const clientCityClasses = cx(`${BEM_BLOCK}__city`, {
+    [`${BEM_BLOCK}__city--hidden`]: shouldEditClientCity,
+  });
+
+  const editClientCityClasses = cx(`${BEM_BLOCK}__edit-city`, {
+    [`${BEM_BLOCK}__edit-city--hidden`]: !shouldEditClientCity,
+  });
+
+  const clientStateClasses = cx(`${BEM_BLOCK}__state`, {
+    [`${BEM_BLOCK}__state--hidden`]: shouldEditClientState,
+  });
+
+  const editClientStateClasses = cx(`${BEM_BLOCK}__edit-state`, {
+    [`${BEM_BLOCK}__edit-state--hidden`]: !shouldEditClientState,
   });
 
   const onAddNewBreakdownLine = () => {
@@ -356,6 +380,26 @@ function NewInvoice() {
       setShouldEditClientStreetAddress(true);
     } else if (targetState === 'edit') {
       setShouldEditClientStreetAddress(false);
+    }
+  };
+
+  const onToggleClientCityState = e => {
+    const targetState = e.target.getAttribute('client-city-state');
+
+    if (targetState === 'display') {
+      setShouldEditClientCity(true);
+    } else if (targetState === 'edit') {
+      setShouldEditClientCity(false);
+    }
+  };
+
+  const onToggleClientStateState = e => {
+    const targetState = e.target.getAttribute('client-state-state');
+
+    if (targetState === 'display') {
+      setShouldEditClientState(true);
+    } else if (targetState === 'edit') {
+      setShouldEditClientState(false);
     }
   };
 
@@ -615,7 +659,42 @@ function NewInvoice() {
               />
             </div>
             <span className={`${BEM_BLOCK}__address-line-2`}></span>
-            <span className={`${BEM_BLOCK}__city-state`}>Atlanta, Georgia</span>
+            <div className={`${BEM_BLOCK}__client-city-state`}>
+              <span
+                className={clientCityClasses}
+                onClick={e => onToggleClientCityState(e)}
+                {...clientCityState}
+              >
+                {clientCityValue ? `${clientCityValue},` : 'City,'}
+              </span>
+              <input
+                className={editClientCityClasses}
+                type='text'
+                name='clientCity'
+                placeholder='City'
+                onBlur={e => onToggleClientCityState(e)}
+                onChange={e => setClientCityValue(e.target.value)}
+                value={clientCityValue}
+                {...editClientCityState}
+              />
+              <span
+                className={clientStateClasses}
+                onClick={e => onToggleClientStateState(e)}
+                {...clientStateState}
+              >
+                {SPACING}{clientStateValue ? clientStateValue : 'State'}
+              </span>
+              <input
+                className={editClientStateClasses}
+                type='text'
+                name='clientState'
+                placeholder='State'
+                onBlur={e => onToggleClientStateState(e)}
+                onChange={e => setClientStateValue(e.target.value)}
+                value={clientStateValue}
+                {...editClientStateState}
+              />
+            </div>
             <span className={`${BEM_BLOCK}__zip-code`}>22394</span>
             <span className={`${BEM_BLOCK}__country`}>United States</span>
           </div>
