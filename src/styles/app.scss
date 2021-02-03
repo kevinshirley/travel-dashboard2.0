@@ -2642,8 +2642,20 @@ a {
         color: lightslategrey;
       }
 
-      .c-new-invoice__terms--content {
+      .c-new-invoice__terms-content {
         font-size: 13px;
+      }
+
+      .c-new-invoice__terms-content--hidden {
+        display: none;
+      }
+
+      .c-new-invoice__edit-terms-content {
+        font-size: 13px;
+      }
+
+      .c-new-invoice__edit-terms-content--hidden {
+        display: none;
       }
     }
   }

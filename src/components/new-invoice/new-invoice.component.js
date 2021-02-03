@@ -36,6 +36,7 @@ function NewInvoice() {
   const [clientZipCodeValue, setClientZipCodeValue] = useState('');
   const [clientCountryValue, setClientCountryValue] = useState('');
   const [invoiceMessageValue, setInvoiceMessageValue] = useState('');
+  const [termsContentValue, setTermsContentValue] = useState('Payment is required within 30 days. Thanks for your business.');
 
   const invoiceNumberState = {'invoice-number-state': 'display'};
   const editInvoiceNumberState = {'invoice-number-state': 'edit'};
@@ -75,6 +76,8 @@ function NewInvoice() {
   const editClientCountryState = {'client-country-state': 'edit'};
   const invoiceMessageState = {'invoice-message-state': 'display'};
   const editInvoiceMessageState = {'invoice-message-state': 'edit'};
+  const termsContentState = {'terms-content-state': 'display'};
+  const editTermsContentState = {'terms-content-state': 'edit'};
 
   const [shouldEditInvoiceNumber, setShouldEditInvoiceNumber] = useState(false);
   const [shouldEditReferenceNumber, setShouldEditReferenceNumber] = useState(false);
@@ -95,6 +98,7 @@ function NewInvoice() {
   const [shouldEditClientZipCode, setShouldEditClientZipCode] = useState(false);
   const [shouldEditClientCountry, setShouldEditClientCountry] = useState(false);
   const [shouldEditInvoiceMessage, setShouldEditInvoiceMessage] = useState(false);
+  const [shouldEditTermsContent, setShouldEditTermsContent] = useState(false);
 
   const invoiceNumberClasses = cx(`${BEM_BLOCK}__number`, {
     [`${BEM_BLOCK}__number--hidden`]: shouldEditInvoiceNumber,
@@ -246,6 +250,14 @@ function NewInvoice() {
 
   const editInvoiceMessageClasses = cx(`${BEM_BLOCK}__edit-message`, {
     [`${BEM_BLOCK}__edit-message--hidden`]: !shouldEditInvoiceMessage,
+  });
+
+  const termsContentClasses = cx(`${BEM_BLOCK}__terms-content`, {
+    [`${BEM_BLOCK}__terms-content--hidden`]: shouldEditTermsContent,
+  });
+
+  const editTermsContentClasses = cx(`${BEM_BLOCK}__edit-terms-content`, {
+    [`${BEM_BLOCK}__edit-terms-content--hidden`]: !shouldEditTermsContent,
   });
 
   const onAddNewBreakdownLine = () => {
@@ -466,6 +478,16 @@ function NewInvoice() {
       setShouldEditInvoiceMessage(true);
     } else if (targetState === 'edit') {
       setShouldEditInvoiceMessage(false);
+    }
+  };
+
+  const onToggleTermsContentState = e => {
+    const targetState = e.target.getAttribute('terms-content-state');
+
+    if (targetState === 'display') {
+      setShouldEditTermsContent(true);
+    } else if (targetState === 'edit') {
+      setShouldEditTermsContent(false);
     }
   };
 
@@ -944,7 +966,23 @@ function NewInvoice() {
         </div>
         <div className={`${BEM_BLOCK}__terms`}>
           <span className={`${BEM_BLOCK}__terms--title`}>Terms</span>
-          <span className={`${BEM_BLOCK}__terms--content`}>Payment is required within 30 days. Thanks for your business.</span>
+          <span
+            className={termsContentClasses}
+            onClick={e => onToggleTermsContentState(e)}
+            {...termsContentState}
+          >
+            {termsContentValue ? termsContentValue : ''}
+          </span>
+          <textarea
+            className={editTermsContentClasses}
+            type='text'
+            name='termsContent'
+            placeholder='Message'
+            onBlur={e => onToggleTermsContentState(e)}
+            onChange={e => setTermsContentValue(e.target.value)}
+            value={termsContentValue}
+            {...editTermsContentState}
+          />
         </div>
       </div>
     </div>
