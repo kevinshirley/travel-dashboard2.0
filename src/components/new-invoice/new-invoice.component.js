@@ -4,10 +4,15 @@ import { SPACING } from 'src/components/material-ui/icons';
 import { formatPrice } from 'src/utils/string';
 import InvoiceBreakdownLine from 'src/components/new-invoice/invoice-breakdown-line.component';
 import DatePicker from 'src/components/common/date-picker';
+import uuidv4 from 'src/utils/uuidv4';
+import * as actions from 'src/store/actions';
+import { useAction } from 'src/store/hooks';
 
 const BEM_BLOCK = 'c-new-invoice';
 
 function NewInvoice() {
+  const addInvoiceItem = useAction(actions.invoices.addInvoiceItem);
+
   const [breakdownLines, setBreakdownLines] = useState([]);
   const [totalAmountDue, setTotalAmountDue] = useState(0);
 
@@ -35,7 +40,7 @@ function NewInvoice() {
   const [clientStateValue, setClientStateValue] = useState('');
   const [clientZipCodeValue, setClientZipCodeValue] = useState('');
   const [clientCountryValue, setClientCountryValue] = useState('');
-  const [invoiceMessageValue, setInvoiceMessageValue] = useState('');
+  const [invoiceMessageValue, setInvoiceMessageValue] = useState('Thanks for your business and please contact for more details.');
   const [termsContentValue, setTermsContentValue] = useState('Payment is required within 30 days. Thanks for your business.');
 
   const invoiceNumberState = {'invoice-number-state': 'display'};
@@ -261,16 +266,21 @@ function NewInvoice() {
   });
 
   const onAddNewBreakdownLine = () => {
+    const newInvoiceItem = {
+      id: uuidv4(),
+      index: breakdownLines.length+1,
+      unitCost: 0,
+      qty: 1,
+      total: 0,
+      itemName: '',
+      itemdescription: '',
+    };
+
+    addInvoiceItem(newInvoiceItem);
+
     setBreakdownLines([
       ...breakdownLines,
-      {
-        index: breakdownLines.length+1,
-        unitCost: 0,
-        qty: 1,
-        total: 0,
-        itemName: '',
-        itemdescription: '',
-      },
+      newInvoiceItem,
     ]);
   };
 
@@ -897,7 +907,7 @@ function NewInvoice() {
             onClick={e => onToggleInvoiceMessageState(e)}
             {...invoiceMessageState}
           >
-            {invoiceMessageValue ? invoiceMessageValue : 'Message'}
+            {invoiceMessageValue ? invoiceMessageValue : 'Insert message here'}
           </span>
           <textarea
             className={editInvoiceMessageClasses}
@@ -971,7 +981,7 @@ function NewInvoice() {
             onClick={e => onToggleTermsContentState(e)}
             {...termsContentState}
           >
-            {termsContentValue ? termsContentValue : ''}
+            {termsContentValue ? termsContentValue : 'Insert terms and condition text here'}
           </span>
           <textarea
             className={editTermsContentClasses}

@@ -58,6 +58,9 @@ import {
   watchAddCustomerNote,
   watchSetCustomerOnInit
 } from 'src/store/sagas/customers';
+import {
+  watchAddInvoiceItem,
+} from 'src/store/sagas/accounting';
 
 function* rootSaga() {
   yield all([
@@ -104,7 +107,8 @@ function* rootSaga() {
     watchFetchUserCustomers(),
     watchAddCustomerNote(),
     watchSetCustomerOnInit(),
-    watchSetUserToken()
+    watchSetUserToken(),
+    watchAddInvoiceItem()
   ]);
 }
 

@@ -5,13 +5,15 @@ import { formatPrice } from 'src/utils/string';
 
 const BEM_BLOCK = 'c-new-invoice';
 
-function InvoiceBreakdownLine({
-  itemName,
-  itemdescription,
-  qty,
-  unitCost,
-  setTotalAmountDue,
-}) {
+function InvoiceBreakdownLine(props) {
+  console.log({ props });
+  const {
+    itemName,
+    itemdescription,
+    qty,
+    unitCost,
+    setTotalAmountDue,
+  } = props;
   const itemNameState = {'item-name-state': 'display'};
   const editItemNameState = {'item-name-state': 'edit'};
 
