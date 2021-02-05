@@ -22,7 +22,7 @@ function* addInvoiceItem({ payload }) {
 
 function* updateInvoiceItem({ payload }) {
   const invoiceItems = yield select(selectNewInvoiceItems);
-  const { id, name, description, unitCost, qty } = payload;
+  const { id, name, description, unitCost, qty, total } = payload;
 
   const newInvoiceItems = invoiceItems.map(item => {
     if (item.id === id) {
@@ -32,8 +32,10 @@ function* updateInvoiceItem({ payload }) {
         item.itemdescription = description;
       } else if (!isNil(unitCost)) {
         item.unitCost = unitCost;
+        item.total = total;
       } else if (!isNil(qty)) {
         item.qty = qty;
+        item.total = total;
       }
     }
     return item;
