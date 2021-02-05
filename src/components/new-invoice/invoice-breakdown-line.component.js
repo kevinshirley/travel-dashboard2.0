@@ -15,7 +15,7 @@ function InvoiceBreakdownLine({
   unitCost,
   setTotalAmountDue,
 }) {
-  const updateInvoiceItemName = useAction(actions.invoices.updateInvoiceItemName);
+  const updateInvoiceItem = useAction(actions.invoices.updateInvoiceItem);
 
   const itemNameState = {'item-name-state': 'display'};
   const editItemNameState = {'item-name-state': 'edit'};
@@ -157,8 +157,7 @@ function InvoiceBreakdownLine({
           placeholder='Enter an item name'
           onBlur={e => {
             onToggleItemNameState(e);
-            console.log('update invoice item name', id);
-            updateInvoiceItemName({ id, name: e.target.value });
+            updateInvoiceItem({ id, name: e.target.value });
           }}
           onChange={e => setItemNameValue(e.target.value)}
           ref={editItemNameRef}
@@ -178,7 +177,7 @@ function InvoiceBreakdownLine({
           placeholder='Enter an item description'
           onBlur={e => {
             onToggleItemDescriptionState(e);
-            console.log('update invoice item description', id);
+            updateInvoiceItem({ id, description: e.target.value });
           }}
           onChange={e => setItemDescriptionValue(e.target.value)}
           {...editItemDescriptionState}
