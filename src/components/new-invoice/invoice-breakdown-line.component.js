@@ -2,18 +2,21 @@ import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import { formatPrice } from 'src/utils/string';
+import * as actions from 'src/store/actions';
+import { useAction } from 'src/store/hooks';
 
 const BEM_BLOCK = 'c-new-invoice';
 
-function InvoiceBreakdownLine(props) {
-  console.log({ props });
-  const {
-    itemName,
-    itemdescription,
-    qty,
-    unitCost,
-    setTotalAmountDue,
-  } = props;
+function InvoiceBreakdownLine({
+  id,
+  itemName,
+  itemdescription,
+  qty,
+  unitCost,
+  setTotalAmountDue,
+}) {
+  const updateInvoiceItemName = useAction(actions.invoices.updateInvoiceItemName);
+
   const itemNameState = {'item-name-state': 'display'};
   const editItemNameState = {'item-name-state': 'edit'};
 
@@ -152,7 +155,11 @@ function InvoiceBreakdownLine(props) {
           type='text'
           name='itemName'
           placeholder='Enter an item name'
-          onBlur={e => onToggleItemNameState(e)}
+          onBlur={e => {
+            onToggleItemNameState(e);
+            console.log('update invoice item name', id);
+            updateInvoiceItemName({ id, name: e.target.value });
+          }}
           onChange={e => setItemNameValue(e.target.value)}
           ref={editItemNameRef}
           {...editItemNameState}
@@ -169,7 +176,10 @@ function InvoiceBreakdownLine(props) {
           type='text'
           name='itemDescription'
           placeholder='Enter an item description'
-          onBlur={e => onToggleItemDescriptionState(e)}
+          onBlur={e => {
+            onToggleItemDescriptionState(e);
+            console.log('update invoice item description', id);
+          }}
           onChange={e => setItemDescriptionValue(e.target.value)}
           {...editItemDescriptionState}
         />
@@ -195,6 +205,7 @@ function InvoiceBreakdownLine(props) {
                 previousAmountTotal: previousTotalAmountValue,
               });
               setPreviousTotalAmountValue(Number(e.target.value)*itemQtyValue);
+              console.log('update invoice item unit cost', id);
             }}
             onChange={e => {
               setUnitCostValue(e.target.value);
@@ -226,6 +237,7 @@ function InvoiceBreakdownLine(props) {
               previousAmountTotal: previousTotalAmountValue,
             });
             setPreviousTotalAmountValue(Number(totalAmountValue));
+            console.log('update invoice item quantity', id);
           }}
           onChange={e => {
             const newQty = Number(e.target.value);
