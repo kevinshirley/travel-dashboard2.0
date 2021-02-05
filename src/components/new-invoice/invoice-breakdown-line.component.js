@@ -204,7 +204,7 @@ function InvoiceBreakdownLine({
                 previousAmountTotal: previousTotalAmountValue,
               });
               setPreviousTotalAmountValue(Number(e.target.value)*itemQtyValue);
-              console.log('update invoice item unit cost', id);
+              updateInvoiceItem({ id, unitCost: Number(e.target.value) });
             }}
             onChange={e => {
               setUnitCostValue(e.target.value);
@@ -237,6 +237,7 @@ function InvoiceBreakdownLine({
             });
             setPreviousTotalAmountValue(Number(totalAmountValue));
             console.log('update invoice item quantity', id);
+            updateInvoiceItem({ id, qty: Number(e.target.value) });
           }}
           onChange={e => {
             const newQty = Number(e.target.value);
