@@ -1,7 +1,9 @@
-import { isNil } from 'ramda';
-import { put, takeLatest, select } from 'redux-saga/effects';
+import { isNil, isEmpty } from 'ramda';
+import { put, takeLatest, select, call } from 'redux-saga/effects';
 import { INVOICES, invoices } from 'src/store/actions';
 import { selectNewInvoiceItems, selectNewInvoice } from 'src/store/selectors/accounting';
+import { selectSessionProfile } from 'src/store/selectors/session';
+import { post } from 'src/utils/fetch';
 
 export function* watchAddInvoiceItem() {
   yield takeLatest(INVOICES.ADD_INVOICE_ITEM, addInvoiceItem);
@@ -78,6 +80,7 @@ function* updateInvoice({ payload }) {
     termsContent,
     invoiceNumber,
     referenceNumber,
+    invoiceId,
   } = payload;
 
   if (!isNil(companyName)) {
@@ -234,9 +237,28 @@ function* updateInvoice({ payload }) {
     };
   }
 
+  if (!isNil(invoiceId)) {
+    newInvoice = {
+      ...invoice,
+      invoiceId,
+    };
+  }
+
   yield put(invoices.setNewInvoice(newInvoice));
 }
 
 function* saveInvoice() {
-  console.log('save invoice saga');
+  const invoice = yield select(selectNewInvoice);
+  const profile = yield select(selectSessionProfile);
+  const { id } = profile;
+
+  if (!isEmpty(id) && !isNil(id)) {
+    const newInvoice = {
+      ...invoice,
+      createdBy: profile.id,
+    };
+
+    const result = yield call(post, '/api/accounting/invoice/add', newInvoice);
+    console.log({ result });
+  }
 }

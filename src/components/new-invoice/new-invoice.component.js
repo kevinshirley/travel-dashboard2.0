@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import cx from 'classnames';
 import { SPACING } from 'src/components/material-ui/icons';
 import { formatPrice } from 'src/utils/string';
@@ -12,6 +12,10 @@ const BEM_BLOCK = 'c-new-invoice';
 
 function NewInvoice() {
   const invoiceId = uuidv4();
+
+  useEffect(() => {
+    updateInvoice({ invoiceId });
+  }, []);
 
   const addInvoiceItem = useAction(actions.invoices.addInvoiceItem);
   const updateInvoice = useAction(actions.invoices.updateInvoice);

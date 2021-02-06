@@ -2,6 +2,7 @@ import { INVOICES } from 'src/store/actions';
 
 const initialState = {
   newInvoice: {
+    invoiceId: '',
     invoiceNumber: '',
     referenceNumber: '',
     companyName: '',
@@ -22,8 +23,9 @@ const initialState = {
     clientCountry: '',
     dateIssued: '',
     dueDate: '',
-    invoiceMessage: '',
-    termsContent: '',
+    invoiceMessage: 'Thanks for your business and please contact for more details.',
+    termsContent: 'Payment is required within 30 days. Thanks for your business.',
+    status: 'pending',
     items: [],
   },
   invoices: [],

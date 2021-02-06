@@ -14,16 +14,16 @@ import customers from 'src/store/reducers/customers';
 import accounting from 'src/store/reducers/accounting';
 
 export default combineReducers({
-  ui,
-  itineraries,
+  accounting,
   addItinerary,
-  manageItinerary,
-  displayItinerary,
-  destinations,
   blog,
-  session,
-  forms,
   customer,
   customers,
-  accounting,
+  destinations,
+  displayItinerary,
+  forms,
+  itineraries,
+  manageItinerary,
+  session,
+  ui,
 });
