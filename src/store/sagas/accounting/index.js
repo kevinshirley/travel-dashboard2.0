@@ -62,6 +62,12 @@ function* updateInvoice({ payload }) {
     companyZipCode,
     companyCountry,
     clientFirstName,
+    clientLastName,
+    clientStreetAddress,
+    clientCity,
+    clientState,
+    clientZipCode,
+    clientCountry,
   } = payload;
 
   if (!isNil(companyName)) {
@@ -131,6 +137,48 @@ function* updateInvoice({ payload }) {
     newInvoice = {
       ...invoice,
       clientFirstName,
+    };
+  }
+
+  if (!isNil(clientLastName)) {
+    newInvoice = {
+      ...invoice,
+      clientLastName,
+    };
+  }
+
+  if (!isNil(clientStreetAddress)) {
+    newInvoice = {
+      ...invoice,
+      clientStreetAddress,
+    };
+  }
+
+  if (!isNil(clientCity)) {
+    newInvoice = {
+      ...invoice,
+      clientCity,
+    };
+  }
+
+  if (!isNil(clientState)) {
+    newInvoice = {
+      ...invoice,
+      clientState,
+    };
+  }
+
+  if (!isNil(clientZipCode)) {
+    newInvoice = {
+      ...invoice,
+      clientZipCode,
+    };
+  }
+
+  if (!isNil(clientCountry)) {
+    newInvoice = {
+      ...invoice,
+      clientCountry,
     };
   }
 
