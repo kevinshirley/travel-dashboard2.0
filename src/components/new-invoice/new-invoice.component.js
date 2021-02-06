@@ -600,7 +600,10 @@ function NewInvoice() {
                   type='text'
                   name='phoneNumber'
                   placeholder='Phone Number'
-                  onBlur={e => onToggleRepPhoneNumberState(e)}
+                  onBlur={e => {
+                    onToggleRepPhoneNumberState(e);
+                    updateInvoice({ repPhoneNumber: e.target.value });
+                  }}
                   onChange={e => setRepPhoneNumberValue(e.target.value)}
                   value={repPhoneNumberValue}
                   {...editRepPhoneNumberState}
@@ -621,7 +624,10 @@ function NewInvoice() {
                   type='text'
                   name='streetAddress'
                   placeholder='Street Address'
-                  onBlur={e => onToggleCompanyStreetAddressState(e)}
+                  onBlur={e => {
+                    onToggleCompanyStreetAddressState(e);
+                    updateInvoice({ companyStreetAddress: e.target.value });
+                  }}
                   onChange={e => setCompanyStreetAddressValue(e.target.value)}
                   value={companyStreetAddressValue}
                   {...editCompanyStreetAddressState}
@@ -644,7 +650,10 @@ function NewInvoice() {
                     type='text'
                     name='city'
                     placeholder='City'
-                    onBlur={e => onToggleCompanyCityState(e)}
+                    onBlur={e => {
+                      onToggleCompanyCityState(e);
+                      updateInvoice({ companyCity: e.target.value });
+                    }}
                     onChange={e => setCompanyCityValue(e.target.value)}
                     value={companyCityValue}
                     {...editCompanyCityState}
@@ -661,7 +670,10 @@ function NewInvoice() {
                     type='text'
                     name='state'
                     placeholder='State'
-                    onBlur={e => onToggleCompanyStateState(e)}
+                    onBlur={e => {
+                      onToggleCompanyStateState(e);
+                      updateInvoice({ companyState: e.target.value });
+                    }}
                     onChange={e => setCompanyStateValue(e.target.value)}
                     value={companyStateValue}
                     {...editCompanyStateState}
@@ -681,7 +693,10 @@ function NewInvoice() {
                   type='text'
                   name='zipCode'
                   placeholder='Zip Code'
-                  onBlur={e => onToggleCompanyZipCodeState(e)}
+                  onBlur={e => {
+                    onToggleCompanyZipCodeState(e);
+                    updateInvoice({ companyZipCode: e.target.value });
+                  }}
                   onChange={e => setCompanyZipCodeValue(e.target.value)}
                   value={companyZipCodeValue}
                   {...editCompanyZipCodeState}
@@ -700,7 +715,10 @@ function NewInvoice() {
                   type='text'
                   name='country'
                   placeholder='Country'
-                  onBlur={e => onToggleCompanyCountryState(e)}
+                  onBlur={e => {
+                    onToggleCompanyCountryState(e);
+                    updateInvoice({ companyCountry: e.target.value });
+                  }}
                   onChange={e => setCompanyCountryValue(e.target.value)}
                   value={companyCountryValue}
                   {...editCompanyCountryState}
@@ -726,7 +744,10 @@ function NewInvoice() {
                 type='text'
                 name='clientFirstName'
                 placeholder='First Name'
-                onBlur={e => onToggleClientFirstNameState(e)}
+                onBlur={e => {
+                  onToggleClientFirstNameState(e);
+                  updateInvoice({ clientFirstName: e.target.value });
+                }}
                 onChange={e => setClientFirstNameValue(e.target.value)}
                 value={clientFirstNameValue}
                 {...editClientFirstNameState}
