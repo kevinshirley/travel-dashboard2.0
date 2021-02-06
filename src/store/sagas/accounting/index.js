@@ -1,6 +1,7 @@
+import Router from 'next/router';
 import { isNil, isEmpty } from 'ramda';
 import { put, takeLatest, select, call } from 'redux-saga/effects';
-import { INVOICES, invoices } from 'src/store/actions';
+import { INVOICES, invoices, forms } from 'src/store/actions';
 import { selectNewInvoiceItems, selectNewInvoice } from 'src/store/selectors/accounting';
 import { selectSessionProfile } from 'src/store/selectors/session';
 import { post } from 'src/utils/fetch';
@@ -253,6 +254,8 @@ function* saveInvoice() {
   const { id } = profile;
 
   if (!isEmpty(id) && !isNil(id)) {
+    yield put(forms.isSubmitting({ isSubmitting: true, form: 'addInvoice' }));
+
     const newInvoice = {
       ...invoice,
       createdBy: profile.id,
@@ -260,5 +263,16 @@ function* saveInvoice() {
 
     const result = yield call(post, '/api/accounting/invoice/add', newInvoice);
     console.log({ result });
+    if (result.success) {
+      yield put(forms.isSubmitting({ isSubmitting: false, form: 'addInvoice' }));
+
+      Router.push({ pathname: '/invoices' });
+
+      yield put(forms.setSuccess({ message: 'You\'ve successfully saved this invoice', form: 'addInvoice' }));
+    } else {
+      yield put(forms.isSubmitting({ isSubmitting: false, form: 'addInvoice' }));
+
+      yield put(forms.setError({ message: 'An error occured when saving this invoice', form: 'addInvoice' }));
+    }
   }
 }

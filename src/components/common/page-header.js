@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import { useRouter } from 'next/router';
+import { useSelector } from 'react-redux';
 import { EMPTY_BACKGROUND } from 'src/components/common/images';
 import { useAction } from 'src/store/hooks';
 import * as actions from 'src/store/actions';
@@ -11,6 +12,7 @@ import { CAMERA_ICON, SPACING, LINK_ICON } from 'src/components/material-ui/icon
 import { ITINERARY_EDITOR_PATHNAMES, URL } from 'src/store/constants/url';
 import Link from 'src/components/common/link';
 import { MODALS } from 'src/store/constants/modals';
+import { selectAddInvoiceIsSubmitting } from 'src/store/selectors/forms';
 
 const BEM_BLOCK = 'c-page-header';
 
@@ -22,6 +24,8 @@ function PageHeader({ coverImage = null, itineraryId = '', title }) {
   const uploadCoverImageAction = useAction(actions.itinerary.uploadCoverImage);
   const openModal = useAction(actions.ui.openModal);
   const saveInvoice = useAction(actions.invoices.saveInvoice);
+
+  const addInvoiceIsSubmitting = useSelector(selectAddInvoiceIsSubmitting);
 
   const handleChange = (e) => {
     setValue(e.target.files[0]);
@@ -117,6 +121,7 @@ function PageHeader({ coverImage = null, itineraryId = '', title }) {
               </Button>
               <Button
                 className={`${BEM_BLOCK}__save`}
+                isLoading={addInvoiceIsSubmitting}
                 onClick={() => saveInvoice()}
                 type='button'
               >

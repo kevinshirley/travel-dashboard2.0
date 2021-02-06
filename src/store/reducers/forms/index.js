@@ -257,6 +257,46 @@ function addCustomerNote(state = initialState, { type, payload }) {
   }
 }
 
+function addInvoice(state = initialState, { type, payload }) {
+  const { form, message, isSubmitting } = payload || {};
+  switch (type) {
+    case FORMS.SET_ERROR:
+      if (form === 'addInvoice') {
+        return {
+          ...state,
+          error: {
+            message,
+          },
+        };
+      }
+    case FORMS.IS_SUBMITTING:
+      if (form === 'addInvoice') {
+        return {
+          ...state,
+          isSubmitting,
+        };
+      }
+    case FORMS.RESET_SUCCESS:
+      if (form === 'addInvoice') {
+        return {
+          ...state,
+          success: {},
+        };
+      }
+    case FORMS.SET_SUCCESS:
+      if (form === 'addInvoice') {
+        return {
+          ...state,
+          success: {
+            message,
+          },
+        };
+      }
+    default:
+      return state;
+  }
+}
+
 export default combineReducers({
   signIn,
   signUp,
@@ -265,4 +305,5 @@ export default combineReducers({
   manageItinerary,
   addCustomer,
   addCustomerNote,
+  addInvoice,
 });

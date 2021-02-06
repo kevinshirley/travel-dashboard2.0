@@ -327,6 +327,16 @@ a {
       #text-button {
         background: $customers-tabs__add-customer-background-color;
         color: $customers-tabs__add-customer-color;
+
+        .spinner {
+          width: 24px;
+          height: 24px;
+
+          img {
+            width: 100%;
+            height: 100%;
+          }
+        }
       }
     }
 
