@@ -298,10 +298,12 @@ function NewInvoice() {
 
   const onSetDueDate = value => {
     setDueDate(value);
+    updateInvoice({ dueDate: value });
   };
 
   const onSetDateIssued = value => {
     setDateIssued(value);
+    updateInvoice({ dateIssued: value });
   };
 
   const onToggleInvoiceNumberState = e => {

@@ -20,6 +20,8 @@ const initialState = {
     clientState: '',
     clientZipCode: '',
     clientCountry: '',
+    dateIssued: '',
+    dueDate: '',
     invoiceMessage: '',
     termsContent: '',
     items: [],

@@ -68,6 +68,8 @@ function* updateInvoice({ payload }) {
     clientState,
     clientZipCode,
     clientCountry,
+    dueDate,
+    dateIssued,
   } = payload;
 
   if (!isNil(companyName)) {
@@ -179,6 +181,20 @@ function* updateInvoice({ payload }) {
     newInvoice = {
       ...invoice,
       clientCountry,
+    };
+  }
+
+  if (!isNil(dueDate)) {
+    newInvoice = {
+      ...invoice,
+      dueDate,
+    };
+  }
+
+  if (!isNil(dateIssued)) {
+    newInvoice = {
+      ...invoice,
+      dateIssued,
     };
   }
 
