@@ -2,26 +2,26 @@ import { INVOICES } from 'src/store/actions';
 
 const initialState = {
   newInvoice: {
-    invoiceNumberValue: '',
-    referenceNumberValue: '',
-    companyNameValue: '',
-    repFirstNameValue: '',
-    repLastNameValue: '',
-    repPhoneNumberValue: '',
-    companyStreetAddressValue: '',
-    companyCityValue: '',
-    companyStateValue: '',
-    companyZipCodeValue: '',
-    companyCountryValue: '',
-    clientFirstNameValue: '',
-    clientLastNameValue: '',
-    clientStreetAddressValue: '',
-    clientCityValue: '',
-    clientStateValue: '',
-    clientZipCodeValue: '',
-    clientCountryValue: '',
-    invoiceMessageValue: '',
-    termsContentValue: '',
+    invoiceNumber: '',
+    referenceNumber: '',
+    companyName: '',
+    repFirstName: '',
+    repLastName: '',
+    repPhoneNumber: '',
+    companyStreetAddress: '',
+    companyCity: '',
+    companyState: '',
+    companyZipCode: '',
+    companyCountry: '',
+    clientFirstName: '',
+    clientLastName: '',
+    clientStreetAddress: '',
+    clientCity: '',
+    clientState: '',
+    clientZipCode: '',
+    clientCountry: '',
+    invoiceMessage: '',
+    termsContent: '',
     items: [],
   },
   invoices: [],
@@ -37,6 +37,11 @@ const accounting = (state = initialState, { type, payload }) => {
           ...state.newInvoice,
           items: payload,
         },
+      };
+    case INVOICES.SET_NEW_INVOICE:
+      return {
+        ...state,
+        newInvoice: payload,
       };
     default:
       return state;

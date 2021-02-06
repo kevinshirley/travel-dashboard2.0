@@ -61,6 +61,7 @@ import {
 import {
   watchAddInvoiceItem,
   watchUpdateInvoiceItem,
+  watchUpdateInvoice,
 } from 'src/store/sagas/accounting';
 
 function* rootSaga() {
@@ -110,7 +111,8 @@ function* rootSaga() {
     watchSetCustomerOnInit(),
     watchSetUserToken(),
     watchAddInvoiceItem(),
-    watchUpdateInvoiceItem()
+    watchUpdateInvoiceItem(),
+    watchUpdateInvoice()
   ]);
 }
 

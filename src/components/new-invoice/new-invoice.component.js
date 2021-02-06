@@ -11,7 +11,10 @@ import { useAction } from 'src/store/hooks';
 const BEM_BLOCK = 'c-new-invoice';
 
 function NewInvoice() {
+  const invoiceId = uuidv4();
+
   const addInvoiceItem = useAction(actions.invoices.addInvoiceItem);
+  const updateInvoice = useAction(actions.invoices.updateInvoice);
 
   const [breakdownLines, setBreakdownLines] = useState([]);
   const [totalAmountDue, setTotalAmountDue] = useState(0);
@@ -527,7 +530,10 @@ function NewInvoice() {
                   type='text'
                   name='companyName'
                   placeholder='Company Name'
-                  onBlur={e => onToggleCompanyNameState(e)}
+                  onBlur={e => {
+                    onToggleCompanyNameState(e);
+                    updateInvoice({ id: invoiceId, companyName: e.target.value });
+                  }}
                   onChange={e => setCompanyNameValue(e.target.value)}
                   value={companyNameValue}
                   {...editCompanyNameState}

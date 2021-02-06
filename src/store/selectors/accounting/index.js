@@ -10,3 +10,8 @@ export const selectNewInvoiceItems = createSelector(
   selectAccounting,
   pathOr(emptyArray, ['newInvoice', 'items']),
 );
+
+export const selectNewInvoice = createSelector(
+  selectAccounting,
+  propOr(emptyArray, 'newInvoice'),
+);

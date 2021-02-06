@@ -1,7 +1,7 @@
 import { isNil } from 'ramda';
 import { put, takeLatest, select } from 'redux-saga/effects';
 import { INVOICES, invoices } from 'src/store/actions';
-import { selectNewInvoiceItems } from 'src/store/selectors/accounting';
+import { selectNewInvoiceItems, selectNewInvoice } from 'src/store/selectors/accounting';
 
 export function* watchAddInvoiceItem() {
   yield takeLatest(INVOICES.ADD_INVOICE_ITEM, addInvoiceItem);
@@ -9,6 +9,10 @@ export function* watchAddInvoiceItem() {
 
 export function* watchUpdateInvoiceItem() {
   yield takeLatest(INVOICES.UPDATE_INVOICE_ITEM, updateInvoiceItem);
+}
+
+export function* watchUpdateInvoice() {
+  yield takeLatest(INVOICES.UPDATE_INVOICE, updateInvoice);
 }
 
 function* addInvoiceItem({ payload }) {
@@ -42,4 +46,19 @@ function* updateInvoiceItem({ payload }) {
   });
 
   yield put(invoices.setNewInvoiceItems(newInvoiceItems));
+}
+
+function* updateInvoice({ payload }) {
+  const invoice = yield select(selectNewInvoice);
+  const { companyName } = payload;
+  let newInvoice = {};
+
+  if (!isNil(companyName)) {
+    newInvoice = {
+      ...invoice,
+      companyName
+    };
+  }
+
+  yield put(invoices.setNewInvoice(newInvoice));
 }
