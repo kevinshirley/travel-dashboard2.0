@@ -532,7 +532,7 @@ function NewInvoice() {
                   placeholder='Company Name'
                   onBlur={e => {
                     onToggleCompanyNameState(e);
-                    updateInvoice({ id: invoiceId, companyName: e.target.value });
+                    updateInvoice({ companyName: e.target.value });
                   }}
                   onChange={e => setCompanyNameValue(e.target.value)}
                   value={companyNameValue}
@@ -561,9 +561,12 @@ function NewInvoice() {
                   <input
                     className={editRepFirstNameClasses}
                     type='text'
-                    name='firstName'
+                    name='repFirstName'
                     placeholder='First Name'
-                    onBlur={e => onToggleRepFirstNameState(e)}
+                    onBlur={e => {
+                      onToggleRepFirstNameState(e);
+                      updateInvoice({ repFirstName: e.target.value });
+                    }}
                     onChange={e => setRepFirstNameValue(e.target.value)}
                     value={repFirstNameValue}
                     {...editRepFirstNameState}
@@ -572,9 +575,12 @@ function NewInvoice() {
                   <input
                     className={editRepLastNameClasses}
                     type='text'
-                    name='lastName'
+                    name='repLastName'
                     placeholder='Last Name'
-                    onBlur={e => onToggleRepLastNameState(e)}
+                    onBlur={e => {
+                      onToggleRepLastNameState(e);
+                      updateInvoice({ repLastName: e.target.value });
+                    }}
                     onChange={e => setRepLastNameValue(e.target.value)}
                     value={repLastNameValue}
                     {...editRepLastNameState}

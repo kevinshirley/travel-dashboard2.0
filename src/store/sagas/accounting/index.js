@@ -49,14 +49,32 @@ function* updateInvoiceItem({ payload }) {
 }
 
 function* updateInvoice({ payload }) {
-  const invoice = yield select(selectNewInvoice);
-  const { companyName } = payload;
   let newInvoice = {};
+  const invoice = yield select(selectNewInvoice);
+  const {
+    companyName,
+    repFirstName,
+    repLastName,
+  } = payload;
 
   if (!isNil(companyName)) {
     newInvoice = {
       ...invoice,
       companyName
+    };
+  }
+
+  if (!isNil(repFirstName)) {
+    newInvoice = {
+      ...invoice,
+      repFirstName,
+    };
+  }
+
+  if (!isNil(repLastName)) {
+    newInvoice = {
+      ...invoice,
+      repLastName,
     };
   }
 
