@@ -47,6 +47,11 @@ const accounting = (state = initialState, { type, payload }) => {
         ...state,
         newInvoice: payload,
       };
+    case INVOICES.SET:
+      return {
+        ...state,
+        invoices: payload,
+      };
     default:
       return state;
   }

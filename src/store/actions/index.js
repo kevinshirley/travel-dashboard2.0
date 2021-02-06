@@ -135,6 +135,7 @@ export const INVOICES = createTypes('INVOICES', [
   'UPDATE_INVOICE',
   'SET_NEW_INVOICE',
   'SAVE',
+  'SET',
 ]);
 
 export const root = {
@@ -250,4 +251,5 @@ export const invoices = {
   updateInvoice: payload => action(INVOICES.UPDATE_INVOICE, payload),
   setNewInvoice: payload => action(INVOICES.SET_NEW_INVOICE, payload),
   saveInvoice: () => action(INVOICES.SAVE),
+  setInvoices: payload => action(INVOICES.SET, payload),
 };

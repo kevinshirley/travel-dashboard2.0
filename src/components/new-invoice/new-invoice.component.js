@@ -12,7 +12,7 @@ import { useAction } from 'src/store/hooks';
 
 const BEM_BLOCK = 'c-new-invoice';
 
-function NewInvoice({ addInvoiceError, resetError, }) {
+function NewInvoice({ addInvoiceError, resetError }) {
   const invoiceId = uuidv4();
   const { addToast } = useToasts();
 

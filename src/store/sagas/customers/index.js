@@ -7,7 +7,6 @@ import uuidv4 from 'src/utils/uuidv4';
 import { selectSessionProfile } from 'src/store/selectors/session';
 import { selectUserCustomers } from 'src/store/selectors/customers';
 
-import firebaseClient from 'firebase/app';
 import initFirebase from 'src/lib/auth/initFirebase';
 initFirebase();
 

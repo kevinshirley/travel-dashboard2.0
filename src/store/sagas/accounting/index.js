@@ -1,10 +1,10 @@
 import Router from 'next/router';
 import { isNil, isEmpty } from 'ramda';
 import { put, takeLatest, select, call } from 'redux-saga/effects';
-import { INVOICES, invoices, forms } from 'src/store/actions';
+import { INVOICES, invoices, forms, SESSION } from 'src/store/actions';
 import { selectNewInvoiceItems, selectNewInvoice } from 'src/store/selectors/accounting';
 import { selectSessionProfile } from 'src/store/selectors/session';
-import { post } from 'src/utils/fetch';
+import { post, axiosPost } from 'src/utils/fetch';
 
 export function* watchAddInvoiceItem() {
   yield takeLatest(INVOICES.ADD_INVOICE_ITEM, addInvoiceItem);
@@ -20,6 +20,10 @@ export function* watchUpdateInvoice() {
 
 export function* watchSaveInvoice() {
   yield takeLatest(INVOICES.SAVE, saveInvoice);
+}
+
+export function* watchFetchUserInvoices() {
+  yield takeLatest(SESSION.SET_PROFILE, fetchUserInvoices);
 }
 
 function* addInvoiceItem({ payload }) {
@@ -262,17 +266,38 @@ function* saveInvoice() {
     };
 
     const result = yield call(post, '/api/accounting/invoice/add', newInvoice);
-    console.log({ result });
+
     if (result.success) {
       yield put(forms.isSubmitting({ isSubmitting: false, form: 'addInvoice' }));
 
       Router.push({ pathname: '/invoices' });
 
       yield put(forms.setSuccess({ message: 'You\'ve successfully saved this invoice', form: 'addInvoice' }));
+
+      yield call(fetchUserInvoices);
     } else {
       yield put(forms.isSubmitting({ isSubmitting: false, form: 'addInvoice' }));
 
       yield put(forms.setError({ message: 'An error occured when saving this invoice', form: 'addInvoice' }));
+    }
+  }
+}
+
+function* fetchUserInvoices() {
+  const profile = yield select(selectSessionProfile);
+  const { id } = profile;
+
+  if (!isEmpty(id) && !isNil(id)) {
+    yield put(forms.isSubmitting({ isSubmitting: true, form: 'userInvoices' }));
+
+    const userInvoices = yield call(axiosPost, '/api/accounting/invoices', { id });
+    console.log({ userInvoices });
+    if (userInvoices.status === 200 && userInvoices.data.success) {
+      yield put(invoices.setInvoices(userInvoices.data.invoices));
+      yield put(forms.isSubmitting({ isSubmitting: false, form: 'userInvoices' }));
+    } else {
+      yield put(forms.setError({ message: userInvoices.data.error.message ? userInvoices.data.error.message : 'An error occured when pulling your invoices list.', form: 'userInvoices' }));
+      yield put(forms.isSubmitting({ isSubmitting: false, form: 'userInvoices' }));
     }
   }
 }
