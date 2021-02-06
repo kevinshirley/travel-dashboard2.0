@@ -21,6 +21,7 @@ function PageHeader({ coverImage = null, itineraryId = '', title }) {
 
   const uploadCoverImageAction = useAction(actions.itinerary.uploadCoverImage);
   const openModal = useAction(actions.ui.openModal);
+  const saveInvoice = useAction(actions.invoices.saveInvoice);
 
   const handleChange = (e) => {
     setValue(e.target.files[0]);
@@ -107,9 +108,20 @@ function PageHeader({ coverImage = null, itineraryId = '', title }) {
           )}
           {router.pathname === URL.NEW_INVOICE && (
             <div className={`${BEM_BLOCK}__new-invoice`}>
-              <Button className={`${BEM_BLOCK}__preview`} type='button'>Preview</Button>
-              <Button className={`${BEM_BLOCK}__save-draft`} type='button'>Save as draft</Button>
-              <Button className={`${BEM_BLOCK}__send`} type='button'>Send</Button>
+              <Button
+                className={`${BEM_BLOCK}__preview`}
+                onClick={() => console.log('coming soon...')}
+                type='button'
+              >
+                Preview
+              </Button>
+              <Button
+                className={`${BEM_BLOCK}__save`}
+                onClick={() => saveInvoice()}
+                type='button'
+              >
+                Save
+              </Button>
             </div>
           )}
         </div>

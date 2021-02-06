@@ -15,6 +15,10 @@ export function* watchUpdateInvoice() {
   yield takeLatest(INVOICES.UPDATE_INVOICE, updateInvoice);
 }
 
+export function* watchSaveInvoice() {
+  yield takeLatest(INVOICES.SAVE, saveInvoice);
+}
+
 function* addInvoiceItem({ payload }) {
   const invoiceItems = yield select(selectNewInvoiceItems);
   const newInvoiceItems = [
@@ -231,4 +235,8 @@ function* updateInvoice({ payload }) {
   }
 
   yield put(invoices.setNewInvoice(newInvoice));
+}
+
+function* saveInvoice() {
+  console.log('save invoice saga');
 }
