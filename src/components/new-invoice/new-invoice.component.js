@@ -922,7 +922,10 @@ function NewInvoice() {
                 type='text'
                 name='invoiceNumber'
                 placeholder='Enter invoice number'
-                onBlur={e => onToggleInvoiceNumberState(e)}
+                onBlur={e => {
+                  onToggleInvoiceNumberState(e);
+                  updateInvoice({ invoiceNumber: e.target.value });
+                }}
                 onChange={e => setInvoiceNumberValue(e.target.value)}
                 value={invoiceNumberValue}
                 {...editInvoiceNumberState}
@@ -942,7 +945,10 @@ function NewInvoice() {
                 type='text'
                 name='referenceNumber'
                 placeholder='Enter reference number'
-                onBlur={e => onToggleReferenceNumberState(e)}
+                onBlur={e => {
+                  onToggleReferenceNumberState(e);
+                  updateInvoice({ referenceNumber: e.target.value });
+                }}
                 onChange={e => setReferenceNumberValue(e.target.value)}
                 value={referenceNumberValue}
                 {...editReferenceNumberState}
@@ -967,8 +973,13 @@ function NewInvoice() {
             type='text'
             name='invoiceMessage'
             placeholder='Message'
-            onBlur={e => onToggleInvoiceMessageState(e)}
-            onChange={e => setInvoiceMessageValue(e.target.value)}
+            onBlur={e => {
+              onToggleInvoiceMessageState(e);
+              updateInvoice({ invoiceMessage: e.target.value });
+            }}
+            onChange={e => {
+              setInvoiceMessageValue(e.target.value); 
+            }}
             value={invoiceMessageValue}
             {...editInvoiceMessageState}
           />
@@ -1041,7 +1052,10 @@ function NewInvoice() {
             type='text'
             name='termsContent'
             placeholder='Message'
-            onBlur={e => onToggleTermsContentState(e)}
+            onBlur={e => {
+              onToggleTermsContentState(e);
+              updateInvoice({ termsContent: e.target.value });
+            }}
             onChange={e => setTermsContentValue(e.target.value)}
             value={termsContentValue}
             {...editTermsContentState}

@@ -70,6 +70,10 @@ function* updateInvoice({ payload }) {
     clientCountry,
     dueDate,
     dateIssued,
+    invoiceMessage,
+    termsContent,
+    invoiceNumber,
+    referenceNumber,
   } = payload;
 
   if (!isNil(companyName)) {
@@ -195,6 +199,34 @@ function* updateInvoice({ payload }) {
     newInvoice = {
       ...invoice,
       dateIssued,
+    };
+  }
+
+  if (!isNil(invoiceMessage)) {
+    newInvoice = {
+      ...invoice,
+      invoiceMessage,
+    };
+  }
+
+  if (!isNil(termsContent)) {
+    newInvoice = {
+      ...invoice,
+      termsContent,
+    };
+  }
+
+  if (!isNil(invoiceNumber)) {
+    newInvoice = {
+      ...invoice,
+      invoiceNumber,
+    };
+  }
+
+  if (!isNil(referenceNumber)) {
+    newInvoice = {
+      ...invoice,
+      referenceNumber,
     };
   }
 
