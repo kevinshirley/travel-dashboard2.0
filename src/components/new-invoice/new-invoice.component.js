@@ -1,5 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import cx from 'classnames';
+import { isEmpty } from 'ramda';
+import { useToasts } from 'react-toast-notifications';
 import { SPACING } from 'src/components/material-ui/icons';
 import { formatPrice } from 'src/utils/string';
 import InvoiceBreakdownLine from 'src/components/new-invoice/invoice-breakdown-line.component';
@@ -10,12 +12,22 @@ import { useAction } from 'src/store/hooks';
 
 const BEM_BLOCK = 'c-new-invoice';
 
-function NewInvoice() {
+function NewInvoice({ addInvoiceError, resetError, }) {
   const invoiceId = uuidv4();
+  const { addToast } = useToasts();
 
   useEffect(() => {
     updateInvoice({ invoiceId });
   }, []);
+
+  useEffect(() => {
+    if (!isEmpty(addInvoiceError)) {
+      addToast(addInvoiceError.message, {
+        appearance: 'error',
+        autoDismiss: false,
+      }, () => resetError({ form: 'addInvoice' }));
+    }
+  }, [addInvoiceError]);
 
   const addInvoiceItem = useAction(actions.invoices.addInvoiceItem);
   const updateInvoice = useAction(actions.invoices.updateInvoice);

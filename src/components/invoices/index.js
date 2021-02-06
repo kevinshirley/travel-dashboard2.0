@@ -4,13 +4,15 @@ import PageHeader from 'src/components/common/page-header';
 import Invoices from 'src/components/invoices/invoices.component';
 import { ToastProvider } from 'react-toast-notifications';
 
-function InvoicesContainer(props) {
-  console.log({ props });
+function InvoicesContainer({ addInvoiceSuccess, resetSuccess }) {
   return (
     <>
       <PageHeader title='Invoices' />
       <ToastProvider>
-        <Invoices />
+        <Invoices
+          addInvoiceSuccess={addInvoiceSuccess}
+          resetSuccess={resetSuccess}
+        />
       </ToastProvider>
     </>
   );

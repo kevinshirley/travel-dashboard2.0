@@ -26,6 +26,20 @@ function signIn(state = initialState, { type, payload }) {
           isSubmitting,
         };
       }
+    case FORMS.RESET_ERROR:
+      if (form === 'signIn') {
+        return {
+          ...state,
+          error: {},
+        };
+      }
+    case FORMS.RESET_SUCCESS:
+      if (form === 'signIn') {
+        return {
+          ...state,
+          success: {},
+        };
+      }
     default:
       return state;
   }
@@ -59,6 +73,20 @@ function signUp(state = initialState, { type, payload }) {
           isSubmitting,
         };
       }
+    case FORMS.RESET_ERROR:
+      if (form === 'signUp') {
+        return {
+          ...state,
+          error: {},
+        };
+      }
+    case FORMS.RESET_SUCCESS:
+      if (form === 'signUp') {
+        return {
+          ...state,
+          success: {},
+        };
+      }
     default:
       return state;
   }
@@ -90,6 +118,13 @@ function itineraries(state = initialState, { type, payload }) {
           success: {
             message,
           },
+        };
+      }
+    case FORMS.RESET_ERROR:
+      if (form === 'itineraries') {
+        return {
+          ...state,
+          error: {},
         };
       }
     case FORMS.RESET_SUCCESS:
@@ -132,6 +167,20 @@ function addItinerary(state = initialState, { type, payload }) {
           },
         };
       }
+    case FORMS.RESET_ERROR:
+      if (form === 'addItinerary') {
+        return {
+          ...state,
+          error: {},
+        };
+      }
+    case FORMS.RESET_SUCCESS:
+      if (form === 'addItinerary') {
+        return {
+          ...state,
+          success: {},
+        };
+      }
     default:
       return state;
   }
@@ -163,6 +212,20 @@ function manageItinerary(state = initialState, { type, payload }) {
           success: {
             message,
           },
+        };
+      }
+    case FORMS.RESET_ERROR:
+      if (form === 'manageItinerary') {
+        return {
+          ...state,
+          error: {},
+        };
+      }
+    case FORMS.RESET_SUCCESS:
+      if (form === 'manageItinerary') {
+        return {
+          ...state,
+          success: {},
         };
       }
     default:
@@ -252,6 +315,13 @@ function addCustomerNote(state = initialState, { type, payload }) {
           },
         };
       }
+    case FORMS.RESET_ERROR:
+      if (form === 'addCustomerNote') {
+        return {
+          ...state,
+          error: {},
+        };
+      }
     default:
       return state;
   }
@@ -290,6 +360,13 @@ function addInvoice(state = initialState, { type, payload }) {
           success: {
             message,
           },
+        };
+      }
+    case FORMS.RESET_ERROR:
+      if (form === 'addInvoice') {
+        return {
+          ...state,
+          error: {},
         };
       }
     default:
