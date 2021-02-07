@@ -8,15 +8,16 @@ const AddInvoice = (req, res) => {
   try {
     db.collection('invoices').doc(invoiceId).set({
       ...parsed,
-      createdAt: firebaseAdmin.firestore.FieldValue.serverTimestamp(),
     })
     .then(function() {
       res.send({ success: true, message: 'Invoice successfully added!' });
     })
     .catch(function(error) {
+      console.log({ success: false, error });
       res.send({ success: false, error });
     });
   } catch(error) {
+    console.log({ success: false, error });
     res.send({ success: false, error });
   }
 };

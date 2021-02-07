@@ -5,7 +5,7 @@ import { useToasts } from 'react-toast-notifications';
 
 const BEM_BLOCK = 'c-invoices';
 
-function Invoices({ addInvoiceSuccess, resetSuccess }) {
+function Invoices({ addInvoiceSuccess, invoices, resetSuccess }) {
   const { addToast } = useToasts();
 
   useEffect(() => {
@@ -19,7 +19,14 @@ function Invoices({ addInvoiceSuccess, resetSuccess }) {
 
   return (
     <div className={`${BEM_BLOCK}`}>
-      <InvoicesTable />
+      {!isEmpty(invoices) ? (
+        <InvoicesTable invoices={invoices} />
+      ) : (
+        <>
+          <br />
+          No invoices available. Click on +New to add an invoice to this list.
+        </>
+      )}
     </div>
   );
 };

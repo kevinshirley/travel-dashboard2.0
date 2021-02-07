@@ -5,6 +5,7 @@ import { INVOICES, invoices, forms, SESSION } from 'src/store/actions';
 import { selectNewInvoiceItems, selectNewInvoice } from 'src/store/selectors/accounting';
 import { selectSessionProfile } from 'src/store/selectors/session';
 import { post, axiosPost } from 'src/utils/fetch';
+import * as moment from 'moment';
 
 export function* watchAddInvoiceItem() {
   yield takeLatest(INVOICES.ADD_INVOICE_ITEM, addInvoiceItem);
@@ -263,6 +264,7 @@ function* saveInvoice() {
     const newInvoice = {
       ...invoice,
       createdBy: profile.id,
+      createdAt: moment().format(),
     };
 
     const result = yield call(post, '/api/accounting/invoice/add', newInvoice);
@@ -291,7 +293,7 @@ function* fetchUserInvoices() {
     yield put(forms.isSubmitting({ isSubmitting: true, form: 'userInvoices' }));
 
     const userInvoices = yield call(axiosPost, '/api/accounting/invoices', { id });
-    console.log({ userInvoices });
+
     if (userInvoices.status === 200 && userInvoices.data.success) {
       yield put(invoices.setInvoices(userInvoices.data.invoices));
       yield put(forms.isSubmitting({ isSubmitting: false, form: 'userInvoices' }));
