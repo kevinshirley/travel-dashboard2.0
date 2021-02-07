@@ -26,6 +26,7 @@ const initialState = {
     invoiceMessage: 'Thanks for your business and please contact for more details.',
     termsContent: 'Payment is required within 30 days. Thanks for your business.',
     status: 'pending',
+    totalAmountDue: 0,
     items: [],
   },
   invoices: [],

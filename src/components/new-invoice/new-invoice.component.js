@@ -307,8 +307,10 @@ function NewInvoice({ addInvoiceError, resetError }) {
     if (data.previousAmountTotal > 0) {
       const newTotal = totalAmountDue-data.previousAmountTotal;
       setTotalAmountDue(newTotal+data.amountTotal);
+      updateInvoice({ totalAmountDue: formatPrice(newTotal+data.amountTotal) });
     } else {
       setTotalAmountDue(totalAmountDue+data.amountTotal);
+      updateInvoice({ totalAmountDue: formatPrice(totalAmountDue+data.amountTotal) });
     }
   };
 

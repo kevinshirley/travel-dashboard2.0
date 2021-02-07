@@ -87,6 +87,7 @@ function* updateInvoice({ payload }) {
     invoiceNumber,
     referenceNumber,
     invoiceId,
+    totalAmountDue,
   } = payload;
 
   if (!isNil(companyName)) {
@@ -247,6 +248,13 @@ function* updateInvoice({ payload }) {
     newInvoice = {
       ...invoice,
       invoiceId,
+    };
+  }
+
+  if (!isNil(totalAmountDue)) {
+    newInvoice = {
+      ...invoice,
+      totalAmountDue,
     };
   }
 
