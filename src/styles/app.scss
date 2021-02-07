@@ -2109,6 +2109,24 @@ a {
           }
         }
 
+        .c-new-invoice__client-email {
+          .c-new-invoice__email {
+            white-space: nowrap;
+          }
+
+          .c-new-invoice__email--hidden {
+            display: none;
+          }
+
+          .c-new-invoice__edit-email {
+            white-space: nowrap;
+          }
+
+          .c-new-invoice__edit-email--hidden {
+            display: none;
+          }
+        }
+
         .c-new-invoice__client-street-address {
           .c-new-invoice__street-address {
             white-space: nowrap;

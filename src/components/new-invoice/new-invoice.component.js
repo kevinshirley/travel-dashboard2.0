@@ -54,6 +54,7 @@ function NewInvoice({ addInvoiceError, resetError }) {
   const [companyCountryValue, setCompanyCountryValue] = useState('');
   const [clientFirstNameValue, setClientFirstNameValue] = useState('');
   const [clientLastNameValue, setClientLastNameValue] = useState('');
+  const [clientEmailValue, setClientEmailValue] = useState('');
   const [clientStreetAddressValue, setClientStreetAddressValue] = useState('');
   const [clientCityValue, setClientCityValue] = useState('');
   const [clientStateValue, setClientStateValue] = useState('');
@@ -88,6 +89,8 @@ function NewInvoice({ addInvoiceError, resetError }) {
   const editClientFirstNameState = {'client-first-name-state': 'edit'};
   const clientLastNameState = {'client-last-name-state': 'display'};
   const editClientLastNameState = {'client-last-name-state': 'edit'};
+  const clientEmailState = {'client-email-state': 'display'};
+  const editClientEmailState = {'client-email-state': 'edit'};
   const clientStreetAddressState = {'client-street-address-state': 'display'};
   const editClientStreetAddressState = {'client-street-address-state': 'edit'};
   const clientCityState = {'client-city-state': 'display'};
@@ -108,6 +111,7 @@ function NewInvoice({ addInvoiceError, resetError }) {
   const [shouldEditCompanyName, setShouldEditCompanyName] = useState(false);
   const [shouldEditRepFirstName, setShouldEditRepFirstName] = useState(false);
   const [shouldEditRepLastName, setShouldEditRepLastName] = useState(false);
+  const [shouldEditRepEmail, setShouldEditRepEmail] = useState(false);
   const [shouldEditRepPhoneNumber, setShouldEditRepPhoneNumber] = useState(false);
   const [shouldEditCompanyStreetAddress, setShouldEditCompanyStreetAddress] = useState(false);
   const [shouldEditCompanyCity, setShouldEditCompanyCity] = useState(false);
@@ -116,6 +120,7 @@ function NewInvoice({ addInvoiceError, resetError }) {
   const [shouldEditCompanyCountry, setShouldEditCompanyCountry] = useState(false);
   const [shouldEditClientFirstName, setShouldEditClientFirstName] = useState(false);
   const [shouldEditClientLastName, setShouldEditClientLastName] = useState(false);
+  const [shouldEditClientEmail, setShouldEditClientEmail] = useState(false);
   const [shouldEditClientStreetAddress, setShouldEditClientStreetAddress] = useState(false);
   const [shouldEditClientCity, setShouldEditClientCity] = useState(false);
   const [shouldEditClientState, setShouldEditClientState] = useState(false);
@@ -226,6 +231,14 @@ function NewInvoice({ addInvoiceError, resetError }) {
 
   const editClientLastNameClasses = cx(`${BEM_BLOCK}__edit-client-last-name`, {
     [`${BEM_BLOCK}__edit-client-last-name--hidden`]: !shouldEditClientLastName,
+  });
+
+  const clientEmailClasses = cx(`${BEM_BLOCK}__email`, {
+    [`${BEM_BLOCK}__email--hidden`]: shouldEditClientEmail,
+  });
+
+  const editClientEmailClasses = cx(`${BEM_BLOCK}__edit-email`, {
+    [`${BEM_BLOCK}__edit-email--hidden`]: !shouldEditClientEmail,
   });
 
   const clientStreetAddressClasses = cx(`${BEM_BLOCK}__street-address`, {
@@ -374,6 +387,16 @@ function NewInvoice({ addInvoiceError, resetError }) {
     }
   };
 
+  const onToggleRepEmailState = e => {
+    const targetState = e.target.getAttribute('rep-email-state');
+
+    if (targetState === 'display') {
+      setShouldEditRepEmail(true);
+    } else if (targetState === 'edit') {
+      setShouldEditRepEmail(false);
+    }
+  };
+
   const onToggleRepPhoneNumberState = e => {
     const targetState = e.target.getAttribute('rep-phone-number-state');
 
@@ -451,6 +474,16 @@ function NewInvoice({ addInvoiceError, resetError }) {
       setShouldEditClientLastName(true);
     } else if (targetState === 'edit') {
       setShouldEditClientLastName(false);
+    }
+  };
+
+  const onToggleClientEmailState = e => {
+    const targetState = e.target.getAttribute('client-email-state');
+
+    if (targetState === 'display') {
+      setShouldEditClientEmail(true);
+    } else if (targetState === 'edit') {
+      setShouldEditClientEmail(false);
     }
   };
 
@@ -606,6 +639,28 @@ function NewInvoice({ addInvoiceError, resetError }) {
                     {...editRepLastNameState}
                   />
                 </span>
+              </div>
+              <div className={`${BEM_BLOCK}__company-representative-email`}>
+                <span
+                  className={repPhoneNumberClasses}
+                  onClick={e => onToggleRepPhoneNumberState(e)}
+                  {...repPhoneNumberState}
+                >
+                  {repPhoneNumberValue ? repPhoneNumberValue : 'Email'}
+                </span>
+                <input
+                  className={editRepPhoneNumberClasses}
+                  type='text'
+                  name='phoneNumber'
+                  placeholder='Phone Number'
+                  onBlur={e => {
+                    onToggleRepPhoneNumberState(e);
+                    updateInvoice({ repPhoneNumber: e.target.value });
+                  }}
+                  onChange={e => setRepPhoneNumberValue(e.target.value)}
+                  value={repPhoneNumberValue}
+                  {...editRepPhoneNumberState}
+                />
               </div>
               <div className={`${BEM_BLOCK}__company-representative-number`}>
                 <span
@@ -791,6 +846,28 @@ function NewInvoice({ addInvoiceError, resetError }) {
                 onChange={e => setClientLastNameValue(e.target.value)}
                 value={clientLastNameValue}
                 {...editClientLastNameState}
+              />
+            </div>
+            <div className={`${BEM_BLOCK}__client-email`}>
+              <span
+                className={clientEmailClasses}
+                onClick={e => onToggleClientEmailState(e)}
+                {...clientEmailState}
+              >
+                {clientEmailValue ? clientEmailValue : 'Email'}
+              </span>
+              <input
+                className={editClientEmailClasses}
+                type='text'
+                name='clientEmail'
+                placeholder='Email'
+                onBlur={e => {
+                  onToggleClientEmailState(e);
+                  updateInvoice({ clientEmail: e.target.value });
+                }}
+                onChange={e => setClientEmailValue(e.target.value)}
+                value={clientEmailValue}
+                {...editClientEmailState}
               />
             </div>
             <div className={`${BEM_BLOCK}__client-street-address`}>

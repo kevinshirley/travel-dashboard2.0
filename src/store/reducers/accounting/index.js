@@ -16,6 +16,7 @@ const initialState = {
     companyCountry: '',
     clientFirstName: '',
     clientLastName: '',
+    clientEmail: '',
     clientStreetAddress: '',
     clientCity: '',
     clientState: '',
