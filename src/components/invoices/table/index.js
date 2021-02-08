@@ -240,7 +240,7 @@ function EnhancedTable({ deleteItinerary, isDeleting, invoices, resetItineraries
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const shouldResetItinerariesTable = useSelector(selectShouldResetItinerariesTable);
-  console.log({ invoices });
+
   const rows = invoices && invoices.map(invoice => {
     return createData(invoice.invoiceId, invoice.clientFirstName, invoice.clientLastName, invoice.clientEmail, invoice.status, invoice.totalAmountDue, invoice.createdAt);
   });

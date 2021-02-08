@@ -18,6 +18,9 @@ function NewInvoice({ addInvoiceError, resetError }) {
 
   useEffect(() => {
     updateInvoice({ invoiceId });
+    updateInvoice({ invoiceNumber: invoiceNumberValue });
+    updateInvoice({ invoiceMessage: invoiceMessageValue });
+    updateInvoice({ termsContent: termsContentValue });
   }, []);
 
   useEffect(() => {
