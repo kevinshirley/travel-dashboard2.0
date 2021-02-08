@@ -8,6 +8,7 @@ const initialState = {
     companyName: '',
     repFirstName: '',
     repLastName: '',
+    repEmail: '',
     repPhoneNumber: '',
     companyStreetAddress: '',
     companyCity: '',

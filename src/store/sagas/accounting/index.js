@@ -67,6 +67,7 @@ function* updateInvoice({ payload }) {
     companyName,
     repFirstName,
     repLastName,
+    repEmail,
     repPhoneNumber,
     companyStreetAddress,
     companyCity,
@@ -109,6 +110,13 @@ function* updateInvoice({ payload }) {
     newInvoice = {
       ...invoice,
       repLastName,
+    };
+  }
+
+  if (!isNil(repEmail)) {
+    newInvoice = {
+      ...invoice,
+      repEmail,
     };
   }
 

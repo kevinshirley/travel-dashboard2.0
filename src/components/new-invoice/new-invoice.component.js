@@ -46,6 +46,7 @@ function NewInvoice({ addInvoiceError, resetError }) {
   const [companyNameValue, setCompanyNameValue] = useState('');
   const [repFirstNameValue, setRepFirstNameValue] = useState('');
   const [repLastNameValue, setRepLastNameValue] = useState('');
+  const [repEmailValue, setRepEmailValue] = useState('');
   const [repPhoneNumberValue, setRepPhoneNumberValue] = useState('');
   const [companyStreetAddressValue, setCompanyStreetAddressValue] = useState('');
   const [companyCityValue, setCompanyCityValue] = useState('');
@@ -73,6 +74,8 @@ function NewInvoice({ addInvoiceError, resetError }) {
   const editRepFirstNameState = {'rep-first-name-state': 'edit'};
   const repLastNameState = {'rep-last-name-state': 'display'};
   const editRepLastNameState = {'rep-last-name-state': 'edit'};
+  const repEmailState = {'rep-email-state': 'display'};
+  const editRepEmailState = {'rep-email-state': 'edit'};
   const repPhoneNumberState = {'rep-phone-number-state': 'display'};
   const editRepPhoneNumberState = {'rep-phone-number-state': 'edit'};
   const companyStreetAddressState = {'company-street-address-state': 'display'};
@@ -167,6 +170,14 @@ function NewInvoice({ addInvoiceError, resetError }) {
 
   const editRepLastNameClasses = cx(`${BEM_BLOCK}__edit-rep-last-name`, {
     [`${BEM_BLOCK}__edit-rep-last-name--hidden`]: !shouldEditRepLastName,
+  });
+
+  const repEmailClasses = cx(`${BEM_BLOCK}__rep-email`, {
+    [`${BEM_BLOCK}__rep-email--hidden`]: shouldEditRepEmail,
+  });
+
+  const editRepEmailClasses = cx(`${BEM_BLOCK}__edit-rep-email`, {
+    [`${BEM_BLOCK}__edit-rep-email--hidden`]: !shouldEditRepEmail,
   });
 
   const repPhoneNumberClasses = cx(`${BEM_BLOCK}__rep-phone-number`, {
@@ -642,24 +653,24 @@ function NewInvoice({ addInvoiceError, resetError }) {
               </div>
               <div className={`${BEM_BLOCK}__company-representative-email`}>
                 <span
-                  className={repPhoneNumberClasses}
-                  onClick={e => onToggleRepPhoneNumberState(e)}
-                  {...repPhoneNumberState}
+                  className={repEmailClasses}
+                  onClick={e => onToggleRepEmailState(e)}
+                  {...repEmailState}
                 >
-                  {repPhoneNumberValue ? repPhoneNumberValue : 'Email'}
+                  {repEmailValue ? repEmailValue : 'Email'}
                 </span>
                 <input
-                  className={editRepPhoneNumberClasses}
+                  className={editRepEmailClasses}
                   type='text'
-                  name='phoneNumber'
-                  placeholder='Phone Number'
+                  name='repEmail'
+                  placeholder='Email'
                   onBlur={e => {
-                    onToggleRepPhoneNumberState(e);
-                    updateInvoice({ repPhoneNumber: e.target.value });
+                    onToggleRepEmailState(e);
+                    updateInvoice({ repEmail: e.target.value });
                   }}
-                  onChange={e => setRepPhoneNumberValue(e.target.value)}
-                  value={repPhoneNumberValue}
-                  {...editRepPhoneNumberState}
+                  onChange={e => setRepEmailValue(e.target.value)}
+                  value={repEmailValue}
+                  {...editRepEmailState}
                 />
               </div>
               <div className={`${BEM_BLOCK}__company-representative-number`}>
