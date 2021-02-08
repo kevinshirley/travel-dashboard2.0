@@ -115,3 +115,21 @@ export const selectAddCustomerNoteIsSubmitting = R.pathOr(false, [
   'addCustomerNote',
   'isSubmitting',
 ]);
+
+export const selectAddInvoiceIsSubmitting = R.pathOr(false, [
+  'forms',
+  'addInvoice',
+  'isSubmitting',
+]);
+
+export const selectAddInvoiceSuccess = R.pathOr(emptyObject, [
+  'forms',
+  'addInvoice',
+  'success',
+]);
+
+export const selectAddInvoiceError = R.pathOr(emptyObject, [
+  'forms',
+  'addInvoice',
+  'error',
+]);

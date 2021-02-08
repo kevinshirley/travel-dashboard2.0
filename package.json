@@ -36,6 +36,7 @@
     "classnames": "^2.2.6",
     "clsx": "^1.1.1",
     "contentful": "^7.14.14",
+    "date-fns": "^2.16.1",
     "debug": "^4.3.1",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
@@ -67,6 +68,7 @@
     "react": "17.0.1",
     "react-apollo": "^3.1.5",
     "react-calendar": "^3.2.1",
+    "react-date-picker": "^8.0.7",
     "react-dom": "^17.0.1",
     "react-redux": "^7.2.2",
     "react-reveal": "^1.2.2",
@@ -82,7 +84,8 @@
     "styled-jsx-plugin-sass": "^1.0.0",
     "swr": "^0.4.0",
     "url": "^0.11.0",
-    "uuid": "^8.3.1"
+    "uuid": "^8.3.1",
+    "webpack": "4.28.4"
   },
   "devDependencies": {
     "@types/node": "^14.14.9",

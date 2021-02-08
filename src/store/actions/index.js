@@ -128,6 +128,16 @@ export const CUSTOMERS = createTypes('CUSTOMERS', [
   'SET_ORGANIZATION',
 ]);
 
+export const INVOICES = createTypes('INVOICES', [
+  'ADD_INVOICE_ITEM',
+  'UPDATE_INVOICE_ITEM',
+  'SET_NEW_INVOICE_ITEMS',
+  'UPDATE_INVOICE',
+  'SET_NEW_INVOICE',
+  'SAVE',
+  'SET',
+]);
+
 export const root = {
   initialLoad: params => actionWithoutStoreUpdate(ROOT.INITIAL_LOAD, { params }),
 };
@@ -232,4 +242,14 @@ export const customer = {
 
 export const customers = {
   setUser: payload => action(CUSTOMERS.SET_USER, payload),
+};
+
+export const invoices = {
+  addInvoiceItem: payload => action(INVOICES.ADD_INVOICE_ITEM, payload),
+  updateInvoiceItem: payload => action(INVOICES.UPDATE_INVOICE_ITEM, payload),
+  setNewInvoiceItems: payload => action(INVOICES.SET_NEW_INVOICE_ITEMS, payload),
+  updateInvoice: payload => action(INVOICES.UPDATE_INVOICE, payload),
+  setNewInvoice: payload => action(INVOICES.SET_NEW_INVOICE, payload),
+  saveInvoice: () => action(INVOICES.SAVE),
+  setInvoices: payload => action(INVOICES.SET, payload),
 };

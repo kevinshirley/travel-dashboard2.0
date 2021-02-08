@@ -1,25 +1,25 @@
 import { firebaseAdmin } from '../../../../src/lib/auth/firebaseAdmin';
 
-const UserCustomers = (req, res, next) => {
+const Invoices = (req, res, next) => {
   const db = firebaseAdmin.firestore();
   const { id } = req.body;
 
-  db.collection('userClients')
+  db.collection('invoices')
     .where('createdBy', '==', id)
     .get()
     .then(snap => {
       try {
-        let clients = [];
+        let invoices = [];
         snap.forEach(doc => {
-          const newClient = doc.data();
-          clients = [
-            ...clients,
-            newClient,
+          const newInvoice = doc.data();
+          invoices = [
+            ...invoices,
+            newInvoice,
           ];
         });
         res.send({
           success: true,
-          clients,
+          invoices,
         });
       } catch(err) {
         res.send({
@@ -36,4 +36,4 @@ const UserCustomers = (req, res, next) => {
     });
 };
 
-export default UserCustomers;
+export default Invoices;

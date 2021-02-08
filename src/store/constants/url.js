@@ -9,6 +9,7 @@ export const ITINERARY = '/itinerary/[id]';
 export const CUSTOMERS = '/customers';
 export const CUSTOMER_PROFILE = '/customers/[id]';
 export const INVOICES = '/invoices';
+export const NEW_INVOICE = '/invoices/new';
 export const SIGN_UP = '/sign-up';
 
 export const URL = {
@@ -18,5 +19,6 @@ export const URL = {
   CUSTOMERS,
   CUSTOMER_PROFILE,
   INVOICES,
+  NEW_INVOICE,
   SIGN_UP,
 };

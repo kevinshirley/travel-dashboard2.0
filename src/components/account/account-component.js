@@ -34,8 +34,7 @@ function Account({ profile }) {
           )}
           {SPACING}
           {createdAt && (
-            // <div><h5>Joined:</h5> {moment.utc(createdAt).format('LLLL')}</div>
-            <div><h5>Joined:</h5> {moment.utc(Date.now(createdAt)).format('LLLL')}</div>
+            <div><h5>Joined:</h5> {moment(createdAt.toDate()).format('LLLL')}</div>
           )}
         </div>
         {SPACING}

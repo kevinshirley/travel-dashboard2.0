@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import { useRouter } from 'next/router';
+import { useSelector } from 'react-redux';
 import { EMPTY_BACKGROUND } from 'src/components/common/images';
 import { useAction } from 'src/store/hooks';
 import * as actions from 'src/store/actions';
@@ -11,6 +12,9 @@ import { CAMERA_ICON, SPACING, LINK_ICON } from 'src/components/material-ui/icon
 import { ITINERARY_EDITOR_PATHNAMES, URL } from 'src/store/constants/url';
 import Link from 'src/components/common/link';
 import { MODALS } from 'src/store/constants/modals';
+import { selectAddInvoiceIsSubmitting } from 'src/store/selectors/forms';
+
+const BEM_BLOCK = 'c-page-header';
 
 function PageHeader({ coverImage = null, itineraryId = '', title }) {
   const router = useRouter();
@@ -19,6 +23,9 @@ function PageHeader({ coverImage = null, itineraryId = '', title }) {
 
   const uploadCoverImageAction = useAction(actions.itinerary.uploadCoverImage);
   const openModal = useAction(actions.ui.openModal);
+  const saveInvoice = useAction(actions.invoices.saveInvoice);
+
+  const addInvoiceIsSubmitting = useSelector(selectAddInvoiceIsSubmitting);
 
   const handleChange = (e) => {
     setValue(e.target.files[0]);
@@ -35,7 +42,7 @@ function PageHeader({ coverImage = null, itineraryId = '', title }) {
   });
 
   return (
-    <div className='page-header'>
+    <div className={`${BEM_BLOCK}`}>
       {(coverImage && coverImage.location) || ITINERARY_EDITOR_PATHNAMES.includes(router.pathname) ? (
         <>
           <div className='cover' style={{
@@ -80,10 +87,10 @@ function PageHeader({ coverImage = null, itineraryId = '', title }) {
           </div>
         </>
       ) : (
-        <div className='page-header__title'>
+        <div className={`${BEM_BLOCK}__title`}>
           <h1>{title}</h1>
           {router.pathname === URL.CUSTOMERS && (
-            <div className='page-header__add-customer'>
+            <div className={`${BEM_BLOCK}__add-customer`}>
               <Button
                 onClick={() => openModal({
                   modal: MODALS.ADD_CUSTOMER,
@@ -95,12 +102,31 @@ function PageHeader({ coverImage = null, itineraryId = '', title }) {
             </div>
           )}
           {router.pathname === URL.INVOICES && (
-            <div className='page-header__new-invoice'>
+            <div className={`${BEM_BLOCK}__invoices`}>
               <Link href='/invoices/new'>
                 <Button type='button'>
                   + New
                 </Button>
               </Link>
+            </div>
+          )}
+          {router.pathname === URL.NEW_INVOICE && (
+            <div className={`${BEM_BLOCK}__new-invoice`}>
+              <Button
+                className={`${BEM_BLOCK}__preview`}
+                onClick={() => console.log('coming soon...')}
+                type='button'
+              >
+                Preview
+              </Button>
+              <Button
+                className={`${BEM_BLOCK}__save`}
+                isLoading={addInvoiceIsSubmitting}
+                onClick={() => saveInvoice()}
+                type='button'
+              >
+                Save
+              </Button>
             </div>
           )}
         </div>

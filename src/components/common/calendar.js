@@ -10,12 +10,12 @@ function ReactCalendar({ isVisible, setTripStartDate }) {
 
   const handleChange = (date) => {
     setValue(date);
-    setTripStartDate(date);
+    // setTripStartDate(date);
   };
 
-  const calendarClasses = cx({
+  const calendarClasses = cx('calendar-container', {
     'not-visible': !isVisible,
-  }, 'calendar-container');
+  });
 
   return (
     <div className={calendarClasses}>

@@ -11,17 +11,19 @@ import forms from 'src/store/reducers/forms';
 import displayItinerary from 'src/store/reducers/display-itinerary';
 import customer from 'src/store/reducers/customer';
 import customers from 'src/store/reducers/customers';
+import accounting from 'src/store/reducers/accounting';
 
 export default combineReducers({
-  ui,
-  itineraries,
+  accounting,
   addItinerary,
-  manageItinerary,
-  displayItinerary,
-  destinations,
   blog,
-  session,
-  forms,
   customer,
   customers,
+  destinations,
+  displayItinerary,
+  forms,
+  itineraries,
+  manageItinerary,
+  session,
+  ui,
 });

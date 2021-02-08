@@ -1,0 +1,63 @@
+import { INVOICES } from 'src/store/actions';
+
+const initialState = {
+  newInvoice: {
+    invoiceId: '',
+    invoiceNumber: '',
+    referenceNumber: '',
+    companyName: '',
+    repFirstName: '',
+    repLastName: '',
+    repEmail: '',
+    repPhoneNumber: '',
+    companyStreetAddress: '',
+    companyCity: '',
+    companyState: '',
+    companyZipCode: '',
+    companyCountry: '',
+    clientFirstName: '',
+    clientLastName: '',
+    clientEmail: '',
+    clientStreetAddress: '',
+    clientCity: '',
+    clientState: '',
+    clientZipCode: '',
+    clientCountry: '',
+    dateIssued: '',
+    dueDate: '',
+    invoiceMessage: 'Thanks for your business and please contact for more details.',
+    termsContent: 'Payment is required within 30 days. Thanks for your business.',
+    status: 'pending',
+    totalAmountDue: 0,
+    items: [],
+  },
+  invoices: [],
+  expenses: [],
+};
+
+const accounting = (state = initialState, { type, payload }) => {
+  switch (type) {
+    case INVOICES.SET_NEW_INVOICE_ITEMS:
+      return {
+        ...state,
+        newInvoice: {
+          ...state.newInvoice,
+          items: payload,
+        },
+      };
+    case INVOICES.SET_NEW_INVOICE:
+      return {
+        ...state,
+        newInvoice: payload,
+      };
+    case INVOICES.SET:
+      return {
+        ...state,
+        invoices: payload,
+      };
+    default:
+      return state;
+  }
+}
+
+export default accounting;

@@ -231,7 +231,7 @@ const useStyles = makeStyles((theme) => ({
 
 const BEM_BLOCK = 'c-invoices-table';
 
-function EnhancedTable({ deleteItinerary, isDeleting, itineraries, resetItinerariesTable }) {
+function EnhancedTable({ deleteItinerary, isDeleting, invoices, resetItinerariesTable }) {
   const classes = useStyles();
   const [order, setOrder] = React.useState('desc');
   const [orderBy, setOrderBy] = React.useState('date');
@@ -240,21 +240,10 @@ function EnhancedTable({ deleteItinerary, isDeleting, itineraries, resetItinerar
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const shouldResetItinerariesTable = useSelector(selectShouldResetItinerariesTable);
-
-  // const rows = itineraries && itineraries.map(trip => {
-  //   return createItineraryData(trip.tripInformation.coverImage.location, trip.tripInformation.title, `${trip.tripInformation.location}, ${trip.tripInformation.country}`, trip.createdAt, trip.itinerary_id);
-  // });
-
-  const rows = [
-    createData('5ecb868d0f437390ef3ac62c', 'Nancy', 'Doe', 'nancydoe@gmail.com', 'paid', '253.76', '27/12/2020'),
-    createData('5ecb868d0f437390ef3ws34e', 'Bobby', 'Paris', 'bobbydoe@gmail.com', 'canceled', '433.22', '21/11/2020'),
-    createData('5ecb868d0f437390ef3cf87q', 'Amanda', 'Tennesse', 'amandadoe@gmail.com', 'canceled', '365.85', '12/10/2020'),
-    createData('5ecb868d0f437390ef3bt64m', 'Jared', 'Orlando', 'jareddoe@gmail.com', 'paid', '734.88', '17/11/2020'),
-    createData('5ecb868d0f437390ef3ac61s', 'Fred', 'Colergreen', 'fredcolergreen@gmail.com', 'pending', '253.76', '27/12/2020'),
-    createData('5ecb868d0f437390ef3ws37h', 'Larry', 'Brazil', 'larrydoe@gmail.com', 'canceled', '433.22', '21/11/2020'),
-    createData('5ecb868d0f437390ef3cf89k', 'Warner', 'Polo', 'warnerdoe@gmail.com', 'canceled', '365.85', '12/10/2020'),
-    createData('5ecb868d0f437390ef3bt63n', 'Vince', 'Doe', 'vincedoe@gmail.com', 'paid', '734.88', '17/11/2020'),
-  ];
+  console.log({ invoices });
+  const rows = invoices && invoices.map(invoice => {
+    return createData(invoice.invoiceId, invoice.clientFirstName, invoice.clientLastName, invoice.clientEmail, invoice.status, invoice.totalAmountDue, invoice.createdAt);
+  });
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -354,6 +343,7 @@ function EnhancedTable({ deleteItinerary, isDeleting, itineraries, resetItinerar
                   const isItemSelected = isSelected(row.id);
                   const labelId = `enhanced-table-checkbox-${index}`;
                   const name = `${row.firstName} ${row.lastName}`;
+                  const { date } = row;
 
                   return (
                     <TableRow
@@ -391,7 +381,7 @@ function EnhancedTable({ deleteItinerary, isDeleting, itineraries, resetItinerar
                       <TableCell align='left'>{row.status}</TableCell>
                       <TableCell align='left'>${row.amount}</TableCell>
                       <TableCell align='left'>{row.id}</TableCell>
-                      <TableCell align='left'>{row.date}</TableCell>
+                      <TableCell align='left'>{moment(date).format('llll')}</TableCell>
                       <TableCell align='left'>
                         <Link href={`/invoices/${row.id}`} className={`${BEM_BLOCK}__view-invoice`}>
                           {ARROW_FORWARD_ICON}

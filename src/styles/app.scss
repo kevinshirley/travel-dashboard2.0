@@ -278,7 +278,7 @@ a {
   }
 }
 
-.page-header {
+.c-page-header {
   width: 100%;
   overflow-y: hidden;
 
@@ -315,16 +315,44 @@ a {
     align-items: center;
   }
 
-  .page-header__title {
+  .c-page-header__title {
     display: flex;
     align-items: center;
 
-    .page-header__add-customer, .page-header__new-invoice {
+    .c-page-header__add-customer,
+    .c-page-header__invoices,
+    .c-page-header__new-invoice {
       margin-left: 15px;
-      
+
       #text-button {
         background: $customers-tabs__add-customer-background-color;
         color: $customers-tabs__add-customer-color;
+
+        .spinner {
+          width: 24px;
+          height: 24px;
+
+          img {
+            width: 100%;
+            height: 100%;
+          }
+        }
+      }
+    }
+
+    .c-page-header__new-invoice {
+      #text-button {
+        margin-right: 15px;
+      }
+
+      .c-page-header__preview {
+        background: lightgray !important;
+        color: $black !important;
+      }
+
+      .c-page-header__save-draft {
+        background: lightgray !important;
+        color: $black !important;
       }
     }
   }
@@ -1834,6 +1862,7 @@ a {
 .c-new-invoice {
   width: 100%;
   min-width: 680px;
+  margin-top: 30px;
 
   .c-new-invoice__invoice {
     width: 100%;
@@ -1870,6 +1899,78 @@ a {
           span {
             font-size: 14px;
           }
+
+          .c-new-invoice__company-name {
+            .c-new-invoice__company-name-value--hidden {
+              display: none;
+            }
+
+            .c-new-invoice__edit-company-name-value--hidden {
+              display: none;
+            }
+          }
+
+          .c-new-invoice__company-representative-name {
+            .c-new-invoice__company-rep-name--wrapper {
+              white-space: nowrap;
+
+              .c-new-invoice__rep-first-name--hidden {
+                display: none;
+              }
+
+              .c-new-invoice__rep-last-name--hidden {
+                display: none;
+              }
+            }
+
+            .c-new-invoice__edit-company-rep-name--wrapper {
+              white-space: nowrap;
+
+              .c-new-invoice__edit-rep-first-name--hidden {
+                display: none;
+              }
+
+              .c-new-invoice__edit-rep-last-name--hidden {
+                display: none;
+              }
+            }
+          }
+
+          .c-new-invoice__company-representative-email {
+            .c-new-invoice__rep-email {
+              white-space: nowrap;
+            }
+
+            .c-new-invoice__rep-email--hidden {
+              display: none;
+            }
+
+            .c-new-invoice__edit-rep-email {
+              white-space: nowrap;
+            }
+
+            .c-new-invoice__edit-rep-email--hidden {
+              display: none;
+            }
+          }
+
+          .c-new-invoice__company-representative-number {
+            .c-new-invoice__rep-phone-number {
+              white-space: nowrap;
+            }
+
+            .c-new-invoice__rep-phone-number--hidden {
+              display: none;
+            }
+
+            .c-new-invoice__edit-rep-phone-number {
+              white-space: nowrap;
+            }
+
+            .c-new-invoice__edit-rep-phone-number--hidden {
+              display: none;
+            }
+          }
         }
 
         .c-new-invoice__company-address {
@@ -1879,6 +1980,96 @@ a {
 
           span {
             font-size: 14px;
+          }
+
+          .c-new-invoice__street-address--wrapper {
+            .c-new-invoice__street-address {
+              white-space: nowrap;
+            }
+
+            .c-new-invoice__street-address--hidden {
+              display: none;
+            }
+
+            .c-new-invoice__edit-street-address {
+              white-space: nowrap;
+            }
+
+            .c-new-invoice__edit-street-address--hidden {
+              display: none;
+            }
+          }
+
+          .c-new-invoice__city-state--wrapper {
+            .c-new-invoice__company-city-state {
+              .c-new-invoice__city {
+                white-space: nowrap;
+              }
+
+              .c-new-invoice__city--hidden {
+                display: none;
+              }
+
+              .c-new-invoice__edit-city {
+                white-space: nowrap;
+              }
+
+              .c-new-invoice__edit-city--hidden {
+                display: none;
+              }
+
+              .c-new-invoice__state {
+                white-space: nowrap;
+              }
+
+              .c-new-invoice__state--hidden {
+                display: none;
+              }
+
+              .c-new-invoice__edit-state {
+                white-space: nowrap;
+              }
+
+              .c-new-invoice__edit-state--hidden {
+                display: none;
+              }
+            }
+          }
+
+          .c-new-invoice__zip-code--wrapper {
+            .c-new-invoice__zip-code {
+              white-space: nowrap;
+            }
+
+            .c-new-invoice__zip-code--hidden {
+              display: none;
+            }
+
+            .c-new-invoice__edit-zip-code {
+              white-space: nowrap;
+            }
+
+            .c-new-invoice__edit-zip-code--hidden {
+              display: none;
+            }
+          }
+
+          .c-new-invoice__country--wrapper {
+            .c-new-invoice__country {
+              white-space: nowrap;
+            }
+
+            .c-new-invoice__country--hidden {
+              display: none;
+            }
+
+            .c-new-invoice__edit-country {
+              white-space: nowrap;
+            }
+
+            .c-new-invoice__edit-country--hidden {
+              display: none;
+            }
           }
         }
       }
@@ -1901,6 +2092,146 @@ a {
           color: $new-invoice__color;
           font-weight: 500;
         }
+
+        .c-new-invoice__client-name {
+          .c-new-invoice__client-first-name {
+            white-space: nowrap;
+          }
+
+          .c-new-invoice__client-first-name--hidden {
+            display: none;
+          }
+
+          .c-new-invoice__edit-client-first-name {
+            white-space: nowrap;
+          }
+
+          .c-new-invoice__edit-client-first-name--hidden {
+            display: none;
+          }
+
+          .c-new-invoice__client-last-name {
+            white-space: nowrap;
+          }
+
+          .c-new-invoice__client-last-name--hidden {
+            display: none;
+          }
+
+          .c-new-invoice__edit-client-last-name {
+            white-space: nowrap;
+          }
+
+          .c-new-invoice__edit-client-last-name--hidden {
+            display: none;
+          }
+        }
+
+        .c-new-invoice__client-email {
+          .c-new-invoice__email {
+            white-space: nowrap;
+          }
+
+          .c-new-invoice__email--hidden {
+            display: none;
+          }
+
+          .c-new-invoice__edit-email {
+            white-space: nowrap;
+          }
+
+          .c-new-invoice__edit-email--hidden {
+            display: none;
+          }
+        }
+
+        .c-new-invoice__client-street-address {
+          .c-new-invoice__street-address {
+            white-space: nowrap;
+          }
+
+          .c-new-invoice__street-address--hidden {
+            display: none;
+          }
+
+          .c-new-invoice__edit-street-address {
+            white-space: nowrap;
+          }
+
+          .c-new-invoice__edit-street-address--hidden {
+            display: none;
+          }
+        }
+
+        .c-new-invoice__client-city-state {
+          .c-new-invoice__city {
+            white-space: nowrap;
+          }
+
+          .c-new-invoice__city--hidden {
+            display: none;
+          }
+
+          .c-new-invoice__edit-city {
+            white-space: nowrap;
+          }
+
+          .c-new-invoice__edit-city--hidden {
+            display: none;
+          }
+
+          .c-new-invoice__state {
+            white-space: nowrap;
+          }
+
+          .c-new-invoice__state--hidden {
+            display: none;
+          }
+
+          .c-new-invoice__edit-state {
+            white-space: nowrap;
+          }
+
+          .c-new-invoice__edit-state--hidden {
+            display: none;
+          }
+        }
+
+        .c-new-invoice__client-zip-code {
+          .c-new-invoice__zip-code {
+            white-space: nowrap;
+          }
+
+          .c-new-invoice__zip-code--hidden {
+            display: none;
+          }
+
+          .c-new-invoice__edit-zip-code {
+            white-space: nowrap;
+          }
+
+          .c-new-invoice__edit-zip-code--hidden {
+            display: none;
+          }
+        }
+
+        .c-new-invoice__client-country {
+          .c-new-invoice__country {
+            white-space: nowrap;
+          }
+
+          .c-new-invoice__country--hidden {
+            display: none;
+          }
+
+          .c-new-invoice__edit-country {
+            white-space: nowrap;
+          }
+
+          .c-new-invoice__edit-country--hidden {
+            display: none;
+          }
+        }
       }
 
       .c-new-invoice__billed-to-date {
@@ -1917,6 +2248,34 @@ a {
             color: $new-invoice__color;
             font-weight: 500;
           }
+
+          .c-new-invoice__date {
+            font-size: 14px;
+            border: none;
+            padding: 0;
+            width: 80px;
+          }
+
+          .c-new-invoice__date--wrapper {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+
+            svg {
+              font-size: 16px;
+              cursor: pointer;
+            }
+
+            .c-date-picker-container {
+              .react-date-picker__wrapper {
+                border: none;
+
+                .react-date-picker__clear-button {
+                  display: none;
+                }
+              }
+            }
+          }
         }
 
         .c-new-invoice__due-date {
@@ -1930,6 +2289,34 @@ a {
           .c-new-invoice__due-date-title {
             color: $new-invoice__color;
             font-weight: 500;
+          }
+
+          .c-new-invoice__date {
+            font-size: 14px;
+            border: none;
+            padding: 0;
+            width: 80px;
+          }
+
+          .c-new-invoice__date--wrapper {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+
+            svg {
+              font-size: 16px;
+              cursor: pointer;
+            }
+
+            .c-date-picker-container {
+              .react-date-picker__wrapper {
+                border: none;
+
+                .react-date-picker__clear-button {
+                  display: none;
+                }
+              }
+            }
           }
         }
       }
@@ -1948,6 +2335,14 @@ a {
             color: $new-invoice__color;
             font-weight: 500;
           }
+
+          .c-new-invoice__number--hidden {
+            display: none;
+          }
+
+          .c-new-invoice__edit-number--hidden {
+            display: none;
+          }
         }
 
         .c-new-invoice__reference-number {
@@ -1961,6 +2356,14 @@ a {
           .c-new-invoice__reference-number-title {
             color: $new-invoice__color;
             font-weight: 500;
+          }
+
+          .c-new-invoice__number--hidden {
+            display: none;
+          }
+
+          .c-new-invoice__edit-number--hidden {
+            display: none;
           }
         }
       }
@@ -1990,6 +2393,20 @@ a {
 
       .c-new-invoice__message {
         font-size: 14px;
+      }
+
+      .c-new-invoice__message--hidden {
+        display: none;
+      }
+
+      .c-new-invoice__edit-message {
+        font-size: 14px;
+        width: 90%;
+        min-height: 100px;
+      }
+
+      .c-new-invoice__edit-message--hidden {
+        display: none;
       }
     }
 
@@ -2039,17 +2456,35 @@ a {
         display: flex;
         justify-content: space-between;
         margin-bottom: 20px;
+        border-bottom: 1px solid $grey-125;
+        padding-bottom: 5px;
 
         .c-new-invoice__description--item {
           display: flex;
           flex-direction: column;
           width: 60%;
 
-          .c-new-invoice__item--title {
+          .c-new-invoice__item--item-name {
             font-size: 13px;
           }
 
-          .c-new-invoice__item--sub-title {
+          .c-new-invoice__item--item-name--hidden {
+            display: none;
+          }
+
+          .c-new-invoice__item--edit-item-name--hidden {
+            display: none;
+          }
+
+          .c-new-invoice__item--item-desc--hidden {
+            display: none;
+          }
+
+          .c-new-invoice__item--edit-item-desc--hidden {
+            display: none;
+          }
+
+          .c-new-invoice__item--item-desc {
             font-size: 13px;
             color: lightslategrey;
           }
@@ -2070,19 +2505,81 @@ a {
               font-size: 13px;
             }
 
+            .c-new-invoice__edit-item--price {
+              width: 80px;
+            }
+
+            .c-new-invoice__item--price--hidden {
+              display: none;
+            }
+
+            .c-new-invoice__edit-item--price--hidden {
+              display: none;
+            }
+
             .c-new-invoice__item--tax {
               color: lightslategrey;
             }
           }
 
           .c-new-invoice__qty-item--content {
-            text-align: right;
             width: 24px;
             font-size: 13px;
           }
 
-          .c-new-invoice__amount-item--content {
+          .c-new-invoice__edit-qty-item--content {
+            width: 40px;
+          }
+
+          .c-new-invoice__qty-item--content--hidden {
+            display: none;
+          }
+
+          .c-new-invoice__edit-qty-item--content--hidden {
+            display: none;
+          }
+
+          .c-new-invoice__total-amount--content {
             font-size: 13px;
+          }
+
+          .c-new-invoice__edit-total-amount--content {
+            width: 80px;
+          }
+
+          .c-new-invoice__total-amount--content--hidden {
+            display: none;
+          }
+
+          .c-new-invoice__edit-total-amount--content--hidden {
+            display: none;
+          }
+        }
+      }
+
+      .c-new-invoice__row--add-line {
+        width: 100%;
+        border: 1px dashed lightgray;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 5px 0;
+        color: $black;
+        cursor: pointer;
+        border-radius: 8px;
+
+        &:hover {
+          background: rgba(230, 230, 230, 0.5);
+        }
+
+        .c-new-invoice__row--add-line--text {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          span {
+            color: lightslategray;
+            font-size: 1.5em;
           }
         }
       }
@@ -2191,8 +2688,20 @@ a {
         color: lightslategrey;
       }
 
-      .c-new-invoice__terms--content {
+      .c-new-invoice__terms-content {
         font-size: 13px;
+      }
+
+      .c-new-invoice__terms-content--hidden {
+        display: none;
+      }
+
+      .c-new-invoice__edit-terms-content {
+        font-size: 13px;
+      }
+
+      .c-new-invoice__edit-terms-content--hidden {
+        display: none;
       }
     }
   }

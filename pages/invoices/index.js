@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import nookies from 'nookies';
 import InvoicesPage from 'src/components/invoices';
-import storeConnector from 'src/store/selectors/customers';
+import { selectInvoicesConnector } from 'src/store/selectors/accounting';
 import * as actions from 'src/store/actions';
 import { firebaseAdmin } from '../../src/lib/auth/firebaseAdmin';
 
@@ -43,6 +43,6 @@ const actionCreators = {
 };
 
 export default connect(
-  storeConnector,
+  selectInvoicesConnector,
   actionCreators,
 )(InvoicesPage);
