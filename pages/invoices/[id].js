@@ -2,7 +2,7 @@
 import { connect } from 'react-redux';
 import nookies from 'nookies';
 import { firebaseAdmin } from '../../src/lib/auth/firebaseAdmin';
-import { selectInvoicesConnector } from 'src/store/selectors/accounting';
+import { selectDisplayInvoiceConnector } from 'src/store/selectors/accounting';
 import * as actions from 'src/store/actions';
 import DisplayInvoicePage from 'src/components/display-invoice';
 
@@ -44,6 +44,6 @@ const actionCreators = {
 };
 
 export default connect(
-  selectInvoicesConnector,
+  selectDisplayInvoiceConnector,
   actionCreators,
 )(DisplayInvoicePage);
