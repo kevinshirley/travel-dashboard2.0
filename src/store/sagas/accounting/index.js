@@ -336,15 +336,16 @@ function* setInvoiceToDisplay({ payload }) {
   const { router, uid } = payload
   const { query: id } = router;
   const invoiceId = id.id;
-  const invoices = yield select(selectInvoices);
+  const invoicesList = yield select(selectInvoices);
 
   const { data, status } = yield call(axiosPost, '/api/accounting/invoice/get', { userId: uid, invoiceId });
 
-  if (isEmpty(invoices) && status === 200 && data.success) {
-    console.log({ data });
-  } else if (!isEmpty(invoices)) {
-    const invoiceToDisplay = invoices.filter(invoice => invoice.invoiceId === invoiceId);
+  if (isEmpty(invoicesList) && status === 200 && data.success) {
+    const { invoice } = data;
+    yield put(invoices.displayInvoice(invoice));
+  } else if (!isEmpty(invoicesList)) {
+    const invoiceToDisplay = invoicesList.filter(invoice => invoice.invoiceId === invoiceId);
     const invoice = head(invoiceToDisplay);
-    console.log({ invoice });
+    yield put(invoices.displayInvoice(invoice));
   }
 }
