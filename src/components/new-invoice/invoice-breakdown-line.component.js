@@ -14,6 +14,7 @@ function InvoiceBreakdownLine({
   qty,
   unitCost,
   setTotalAmountDue,
+  isNotDisplayMode,
 }) {
   const updateInvoiceItem = useAction(actions.invoices.updateInvoiceItem);
 
@@ -145,7 +146,7 @@ function InvoiceBreakdownLine({
       <div className={`${BEM_BLOCK}__description--item`}>
         <span
           className={itemNameClasses}
-          onClick={e => onToggleItemNameState(e)}
+          onClick={e => isNotDisplayMode && onToggleItemNameState(e)}
           {...itemNameState}
         >
           {itemNameValue ? itemNameValue : 'Enter an item name'}
@@ -165,7 +166,7 @@ function InvoiceBreakdownLine({
         />
         <span
           className={itemDescriptionClasses}
-          onClick={e => onToggleItemDescriptionState(e)}
+          onClick={e => isNotDisplayMode && onToggleItemDescriptionState(e)}
           {...itemDescriptionState}
         >
           {itemDescriptionValue ? itemDescriptionValue : 'Enter an item description'}
@@ -187,7 +188,7 @@ function InvoiceBreakdownLine({
         <div className={`${BEM_BLOCK}__unit-cost-item--content`}>
           <span
             className={unitCostClasses}
-            onClick={e => onToggleUnitCostState(e)}
+            onClick={e => isNotDisplayMode && onToggleUnitCostState(e)}
             {...unitCostState}
           >
             {`$${formatPrice(Number(unitCostValue))}`}
@@ -219,7 +220,7 @@ function InvoiceBreakdownLine({
         </div>
         <span
           className={itemQtyClasses}
-          onClick={e => onToggleItemQtyState(e)}
+          onClick={e => isNotDisplayMode && onToggleItemQtyState(e)}
           {...itemQtyState}
         >
           {itemQtyValue}

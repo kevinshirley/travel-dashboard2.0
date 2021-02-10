@@ -13,10 +13,11 @@ import * as moment from 'moment';
 
 const BEM_BLOCK = 'c-new-invoice';
 
-function NewInvoice({ addInvoiceError, resetError, displayMode = false }) {
+function NewInvoice({ addInvoiceError, resetError, displayMode = false, invoice }) {
   const invoiceId = uuidv4();
   const { addToast } = useToasts();
   const isNotDisplayMode = equals(displayMode, false);
+  const isInvoiceAvailable = !isNil(invoice);
 
   useEffect(() => {
     updateInvoice({ invoiceId });
@@ -37,7 +38,7 @@ function NewInvoice({ addInvoiceError, resetError, displayMode = false }) {
   const addInvoiceItem = useAction(actions.invoices.addInvoiceItem);
   const updateInvoice = useAction(actions.invoices.updateInvoice);
 
-  const [breakdownLines, setBreakdownLines] = useState([]);
+  const [breakdownLines, setBreakdownLines] = useState(isInvoiceAvailable ? invoice.items : []);
   const [totalAmountDue, setTotalAmountDue] = useState(0);
 
   const [dueDate, setDueDate] = useState(new Date());
@@ -1113,6 +1114,7 @@ function NewInvoice({ addInvoiceError, resetError, displayMode = false }) {
               <InvoiceBreakdownLine
                 key={line.index}
                 setTotalAmountDue={onSetTotalAmountDue}
+                isNotDisplayMode={isNotDisplayMode}
                 {...line}
               />
             );

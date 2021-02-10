@@ -8,7 +8,7 @@ import * as actions from 'src/store/actions';
 import Spinner from 'src/components/common/spinner';
 import NewInvoice from 'src/components/new-invoice/new-invoice.component';
 
-function DisplayItineraryContainer({ uid, invoice }) {
+function DisplayInvoiceContainer({ uid, invoice }) {
   const setInvoiceToDisplay = useAction(actions.invoices.setInvoiceToDisplay);
   const router = useRouter();
   console.log({ invoice });
@@ -20,11 +20,11 @@ function DisplayItineraryContainer({ uid, invoice }) {
     <div className='c-display-invoice'>
       {!isEmpty(invoice) ? (
         <ToastProvider>
-          <NewInvoice displayMode />
+          <NewInvoice displayMode invoice={invoice} />
         </ToastProvider>
       ) : <Spinner />}
     </div>
   );
 };
 
-export default DisplayItineraryContainer;
+export default DisplayInvoiceContainer;
