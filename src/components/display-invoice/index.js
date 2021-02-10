@@ -11,10 +11,7 @@ function DisplayItineraryContainer({ uid }) {
   const router = useRouter();
 
   useEffect(() => {
-    console.log({ uid });
     setInvoiceToDisplay({ router, uid });
-    console.log('set invoice');
-    console.log({ router });
   }, []);
 
   return (

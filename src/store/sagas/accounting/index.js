@@ -333,17 +333,16 @@ function* fetchUserInvoices() {
 }
 
 function* setInvoiceToDisplay({ payload }) {
-  console.log('setInvoiceToDisplay saga');
-  console.log({ 'setInvoiceToDisplay saga': payload });
   const { router, uid } = payload
   const { query: id } = router;
   const invoiceId = id.id;
   const invoices = yield select(selectInvoices);
-  console.log({ 'setInvoiceToDisplay id saga': invoiceId });
 
-  const fetchedInvoice = yield call(axiosPost, '/api/accounting/invoice/get', { userId: uid, invoiceId });
-  console.log({ fetchedInvoice });
-  if (!isEmpty(invoices)) {
+  const { data, status } = yield call(axiosPost, '/api/accounting/invoice/get', { userId: uid, invoiceId });
+
+  if (isEmpty(invoices) && status === 200 && data.success) {
+    console.log({ data });
+  } else if (!isEmpty(invoices)) {
     const invoiceToDisplay = invoices.filter(invoice => invoice.invoiceId === invoiceId);
     const invoice = head(invoiceToDisplay);
     console.log({ invoice });
