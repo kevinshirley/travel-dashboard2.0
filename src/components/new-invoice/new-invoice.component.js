@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import cx from 'classnames';
-import { isEmpty, isNil } from 'ramda';
+import { isEmpty, isNil, equals } from 'ramda';
 import { useToasts } from 'react-toast-notifications';
 import { SPACING } from 'src/components/material-ui/icons';
 import { formatPrice } from 'src/utils/string';
@@ -9,13 +9,14 @@ import DatePicker from 'src/components/common/date-picker';
 import uuidv4 from 'src/utils/uuidv4';
 import * as actions from 'src/store/actions';
 import { useAction } from 'src/store/hooks';
+import * as moment from 'moment';
 
 const BEM_BLOCK = 'c-new-invoice';
 
 function NewInvoice({ addInvoiceError, resetError, displayMode = false }) {
-  console.log({ displayMode });
   const invoiceId = uuidv4();
   const { addToast } = useToasts();
+  const isNotDisplayMode = equals(displayMode, false);
 
   useEffect(() => {
     updateInvoice({ invoiceId });
@@ -588,7 +589,7 @@ function NewInvoice({ addInvoiceError, resetError, displayMode = false }) {
               <div className={`${BEM_BLOCK}__company-name`}>
                 <span
                   className={companyNameClasses}
-                  onClick={e => onToggleCompanyNameState(e)}
+                  onClick={e => isNotDisplayMode && onToggleCompanyNameState(e)}
                   {...companyNameState}
                 >
                   {companyNameValue ? companyNameValue : 'Company Name'}
@@ -611,7 +612,7 @@ function NewInvoice({ addInvoiceError, resetError, displayMode = false }) {
                 <span  className={`${BEM_BLOCK}__company-rep-name--wrapper`}>
                   <span
                     className={repFirstNameClasses}
-                    onClick={e => onToggleRepFirstNameState(e)}
+                    onClick={e => isNotDisplayMode && onToggleRepFirstNameState(e)}
                     {...repFirstNameState}
                   >
                     {repFirstNameValue ? repFirstNameValue : 'First name'}
@@ -619,7 +620,7 @@ function NewInvoice({ addInvoiceError, resetError, displayMode = false }) {
                   {SPACING}
                   <span
                     className={repLastNameClasses}
-                    onClick={e => onToggleRepLastNameState(e)}
+                    onClick={e => isNotDisplayMode && onToggleRepLastNameState(e)}
                     {...repLastNameState}
                   >
                     {repLastNameValue ? repLastNameValue : 'Last name'}
@@ -658,7 +659,7 @@ function NewInvoice({ addInvoiceError, resetError, displayMode = false }) {
               <div className={`${BEM_BLOCK}__company-representative-email`}>
                 <span
                   className={repEmailClasses}
-                  onClick={e => onToggleRepEmailState(e)}
+                  onClick={e => isNotDisplayMode && onToggleRepEmailState(e)}
                   {...repEmailState}
                 >
                   {repEmailValue ? repEmailValue : 'Email'}
@@ -680,7 +681,7 @@ function NewInvoice({ addInvoiceError, resetError, displayMode = false }) {
               <div className={`${BEM_BLOCK}__company-representative-number`}>
                 <span
                   className={repPhoneNumberClasses}
-                  onClick={e => onToggleRepPhoneNumberState(e)}
+                  onClick={e => isNotDisplayMode && onToggleRepPhoneNumberState(e)}
                   {...repPhoneNumberState}
                 >
                   {repPhoneNumberValue ? repPhoneNumberValue : 'Phone Number'}
@@ -704,7 +705,7 @@ function NewInvoice({ addInvoiceError, resetError, displayMode = false }) {
               <div className={`${BEM_BLOCK}__street-address--wrapper`}>
                 <span
                   className={companyStreetAddressClasses}
-                  onClick={e => onToggleCompanyStreetAddressState(e)}
+                  onClick={e => isNotDisplayMode && onToggleCompanyStreetAddressState(e)}
                   {...companyStreetAddressState}
                 >
                   {companyStreetAddressValue ? companyStreetAddressValue : 'Street Address'}
@@ -730,7 +731,7 @@ function NewInvoice({ addInvoiceError, resetError, displayMode = false }) {
                 <div className={`${BEM_BLOCK}__company-city-state`}>
                   <span
                     className={companyCityClasses}
-                    onClick={e => onToggleCompanyCityState(e)}
+                    onClick={e => isNotDisplayMode && onToggleCompanyCityState(e)}
                     {...companyCityState}
                   >
                     {companyCityValue ? `${companyCityValue},` : 'City,'}
@@ -750,7 +751,7 @@ function NewInvoice({ addInvoiceError, resetError, displayMode = false }) {
                   />
                   <span
                     className={companyStateClasses}
-                    onClick={e => onToggleCompanyStateState(e)}
+                    onClick={e => isNotDisplayMode && onToggleCompanyStateState(e)}
                     {...companyStateState}
                   >
                     {SPACING}{companyStateValue ? `${companyStateValue}` : 'State'}
@@ -773,7 +774,7 @@ function NewInvoice({ addInvoiceError, resetError, displayMode = false }) {
               <div className={`${BEM_BLOCK}__zip-code--wrapper`}>
                 <span
                   className={companyZipCodeClasses}
-                  onClick={e => onToggleCompanyZipCodeState(e)}
+                  onClick={e => isNotDisplayMode && onToggleCompanyZipCodeState(e)}
                   {...companyZipCodeState}
                 >
                   {companyZipCodeValue ? companyZipCodeValue : 'Zip Code'}
@@ -795,7 +796,7 @@ function NewInvoice({ addInvoiceError, resetError, displayMode = false }) {
               <div className={`${BEM_BLOCK}__country--wrapper`}>
                 <span
                   className={companyCountryClasses}
-                  onClick={e => onToggleCompanyCountryState(e)}
+                  onClick={e => isNotDisplayMode && onToggleCompanyCountryState(e)}
                   {...companyCountryState}
                 >
                   {companyCountryValue ? companyCountryValue : 'Country'}
@@ -824,7 +825,7 @@ function NewInvoice({ addInvoiceError, resetError, displayMode = false }) {
             <div className={`${BEM_BLOCK}__client-name`}>
               <span
                 className={clientFirstNameClasses}
-                onClick={e => onToggleClientFirstNameState(e)}
+                onClick={e => isNotDisplayMode && onToggleClientFirstNameState(e)}
                 {...clientFirstNameState}
               >
                 {clientFirstNameValue ? `${clientFirstNameValue}` : 'First Name'}{SPACING}
@@ -844,7 +845,7 @@ function NewInvoice({ addInvoiceError, resetError, displayMode = false }) {
               />
               <span
                 className={clientLastNameClasses}
-                onClick={e => onToggleClientLastNameState(e)}
+                onClick={e => isNotDisplayMode && onToggleClientLastNameState(e)}
                 {...clientLastNameState}
               >
                 {clientLastNameValue ? `${clientLastNameValue}` : 'Last Name'}
@@ -866,7 +867,7 @@ function NewInvoice({ addInvoiceError, resetError, displayMode = false }) {
             <div className={`${BEM_BLOCK}__client-email`}>
               <span
                 className={clientEmailClasses}
-                onClick={e => onToggleClientEmailState(e)}
+                onClick={e => isNotDisplayMode && onToggleClientEmailState(e)}
                 {...clientEmailState}
               >
                 {clientEmailValue ? clientEmailValue : 'Email'}
@@ -888,7 +889,7 @@ function NewInvoice({ addInvoiceError, resetError, displayMode = false }) {
             <div className={`${BEM_BLOCK}__client-street-address`}>
               <span
                 className={clientStreetAddressClasses}
-                onClick={e => onToggleClientStreetAddressState(e)}
+                onClick={e => isNotDisplayMode && onToggleClientStreetAddressState(e)}
                 {...clientStreetAddressState}
               >
                 {clientStreetAddressValue ? clientStreetAddressValue : 'Street Address'}
@@ -911,7 +912,7 @@ function NewInvoice({ addInvoiceError, resetError, displayMode = false }) {
             <div className={`${BEM_BLOCK}__client-city-state`}>
               <span
                 className={clientCityClasses}
-                onClick={e => onToggleClientCityState(e)}
+                onClick={e => isNotDisplayMode && onToggleClientCityState(e)}
                 {...clientCityState}
               >
                 {clientCityValue ? `${clientCityValue},` : 'City,'}
@@ -931,7 +932,7 @@ function NewInvoice({ addInvoiceError, resetError, displayMode = false }) {
               />
               <span
                 className={clientStateClasses}
-                onClick={e => onToggleClientStateState(e)}
+                onClick={e => isNotDisplayMode && onToggleClientStateState(e)}
                 {...clientStateState}
               >
                 {SPACING}{clientStateValue ? clientStateValue : 'State'}
@@ -953,7 +954,7 @@ function NewInvoice({ addInvoiceError, resetError, displayMode = false }) {
             <div className={`${BEM_BLOCK}__client-zip-code`}>
               <span
                 className={clientZipCodeClasses}
-                onClick={e => onToggleClientZipCodeState(e)}
+                onClick={e => isNotDisplayMode && onToggleClientZipCodeState(e)}
                 {...clientZipCodeState}
               >
                 {clientZipCodeValue ? clientZipCodeValue : 'Zip Code'}
@@ -975,7 +976,7 @@ function NewInvoice({ addInvoiceError, resetError, displayMode = false }) {
             <div className={`${BEM_BLOCK}__client-country`}>
               <span
                 className={clientCountryClasses}
-                onClick={e => onToggleClientCountryState(e)}
+                onClick={e => isNotDisplayMode && onToggleClientCountryState(e)}
                 {...clientCountryState}
               >
                 {clientCountryValue ? clientCountryValue : 'Country'}
@@ -1002,7 +1003,8 @@ function NewInvoice({ addInvoiceError, resetError, displayMode = false }) {
                 className={`${BEM_BLOCK}__date--wrapper`}
                 // onClick={() => dateIssuedRef.current.setFocus()}
               >
-                <DatePicker isVisible={true} onSetDate={onSetDateIssued} />
+                {isNotDisplayMode && <DatePicker isVisible={true} onSetDate={onSetDateIssued} />}
+                {displayMode && moment(dateIssued).format('L')}
               </div>
             </div>
             <div className={`${BEM_BLOCK}__due-date`}>
@@ -1011,7 +1013,8 @@ function NewInvoice({ addInvoiceError, resetError, displayMode = false }) {
                 className={`${BEM_BLOCK}__date--wrapper`}
                 // onClick={() => dueDateRef.current.setFocus()}
               >
-                <DatePicker isVisible={true} onSetDate={onSetDueDate} />
+                {isNotDisplayMode && <DatePicker isVisible={true} onSetDate={onSetDueDate} />}
+                {displayMode && moment(dueDate).format('L')}
               </div>
             </div>
           </div>
@@ -1022,7 +1025,7 @@ function NewInvoice({ addInvoiceError, resetError, displayMode = false }) {
               </span>
               <span
                 className={invoiceNumberClasses}
-                onClick={e => onToggleInvoiceNumberState(e)}
+                onClick={e => isNotDisplayMode && onToggleInvoiceNumberState(e)}
                 {...invoiceNumberState}
               >
                 {invoiceNumberValue ? invoiceNumberValue : 'Enter invoice number'}
@@ -1045,7 +1048,7 @@ function NewInvoice({ addInvoiceError, resetError, displayMode = false }) {
               <span className={`${BEM_BLOCK}__reference-number-title`}>Reference</span>
               <span
                 className={referenceNumberClasses}
-                onClick={e => onToggleReferenceNumberState(e)}
+                onClick={e => isNotDisplayMode && onToggleReferenceNumberState(e)}
                 {...referenceNumberState}
               >
                 {referenceNumberValue ? referenceNumberValue : 'Enter reference number'}
@@ -1073,7 +1076,7 @@ function NewInvoice({ addInvoiceError, resetError, displayMode = false }) {
         <div className={`${BEM_BLOCK}__invoice-message`}>
           <span
             className={invoiceMessageClasses}
-            onClick={e => onToggleInvoiceMessageState(e)}
+            onClick={e => isNotDisplayMode && onToggleInvoiceMessageState(e)}
             {...invoiceMessageState}
           >
             {invoiceMessageValue ? invoiceMessageValue : 'Insert message here'}
@@ -1114,11 +1117,13 @@ function NewInvoice({ addInvoiceError, resetError, displayMode = false }) {
               />
             );
           })}
-          <div className={`${BEM_BLOCK}__row--add-line`} onClick={() => onAddNewBreakdownLine()}>
-            <div className={`${BEM_BLOCK}__row--add-line--text`}>
-              <span>+</span>{SPACING}{SPACING}Add a Line
+          {isNotDisplayMode && (
+            <div className={`${BEM_BLOCK}__row--add-line`} onClick={() => onAddNewBreakdownLine()}>
+              <div className={`${BEM_BLOCK}__row--add-line--text`}>
+                <span>+</span>{SPACING}{SPACING}Add a Line
+              </div>
             </div>
-          </div>
+          )}
         </div>
         <div className={`${BEM_BLOCK}__invoice-summary`}>
           <div className={`${BEM_BLOCK}__invoice-summary-inner`}>
@@ -1152,7 +1157,7 @@ function NewInvoice({ addInvoiceError, resetError, displayMode = false }) {
           <span className={`${BEM_BLOCK}__terms--title`}>Terms</span>
           <span
             className={termsContentClasses}
-            onClick={e => onToggleTermsContentState(e)}
+            onClick={e => isNotDisplayMode && onToggleTermsContentState(e)}
             {...termsContentState}
           >
             {termsContentValue ? termsContentValue : 'Insert terms and condition text here'}
