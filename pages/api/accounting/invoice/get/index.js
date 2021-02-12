@@ -13,7 +13,6 @@ const Invoices = (req, res, next) => {
         let invoice;
         snap.forEach(doc => {
           invoice = doc.data();
-          console.log({ invoice });
         });
         res.send({
           success: true,

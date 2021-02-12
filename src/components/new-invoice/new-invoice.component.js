@@ -17,30 +17,15 @@ function NewInvoice({ addInvoiceError, resetError, displayMode = false, invoice 
   const invoiceId = uuidv4();
   const { addToast } = useToasts();
   const isNotDisplayMode = equals(displayMode, false);
+  const isDisplayMode = equals(displayMode, true);
   const isInvoiceAvailable = !isNil(invoice);
-
-  useEffect(() => {
-    updateInvoice({ invoiceId });
-    updateInvoice({ invoiceNumber: invoiceNumberValue });
-    updateInvoice({ invoiceMessage: invoiceMessageValue });
-    updateInvoice({ termsContent: termsContentValue });
-  }, []);
-
-  useEffect(() => {
-    if (!isEmpty(addInvoiceError) && !isNil(addInvoiceError)) {
-      addToast(addInvoiceError.message, {
-        appearance: 'error',
-        autoDismiss: false,
-      }, () => resetError({ form: 'addInvoice' }));
-    }
-  }, [addInvoiceError]);
 
   const addInvoiceItem = useAction(actions.invoices.addInvoiceItem);
   const updateInvoice = useAction(actions.invoices.updateInvoice);
 
-  const [breakdownLines, setBreakdownLines] = useState(isInvoiceAvailable ? invoice.items : []);
+  const [breakdownLines, setBreakdownLines] = useState([]);
   const [totalAmountDue, setTotalAmountDue] = useState(0);
-
+  console.log({ totalAmountDue });
   const [dueDate, setDueDate] = useState(new Date());
   const [dateIssued, setDateIssued] = useState(new Date());
 
@@ -573,6 +558,59 @@ function NewInvoice({ addInvoiceError, resetError, displayMode = false, invoice 
       setShouldEditTermsContent(false);
     }
   };
+
+  useEffect(() => {
+    updateInvoice({ invoiceId });
+    updateInvoice({ invoiceNumber: invoiceNumberValue });
+    updateInvoice({ invoiceMessage: invoiceMessageValue });
+    updateInvoice({ termsContent: termsContentValue });
+  }, []);
+
+  useEffect(() => {
+    if (!isEmpty(addInvoiceError) && !isNil(addInvoiceError)) {
+      addToast(addInvoiceError.message, {
+        appearance: 'error',
+        autoDismiss: false,
+      }, () => resetError({ form: 'addInvoice' }));
+    }
+  }, [addInvoiceError]);
+
+  useEffect(() => {
+    if (isDisplayMode && isInvoiceAvailable) {
+      console.log('items to update', invoice.items);
+      setInvoiceNumberValue(invoice.invoiceNumber);
+      setReferenceNumberValue(invoice.referenceNumber);
+      setCompanyNameValue(invoice.companyName);
+      setRepFirstNameValue(invoice.repFirstName);
+      setRepLastNameValue(invoice.repLastName);
+      setRepEmailValue(invoice.repEmail);
+      setRepPhoneNumberValue(invoice.repPhoneNumber);
+      setCompanyStreetAddressValue(invoice.companyStreetAddress);
+      setCompanyCityValue(invoice.companyCity);
+      setCompanyStateValue(invoice.companyState);
+      setCompanyZipCodeValue(invoice.companyZipCode);
+      setCompanyCountryValue(invoice.companyCountry);
+      setClientFirstNameValue(invoice.clientFirstName);
+      setClientLastNameValue(invoice.clientLastName);
+      setClientEmailValue(invoice.clientEmail);
+      setClientStreetAddressValue(invoice.clientStreetAddress);
+      setClientCityValue(invoice.clientCity);
+      setClientStateValue(invoice.clientState);
+      setClientZipCodeValue(invoice.clientZipCode);
+      setClientCountryValue(invoice.clientCountry);
+      setInvoiceMessageValue(invoice.invoiceMessage);
+      setTermsContentValue(invoice.termsContent);
+      setTotalAmountDue(Number(invoice.totalAmountDue));
+      setDueDate(invoice.dueDate);
+      setDateIssued(invoice.dateIssued);
+      console.log('totalAmountDue', Number(invoice.totalAmountDue));
+      // setBreakdownLines(invoice.items);
+    }
+
+    return () => {
+      setBreakdownLines([]);
+    }
+  }, [invoice, isDisplayMode, isInvoiceAvailable]);
 
   return (
     <div  className={`${BEM_BLOCK}`}>
@@ -1109,7 +1147,19 @@ function NewInvoice({ addInvoiceError, resetError, displayMode = false, invoice 
               <span className={`${BEM_BLOCK}__amount--title`}>Amount</span>
             </div>
           </div>
-          {breakdownLines.map(line => {
+          {isNotDisplayMode && breakdownLines.map(line => {
+            console.log({ line });
+            return (
+              <InvoiceBreakdownLine
+                key={line.index}
+                setTotalAmountDue={onSetTotalAmountDue}
+                isNotDisplayMode={isNotDisplayMode}
+                {...line}
+              />
+            );
+          })}
+          {isDisplayMode && invoice.items.map(line => {
+            console.log({ line });
             return (
               <InvoiceBreakdownLine
                 key={line.index}

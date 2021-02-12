@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { isEmpty } from 'ramda';
-import InvoicesTable from 'src/components/invoices/table';
 import { useToasts } from 'react-toast-notifications';
+import InvoicesTable from 'src/components/invoices/table';
 
 const BEM_BLOCK = 'c-invoices';
 
