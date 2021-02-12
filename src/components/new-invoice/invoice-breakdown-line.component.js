@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import { formatPrice } from 'src/utils/string';
@@ -41,12 +41,12 @@ function InvoiceBreakdownLine({
   const [shouldEditTotalAmount, setShouldEditTotalAmount] = useState(false);
   const [shouldEditUnitCost, setShouldEditUnitCost] = useState(false);
 
-  const [itemNameValue, setItemNameValue] = useState(itemName);
-  const [itemDescriptionValue, setItemDescriptionValue] = useState(itemdescription);
-  const [itemQtyValue, setItemQtyValue] = useState(qty);
-  const [unitCostValue, setUnitCostValue] = useState(unitCost);
+  const [itemNameValue, setItemNameValue] = useState('');
+  const [itemDescriptionValue, setItemDescriptionValue] = useState('');
+  const [itemQtyValue, setItemQtyValue] = useState(1);
+  const [unitCostValue, setUnitCostValue] = useState(0);
   const [taxValue, setTaxValue] = useState([]);
-  const [totalAmountValue, setTotalAmountValue] = useState(unitCost);
+  const [totalAmountValue, setTotalAmountValue] = useState(0);
 
   const editItemNameRef = useRef(null);
 
@@ -140,6 +140,14 @@ function InvoiceBreakdownLine({
   const editUnitCostClasses = cx(`${BEM_BLOCK}__edit-item--price`, {
     [`${BEM_BLOCK}__edit-item--price--hidden`]: !shouldEditUnitCost,
   });
+
+  useEffect(() => {
+    setItemNameValue(itemName);
+    setItemDescriptionValue(itemdescription);
+    setItemQtyValue(qty);
+    setUnitCostValue(unitCost);
+    setTotalAmountValue(unitCost*qty);
+  }, [itemName, itemdescription, qty, unitCost]);
 
   return (
     <div className={`${BEM_BLOCK}__row--line`}>

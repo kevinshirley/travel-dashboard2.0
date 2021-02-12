@@ -13,7 +13,7 @@ import { CHEVRON_LEFT_ICON } from 'src/components/material-ui/icons';
 function DisplayInvoiceContainer({ uid, invoice }) {
   const setInvoiceToDisplay = useAction(actions.invoices.setInvoiceToDisplay);
   const router = useRouter();
-  console.log({ invoice });
+
   useEffect(() => {
     setInvoiceToDisplay({ router, uid });
   }, []);

@@ -578,7 +578,6 @@ function NewInvoice({ addInvoiceError, resetError, displayMode = false, invoice 
 
   useEffect(() => {
     if (isDisplayMode && isInvoiceAvailable) {
-      console.log('items to update', invoice.items);
       setInvoiceNumberValue(invoice.invoiceNumber);
       setReferenceNumberValue(invoice.referenceNumber);
       setCompanyNameValue(invoice.companyName);
@@ -604,11 +603,7 @@ function NewInvoice({ addInvoiceError, resetError, displayMode = false, invoice 
       setTotalAmountDue(Number(removeComma(invoice.totalAmountDue)));
       setDueDate(invoice.dueDate);
       setDateIssued(invoice.dateIssued);
-      // setBreakdownLines(invoice.items);
-    }
-
-    return () => {
-      setBreakdownLines([]);
+      setBreakdownLines(invoice.items);
     }
   }, [invoice, isDisplayMode, isInvoiceAvailable]);
 
@@ -1147,28 +1142,14 @@ function NewInvoice({ addInvoiceError, resetError, displayMode = false, invoice 
               <span className={`${BEM_BLOCK}__amount--title`}>Amount</span>
             </div>
           </div>
-          {isNotDisplayMode && breakdownLines.map(line => {
-            console.log({ line });
-            return (
-              <InvoiceBreakdownLine
-                key={line.index}
-                setTotalAmountDue={onSetTotalAmountDue}
-                isNotDisplayMode={isNotDisplayMode}
-                {...line}
-              />
-            );
-          })}
-          {isDisplayMode && invoice.items.map(line => {
-            console.log({ line });
-            return (
-              <InvoiceBreakdownLine
-                key={line.index}
-                setTotalAmountDue={onSetTotalAmountDue}
-                isNotDisplayMode={isNotDisplayMode}
-                {...line}
-              />
-            );
-          })}
+          {breakdownLines.map(line => (
+            <InvoiceBreakdownLine
+              key={line.index}
+              setTotalAmountDue={onSetTotalAmountDue}
+              isNotDisplayMode={isNotDisplayMode}
+              {...line}
+            />
+          ))}
           {isNotDisplayMode && (
             <div className={`${BEM_BLOCK}__row--add-line`} onClick={() => onAddNewBreakdownLine()}>
               <div className={`${BEM_BLOCK}__row--add-line--text`}>
