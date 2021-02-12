@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import cx from 'classnames';
 import { isEmpty, isNil, equals } from 'ramda';
+import * as moment from 'moment';
 import { useToasts } from 'react-toast-notifications';
 import { SPACING } from 'src/components/material-ui/icons';
 import { formatPrice } from 'src/utils/string';
@@ -9,7 +10,7 @@ import DatePicker from 'src/components/common/date-picker';
 import uuidv4 from 'src/utils/uuidv4';
 import * as actions from 'src/store/actions';
 import { useAction } from 'src/store/hooks';
-import * as moment from 'moment';
+import { removeComma } from 'src/utils/string';
 
 const BEM_BLOCK = 'c-new-invoice';
 
@@ -25,7 +26,7 @@ function NewInvoice({ addInvoiceError, resetError, displayMode = false, invoice 
 
   const [breakdownLines, setBreakdownLines] = useState([]);
   const [totalAmountDue, setTotalAmountDue] = useState(0);
-  console.log({ totalAmountDue });
+
   const [dueDate, setDueDate] = useState(new Date());
   const [dateIssued, setDateIssued] = useState(new Date());
 
@@ -600,10 +601,9 @@ function NewInvoice({ addInvoiceError, resetError, displayMode = false, invoice 
       setClientCountryValue(invoice.clientCountry);
       setInvoiceMessageValue(invoice.invoiceMessage);
       setTermsContentValue(invoice.termsContent);
-      setTotalAmountDue(Number(invoice.totalAmountDue));
+      setTotalAmountDue(Number(removeComma(invoice.totalAmountDue)));
       setDueDate(invoice.dueDate);
       setDateIssued(invoice.dateIssued);
-      console.log('totalAmountDue', Number(invoice.totalAmountDue));
       // setBreakdownLines(invoice.items);
     }
 
