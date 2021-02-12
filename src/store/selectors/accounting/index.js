@@ -14,7 +14,7 @@ export const selectNewInvoiceItems = createSelector(
 
 export const selectNewInvoice = createSelector(
   selectAccounting,
-  propOr(emptyArray, 'newInvoice'),
+  propOr(emptyObject, 'newInvoice'),
 );
 
 export const selectInvoices = createSelector(
@@ -22,9 +22,18 @@ export const selectInvoices = createSelector(
   propOr(emptyArray, 'invoices'),
 );
 
+export const selectDisplayInvoice = createSelector(
+  selectAccounting,
+  propOr(emptyObject, 'displayInvoice'),
+);
+
 export const selectInvoicesConnector = createStructuredSelector({
   addInvoiceIsSubmitting: selectAddInvoiceIsSubmitting,
   addInvoiceSuccess: selectAddInvoiceSuccess,
   addInvoiceError: selectAddInvoiceError,
   invoices: selectInvoices,
+});
+
+export const selectDisplayInvoiceConnector = createStructuredSelector({
+  invoice: selectDisplayInvoice,
 });

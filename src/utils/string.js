@@ -89,4 +89,19 @@ export const firstLetterOfEach = (param) => {
   return null;
 }
 
+export const removeComma = (param) => {
+  let str;
+  if (typeof param === 'string') {
+    if (param.indexOf(',') > 0) {
+      str = param.toString().replace(/,/g, '');
+    } else {
+      str = param;
+    }
+
+    return str;
+  }
+
+  return null;
+}
+
 export const formatPrice = price => price.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import { formatPrice } from 'src/utils/string';
@@ -14,6 +14,7 @@ function InvoiceBreakdownLine({
   qty,
   unitCost,
   setTotalAmountDue,
+  isNotDisplayMode,
 }) {
   const updateInvoiceItem = useAction(actions.invoices.updateInvoiceItem);
 
@@ -40,12 +41,12 @@ function InvoiceBreakdownLine({
   const [shouldEditTotalAmount, setShouldEditTotalAmount] = useState(false);
   const [shouldEditUnitCost, setShouldEditUnitCost] = useState(false);
 
-  const [itemNameValue, setItemNameValue] = useState(itemName);
-  const [itemDescriptionValue, setItemDescriptionValue] = useState(itemdescription);
-  const [itemQtyValue, setItemQtyValue] = useState(qty);
-  const [unitCostValue, setUnitCostValue] = useState(unitCost);
+  const [itemNameValue, setItemNameValue] = useState('');
+  const [itemDescriptionValue, setItemDescriptionValue] = useState('');
+  const [itemQtyValue, setItemQtyValue] = useState(1);
+  const [unitCostValue, setUnitCostValue] = useState(0);
   const [taxValue, setTaxValue] = useState([]);
-  const [totalAmountValue, setTotalAmountValue] = useState(unitCost);
+  const [totalAmountValue, setTotalAmountValue] = useState(0);
 
   const editItemNameRef = useRef(null);
 
@@ -140,12 +141,20 @@ function InvoiceBreakdownLine({
     [`${BEM_BLOCK}__edit-item--price--hidden`]: !shouldEditUnitCost,
   });
 
+  useEffect(() => {
+    setItemNameValue(itemName);
+    setItemDescriptionValue(itemdescription);
+    setItemQtyValue(qty);
+    setUnitCostValue(unitCost);
+    setTotalAmountValue(unitCost*qty);
+  }, [itemName, itemdescription, qty, unitCost]);
+
   return (
     <div className={`${BEM_BLOCK}__row--line`}>
       <div className={`${BEM_BLOCK}__description--item`}>
         <span
           className={itemNameClasses}
-          onClick={e => onToggleItemNameState(e)}
+          onClick={e => isNotDisplayMode && onToggleItemNameState(e)}
           {...itemNameState}
         >
           {itemNameValue ? itemNameValue : 'Enter an item name'}
@@ -165,7 +174,7 @@ function InvoiceBreakdownLine({
         />
         <span
           className={itemDescriptionClasses}
-          onClick={e => onToggleItemDescriptionState(e)}
+          onClick={e => isNotDisplayMode && onToggleItemDescriptionState(e)}
           {...itemDescriptionState}
         >
           {itemDescriptionValue ? itemDescriptionValue : 'Enter an item description'}
@@ -187,7 +196,7 @@ function InvoiceBreakdownLine({
         <div className={`${BEM_BLOCK}__unit-cost-item--content`}>
           <span
             className={unitCostClasses}
-            onClick={e => onToggleUnitCostState(e)}
+            onClick={e => isNotDisplayMode && onToggleUnitCostState(e)}
             {...unitCostState}
           >
             {`$${formatPrice(Number(unitCostValue))}`}
@@ -219,7 +228,7 @@ function InvoiceBreakdownLine({
         </div>
         <span
           className={itemQtyClasses}
-          onClick={e => onToggleItemQtyState(e)}
+          onClick={e => isNotDisplayMode && onToggleItemQtyState(e)}
           {...itemQtyState}
         >
           {itemQtyValue}

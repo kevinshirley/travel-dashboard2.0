@@ -33,6 +33,7 @@ const initialState = {
   },
   invoices: [],
   expenses: [],
+  displayInvoice: {},
 };
 
 const accounting = (state = initialState, { type, payload }) => {
@@ -54,6 +55,11 @@ const accounting = (state = initialState, { type, payload }) => {
       return {
         ...state,
         invoices: payload,
+      };
+    case INVOICES.DISPLAY_INVOICE:
+      return {
+        ...state,
+        displayInvoice: payload,
       };
     default:
       return state;

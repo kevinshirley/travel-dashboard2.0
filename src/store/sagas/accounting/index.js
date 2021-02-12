@@ -1,8 +1,8 @@
 import Router from 'next/router';
-import { isNil, isEmpty } from 'ramda';
+import { isNil, isEmpty, head } from 'ramda';
 import { put, takeLatest, select, call } from 'redux-saga/effects';
 import { INVOICES, invoices, forms, SESSION } from 'src/store/actions';
-import { selectNewInvoiceItems, selectNewInvoice } from 'src/store/selectors/accounting';
+import { selectNewInvoiceItems, selectNewInvoice, selectInvoices } from 'src/store/selectors/accounting';
 import { selectSessionProfile } from 'src/store/selectors/session';
 import { post, axiosPost } from 'src/utils/fetch';
 import * as moment from 'moment';
@@ -25,6 +25,10 @@ export function* watchSaveInvoice() {
 
 export function* watchFetchUserInvoices() {
   yield takeLatest(SESSION.SET_PROFILE, fetchUserInvoices);
+}
+
+export function* watchSetInvoiceToDisplay() {
+  yield takeLatest(INVOICES.SET_INVOICE_TO_DISPLAY, setInvoiceToDisplay);
 }
 
 function* addInvoiceItem({ payload }) {
@@ -325,5 +329,23 @@ function* fetchUserInvoices() {
       yield put(forms.setError({ message: userInvoices.data.error.message ? userInvoices.data.error.message : 'An error occured when pulling your invoices list.', form: 'userInvoices' }));
       yield put(forms.isSubmitting({ isSubmitting: false, form: 'userInvoices' }));
     }
+  }
+}
+
+function* setInvoiceToDisplay({ payload }) {
+  const { router, uid } = payload
+  const { query: id } = router;
+  const invoiceId = id.id;
+  const invoicesList = yield select(selectInvoices);
+
+  const { data, status } = yield call(axiosPost, '/api/accounting/invoice/get', { userId: uid, invoiceId });
+
+  if (isEmpty(invoicesList) && status === 200 && data.success) {
+    const { invoice } = data;
+    yield put(invoices.displayInvoice(invoice));
+  } else if (!isEmpty(invoicesList)) {
+    const invoiceToDisplay = invoicesList.filter(invoice => invoice.invoiceId === invoiceId);
+    const invoice = head(invoiceToDisplay);
+    yield put(invoices.displayInvoice(invoice));
   }
 }

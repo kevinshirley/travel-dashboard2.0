@@ -1,6 +1,10 @@
-import React from 'react';
+// import React from 'react';
+import { connect } from 'react-redux';
 import nookies from 'nookies';
 import { firebaseAdmin } from '../../src/lib/auth/firebaseAdmin';
+import { selectDisplayInvoiceConnector } from 'src/store/selectors/accounting';
+import * as actions from 'src/store/actions';
+import DisplayInvoicePage from 'src/components/display-invoice';
 
 export const getServerSideProps = async (ctx) => {
   try {
@@ -34,8 +38,12 @@ export const getServerSideProps = async (ctx) => {
   }
 };
 
-export default function InvoiceProfilePage() {
-  return (
-    <>Invoice profile</>
-  );
-}
+const actionCreators = {
+  resetSuccess: actions.forms.resetSuccess,
+  resetError: actions.forms.resetError,
+};
+
+export default connect(
+  selectDisplayInvoiceConnector,
+  actionCreators,
+)(DisplayInvoicePage);
